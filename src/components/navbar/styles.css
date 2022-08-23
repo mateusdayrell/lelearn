@@ -1,0 +1,13 @@
+.navbar{
+  background-color: var(--verde-agua);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar a {
+  color: #FFF;
+  margin: 0 10px 0;
+  font-weight: bold;
+}
