@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 
-import logado from './logado/sagas';
+import auth from './auth/sagas';
 
 export default function* rootSaga() {
-  return yield all([logado]);
+  return yield all([auth]);
 }

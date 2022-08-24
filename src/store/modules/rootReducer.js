@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 
-import logadoReducer from './logado/reducer';
+import auth from './auth/reducer';
 
-export default combineReducers({ logado: logadoReducer });
+export default combineReducers({ auth });
