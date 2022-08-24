@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { get } from 'lodash';
 
-import history from '../../services/history';
 import Loading from '../../components/Loading';
 import * as actions from '../../store/modules/auth/actions';
 import './style.css';
