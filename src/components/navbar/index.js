@@ -1,12 +1,31 @@
-import React from 'react';
-import { FaHome, FaSignInAlt, FaVideo } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaHome, FaSignInAlt, FaVideo, FaPowerOff } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import './styles.css';
+import * as actions from '../../store/modules/auth/actions';
+import history from '../../services/history';
 
 export default function Navbar() {
-  // const LOGADO = useSelector((state) => state.logado.LOGADO);
+  const dispatch = useDispatch();
+  const nomeLogado = useSelector((state) => state.auth.usuario.nome);
+
+  const [nome, setNome] = useState('Não logado');
+
+  useEffect(() => {
+    getNome();
+  }, []);
+
+  const getNome = async () => {
+    setNome(nomeLogado);
+  };
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(actions.loginFailure());
+    history.push('/login');
+  };
+
   return (
     <div className="navbar">
       <Link to="/">
@@ -20,7 +39,10 @@ export default function Navbar() {
       <Link to="/login">
         <FaSignInAlt size={26} />
       </Link>
-      {/* <span>{LOGADO ? 'Logado' : 'Não Logado'}</span> */}
+      <Link onClick={handleLogout} to="/login">
+        <FaPowerOff size={24} />
+      </Link>
+      <span>{nome}</span>
     </div>
   );
 }
