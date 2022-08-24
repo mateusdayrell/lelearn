@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'; // redux
 import { PersistGate } from 'redux-persist/integration/react'; // redux
 
 import store, { persistor } from './store'; // redux
-import history from './services/History';
+import history from './services/history';
 import Routes from './routes';
 import Navbar from './components/Navbar';
 import './global.css';
