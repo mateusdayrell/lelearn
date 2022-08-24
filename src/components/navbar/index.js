@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaHome, FaSignInAlt, FaVideo, FaSuitcase } from 'react-icons/fa';
+import { FaHome, FaSignInAlt, FaVideo } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 
@@ -15,9 +15,8 @@ export default function Navbar() {
       <Link to="/videos">
         <FaVideo size={24} />
       </Link>
-      <Link to="/cursos">
-        <FaSuitcase size={24} />
-      </Link>
+      <Link to="/curso">Curso</Link>
+      <Link to="/treinamentos">Treinamentos</Link>
       <Link to="/login">
         <FaSignInAlt size={26} />
       </Link>
