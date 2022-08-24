@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux/es/exports';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { get } from 'lodash';
 
+import history from '../../services/history';
+import Loading from '../../components/Loading';
 import * as actions from '../../store/modules/auth/actions';
 import './style.css';
 
@@ -10,6 +12,7 @@ export default function Login(props) {
   const dispatch = useDispatch();
 
   const prevPath = get(props, 'location.state.prevPath', '/');
+  const isLoading = useSelector((state) => state.auth.isLoading);
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -35,6 +38,7 @@ export default function Login(props) {
 
   return (
     <>
+      <Loading isLoading={isLoading} />
       <h1>Login</h1>
 
       <div className="container">
