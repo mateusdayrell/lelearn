@@ -1,7 +1,7 @@
 import { call, put, all, takeLatest } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
-import history from '../../../services/History';
+import history from '../../../services/history';
 import * as actions from './actions';
 import * as types from '../types';
 import axios from '../../../services/axios';
@@ -15,7 +15,9 @@ function* loginRequest({ payload }) {
     toast.success('Login realizado com sucesso');
 
     axios.defaults.headers.Authorization = `Bearer ${data.token}`;
-    history.push(payload.prevPath);
+
+    if (payload.prevPath === '/') history.push('/treinamentos');
+    else history.push(payload.prevPath);
   } catch {
     toast.error('Usuário ou senha inválidos');
     yield put(actions.loginFailure());
