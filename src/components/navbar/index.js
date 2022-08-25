@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { FaHome, FaSignInAlt, FaVideo, FaPowerOff } from 'react-icons/fa';
+import {
+  FaHome,
+  FaVideo,
+  FaUser,
+  FaPowerOff,
+  FaClone,
+  FaGripHorizontal,
+} from 'react-icons/fa';
+
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import './styles.css';
 import * as actions from '../../store/modules/auth/actions';
 import history from '../../services/history';
+import logoLigth from '../../assets/lelearn-logo-ligth.png';
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -28,21 +37,52 @@ export default function Navbar() {
 
   return (
     <div className="navbar">
-      <Link to="/">
-        <FaHome size={26} />
-      </Link>
-      <Link to="/videos">
-        <FaVideo size={24} />
-      </Link>
-      <Link to="/curso">Curso</Link>
-      <Link to="/treinamentos">Treinamentos</Link>
-      <Link to="/login">
-        <FaSignInAlt size={26} />
-      </Link>
-      <Link onClick={handleLogout} to="/login">
-        <FaPowerOff size={24} />
-      </Link>
-      <span>{nome}</span>
+      <div className="logo-content">
+        <Link className="link" to="/">
+          <img src={logoLigth} alt="" />
+        </Link>
+      </div>
+      <ul className="nav-list">
+        <li>
+          <Link className="link" to="/">
+            <FaHome className="icon" size={26} />
+            <span className="link-name">Home</span>
+          </Link>
+        </li>
+        <li>
+          <Link className="link" to="/videos">
+            <FaVideo className="icon" size={24} />
+            <span className="link-name">Vídeo</span>
+          </Link>
+        </li>
+        <li>
+          <Link className="link" to="/curso">
+            <FaClone className="icon" size={24} />
+            <span className="link-name">Curso</span>
+          </Link>
+        </li>
+        <li>
+          <Link className="link" to="/treinamentos">
+            <FaGripHorizontal className="icon" size={24} />
+            <span className="link-name">Treinamentos</span>
+          </Link>
+        </li>
+        <li>
+          <Link className="link" to="/usuarios">
+            <FaUser className="icon" size={24} />
+            <span className="link-name">Usuários</span>
+          </Link>
+        </li>
+      </ul>
+
+      <div className="profile">
+        <div>
+          <div className="circle">{nome}</div>
+        </div>
+        <Link onClick={handleLogout} className="link" to="/login">
+          <FaPowerOff className="icon" size={24} />
+        </Link>
+      </div>
     </div>
   );
 }

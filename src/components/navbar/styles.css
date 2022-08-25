@@ -1,13 +1,35 @@
+
 .navbar{
-  background-color: var(--verde-agua);
-  padding: 20px;
+  background-color: #000;
+  height: 80px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
-.navbar a {
-  color: #FFF;
-  margin: 0 10px 0;
-  font-weight: bold;
+.navbar .nav-list{
+  display: flex;
+}
+
+.navbar .nav-list li{
+  padding: 0 15px;
+}
+
+.navbar .nav-list .link{
+  color: #fff;
+}
+
+.logo-content img {
+  height: 100px;
+  padding-left: 25px;
+}
+
+.profile{
+  display: flex;
+  color: #fff;
+}
+
+.profile .link{
+  margin: 0 15px;
+  color: #fff;
 }
