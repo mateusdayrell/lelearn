@@ -43,45 +43,34 @@ export default function AdmUsuario() {
   };
 
   const handleSubmit = async (e) => {
-    console.log(1111111);
     e.preventDefault();
+
     try {
-      console.log({
+      let regTemp = {
         cpf,
         nome,
         email,
         telefone,
-        password,
         tipo,
         data_nasc: dataNasc,
-      });
-      setIsLoading(true);
+      };
 
-      if (isUpdating) {
-        console.log('entrou');
-        await axios.put(`/usuarios/${cpf}`, {
-          cpf,
-          nome,
-          email,
-          telefone,
-          password,
-          tipo,
-          data_nasc: dataNasc,
-        });
-      } else {
-        console.log('cadastro');
-        await axios.post('/usuarios', {
-          cpf,
-          nome,
-          email,
-          telefone,
-          password,
-          tipo,
-          data_nasc: dataNasc,
-        });
+      if (password) {
+        regTemp = { ...regTemp, password };
       }
 
+      setIsLoading(true);
+      if (isUpdating) {
+        await axios.put(`/usuarios/${cpf}`, regTemp);
+        toast.success('Usuário atualizado com sucesso!');
+      } else {
+        await axios.post('/usuarios', regTemp);
+        toast.success('Usuário cadastrado com sucesso!');
+      }
       setIsLoading(false);
+
+      handleClose();
+      setIsUpdating(false);
       getUsuarios();
     } catch (error) {
       setIsLoading(false);
@@ -101,17 +90,23 @@ export default function AdmUsuario() {
     setDataNasc(moment(usuario.data_nasc).format('YYYY-MM-DD'));
     setShowModal(true);
     setIsUpdating(true);
-    // console.log(moment(usuario.data_nasc).format('YYYY-MM-DD'));
   };
 
   const clearModal = () => {
-    setIsUpdating(false);
+    setCpf('');
+    setCpfAntigo('');
+    setNome('');
+    setTelefone('');
+    setEmail('');
+    setPassword('');
+    setTipo('');
+    setDataNasc('');
   };
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => {
     setShowModal(false);
-    // clearModal();
+    clearModal();
   };
 
   return (
@@ -229,9 +224,9 @@ export default function AdmUsuario() {
                 type="date"
                 value={dataNasc}
                 // eslint-disable-next-line prettier/prettier
-              onChange={(e) => setDataNasc(moment(e.target.value, 'YYYY-MM-DD').format('DD/MM/YYYY'))}
+                onChange={(e) => setDataNasc(moment(e.target.value, 'YYYY-MM-DD').format('DD/MM/YYYY'))}
               />
-              <button type="submit" onClick={handleClose}>
+              <button type="submit">
                 {isUpdating ? 'Atualizar' : 'Cadastrar'}
               </button>
             </div>
