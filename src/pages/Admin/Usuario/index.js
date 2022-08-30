@@ -23,6 +23,10 @@ export default function AdmUsuario() {
   const [tipo, setTipo] = useState('');
   const [dataNasc, setDataNasc] = useState('');
 
+  const [searchNome, setSearchNome] = useState('');
+  const [searchCpf, setSearchCpf] = useState('');
+  const [searchTipo, setSearchTipo] = useState('');
+
   const [cpfAntigo, setCpfAntigo] = useState('');
 
   useEffect(() => {
@@ -30,11 +34,24 @@ export default function AdmUsuario() {
   }, []);
 
   const getUsuarios = async () => {
+    const querys = new URLSearchParams({
+      cpf: searchCpf,
+      nome: searchNome,
+      tipo: searchTipo,
+    }).toString();
+
     setIsLoading(true);
     try {
-      const { data } = await axios.get('/usuarios');
+      let response = null;
+
+      if (searchCpf || searchNome || searchTipo) {
+        response = await axios.get(`/usuarios/search/${querys}`);
+      } else {
+        response = await axios.get('/usuarios/');
+      }
+
       setIsLoading(false);
-      setUsuarios(data);
+      setUsuarios(response.data);
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
@@ -103,9 +120,16 @@ export default function AdmUsuario() {
     setDataNasc('');
   };
 
+  const clearSearch = () => {
+    setSearchCpf('');
+    setSearchNome('');
+    setSearchTipo('');
+  };
+
   const handleShow = () => setShowModal(true);
   const handleClose = () => {
     setShowModal(false);
+    setIsUpdating(false);
     clearModal();
   };
 
@@ -114,7 +138,54 @@ export default function AdmUsuario() {
       <Navbar />
       <Loading isLoading={isLoading} />
       <h1>Usuários</h1>
-      <div className="container">
+      <div className="usuario-search">
+        <div>
+          <div className="search-box">
+            <div className="inline">
+              <label>CPF</label>
+              <input
+                type="text"
+                name="cpf"
+                placeholder="CPF"
+                value={searchCpf}
+                onChange={(e) => setSearchCpf(e.target.value)}
+              />
+            </div>
+            <div className="inline">
+              <label>Nome</label>
+              <input
+                type="text"
+                name="nome"
+                placeholder="Nome"
+                value={searchNome}
+                onChange={(e) => setSearchNome(e.target.value)}
+              />
+            </div>
+            <div className="inline">
+              <label>Tipo</label>
+              <select
+                name="tipo"
+                id="tipo"
+                defaultValue={searchTipo}
+                onChange={(e) => setSearchTipo(e.target.value)}
+              >
+                <option value="" disabled selected>
+                  Selecione um tipo
+                </option>
+                <option value="0">Administrador</option>
+                <option value="1">Usuário comum</option>
+              </select>
+            </div>
+            <button type="button" onClick={getUsuarios}>
+              Pesquisar
+            </button>
+            <button type="button" onClick={() => clearSearch(getUsuarios())}>
+              Limpar
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="usuario-container">
         <Table hover>
           <thead>
             <tr>
@@ -140,104 +211,105 @@ export default function AdmUsuario() {
         </button>
       </div>
 
-      <Modal show={showModal} onHide={handleClose}>
+      <Modal show={showModal} onHide={handleClose} className="modal">
         <Modal.Header closeButton>
           <Modal.Title>
             {isUpdating ? `Atualizar os dados de ${nome}` : 'Cadastrar usuário'}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={handleSubmit} className="form-usuario">
-            <div>
-              {isUpdating ? (
-                <>
-                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                  <label htmlFor="cpfAntigo">CPF antigo</label>
-                  <input
-                    id="cpfAntigo"
-                    name="cpfAntigo"
-                    disabled
-                    placeholder="cpf"
-                    value={cpfAntigo}
-                  />
-                  <br />
-                </>
-              ) : (
-                ''
-              )}
-              <label>Cpf</label>
-              <input
-                type="text"
-                name="cpf"
-                placeholder="cpf"
-                value={cpf}
-                onChange={(e) => setCpf(e.target.value)}
-              />
-              <br />
-              <label>Nome</label>
-              <input
-                type="text"
-                name="nome"
-                placeholder="nome"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-              />
-              <br />
-              <label>Telefone</label>
-              <input
-                type="text"
-                name="telefone"
-                placeholder="telefone"
-                value={telefone}
-                onChange={(e) => setTelefone(e.target.value)}
-              />
-              <br />
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <br />
-              <label>Senha</label>
-              <input
-                type="password"
-                name="password"
-                placeholder="senha"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <br />
-              <label>Tipo</label>
-              <input
-                type="numeric"
-                name="tipo"
-                placeholder="0 ou 1"
-                value={tipo}
-                onChange={(e) => setTipo(e.target.value)}
-              />
-              <br />
-              <label>Data Nascimento</label>
-              <input
-                type="date"
-                value={dataNasc}
-                // eslint-disable-next-line prettier/prettier
+          <div className="form-usuario">
+            {isUpdating ? (
+              <>
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                <label htmlFor="cpfAntigo">CPF antigo</label>
+                <input
+                  id="cpfAntigo"
+                  name="cpfAntigo"
+                  disabled
+                  placeholder="cpf"
+                  value={cpfAntigo}
+                />
+                <br />
+              </>
+            ) : (
+              ''
+            )}
+            <label>CPF</label>
+            <input
+              id="cpf"
+              type="text"
+              name="cpf"
+              placeholder="cpf"
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
+            />
+            <br />
+            <label>Nome</label>
+            <input
+              type="text"
+              name="nome"
+              placeholder="nome"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+            />
+            <br />
+            <label>Telefone</label>
+            <input
+              type="text"
+              name="telefone"
+              placeholder="telefone"
+              value={telefone}
+              onChange={(e) => setTelefone(e.target.value)}
+            />
+            <br />
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <br />
+            <label>Senha</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <br />
+            <label>Tipo</label>
+            <select
+              name="tipo"
+              id="tipo"
+              defaultValue={tipo}
+              onChange={(e) => setTipo(e.target.value)}
+            >
+              <option value="" disabled selected>
+                Selecione um tipo
+              </option>
+              <option value="0">Administrador</option>
+              <option value="1">Usuário comum</option>
+            </select>
+            <br />
+            <label>Data Nascimento</label>
+            <input
+              type="date"
+              value={dataNasc}
+              // eslint-disable-next-line prettier/prettier
                 onChange={(e) => setDataNasc(moment(e.target.value, 'YYYY-MM-DD').format('DD/MM/YYYY'))}
-              />
-              <button type="submit">
-                {isUpdating ? 'Atualizar' : 'Cadastrar'}
-              </button>
-            </div>
-          </form>
+            />
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <button type="button" onClick={clearModal}>
             Limpar
           </button>
-          <button type="button" onClick={handleClose}>
-            Close
+          <button type="submit" onClick={handleSubmit}>
+            {isUpdating ? 'Atualizar' : 'Cadastrar'}
           </button>
         </Modal.Footer>
       </Modal>
