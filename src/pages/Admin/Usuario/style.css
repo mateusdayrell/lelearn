@@ -1,3 +1,49 @@
-.form-usuario{
+.usuario-container{
   display: flex;
+  flex-direction:column;
+}
+
+.usuario-container button {
+  width: 150px;
+  border-radius: 8px;
+}
+
+.usuario-search{
+  width: 50vw;
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
+}
+
+.usuario-search .search-box{
+  margin: 15px 0;
+  padding: 6px;
+  background-color: rgb(234, 234, 234);
+  border-radius: 8px;
+}
+
+.usuario-search .search-box input, .usuario-search .search-box select{
+  width: 300px;
+}
+
+.usuario-search .search-box label {
+  margin: 15px 0 5px 0;
+}
+
+.usuario-search .search-box button {
+  margin: 25px 15px 15px 0;
+  width: 120px;
+}
+
+.modal label, .search-box label{
+  font-weight: bold;
+  display: block;
+}
+
+.modal button, .search-box button{
+  border-radius: 8px;
+}
+
+button:hover{
+  background-color: #008992
 }
