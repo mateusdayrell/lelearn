@@ -28,7 +28,7 @@ export default function Treinamento() {
       <div className="container">
         {treinamentos.map((treinamento) => (
           <div key={treinamento.cod_treinamento}>
-            <p>{treinamento.nome_treinamento}</p>
+            <div>{treinamento.nome_treinamento}</div>
           </div>
         ))}
       </div>
