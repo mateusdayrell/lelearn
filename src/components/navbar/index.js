@@ -56,7 +56,7 @@ export default function Navbar() {
           </Link>
         </li>
         <li>
-          <Link className="link" to="/curso">
+          <Link className="link" to="/cursos">
             <FaClone className="icon" size={24} />
             <span className="link-name">Curso</span>
           </Link>
