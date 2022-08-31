@@ -29,5 +29,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
     'no-use-before-define': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
+    camelcase: 'off',
+    'react-hooks/exhaustive-deps': off,
   },
 };
