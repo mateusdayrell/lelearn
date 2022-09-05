@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
 
 :root {
@@ -17,6 +21,7 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
+  /* @apply bg-zinc-900 text-zinc-50; */
 }
 
 html, body, #root {
@@ -24,13 +29,7 @@ html, body, #root {
 }
 
 button {
-  cursor: pointer;
-  background-color: var(--verde-agua);
-  border: none;
-  color: #FFFF;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: 700;
+  @apply bg-verde-100 px-4 py-2 rounded-2xl font-bold hover:bg-verde-200
 }
 
 a {

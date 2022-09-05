@@ -25,6 +25,7 @@ export default function Treinamento() {
       <Navbar />
       <Loading isLoading={isLoading} />
       <h1>Treinamentos</h1>
+      <button>Olá</button>
       <div className="container">
         {treinamentos.map((treinamento) => (
           <div key={treinamento.cod_treinamento}>
