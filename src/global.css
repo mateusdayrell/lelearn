@@ -21,6 +21,8 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
+  @apply min-h-screen;
+  -webkit-font-smoothing: antialiased;
   /* @apply bg-zinc-900 text-zinc-50; */
 }
 
@@ -28,7 +30,7 @@ html, body, #root {
   height: 100%;
 }
 
-button {
+.btn {
   @apply bg-verde-100 px-4 py-2 rounded-2xl font-bold hover:bg-verde-200
 }
 
