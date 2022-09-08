@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Modal } from 'react-bootstrap';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
+import Modal from 'react-modal';
 
 import axios from '../../../services/axios';
 import Loading from '../../../components/Loading';
@@ -137,11 +137,11 @@ export default function AdmUsuario() {
     <>
       <Navbar />
       <Loading isLoading={isLoading} />
-      <h1>Usuários</h1>
-      <div className="usuario-search">
-        <div>
-          <div className="search-box">
-            <div className="inline">
+
+      <div className='container-usuario'>
+
+        <div className="search-container">
+          <div className="search-form">
               <label>CPF</label>
               <input
                 type="text"
@@ -150,8 +150,7 @@ export default function AdmUsuario() {
                 value={searchCpf}
                 onChange={(e) => setSearchCpf(e.target.value)}
               />
-            </div>
-            <div className="inline">
+
               <label>Nome</label>
               <input
                 type="text"
@@ -160,8 +159,7 @@ export default function AdmUsuario() {
                 value={searchNome}
                 onChange={(e) => setSearchNome(e.target.value)}
               />
-            </div>
-            <div className="inline">
+
               <label>Tipo</label>
               <select
                 name="tipo"
@@ -175,144 +173,142 @@ export default function AdmUsuario() {
                 <option value="0">Administrador</option>
                 <option value="1">Usuário comum</option>
               </select>
-            </div>
-            <button type="button" onClick={getUsuarios}>
-              Pesquisar
-            </button>
-            <button type="button" onClick={() => clearSearch(getUsuarios())}>
-              Limpar
-            </button>
+
+              <div className="buttons">
+                <button className='btn' type="button" onClick={getUsuarios}>
+                  Pesquisar
+                </button>
+                <button className='btn' type="button" onClick={() => clearSearch(getUsuarios())}>
+                  Limpar
+                </button>
+              </div>
           </div>
         </div>
-      </div>
-      <div className="usuario-container">
-        <Table hover>
-          <thead>
-            <tr>
-              <th>CPF</th>
-              <th>Nome</th>
-              <th>Tipo</th>
-            </tr>
-          </thead>
-          <tbody>
-            {usuarios.map((usuario) => (
-              <tr key={usuario.cpf} onClick={() => handleUpdate(usuario)}>
-                <td>{usuario.cpf}</td>
-                <td>{usuario.nome}</td>
-                <td>
-                  {usuario.tipo === 0 ? 'Administrador' : 'Usuário comum'}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <button type="button" onClick={handleShow}>
-          Cadastrar
-        </button>
-      </div>
 
-      <Modal show={showModal} onHide={handleClose} className="modal">
-        <Modal.Header closeButton>
-          <Modal.Title>
-            {isUpdating ? `Atualizar os dados de ${nome}` : 'Cadastrar usuário'}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="form-usuario">
-            {isUpdating ? (
-              <>
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                <label htmlFor="cpfAntigo">CPF antigo</label>
-                <input
-                  id="cpfAntigo"
-                  name="cpfAntigo"
-                  disabled
-                  placeholder="cpf"
-                  value={cpfAntigo}
-                />
-                <br />
-              </>
-            ) : (
-              ''
-            )}
-            <label>CPF</label>
-            <input
-              id="cpf"
-              type="text"
-              name="cpf"
-              placeholder="cpf"
-              value={cpf}
-              onChange={(e) => setCpf(e.target.value)}
-            />
-            <br />
-            <label>Nome</label>
-            <input
-              type="text"
-              name="nome"
-              placeholder="nome"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-            />
-            <br />
-            <label>Telefone</label>
-            <input
-              type="text"
-              name="telefone"
-              placeholder="telefone"
-              value={telefone}
-              onChange={(e) => setTelefone(e.target.value)}
-            />
-            <br />
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <br />
-            <label>Senha</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <br />
-            <label>Tipo</label>
-            <select
-              name="tipo"
-              id="tipo"
-              defaultValue={tipo}
-              onChange={(e) => setTipo(e.target.value)}
-            >
-              <option value="" disabled selected>
-                Selecione um tipo
-              </option>
-              <option value="0">Administrador</option>
-              <option value="1">Usuário comum</option>
-            </select>
-            <br />
-            <label>Data Nascimento</label>
-            <input
-              type="date"
-              value={dataNasc}
-              // eslint-disable-next-line prettier/prettier
-                onChange={(e) => setDataNasc(moment(e.target.value, 'YYYY-MM-DD').format('DD/MM/YYYY'))}
-            />
+        <div className="usuario-content">
+          <div className='overflow-auto rounded-lg shadow-xl'>
+            <table className='w-full border-separate'>
+              <thead className='bg-gray-100 border-b-2 border-gray-200 '>
+                <tr>
+                  <th className='min-w-36 p-3 font-semibold tracking-wide text-center'>CPF</th>
+                  <th className='p-3 font-semibold tracking-wide text-center'>Nome</th>
+                  <th className='min-w-48 p-3 font-semibold tracking-wide text-center'>Tipo</th>
+                </tr>
+              </thead>
+              <tbody className='divide-y divide-gray-800 '>
+                {usuarios.map((usuario) => (
+                  <tr key={usuario.cpf} onClick={() => handleUpdate(usuario)} className='even:bg-gray-50 odd:bg-white hover:bg-gray-200'>
+                    <td className='p-3 text-gray-700 text-center whitespace-nowrap'>{usuario.cpf}</td>
+                    <td className='p-3 text-gray-700 text-center whitespace-nowrap'>{usuario.nome}</td>
+                    <td className='p-3 text-gray-700 text-center whitespace-nowrap'>
+                      {usuario.tipo === 0 ? 'Administrador' : 'Usuário comum'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <button type="button" onClick={clearModal}>
-            Limpar
-          </button>
-          <button type="submit" onClick={handleSubmit}>
-            {isUpdating ? 'Atualizar' : 'Cadastrar'}
-          </button>
-        </Modal.Footer>
-      </Modal>
+          <button className='btn mx-auto my-5' type="button" onClick={handleShow}>Cadastrar</button>
+        </div>
+
+          <Modal isOpen={showModal} onRequestClose={handleClose} className="modal">
+            <div className="form-usuario">
+              {isUpdating ? (
+                <>
+
+                  <label htmlFor="cpfAntigo">CPF antigo</label>
+                  <input
+                    id="cpfAntigo"
+                    name="cpfAntigo"
+                    disabled
+                    placeholder="cpf"
+                    value={cpfAntigo}
+                  />
+                  <br />
+                </>
+              ) : (
+                ''
+              )}
+              <label>CPF</label>
+              <input
+                id="cpf"
+                type="text"
+                name="cpf"
+                placeholder="cpf"
+                value={cpf}
+                onChange={(e) => setCpf(e.target.value)}
+              />
+              <br />
+              <label>Nome</label>
+              <input
+                type="text"
+                name="nome"
+                placeholder="nome"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
+              <br />
+              <label>Telefone</label>
+              <input
+                type="text"
+                name="telefone"
+                placeholder="telefone"
+                value={telefone}
+                onChange={(e) => setTelefone(e.target.value)}
+              />
+              <br />
+              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <br />
+              <label>Senha</label>
+              <input
+                type="password"
+                name="password"
+                placeholder="senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <br />
+              <label>Tipo</label>
+              <select
+                name="tipo"
+                id="tipo"
+                defaultValue={tipo}
+                onChange={(e) => setTipo(e.target.value)}
+              >
+                <option value="" disabled selected>
+                  Selecione um tipo
+                </option>
+                <option value="0">Administrador</option>
+                <option value="1">Usuário comum</option>
+              </select>
+              <br />
+              <label>Data Nascimento</label>
+              <input
+                type="date"
+                value={dataNasc}
+                // eslint-disable-next-line prettier/prettier
+                  onChange={(e) => setDataNasc(moment(e.target.value, 'YYYY-MM-DD').format('DD/MM/YYYY'))}
+              />
+
+                <div className='buttons'>
+                  <button className='btn' type="button" onClick={clearModal}>
+                    Limpar
+                  </button>
+                  <button className='btn' type="submit" onClick={handleSubmit}>
+                    {isUpdating ? 'Atualizar' : 'Cadastrar'}
+                  </button>
+                </div>
+              </div>
+        </Modal>
+
+      </div>
     </>
   );
 }
