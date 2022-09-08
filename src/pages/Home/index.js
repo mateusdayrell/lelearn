@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <Navbar />
       <h1>Home</h1>
-      <button type="button" className='btn'>Botão</button>
+      <button>hello</button>
     </>
   );
 }

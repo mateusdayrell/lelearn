@@ -4,50 +4,32 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
 
-:root {
-  --branco: #FFFF;
-  --cinnza: #AABCD0;
-  --verde-agua: #01A5B1;
-  --marinho: #131E2F;
-  --preto: #000000;
-}
-
 * {
-  margin: 0;
-  padding: 0;
-  outline: none;
-  box-sizing: border-box;
+  @apply m-0 p-0 outline-0 box-border;
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
   @apply min-h-screen;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
-  /* @apply bg-zinc-900 text-zinc-50; */
 }
 
 html, body, #root {
-  height: 100%;
+  @apply h-full;
 }
 
-.btn {
-  @apply bg-verde-100 px-4 py-2 rounded-2xl font-bold hover:bg-verde-200
+button, .btn{
+  @apply bg-verde-100 hover:bg-verde-200 text-gray-800 font-semibold py-2 px-4 rounded-xl shadow
 }
 
 a {
-  text-decoration: none;
-  /* color: var(--verde-agua); */
+  @apply no-underline;
 }
 
 ul {
-  list-style: none;
+  @apply list-none;
 }
 
-/* .container {
-  max-width: 360px;
-  background-color: #FFF;
-  margin: 30px auto;
-  padding: 30px;
-  border-radius: 4px;
-  box-shadow:  0 0 10px rgba(0, 0, 0, 0.1);
-} */
+.modal{
+  @apply bg-zinc-50 rounded-lg shadow w-[50%] mx-auto my-[12%] p-5
+}

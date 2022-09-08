@@ -1,49 +1,31 @@
-.usuario-container{
-  display: flex;
-  flex-direction:column;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container-usuario{
+  @apply flex flex-col gap-16 p-10
 }
 
-.usuario-container button {
-  width: 150px;
-  border-radius: 8px;
+.search-container{
+  @apply bg-gray-100 flex mx-auto w-[50%] max-w-xl rounded-lg shadow-xl py-6
 }
 
-.usuario-search{
-  width: 50vw;
-  max-width: 500px;
-  margin: auto;
-  text-align: center;
+.search-form{
+  @apply flex flex-col mx-auto gap-1
 }
 
-.usuario-search .search-box{
-  margin: 15px 0;
-  padding: 6px;
-  background-color: rgb(234, 234, 234);
-  border-radius: 8px;
+.form-usuario{
+  @apply flex flex-col
 }
 
-.usuario-search .search-box input, .usuario-search .search-box select{
-  width: 300px;
+.buttons{
+  @apply flex mx-auto gap-3 mt-4
 }
 
-.usuario-search .search-box label {
-  margin: 15px 0 5px 0;
+.container-usuario input, .container-usuario select{
+  @apply py-1 px-2 rounded-md w-80
 }
 
-.usuario-search .search-box button {
-  margin: 25px 15px 15px 0;
-  width: 120px;
-}
-
-.modal label, .search-box label{
-  font-weight: bold;
-  display: block;
-}
-
-.modal button, .search-box button{
-  border-radius: 8px;
-}
-
-button:hover{
-  background-color: #008992
+.container-usuario label{
+  @apply font-semibold
 }

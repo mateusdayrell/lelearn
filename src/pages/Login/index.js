@@ -38,10 +38,11 @@ export default function Login(props) {
   return (
     <>
       <Loading isLoading={isLoading} />
-      <h1>Login</h1>
 
-      <div className="container">
-        <form onSubmit={handleSubmit} className="form">
+      <div className="login-container">
+        <h1 className='mx-auto font-extrabold text-2xl'>Login</h1>
+
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="email"
@@ -56,7 +57,7 @@ export default function Login(props) {
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
           />
-          <button type="submit">Logar</button>
+          <button className='btn' type="submit">Logar</button>
         </form>
       </div>
     </>
