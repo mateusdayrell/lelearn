@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect  } from 'react';
 import { useParams } from 'react-router-dom';
-import { Player, Youtube } from '@vime/react'
+import { Player, Youtube, DefaultUi } from '@vime/react'
+// import getYoutubeId from 'get-youtube-id'
 
 import './style.css';
+import '@vime/core/themes/default.css'
 import Navbar from '../../components/Navbar';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
@@ -15,10 +17,15 @@ export default function Cursos() {
   const [curso, setCurso] = useState({});
   const [comentarios, setComentarios] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [ready, setReady] = useState(false)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     loadRegisters();
   }, []);
+
+  useEffect(() => {
+    setReady(true)
+  }, [video]);
 
   const loadRegisters = async () => {
     const { cod_video } = params;
@@ -31,7 +38,7 @@ export default function Cursos() {
       setCurso(data.curso);
       setComentarios(data.comentarios);
       setOutrosVideos(data.curso.videos);
-      console.log(video.link)
+
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -48,9 +55,13 @@ export default function Cursos() {
           <h1>Vídeos</h1>
           <div className='bg-black flex justify-center'>
             <div className='h-full w-full max-w-[1100px] max-h-[60vh] aspect-video'>
-              <Player>
-                <Youtube videoId={video.link}/>
-              </Player>
+              <div>{ready ?
+                <Player>
+                  <Youtube videoId={video.link} />
+                  <DefaultUi/>
+                </Player>
+                : ''}
+              </div>
             </div>
           </div>
           <div className='p-8 max-w-[1100px] mx-auto'>
