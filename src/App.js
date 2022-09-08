@@ -9,7 +9,6 @@ import history from './services/history';
 import Routes from './routes';
 import './global.css';
 import 'react-toastify/dist/ReactToastify.css'; // toasts
-//import 'bootstrap/dist/css/bootstrap.min.css'; // bootstrap
 
 function App() {
   return (
