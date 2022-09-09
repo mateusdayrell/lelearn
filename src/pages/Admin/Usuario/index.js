@@ -211,7 +211,8 @@ export default function AdmUsuario() {
           <button className='btn mx-auto my-5' type="button" onClick={handleShow}>Cadastrar</button>
         </div>
 
-          <Modal isOpen={showModal} onRequestClose={handleClose} className="modal">
+          <Modal isOpen={showModal} onRequestClose={handleClose} className="Modal"
+           overlayClassName="Overlay">
             <div className="form-usuario">
               {isUpdating ? (
                 <>

@@ -30,6 +30,22 @@ ul {
   @apply list-none;
 }
 
-.modal{
-  @apply bg-zinc-50 rounded-lg shadow w-[50%] mx-auto my-[12%] p-5
+label{
+  @apply font-bold block;
+}
+
+input {
+  @apply bg-slate-100 border rounded-md py-1 px-2;
+}
+
+select {
+  @apply bg-slate-100 border rounded-md py-1 px-2;
+}
+
+.Modal {
+  @apply absolute top-[10%] bg-white rounded-2xl shadow-lg px-10 py-6 min-w-[32em];
+}
+
+.Overlay {
+  @apply fixed top-0 left-0 right-0 bottom-0 bg-black/50 flex justify-center;
 }

@@ -7,7 +7,7 @@
 }
 
 .search-container{
-  @apply bg-gray-100 flex mx-auto w-[50%] max-w-xl rounded-lg shadow-xl py-6
+  @apply bg-gray-50 flex mx-auto w-[50%] max-w-xl rounded-lg shadow-xl py-6
 }
 
 .search-form{
@@ -15,17 +15,13 @@
 }
 
 .form-usuario{
-  @apply flex flex-col
+  @apply flex flex-col content-center justify-center mx-auto bg-gray-300 w-[450px]
 }
 
 .buttons{
   @apply flex mx-auto gap-3 mt-4
 }
 
-.container-usuario input, .container-usuario select{
-  @apply py-1 px-2 rounded-md w-80
-}
-
-.container-usuario label{
-  @apply font-semibold
+.container-usuario input, .container-usuario select, .form-usuario input, .form-usuario select{
+  @apply w-80
 }
