@@ -73,6 +73,12 @@ export default function Navbar() {
             <span className="link-name">Usuários</span>
           </Link>
         </li>
+        <li>
+          <Link className="link" to="/gestao-videos">
+            <FaVideo className="icon" size={24} />
+            <span className="link-name">Gestao vídeos</span>
+          </Link>
+        </li>
       </ul>
 
       <div className="profile">
