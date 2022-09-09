@@ -10,7 +10,7 @@ import Loading from '../../../components/Loading';
 import Navbar from '../../../components/Navbar';
 import './style.css';
 
-export default function AdmUsuario() {
+export default function Usuario() {
   const [usuarios, setUsuarios] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -72,7 +72,7 @@ export default function AdmUsuario() {
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -124,19 +124,19 @@ export default function AdmUsuario() {
     setIsUpdating(true);
   };
 
-  const handleDelete = async (cpf) => {
+  const handleDelete = async (cpfUsuario) => {
     setIsLoading(true);
     try {
-      await axios.delete(`/usuarios/${cpf}`);
+      await axios.delete(`/usuarios/${cpfUsuario}`);
 
       setIsLoading(false);
-      await getUsuarios()
+      await getUsuarios();
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
     }
-  }
+  };
 
   const clearModal = () => {
     setCpf('');
@@ -168,179 +168,222 @@ export default function AdmUsuario() {
       <Navbar />
       <Loading isLoading={isLoading} />
 
-      <div className='container-usuario'>
-
+      <div className="container-usuario">
         <div className="search-container">
           <div className="search-form">
-              <label>CPF</label>
-              <input
-                type="text"
-                name="cpf"
-                placeholder="CPF"
-                value={searchCpf}
-                onChange={(e) => setSearchCpf(e.target.value)}
-              />
+            <label>CPF</label>
+            <input
+              type="text"
+              name="cpf"
+              placeholder="CPF"
+              value={searchCpf}
+              onChange={(e) => setSearchCpf(e.target.value)}
+            />
 
-              <label>Nome</label>
-              <input
-                type="text"
-                name="nome"
-                placeholder="Nome"
-                value={searchNome}
-                onChange={(e) => setSearchNome(e.target.value)}
-              />
+            <label>Nome</label>
+            <input
+              type="text"
+              name="nome"
+              placeholder="Nome"
+              value={searchNome}
+              onChange={(e) => setSearchNome(e.target.value)}
+            />
 
-              <label>Tipo</label>
-              <select
-                name="tipo"
-                id="tipo"
-                defaultValue={searchTipo}
-                onChange={(e) => setSearchTipo(e.target.value)}
-              >
-                <option value="" disabled selected={searchTipo == "" ? true : false}>
-                  Selecione um tipo
-                </option>
-                <option value="0">Administrador</option>
-                <option value="1">Usuário comum</option>
-              </select>
+            <label>Tipo</label>
+            <select
+              name="tipo"
+              id="tipo"
+              defaultValue={searchTipo}
+              onChange={(e) => setSearchTipo(e.target.value)}
+            >
+              <option value="" disabled selected={searchTipo === ''}>
+                Selecione um tipo
+              </option>
+              <option value="0">Administrador</option>
+              <option value="1">Usuário comum</option>
+            </select>
 
-              <div className="buttons">
-                <button className='btn' type="button" onClick={handleSearch}>
-                  Pesquisar
-                </button>
-                <button className='btn' type="button" onClick={clearSearch}>
-                  Limpar
-                </button>
-              </div>
+            <div className="buttons">
+              <button className="btn" type="button" onClick={handleSearch}>
+                Pesquisar
+              </button>
+              <button className="btn" type="button" onClick={clearSearch}>
+                Limpar
+              </button>
+            </div>
           </div>
         </div>
 
         <div className="usuario-content">
-          <div className='overflow-auto rounded-lg shadow-xl'>
-            <table className='w-full border-separate'>
-              <thead className='bg-gray-100 border-b-2 border-gray-200 '>
+          <div className="overflow-auto rounded-lg shadow-xl">
+            <table className="w-full border-separate">
+              <thead className="bg-gray-100 border-b-2 border-gray-200 ">
                 <tr>
-                  <th className='min-w-36 p-3 font-semibold tracking-wide text-center'>CPF</th>
-                  <th className='p-3 font-semibold tracking-wide text-center'>Nome</th>
-                  <th className='min-w-48 p-3 font-semibold tracking-wide text-center'>Tipo</th>
-                  <th className='min-w-48 p-3 font-semibold tracking-wide text-center'>Ações</th>
+                  <th className="min-w-36 p-3 font-semibold tracking-wide text-center">
+                    CPF
+                  </th>
+                  <th className="p-3 font-semibold tracking-wide text-center">
+                    Nome
+                  </th>
+                  <th className="min-w-48 p-3 font-semibold tracking-wide text-center">
+                    Tipo
+                  </th>
+                  <th className="min-w-48 p-3 font-semibold tracking-wide text-center">
+                    Ações
+                  </th>
                 </tr>
               </thead>
-              <tbody className='divide-y divide-gray-800 '>
+              <tbody className="divide-y divide-gray-800 ">
                 {usuarios.map((usuario) => (
-                  <tr key={usuario.cpf} className='even:bg-gray-50 odd:bg-white hover:bg-gray-200'>
-                    <td className='p-3 text-gray-700 text-center whitespace-nowrap'>{usuario.cpf}</td>
-                    <td className='p-3 text-gray-700 text-center whitespace-nowrap'>{usuario.nome}</td>
-                    <td className='p-3 text-gray-700 text-center whitespace-nowrap'>
+                  <tr
+                    key={usuario.cpf}
+                    className="even:bg-gray-50 odd:bg-white hover:bg-gray-200"
+                  >
+                    <td className="p-3 text-gray-700 text-center whitespace-nowrap">
+                      {usuario.cpf}
+                    </td>
+                    <td className="p-3 text-gray-700 text-center whitespace-nowrap">
+                      {usuario.nome}
+                    </td>
+                    <td className="p-3 text-gray-700 text-center whitespace-nowrap">
                       {usuario.tipo === 0 ? 'Administrador' : 'Usuário comum'}
                     </td>
-                    <td className='p-3 text-gray-700 text-center whitespace-nowrap flex justify-center gap-2'>
-                      <button type='button' className='round-blue-btn' onClick={() => handleUpdate(usuario)}><FaPencilAlt/></button>
-                      <button type='button' className='round-red-btn' onClick={() => handleDelete(usuario.cpf)}><FaTrashAlt/></button>
+                    <td className="p-3 text-gray-700 text-center whitespace-nowrap flex justify-center gap-2">
+                      <button
+                        type="button"
+                        className="round-blue-btn"
+                        onClick={() => handleUpdate(usuario)}
+                      >
+                        <FaPencilAlt />
+                      </button>
+                      <button
+                        type="button"
+                        className="round-red-btn"
+                        onClick={() => handleDelete(usuario.cpf)}
+                      >
+                        <FaTrashAlt />
+                      </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <button className='btn mx-auto my-5' type="button" onClick={handleShow}>Cadastrar</button>
+          <button
+            className="btn mx-auto my-5"
+            type="button"
+            onClick={handleShow}
+          >
+            Cadastrar
+          </button>
         </div>
 
-          <Modal isOpen={showModal} onRequestClose={handleClose} className="Modal"
-           overlayClassName="Overlay" ariaHideApp={false}>
-            <div className='ModalHeader'>{isUpdating ? 'Cadastrar Usuário' : 'Editar Usuário'}</div>
-            <div className="form-usuario">
-              {isUpdating ? (
-                <>
-                  <label htmlFor="cpfAntigo">CPF antigo</label>
-                  <input
-                    id="cpfAntigo"
-                    name="cpfAntigo"
-                    disabled
-                    placeholder="cpf"
-                    value={cpfAntigo}
-                  />
-                </>
-              ) : '' }
-              <label>CPF</label>
-              <input
-                id="cpf"
-                type="text"
-                name="cpf"
-                placeholder="cpf"
-                value={cpf}
-                onChange={(e) => setCpf(e.target.value)}
-              />
-              <br />
-              <label>Nome</label>
-              <input
-                type="text"
-                name="nome"
-                placeholder="nome"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-              />
-              <br />
-              <label>Telefone</label>
-              <input
-                type="text"
-                name="telefone"
-                placeholder="telefone"
-                value={telefone}
-                onChange={(e) => setTelefone(e.target.value)}
-              />
-              <br />
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <br />
-              <label>Senha</label>
-              <input
-                type="password"
-                name="password"
-                placeholder="senha"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <br />
-              <label>Tipo</label>
-              <select
-                name="tipo"
-                id="tipo"
-                defaultValue={tipo}
-                onChange={(e) => setTipo(e.target.value)}
-              >
-                <option value="" disabled selected>
-                  Selecione um tipo
-                </option>
-                <option value="0">Administrador</option>
-                <option value="1">Usuário comum</option>
-              </select>
-              <br />
-              <label>Data Nascimento</label>
-              <input
-                type="date"
-                value={dataNasc}
-                // eslint-disable-next-line prettier/prettier
-                  onChange={(e) => setDataNasc(moment(e.target.value, 'YYYY-MM-DD').format('DD/MM/YYYY'))}
-              />
+        <Modal
+          isOpen={showModal}
+          onRequestClose={handleClose}
+          className="Modal"
+          overlayClassName="Overlay"
+          ariaHideApp={false}
+        >
+          <div className="ModalHeader">
+            {isUpdating ? 'Cadastrar Usuário' : 'Editar Usuário'}
+          </div>
+          <div className="form-usuario">
+            {isUpdating ? (
+              <>
+                <label htmlFor="cpfAntigo">CPF antigo</label>
+                <input
+                  id="cpfAntigo"
+                  name="cpfAntigo"
+                  disabled
+                  placeholder="cpf"
+                  value={cpfAntigo}
+                />
+              </>
+            ) : (
+              ''
+            )}
+            <label>CPF</label>
+            <input
+              id="cpf"
+              type="text"
+              name="cpf"
+              placeholder="cpf"
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
+            />
+            <br />
+            <label>Nome</label>
+            <input
+              type="text"
+              name="nome"
+              placeholder="nome"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+            />
+            <br />
+            <label>Telefone</label>
+            <input
+              type="text"
+              name="telefone"
+              placeholder="telefone"
+              value={telefone}
+              onChange={(e) => setTelefone(e.target.value)}
+            />
+            <br />
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <br />
+            <label>Senha</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <br />
+            <label>Tipo</label>
+            <select
+              name="tipo"
+              id="tipo"
+              defaultValue={tipo}
+              onChange={(e) => setTipo(e.target.value)}
+            >
+              <option value="" disabled selected>
+                Selecione um tipo
+              </option>
+              <option value="0">Administrador</option>
+              <option value="1">Usuário comum</option>
+            </select>
+            <br />
+            <label>Data Nascimento</label>
+            <input
+              type="date"
+              value={dataNasc}
+              onChange={(e) =>
+                setDataNasc(
+                  moment(e.target.value, 'YYYY-MM-DD').format('DD/MM/YYYY')
+                )
+              }
+            />
 
-                <div className='buttons'>
-                  <button className='btn' type="button" onClick={clearModal}>
-                    Limpar
-                  </button>
-                  <button className='btn' type="submit" onClick={handleSubmit}>
-                    {isUpdating ? 'Atualizar' : 'Cadastrar'}
-                  </button>
-                </div>
-              </div>
+            <div className="buttons">
+              <button className="btn" type="button" onClick={clearModal}>
+                Limpar
+              </button>
+              <button className="btn" type="submit" onClick={handleSubmit}>
+                {isUpdating ? 'Atualizar' : 'Cadastrar'}
+              </button>
+            </div>
+          </div>
         </Modal>
-
       </div>
     </>
   );
