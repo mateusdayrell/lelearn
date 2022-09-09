@@ -30,6 +30,7 @@ module.exports = {
     'no-use-before-define': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
     camelcase: 'off',
-    'react-hooks/exhaustive-deps': off,
+    // eslint-disable-next-line no-dupe-keys
+    'react-hooks/exhaustive-deps': 'off',
   },
 };
