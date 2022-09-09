@@ -18,10 +18,6 @@ html, body, #root {
   @apply h-full;
 }
 
-button, .btn{
-  @apply bg-verde-100 hover:bg-verde-200 text-gray-800 font-semibold py-2 px-4 rounded-xl shadow
-}
-
 a {
   @apply no-underline;
 }
@@ -42,8 +38,27 @@ select {
   @apply bg-slate-100 border rounded-md py-1 px-2;
 }
 
+
+.btn{
+  @apply bg-verde-100 hover:bg-verde-200 text-gray-800 font-semibold py-2 px-4 rounded-xl shadow
+}
+
+.round-blue-btn{
+  @apply py-3 px-3 rounded-full shadow text-white bg-blue-500 hover:bg-blue-700
+}
+
+.round-red-btn{
+  @apply py-3 px-3 rounded-full shadow text-white  bg-red-500 hover:bg-red-700
+}
+
+
+
 .Modal {
   @apply absolute top-[10%] bg-white rounded-2xl shadow-lg px-10 py-6 min-w-[32em];
+}
+
+.Modal .ModalHeader{
+  @apply bg-red-400
 }
 
 .Overlay {
