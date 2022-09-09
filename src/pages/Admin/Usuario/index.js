@@ -3,6 +3,7 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
 import Modal from 'react-modal';
+import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 
 import axios from '../../../services/axios';
 import Loading from '../../../components/Loading';
@@ -34,6 +35,20 @@ export default function AdmUsuario() {
   }, []);
 
   const getUsuarios = async () => {
+    setIsLoading(true);
+    try {
+      const { data } = await axios.get('/usuarios/');
+
+      setIsLoading(false);
+      setUsuarios(data);
+    } catch (error) {
+      setIsLoading(false);
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
+  };
+
+  const handleSearch = async () => {
     const querys = new URLSearchParams({
       cpf: searchCpf,
       nome: searchNome,
@@ -57,7 +72,7 @@ export default function AdmUsuario() {
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
     }
-  };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -109,6 +124,20 @@ export default function AdmUsuario() {
     setIsUpdating(true);
   };
 
+  const handleDelete = async (cpf) => {
+    setIsLoading(true);
+    try {
+      await axios.delete(`/usuarios/${cpf}`);
+
+      setIsLoading(false);
+      await getUsuarios()
+    } catch (error) {
+      setIsLoading(false);
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
+  }
+
   const clearModal = () => {
     setCpf('');
     setCpfAntigo('');
@@ -124,6 +153,7 @@ export default function AdmUsuario() {
     setSearchCpf('');
     setSearchNome('');
     setSearchTipo('');
+    getUsuarios();
   };
 
   const handleShow = () => setShowModal(true);
@@ -167,7 +197,7 @@ export default function AdmUsuario() {
                 defaultValue={searchTipo}
                 onChange={(e) => setSearchTipo(e.target.value)}
               >
-                <option value="" disabled selected>
+                <option value="" disabled selected={searchTipo == "" ? true : false}>
                   Selecione um tipo
                 </option>
                 <option value="0">Administrador</option>
@@ -175,10 +205,10 @@ export default function AdmUsuario() {
               </select>
 
               <div className="buttons">
-                <button className='btn' type="button" onClick={getUsuarios}>
+                <button className='btn' type="button" onClick={handleSearch}>
                   Pesquisar
                 </button>
-                <button className='btn' type="button" onClick={() => clearSearch(getUsuarios())}>
+                <button className='btn' type="button" onClick={clearSearch}>
                   Limpar
                 </button>
               </div>
@@ -193,15 +223,20 @@ export default function AdmUsuario() {
                   <th className='min-w-36 p-3 font-semibold tracking-wide text-center'>CPF</th>
                   <th className='p-3 font-semibold tracking-wide text-center'>Nome</th>
                   <th className='min-w-48 p-3 font-semibold tracking-wide text-center'>Tipo</th>
+                  <th className='min-w-48 p-3 font-semibold tracking-wide text-center'>Ações</th>
                 </tr>
               </thead>
               <tbody className='divide-y divide-gray-800 '>
                 {usuarios.map((usuario) => (
-                  <tr key={usuario.cpf} onClick={() => handleUpdate(usuario)} className='even:bg-gray-50 odd:bg-white hover:bg-gray-200'>
+                  <tr key={usuario.cpf} className='even:bg-gray-50 odd:bg-white hover:bg-gray-200'>
                     <td className='p-3 text-gray-700 text-center whitespace-nowrap'>{usuario.cpf}</td>
                     <td className='p-3 text-gray-700 text-center whitespace-nowrap'>{usuario.nome}</td>
                     <td className='p-3 text-gray-700 text-center whitespace-nowrap'>
                       {usuario.tipo === 0 ? 'Administrador' : 'Usuário comum'}
+                    </td>
+                    <td className='p-3 text-gray-700 text-center whitespace-nowrap flex justify-center gap-2'>
+                      <button type='button' className='round-blue-btn' onClick={() => handleUpdate(usuario)}><FaPencilAlt/></button>
+                      <button type='button' className='round-red-btn' onClick={() => handleDelete(usuario.cpf)}><FaTrashAlt/></button>
                     </td>
                   </tr>
                 ))}
@@ -212,11 +247,11 @@ export default function AdmUsuario() {
         </div>
 
           <Modal isOpen={showModal} onRequestClose={handleClose} className="Modal"
-           overlayClassName="Overlay">
+           overlayClassName="Overlay" ariaHideApp={false}>
+            <div className='ModalHeader'>{isUpdating ? 'Cadastrar Usuário' : 'Editar Usuário'}</div>
             <div className="form-usuario">
               {isUpdating ? (
                 <>
-
                   <label htmlFor="cpfAntigo">CPF antigo</label>
                   <input
                     id="cpfAntigo"
@@ -225,11 +260,8 @@ export default function AdmUsuario() {
                     placeholder="cpf"
                     value={cpfAntigo}
                   />
-                  <br />
                 </>
-              ) : (
-                ''
-              )}
+              ) : '' }
               <label>CPF</label>
               <input
                 id="cpf"
