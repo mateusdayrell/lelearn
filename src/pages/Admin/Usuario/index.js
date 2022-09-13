@@ -28,8 +28,6 @@ export default function Usuario() {
   const [searchCpf, setSearchCpf] = useState('');
   const [searchTipo, setSearchTipo] = useState('');
 
-  const [cpfAntigo, setCpfAntigo] = useState('');
-
   useEffect(() => {
     loadRegisters();
   }, []);
@@ -113,7 +111,6 @@ export default function Usuario() {
 
   const handleUpdate = (usuario) => {
     setCpf(usuario.cpf);
-    setCpfAntigo(usuario.cpf);
     setNome(usuario.nome);
     setTelefone(usuario.telefone);
     setEmail(usuario.email);
@@ -140,7 +137,6 @@ export default function Usuario() {
 
   const clearModal = () => {
     setCpf('');
-    setCpfAntigo('');
     setNome('');
     setTelefone('');
     setEmail('');
@@ -286,27 +282,13 @@ export default function Usuario() {
           ariaHideApp={false}
         >
           <div className="ModalHeader">
-            <span>{isUpdating ? 'Cadastrar Usuário' : 'Editar Usuário'}</span>
+            <span>{isUpdating ? 'Editar' : 'Cadastrar'} usuário</span>
             <button className="CloseModal" type="button" onClick={handleClose}>
               x
             </button>
           </div>
           <div className="ModalContent">
             <div className="form-usuario">
-              {isUpdating ? (
-                <>
-                  <label htmlFor="cpfAntigo">CPF antigo</label>
-                  <input
-                    id="cpfAntigo"
-                    name="cpfAntigo"
-                    disabled
-                    placeholder="cpf"
-                    value={cpfAntigo}
-                  />
-                </>
-              ) : (
-                ''
-              )}
               <label>CPF</label>
               <input
                 id="cpf"
@@ -314,6 +296,7 @@ export default function Usuario() {
                 name="cpf"
                 placeholder="cpf"
                 value={cpf}
+                disabled={!!isUpdating}
                 onChange={(e) => setCpf(e.target.value)}
               />
               <br />
@@ -384,7 +367,7 @@ export default function Usuario() {
               Limpar
             </button>
             <button className="btn" type="submit" onClick={handleSubmit}>
-              {isUpdating ? 'Atualizar' : 'Cadastrar'}
+              {isUpdating ? 'Atualizar' : 'Salvar'}
             </button>
           </div>
         </Modal>
