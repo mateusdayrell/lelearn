@@ -122,11 +122,6 @@ export default function GestaoVideos() {
       controle = false;
     }
 
-    if (!codCurso) {
-      toast.error('Preencha o campo Código!');
-      controle = false;
-    }
-
     if (!titulo) {
       toast.error('Preencha o campo Título!');
       controle = false;
