@@ -31,11 +31,19 @@ label{
 }
 
 input {
-  @apply bg-slate-100 border rounded-md py-1 px-2;
+  @apply bg-slate-50 border rounded-md py-1 px-2;
+}
+
+input:disabled  {
+  @apply bg-slate-200 border rounded-md py-1 px-2;
+}
+
+textarea {
+  @apply bg-slate-50 border rounded-md py-1 px-2;
 }
 
 select {
-  @apply bg-slate-100 border rounded-md py-1 px-2;
+  @apply bg-slate-50 border rounded-md py-1 px-2;
 }
 
 
@@ -54,11 +62,23 @@ select {
 
 
 .Modal {
-  @apply absolute top-[10%] bg-white rounded-2xl shadow-lg px-10 py-6 min-w-[32em];
+  @apply absolute top-[10%] bg-white rounded-xl shadow-lg py-4 min-w-[32em];
 }
 
 .Modal .ModalHeader{
-  @apply bg-red-400
+  @apply flex border-b border-gray-200 pb-3 pl-8 font-bold text-lg justify-between
+}
+
+.Modal .ModalContent{
+@apply  border-b border-gray-200 py-5
+}
+
+.Modal .ModalFooter{
+  @apply flex justify-end px-6 gap-4 pt-4
+}
+
+.Modal .CloseModal{
+@apply mr-10 text-zinc-500 hover:text-zinc-900 cursor-pointer;
 }
 
 .Overlay {
