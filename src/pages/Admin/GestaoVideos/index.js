@@ -95,12 +95,7 @@ export default function GestaoVideos() {
     } catch (error) {
       setIsLoading(false);
       const erros = get(error, 'response.data.erros', []);
-      erros.map((err) => {
-        if (err === 'PRIMARY must be unique') {
-          return toast.error('Código do vídeo já cadastrado');
-        }
-        return toast.error(err);
-      });
+      erros.map((err) => toast.error(err));
     }
   };
 
