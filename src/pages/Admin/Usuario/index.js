@@ -15,7 +15,8 @@ import './style.css';
 export default function Usuario() {
   const [usuarios, setUsuarios] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showFormModal, setShowFromModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
   const [nome, setNome] = useState('');
@@ -113,20 +114,8 @@ export default function Usuario() {
     }
   };
 
-  const handleUpdate = (usuario) => {
-    setCpf(usuario.cpf);
-    setNome(usuario.nome);
-    setTelefone(usuario.telefone);
-    setEmail(usuario.email);
-    setPassword('');
-    setConfirmPassword('');
-    setTipo(usuario.tipo);
-    setDataNasc(moment(usuario.data_nasc).format('YYYY-MM-DD'));
-    setShowModal(true);
-    setIsUpdating(true);
-  };
-
   const handleDelete = async (cpfUsuario) => {
+    handleClose();
     setIsLoading(true);
     try {
       await axios.delete(`/usuarios/${cpfUsuario}`);
@@ -138,6 +127,24 @@ export default function Usuario() {
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
     }
+  };
+
+  const handleIsUpdating = (usuario) => {
+    setCpf(usuario.cpf);
+    setNome(usuario.nome);
+    setTelefone(usuario.telefone);
+    setEmail(usuario.email);
+    setPassword('');
+    setConfirmPassword('');
+    setTipo(usuario.tipo);
+    setDataNasc(moment(usuario.data_nasc).format('YYYY-MM-DD'));
+    setShowFromModal(true);
+    setIsUpdating(true);
+  };
+
+  const handleIsDeleting = (cod) => {
+    setCpf(cod);
+    setShowDeleteModal(true);
   };
 
   const validateForm = () => {
@@ -221,9 +228,9 @@ export default function Usuario() {
     loadRegisters();
   };
 
-  const handleShow = () => setShowModal(true);
   const handleClose = () => {
-    setShowModal(false);
+    setShowFromModal(false);
+    setShowDeleteModal(false);
     setIsUpdating(false);
     clearModal();
   };
@@ -317,14 +324,14 @@ export default function Usuario() {
                       <button
                         type="button"
                         className="round-blue-btn"
-                        onClick={() => handleUpdate(usuario)}
+                        onClick={() => handleIsUpdating(usuario)}
                       >
                         <FaPencilAlt />
                       </button>
                       <button
                         type="button"
                         className="round-red-btn"
-                        onClick={() => handleDelete(usuario.cpf)}
+                        onClick={() => handleIsDeleting(usuario.cpf)}
                       >
                         <FaTrashAlt />
                       </button>
@@ -337,14 +344,14 @@ export default function Usuario() {
           <button
             className="btn mx-auto my-5"
             type="button"
-            onClick={handleShow}
+            onClick={() => setShowFromModal(true)}
           >
             Cadastrar
           </button>
         </div>
 
         <Modal
-          isOpen={showModal}
+          isOpen={showFormModal}
           onRequestClose={handleClose}
           className="Modal"
           overlayClassName="Overlay"
@@ -441,6 +448,43 @@ export default function Usuario() {
             </button>
             <button className="btn" type="submit" onClick={handleSubmit}>
               {isUpdating ? 'Atualizar' : 'Salvar'}
+            </button>
+          </div>
+        </Modal>
+
+        <Modal
+          isOpen={showDeleteModal}
+          onRequestClose={handleClose}
+          className="Modal"
+          overlayClassName="Overlay"
+          ariaHideApp={false}
+        >
+          <div className="ModalHeader">
+            <span>Excluir vídeo</span>
+            <button className="CloseModal" type="button" onClick={handleClose}>
+              x
+            </button>
+          </div>
+          <div className="ModalContent">
+            <div className="px-8 max-w-xl">
+              <p>
+                Caso prossiga com a exclusão do item, o mesmo não será mais
+                recuperado.
+                <br /> Deseja realmente excluir o usuário de CPF{' '}
+                {cpfValidator.format(cpf)}?
+              </p>
+            </div>
+          </div>
+          <div className="ModalFooter">
+            <button className="btn" type="button" onClick={handleClose}>
+              Cancelar
+            </button>
+            <button
+              className="btn"
+              type="button"
+              onClick={() => handleDelete(cpf)}
+            >
+              Excluir
             </button>
           </div>
         </Modal>

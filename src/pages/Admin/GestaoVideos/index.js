@@ -23,7 +23,8 @@ export default function GestaoVideos() {
   const [searchCurso, setSearchCurso] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [shwoFormModal, setShowFormModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
@@ -100,6 +101,7 @@ export default function GestaoVideos() {
   };
 
   const handleDelete = async (codigo) => {
+    handleClose();
     setIsLoading(true);
     try {
       await axios.delete(`/videos/${codigo}`);
@@ -151,12 +153,18 @@ export default function GestaoVideos() {
 
   const handleIsUpdating = (vid) => {
     setIsUpdating(true);
-    setShowModal(true);
+    setShowFormModal(true);
     setCodVideo(vid.cod_video);
     setTitulo(vid.titulo_video);
     setCodCurso(vid.cod_curso);
     setLink(vid.link);
     setDescricao(vid.desc_video);
+    setShowDeleteModal(false);
+  };
+
+  const handleIsDeleting = (cod) => {
+    setCodVideo(cod);
+    setShowDeleteModal(true);
   };
 
   const clearSearch = () => {
@@ -166,8 +174,8 @@ export default function GestaoVideos() {
   };
 
   const handleClose = () => {
-    setShowModal(false);
-    setShowModal(false);
+    setShowFormModal(false);
+    setShowDeleteModal(false);
     setIsUpdating(false);
     clearModal();
   };
@@ -270,7 +278,7 @@ export default function GestaoVideos() {
                     <button
                       type="button"
                       className="round-red-btn"
-                      onClick={() => handleDelete(video.cod_video)}
+                      onClick={() => handleIsDeleting(video.cod_video)}
                     >
                       <FaTrashAlt />
                     </button>
@@ -284,13 +292,13 @@ export default function GestaoVideos() {
         <button
           className="btn mx-auto my-5"
           type="button"
-          onClick={() => setShowModal(true)}
+          onClick={() => setShowFormModal(true)}
         >
           Cadastrar
         </button>
 
         <Modal
-          isOpen={showModal}
+          isOpen={shwoFormModal}
           onRequestClose={handleClose}
           className="Modal"
           overlayClassName="Overlay"
@@ -367,6 +375,41 @@ export default function GestaoVideos() {
             </button>
             <button className="btn" type="button" onClick={handleSubmit}>
               {isUpdating ? 'Atualizar' : 'Salvar'}
+            </button>
+          </div>
+        </Modal>
+
+        <Modal
+          isOpen={showDeleteModal}
+          onRequestClose={handleClose}
+          className="Modal"
+          overlayClassName="Overlay"
+          ariaHideApp={false}
+        >
+          <div className="ModalHeader">
+            <span>Excluir vídeo</span>
+            <button className="CloseModal" type="button" onClick={handleClose}>
+              x
+            </button>
+          </div>
+          <div className="ModalContent">
+            <div className="px-8 max-w-xl">
+              <p>
+                Caso prossiga com a exclusão do item, o mesmo não será mais
+                recuperado. Deseja realmente excluir o vídeo {codVideo}?
+              </p>
+            </div>
+          </div>
+          <div className="ModalFooter">
+            <button className="btn" type="button" onClick={handleClose}>
+              Cancelar
+            </button>
+            <button
+              className="btn"
+              type="button"
+              onClick={() => handleDelete(codVideo)}
+            >
+              Excluir
             </button>
           </div>
         </Modal>
