@@ -1,0 +1,11 @@
+.form-gestao-video{
+  @apply flex flex-col justify-center mx-auto w-[450px] gap-1
+}
+
+.buttons{
+  @apply flex mx-auto gap-3 mt-4
+}
+
+.form-gestao-video input, .form-gestao-video select, .form-gestao-video textarea{
+  @apply w-full
+}
