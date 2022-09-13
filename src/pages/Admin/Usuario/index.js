@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import { get } from 'lodash';
 import Modal from 'react-modal';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import { cpf as cpfValidator } from 'cpf-cnpj-validator';
+import { isEmail, isMobilePhone } from 'validator';
 
 import axios from '../../../services/axios';
 import Loading from '../../../components/Loading';
@@ -21,6 +23,7 @@ export default function Usuario() {
   const [email, setEmail] = useState('');
   const [telefone, setTelefone] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [tipo, setTipo] = useState('');
   const [dataNasc, setDataNasc] = useState('');
 
@@ -74,6 +77,7 @@ export default function Usuario() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
 
     try {
       let regTemp = {
@@ -115,6 +119,7 @@ export default function Usuario() {
     setTelefone(usuario.telefone);
     setEmail(usuario.email);
     setPassword('');
+    setConfirmPassword('');
     setTipo(usuario.tipo);
     setDataNasc(moment(usuario.data_nasc).format('YYYY-MM-DD'));
     setShowModal(true);
@@ -135,12 +140,76 @@ export default function Usuario() {
     }
   };
 
+  const validateForm = () => {
+    let controle = true;
+
+    if (!cpf) {
+      toast.error('Preencha o campo CPF!');
+      controle = false;
+    } else if (!cpfValidator.isValid(cpf)) {
+      toast.error('CPF inválido!');
+      controle = false;
+    }
+
+    if (!nome) {
+      toast.error('Preencha o campo Nome!');
+      controle = false;
+    } else if (nome.length < 3) {
+      toast.error('O campo Nome deve ter no mínimo 3 caracteres!');
+      controle = false;
+    } else if (nome.length > 40) {
+      toast.error('O campo Nome deve ter no máximo 40 caracteres!');
+      controle = false;
+    }
+
+    if (telefone && (telefone.length < 10 || telefone.length > 11)) {
+      toast.error('O campo telefone deve ter 10 ou 11 caracteres!');
+      controle = false;
+    } else if (telefone && !isMobilePhone(telefone, 'pt-BR')) {
+      toast.error('Telefone inválido!');
+      controle = false;
+    }
+
+    if (!email) {
+      controle = false;
+      toast.error('Preencha o campo Email!');
+    } else if (!isEmail(email)) {
+      toast.error('Email inválido!');
+      controle = false;
+    } else if (email.length > 50) {
+      toast.error('O campo Email deve ter no máximo 50 caracteres!');
+      controle = false;
+    }
+
+    if (!isUpdating) {
+      if (!password) {
+        controle = false;
+        toast.error('Preencha o campo Senha!');
+      } else if (!confirmPassword) {
+        toast.error('Preencha o campo Confirmar senha!');
+        controle = false;
+      } else if (password.length < 8) {
+        toast.error('A senha deve ter no mínimo 8 caracteres!');
+        controle = false;
+      } else if (password !== confirmPassword) {
+        toast.error('As senhas não coincidem!');
+        controle = false;
+      } else if (password.length > 30) {
+        toast.error('O campo senha deve ter no máximo 30 caracteres!');
+        controle = false;
+      }
+    }
+
+    return controle;
+  };
+
   const clearModal = () => {
     setCpf('');
     setNome('');
     setTelefone('');
     setEmail('');
     setPassword('');
+    setConfirmPassword('');
     setTipo('');
     setDataNasc('');
   };
@@ -236,7 +305,7 @@ export default function Usuario() {
                     className="even:bg-gray-50 odd:bg-white hover:bg-gray-200"
                   >
                     <td className="p-3 text-gray-700 text-center whitespace-nowrap">
-                      {usuario.cpf}
+                      {cpfValidator.format(usuario.cpf)}
                     </td>
                     <td className="p-3 text-gray-700 text-center whitespace-nowrap">
                       {usuario.nome}
@@ -294,48 +363,53 @@ export default function Usuario() {
                 id="cpf"
                 type="text"
                 name="cpf"
-                placeholder="cpf"
-                value={cpf}
+                placeholder="CPF"
+                value={cpfValidator.format(cpf)}
+                maxLength={11}
                 disabled={!!isUpdating}
                 onChange={(e) => setCpf(e.target.value)}
               />
-              <br />
               <label>Nome</label>
               <input
                 type="text"
                 name="nome"
-                placeholder="nome"
+                placeholder="Nome"
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
               />
-              <br />
               <label>Telefone</label>
               <input
                 type="text"
                 name="telefone"
-                placeholder="telefone"
+                placeholder="Telefone"
+                maxLength={11}
                 value={telefone}
                 onChange={(e) => setTelefone(e.target.value)}
               />
-              <br />
               <label>Email</label>
               <input
                 type="email"
                 name="email"
-                placeholder="email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <br />
               <label>Senha</label>
               <input
                 type="password"
                 name="password"
-                placeholder="senha"
+                placeholder="Senha"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <br />
+              <label>Confirmar senha</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirmar senha"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
               <label>Tipo</label>
               <select
                 name="tipo"
@@ -349,7 +423,6 @@ export default function Usuario() {
                 <option value="0">Administrador</option>
                 <option value="1">Usuário comum</option>
               </select>
-              <br />
               <label>Data Nascimento</label>
               <input
                 type="date"
