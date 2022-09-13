@@ -15,7 +15,7 @@
 }
 
 .form-usuario{
-  @apply flex flex-col content-center justify-center mx-auto bg-gray-300 w-[450px]
+  @apply flex flex-col content-center justify-center mx-auto w-[450px]
 }
 
 .buttons{
@@ -23,5 +23,5 @@
 }
 
 .container-usuario input, .container-usuario select, .form-usuario input, .form-usuario select{
-  @apply w-80
+  @apply w-full
 }
