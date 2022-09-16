@@ -460,7 +460,7 @@ export default function Usuario() {
           ariaHideApp={false}
         >
           <div className="ModalHeader">
-            <span>Excluir vídeo</span>
+            <span>Excluir usuário</span>
             <button className="CloseModal" type="button" onClick={handleClose}>
               x
             </button>
