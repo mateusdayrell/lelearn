@@ -1,11 +1,15 @@
-.login-container{
-  @apply flex flex-col w-6/12 h-80 mx-auto bg-gray-300 rounded-lg shadow-xl content-center justify-center gap-10 mt-20
+.green-gradient{
+  background: rgb(0,135,95);
+  background: radial-gradient(circle, rgba(0,135,95,1) 13%, rgba(30,61,52,1) 61%, rgba(15,34,28,1) 84%, rgba(0,0,0,1) 100%);
 }
 
-.login-container form{
-  @apply flex flex-col mx-auto
-}
-
-.login-container input {
-  @apply my-2 rounded-md px-3 py-1
+.elipse-1{
+  position: absolute;
+  width: 281.71px;
+  height: 282.04px;
+  left: 143px;
+  top: 145px;
+  background: #81D8F7;
+  opacity: 0.45;
+  filter: blur(158.5px);
 }
