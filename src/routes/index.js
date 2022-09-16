@@ -4,6 +4,7 @@ import { Switch } from 'react-router-dom';
 
 import MyRoute from './MyRoute';
 import Login from '../pages/Login';
+import RecuperarSenha from '../pages/RecuperarSenha';
 import Home from '../pages/Home';
 import Video from '../pages/Video';
 import Cursos from '../pages/Cursos';
@@ -19,6 +20,7 @@ export default function Routes() {
     <Switch>
       <MyRoute exact path="/" component={Home} />
       <MyRoute exact path="/login" component={Login} />
+      <MyRoute exat path="/recuperar-senha" component={RecuperarSenha} />
       <MyRoute exact path="/treinamentos" component={Treinamento} isClosed />
       <MyRoute exact path="/cursos/:cod_curso" component={Curso} isClosed />
       <MyRoute exact path="/cursos" component={Cursos} isClosed />
