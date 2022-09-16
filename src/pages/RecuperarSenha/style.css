@@ -1,0 +1,11 @@
+.password-container{
+  @apply flex flex-col w-[60vw] h-[60vh] mx-auto bg-gray-300 rounded-lg shadow-xl content-center justify-center gap-10 mt-20
+}
+
+.password-container div{
+  @apply flex flex-col mx-auto
+}
+
+.password-container input {
+  @apply my-2 rounded-md px-3 py-1
+}
