@@ -17,7 +17,7 @@ export default function RecuperarSenha() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [currentForm, setCurrentForm] = useState('form1');
+  const [currentForm, setCurrentForm] = useState('form2');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSendCode = async () => {
@@ -206,10 +206,18 @@ export default function RecuperarSenha() {
             value={token}
             onChange={(e) => setToken(e.target.value)}
           />
-
-          <button className="btn w-40" type="button" onClick={getUserToken}>
-            Verificar código
-          </button>
+          <div className="w-full flex mx-auto gap-3 mt-4 flex-col">
+            <button
+              className="btn w-40"
+              type="button"
+              onClick={() => setCurrentForm('form1')}
+            >
+              Voltar
+            </button>
+            <button className="btn w-40" type="button" onClick={getUserToken}>
+              Verificar código
+            </button>
+          </div>
         </div>
 
         <div
@@ -243,6 +251,14 @@ export default function RecuperarSenha() {
           <button
             className="btn w-40"
             type="button"
+            onClick={() => setCurrentForm('form2')}
+          >
+            Voltar
+          </button>
+
+          <button
+            className="btn w-40"
+            type="button"
             onClick={handleNewPassword}
           >
             Confirmar
@@ -258,6 +274,13 @@ export default function RecuperarSenha() {
           <h1 className="mx-auto font-extrabold text-2xl">
             A sua senha foi atualizada com sucesso!
           </h1>
+          <button
+            className="btn w-40"
+            type="button"
+            onClick={() => setCurrentForm('form3')}
+          >
+            Voltar
+          </button>
 
           <Link className="mx-auto text-blue-600" to="/login">
             Fazer login
@@ -273,6 +296,37 @@ export default function RecuperarSenha() {
         >
           Voltar para página de login
         </Link>
+      </div>
+      <div>
+        <h2>Teste</h2>
+        <button
+          type="button"
+          className="btn"
+          onClick={() => setCurrentForm('form1')}
+        >
+          form1
+        </button>
+        <button
+          type="button"
+          className="btn"
+          onClick={() => setCurrentForm('form2')}
+        >
+          form2
+        </button>
+        <button
+          type="button"
+          className="btn"
+          onClick={() => setCurrentForm('form3')}
+        >
+          form3
+        </button>
+        <button
+          type="button"
+          className="btn"
+          onClick={() => setCurrentForm('form4')}
+        >
+          form4
+        </button>
       </div>
     </>
   );
