@@ -1,5 +1,5 @@
 .login-container{
-  @apply flex flex-col w-[50%] h-[25%] mx-auto bg-gray-300 rounded-lg shadow-xl content-center justify-center p-10 gap-10
+  @apply flex flex-col w-6/12 h-80 mx-auto bg-gray-300 rounded-lg shadow-xl content-center justify-center gap-10 mt-20
 }
 
 .login-container form{

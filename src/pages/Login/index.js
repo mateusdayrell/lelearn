@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { get } from 'lodash';
+import { Link } from 'react-router-dom';
 
 import Loading from '../../components/Loading';
 import * as actions from '../../store/modules/auth/actions';
@@ -40,7 +41,7 @@ export default function Login(props) {
       <Loading isLoading={isLoading} />
 
       <div className="login-container">
-        <h1 className='mx-auto font-extrabold text-2xl'>Login</h1>
+        <h1 className="mx-auto font-extrabold text-2xl">Login</h1>
 
         <form onSubmit={handleSubmit}>
           <input
@@ -57,8 +58,13 @@ export default function Login(props) {
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
           />
-          <button className='btn' type="submit">Logar</button>
+          <button className="btn" type="submit">
+            Logar
+          </button>
         </form>
+        <Link className="mx-auto text-blue-600" to="/recuperar-senha">
+          Recuperar senha
+        </Link>
       </div>
     </>
   );
