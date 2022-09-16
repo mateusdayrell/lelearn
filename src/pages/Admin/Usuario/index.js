@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import { get } from 'lodash';
 import Modal from 'react-modal';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import { cpf as cpfValidator } from 'cpf-cnpj-validator';
+import { isEmail, isMobilePhone } from 'validator';
 
 import axios from '../../../services/axios';
 import Loading from '../../../components/Loading';
@@ -13,7 +15,8 @@ import './style.css';
 export default function Usuario() {
   const [usuarios, setUsuarios] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showFormModal, setShowFromModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
   const [nome, setNome] = useState('');
@@ -21,6 +24,7 @@ export default function Usuario() {
   const [email, setEmail] = useState('');
   const [telefone, setTelefone] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [tipo, setTipo] = useState('');
   const [dataNasc, setDataNasc] = useState('');
 
@@ -28,13 +32,11 @@ export default function Usuario() {
   const [searchCpf, setSearchCpf] = useState('');
   const [searchTipo, setSearchTipo] = useState('');
 
-  const [cpfAntigo, setCpfAntigo] = useState('');
-
   useEffect(() => {
-    getUsuarios();
+    loadRegisters();
   }, []);
 
-  const getUsuarios = async () => {
+  const loadRegisters = async () => {
     setIsLoading(true);
     try {
       const { data } = await axios.get('/usuarios/');
@@ -76,6 +78,7 @@ export default function Usuario() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
 
     try {
       let regTemp = {
@@ -103,7 +106,7 @@ export default function Usuario() {
 
       handleClose();
       setIsUpdating(false);
-      getUsuarios();
+      loadRegisters();
     } catch (error) {
       setIsLoading(false);
       const erros = get(error, 'response.data.erros', []);
@@ -111,26 +114,14 @@ export default function Usuario() {
     }
   };
 
-  const handleUpdate = (usuario) => {
-    setCpf(usuario.cpf);
-    setCpfAntigo(usuario.cpf);
-    setNome(usuario.nome);
-    setTelefone(usuario.telefone);
-    setEmail(usuario.email);
-    setPassword('');
-    setTipo(usuario.tipo);
-    setDataNasc(moment(usuario.data_nasc).format('YYYY-MM-DD'));
-    setShowModal(true);
-    setIsUpdating(true);
-  };
-
   const handleDelete = async (cpfUsuario) => {
+    handleClose();
     setIsLoading(true);
     try {
       await axios.delete(`/usuarios/${cpfUsuario}`);
 
       setIsLoading(false);
-      await getUsuarios();
+      await loadRegisters();
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
@@ -138,13 +129,94 @@ export default function Usuario() {
     }
   };
 
+  const handleIsUpdating = (usuario) => {
+    setCpf(usuario.cpf);
+    setNome(usuario.nome);
+    setTelefone(usuario.telefone);
+    setEmail(usuario.email);
+    setPassword('');
+    setConfirmPassword('');
+    setTipo(usuario.tipo);
+    setDataNasc(moment(usuario.data_nasc).format('YYYY-MM-DD'));
+    setShowFromModal(true);
+    setIsUpdating(true);
+  };
+
+  const handleIsDeleting = (cod) => {
+    setCpf(cod);
+    setShowDeleteModal(true);
+  };
+
+  const validateForm = () => {
+    let controle = true;
+
+    if (!cpf) {
+      toast.error('Preencha o campo CPF!');
+      controle = false;
+    } else if (!cpfValidator.isValid(cpf)) {
+      toast.error('CPF inválido!');
+      controle = false;
+    }
+
+    if (!nome) {
+      toast.error('Preencha o campo Nome!');
+      controle = false;
+    } else if (nome.length < 3) {
+      toast.error('O campo Nome deve ter no mínimo 3 caracteres!');
+      controle = false;
+    } else if (nome.length > 40) {
+      toast.error('O campo Nome deve ter no máximo 40 caracteres!');
+      controle = false;
+    }
+
+    if (telefone && (telefone.length < 10 || telefone.length > 11)) {
+      toast.error('O campo telefone deve ter 10 ou 11 caracteres!');
+      controle = false;
+    } else if (telefone && !isMobilePhone(telefone, 'pt-BR')) {
+      toast.error('Telefone inválido!');
+      controle = false;
+    }
+
+    if (!email) {
+      controle = false;
+      toast.error('Preencha o campo Email!');
+    } else if (!isEmail(email)) {
+      toast.error('Email inválido!');
+      controle = false;
+    } else if (email.length > 50) {
+      toast.error('O campo Email deve ter no máximo 50 caracteres!');
+      controle = false;
+    }
+
+    if (!isUpdating) {
+      if (!password) {
+        controle = false;
+        toast.error('Preencha o campo Senha!');
+      } else if (!confirmPassword) {
+        toast.error('Preencha o campo Confirmar senha!');
+        controle = false;
+      } else if (password.length < 8) {
+        toast.error('A senha deve ter no mínimo 8 caracteres!');
+        controle = false;
+      } else if (password !== confirmPassword) {
+        toast.error('As senhas não coincidem!');
+        controle = false;
+      } else if (password.length > 30) {
+        toast.error('O campo senha deve ter no máximo 30 caracteres!');
+        controle = false;
+      }
+    }
+
+    return controle;
+  };
+
   const clearModal = () => {
     setCpf('');
-    setCpfAntigo('');
     setNome('');
     setTelefone('');
     setEmail('');
     setPassword('');
+    setConfirmPassword('');
     setTipo('');
     setDataNasc('');
   };
@@ -153,12 +225,12 @@ export default function Usuario() {
     setSearchCpf('');
     setSearchNome('');
     setSearchTipo('');
-    getUsuarios();
+    loadRegisters();
   };
 
-  const handleShow = () => setShowModal(true);
   const handleClose = () => {
-    setShowModal(false);
+    setShowFromModal(false);
+    setShowDeleteModal(false);
     setIsUpdating(false);
     clearModal();
   };
@@ -240,7 +312,7 @@ export default function Usuario() {
                     className="even:bg-gray-50 odd:bg-white hover:bg-gray-200"
                   >
                     <td className="p-3 text-gray-700 text-center whitespace-nowrap">
-                      {usuario.cpf}
+                      {cpfValidator.format(usuario.cpf)}
                     </td>
                     <td className="p-3 text-gray-700 text-center whitespace-nowrap">
                       {usuario.nome}
@@ -252,14 +324,14 @@ export default function Usuario() {
                       <button
                         type="button"
                         className="round-blue-btn"
-                        onClick={() => handleUpdate(usuario)}
+                        onClick={() => handleIsUpdating(usuario)}
                       >
                         <FaPencilAlt />
                       </button>
                       <button
                         type="button"
                         className="round-red-btn"
-                        onClick={() => handleDelete(usuario.cpf)}
+                        onClick={() => handleIsDeleting(usuario.cpf)}
                       >
                         <FaTrashAlt />
                       </button>
@@ -272,116 +344,148 @@ export default function Usuario() {
           <button
             className="btn mx-auto my-5"
             type="button"
-            onClick={handleShow}
+            onClick={() => setShowFromModal(true)}
           >
             Cadastrar
           </button>
         </div>
 
         <Modal
-          isOpen={showModal}
+          isOpen={showFormModal}
           onRequestClose={handleClose}
           className="Modal"
           overlayClassName="Overlay"
           ariaHideApp={false}
         >
           <div className="ModalHeader">
-            {isUpdating ? 'Cadastrar Usuário' : 'Editar Usuário'}
+            <span>{isUpdating ? 'Editar' : 'Cadastrar'} usuário</span>
+            <button className="CloseModal" type="button" onClick={handleClose}>
+              x
+            </button>
           </div>
-          <div className="form-usuario">
-            {isUpdating ? (
-              <>
-                <label htmlFor="cpfAntigo">CPF antigo</label>
-                <input
-                  id="cpfAntigo"
-                  name="cpfAntigo"
-                  disabled
-                  placeholder="cpf"
-                  value={cpfAntigo}
-                />
-              </>
-            ) : (
-              ''
-            )}
-            <label>CPF</label>
-            <input
-              id="cpf"
-              type="text"
-              name="cpf"
-              placeholder="cpf"
-              value={cpf}
-              onChange={(e) => setCpf(e.target.value)}
-            />
-            <br />
-            <label>Nome</label>
-            <input
-              type="text"
-              name="nome"
-              placeholder="nome"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-            />
-            <br />
-            <label>Telefone</label>
-            <input
-              type="text"
-              name="telefone"
-              placeholder="telefone"
-              value={telefone}
-              onChange={(e) => setTelefone(e.target.value)}
-            />
-            <br />
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <br />
-            <label>Senha</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <br />
-            <label>Tipo</label>
-            <select
-              name="tipo"
-              id="tipo"
-              defaultValue={tipo}
-              onChange={(e) => setTipo(e.target.value)}
-            >
-              <option value="" disabled selected>
-                Selecione um tipo
-              </option>
-              <option value="0">Administrador</option>
-              <option value="1">Usuário comum</option>
-            </select>
-            <br />
-            <label>Data Nascimento</label>
-            <input
-              type="date"
-              value={dataNasc}
-              onChange={(e) =>
-                setDataNasc(
-                  moment(e.target.value, 'YYYY-MM-DD').format('DD/MM/YYYY')
-                )
-              }
-            />
-
-            <div className="buttons">
-              <button className="btn" type="button" onClick={clearModal}>
-                Limpar
-              </button>
-              <button className="btn" type="submit" onClick={handleSubmit}>
-                {isUpdating ? 'Atualizar' : 'Cadastrar'}
-              </button>
+          <div className="ModalContent">
+            <div className="form-usuario">
+              <label>CPF</label>
+              <input
+                id="cpf"
+                type="text"
+                name="cpf"
+                placeholder="CPF"
+                value={cpfValidator.format(cpf)}
+                maxLength={11}
+                disabled={!!isUpdating}
+                onChange={(e) => setCpf(e.target.value)}
+              />
+              <label>Nome</label>
+              <input
+                type="text"
+                name="nome"
+                placeholder="Nome"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
+              <label>Telefone</label>
+              <input
+                type="text"
+                name="telefone"
+                placeholder="Telefone"
+                maxLength={11}
+                value={telefone}
+                onChange={(e) => setTelefone(e.target.value)}
+              />
+              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <label>Senha</label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <label>Confirmar senha</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirmar senha"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              <label>Tipo</label>
+              <select
+                name="tipo"
+                id="tipo"
+                defaultValue={tipo}
+                onChange={(e) => setTipo(e.target.value)}
+              >
+                <option value="" disabled selected>
+                  Selecione um tipo
+                </option>
+                <option value="0">Administrador</option>
+                <option value="1">Usuário comum</option>
+              </select>
+              <label>Data Nascimento</label>
+              <input
+                type="date"
+                value={dataNasc}
+                onChange={(e) =>
+                  setDataNasc(
+                    moment(e.target.value, 'YYYY-MM-DD').format('DD/MM/YYYY')
+                  )
+                }
+              />
             </div>
+          </div>
+          <div className="ModalFooter">
+            <button className="btn" type="button" onClick={clearModal}>
+              Limpar
+            </button>
+            <button className="btn" type="submit" onClick={handleSubmit}>
+              {isUpdating ? 'Atualizar' : 'Salvar'}
+            </button>
+          </div>
+        </Modal>
+
+        <Modal
+          isOpen={showDeleteModal}
+          onRequestClose={handleClose}
+          className="Modal"
+          overlayClassName="Overlay"
+          ariaHideApp={false}
+        >
+          <div className="ModalHeader">
+            <span>Excluir vídeo</span>
+            <button className="CloseModal" type="button" onClick={handleClose}>
+              x
+            </button>
+          </div>
+          <div className="ModalContent">
+            <div className="px-8 max-w-xl">
+              <p>
+                Caso prossiga com a exclusão do item, o mesmo não será mais
+                recuperado.
+                <br /> Deseja realmente excluir o usuário de CPF{' '}
+                {cpfValidator.format(cpf)}?
+              </p>
+            </div>
+          </div>
+          <div className="ModalFooter">
+            <button className="btn" type="button" onClick={handleClose}>
+              Cancelar
+            </button>
+            <button
+              className="btn"
+              type="button"
+              onClick={() => handleDelete(cpf)}
+            >
+              Excluir
+            </button>
           </div>
         </Modal>
       </div>
