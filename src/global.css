@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto:wght@400;500;900&display=swap');
 
 * {
   @apply m-0 p-0 outline-0 box-border;
@@ -11,11 +12,12 @@
 body {
   @apply min-h-screen;
   font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 html, body, #root {
-  @apply h-full;
+  @apply h-full bg-cinza-800;
 }
 
 a {
@@ -48,7 +50,7 @@ select {
 
 
 .btn{
-  @apply bg-verde-100 hover:bg-verde-200 text-gray-800 font-semibold py-2 px-4 rounded-xl shadow
+  @apply bg-verde-100 hover:bg-verde-200 text-white font-semibold py-2 px-4 rounded-xl shadow
 }
 
 .round-blue-btn{
@@ -82,5 +84,5 @@ select {
 }
 
 .Overlay {
-  @apply fixed top-0 left-0 right-0 bottom-0 bg-black/50 flex justify-center;
+  @apply fixed top-0 left-0 right-0 bottom-0 bg-black/50 flex justify-center backdrop-blur-sm;
 }
