@@ -13,6 +13,7 @@ import Treinamento from '../pages/Treinamento';
 import Error from '../pages/Error';
 import Usuario from '../pages/Admin/Usuario';
 import GestaoVideos from '../pages/Admin/GestaoVideos';
+import GestaoCursos from '../pages/Admin/GestaoCursos';
 
 export default function Routes() {
   // const tipoUsuario = useSelector((state) => state.auth.usuario.tipo);
@@ -26,6 +27,7 @@ export default function Routes() {
       <MyRoute exact path="/cursos" component={Cursos} isClosed />
       <MyRoute exact path="/usuarios" component={Usuario} isClosed />
       <MyRoute exact path="/gestao-videos" component={GestaoVideos} isClosed />
+      <MyRoute exact path="/gestao-cursos" component={GestaoCursos} isClosed />
       <MyRoute exact path="/videos/:cod_video" component={Video} isClosed />
       <MyRoute path="*" component={Error} />
     </Switch>
