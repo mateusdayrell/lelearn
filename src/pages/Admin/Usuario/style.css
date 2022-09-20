@@ -2,26 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-.container-usuario{
+/*.container-usuario{
   @apply flex flex-col gap-16 p-10
-}
+}*/
 
-.search-container{
-  @apply bg-gray-50 flex mx-auto w-[50%] max-w-xl rounded-lg shadow-xl py-6
-}
+/*.search-container{
+  @apply bg-gray-50  flex shadow-xl py-6
+}*/
 
-.search-form{
+/*.search-form{
   @apply flex flex-col mx-auto gap-1
-}
-
-.form-usuario{
-  @apply flex flex-col content-center justify-center mx-auto w-[450px] gap-1
-}
-
-.buttons{
-  @apply flex mx-auto gap-3 mt-4
-}
-
-.container-usuario input, .container-usuario select, .form-usuario input, .form-usuario select{
+}*/
+/*.container-usuario input, .container-usuario select, .form-usuario input, .form-usuario select{
   @apply w-full mb-2
-}
+}*/
+
+

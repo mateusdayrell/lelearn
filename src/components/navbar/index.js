@@ -10,7 +10,6 @@ import {
 
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
 import './styles.css';
 import * as actions from '../../store/modules/auth/actions';
 import history from '../../services/history';

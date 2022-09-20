@@ -6,12 +6,10 @@ import Modal from 'react-modal';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import { isEmail, isMobilePhone } from 'validator';
-
 import axios from '../../../services/axios';
 import Loading from '../../../components/Loading';
 import Navbar from '../../../components/Navbar';
 import './style.css';
-
 export default function Usuario() {
   const [usuarios, setUsuarios] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -234,17 +232,18 @@ export default function Usuario() {
     setIsUpdating(false);
     clearModal();
   };
-
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <Loading isLoading={isLoading} />
 
       <div className="container-usuario">
+         <h1 className='title'>Gestao de Usuario</h1>
         <div className="search-container">
           <div className="search-form">
-            <label>CPF</label>
+
             <input
+              className='input-style'
               type="text"
               name="cpf"
               placeholder="CPF"
@@ -252,8 +251,9 @@ export default function Usuario() {
               onChange={(e) => setSearchCpf(e.target.value)}
             />
 
-            <label>Nome</label>
+
             <input
+              className='input-style'
               type="text"
               name="nome"
               placeholder="Nome"
@@ -261,8 +261,9 @@ export default function Usuario() {
               onChange={(e) => setSearchNome(e.target.value)}
             />
 
-            <label>Tipo</label>
+
             <select
+              className='input-style'
               name="tipo"
               id="tipo"
               defaultValue={searchTipo}
@@ -275,7 +276,7 @@ export default function Usuario() {
               <option value="1">Usuário comum</option>
             </select>
 
-            <div className="buttons">
+            <div className="flex">
               <button className="btn" type="button" onClick={handleSearch}>
                 Pesquisar
               </button>
@@ -286,30 +287,31 @@ export default function Usuario() {
           </div>
         </div>
 
-        <div className="usuario-content">
-          <div className="overflow-auto rounded-lg shadow-xl">
-            <table className="w-full border-separate">
-              <thead className="bg-gray-100 border-b-2 border-gray-200 ">
-                <tr>
-                  <th className="min-w-36 p-3 font-semibold tracking-wide text-center">
+        <div className="w-[98%] bg-white h-[1px] mx-3 my-6"></div>
+          <div className="bg-[#1E1E1E] border-2 border-[#1E1E1E] rounded-xl p-6 my-2">
+            <div className='bg-[#1E1E1E] shadow-xl py-[16px 0 16px 16px]'>
+            <table className="w-[100%]">
+              <thead className="bg-[#00B37E] text-white items-center m-4 ">
+                <tr className='items-center p-1 m-3 border-2 border-[#1E1E1E] rounded-xl'>
+                  <th className="p-3 font-semibold tracking-wide text-center">
                     CPF
                   </th>
                   <th className="p-3 font-semibold tracking-wide text-center">
                     Nome
                   </th>
-                  <th className="min-w-48 p-3 font-semibold tracking-wide text-center">
+                  <th className="p-3 font-semibold tracking-wide text-center">
                     Tipo
                   </th>
-                  <th className="min-w-48 p-3 font-semibold tracking-wide text-center">
+                  <th className="p-3 font-semibold tracking-wide text-center">
                     Ações
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-800 ">
+              <tbody className="w-[100%] "> {/*w-100%*/}
                 {usuarios.map((usuario) => (
                   <tr
                     key={usuario.cpf}
-                    className="even:bg-gray-50 odd:bg-white hover:bg-gray-200"
+                    className="even:bg-gray-50 odd:bg-white hover:bg-gray-200 border-4 border-[#1E1E1E] rounded-xl"
                   >
                     <td className="p-3 text-gray-700 text-center whitespace-nowrap">
                       {cpfValidator.format(usuario.cpf)}
