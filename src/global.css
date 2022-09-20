@@ -107,7 +107,7 @@ select {
   @apply bg-[#1E1E1E] shadow-xl py-[16px] w-[100%]    items-center border-2 border-[#1E1E1E] rounded-b-3xl
 }
 .title{
-  @apply text-[#00B37E]
+  @apply text-[#00B37E] mt-8 ml-10 font-thin
 }
 .search-form{
   @apply flex  items-center p-1 m-3 justify-around
