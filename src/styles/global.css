@@ -17,7 +17,7 @@ body {
 }
 
 html, body, #root {
-  @apply h-full bg-cinza-800;
+  @apply h-full bg-[#09090a];
 }
 
 a {
@@ -53,6 +53,26 @@ select {
   @apply bg-verde-100 hover:bg-verde-200 text-white font-semibold py-2 px-4 rounded-xl shadow m-1
 }
 
+.green-btn {
+  @apply bg-transparent hover:bg-verde-100 text-verde-100 font-semibold hover:text-white
+  py-2 px-4 border border-verde-100 hover:border-transparent rounded-xl
+}
+
+.blue-btn{
+  @apply bg-transparent hover:bg-blue-600 text-blue-500 font-semibold hover:text-white
+  py-0 px-3 border border-blue-500 hover:border-transparent rounded-xl
+}
+
+.red-btn{
+  @apply bg-transparent hover:bg-red-600 text-red-500 font-semibold hover:text-white
+  py-2 px-4 border border-red-500 hover:border-transparent rounded-xl
+}
+
+.yellow-btn{
+  @apply bg-transparent hover:bg-yellow-600 text-yellow-500 font-semibold hover:text-white
+  py-2 px-4 border border-yellow-500 hover:border-transparent rounded-xl
+}
+
 .round-blue-btn{
   @apply py-3 px-3 rounded-full shadow text-white bg-blue-500 hover:bg-blue-700
 }
@@ -64,19 +84,23 @@ select {
 
 /* --SEARCH-- */
 .title{
-  @apply text-[#00B37E] ml-10 font-thin text-xl
+  @apply text-[#00B37E] ml-10 mb-2 text-2xl font-semibold tracking-wide
 }
 
 .search-container{
-  @apply bg-[#1E1E1E] shadow-xl py-[16px] w-[100%] items-center border-2 border-[#1E1E1E] rounded-b-3xl
+  @apply bg-[#1E1E1E] shadow-xl pt-[10px] w-[100%] items-center border-2 border-[#1E1E1E] rounded-b-3xl
+}
+
+.search-title{
+  @apply text-[#FFFFFF] mb-[-10px] ml-8
 }
 
 .search-form{
-  @apply flex  items-center p-1 m-3 justify-around
+  @apply flex items-center p-1 m-2 justify-around
 }
 
 .search-input{
-  @apply bg-slate-50 border w-[20%] rounded-full py-1 px-2 text-start
+  @apply bg-slate-50 border w-[20%] rounded-full px-2 pl-3 text-start
 }
 /* --SEARCH-- */
 
@@ -87,3 +111,27 @@ select {
 /* .container-usuario input, .container-usuario select, .form-usuario input, .form-usuario select{
   @apply w-full bg-red-400
 } */
+
+table{
+  @apply w-[100%]
+}
+
+thead{
+  @apply bg-[#00B37E] text-white items-center m-4
+}
+
+thead tr {
+  @apply items-center p-1 m-3 border-2 border-[#1E1E1E]
+}
+
+tbody tr {
+  @apply even:bg-gray-100 odd:bg-white hover:bg-gray-200 border-4 border-[#1E1E1E]
+}
+
+th {
+  @apply p-3 font-semibold tracking-wide text-center
+}
+
+td {
+  @apply p-3 text-gray-700 text-center whitespace-nowrap
+}
