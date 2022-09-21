@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import { Switch } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
@@ -14,6 +15,7 @@ import Error from '../pages/Error';
 import Usuario from '../pages/Admin/Usuario';
 import GestaoVideos from '../pages/Admin/GestaoVideos';
 import GestaoCursos from '../pages/Admin/GestaoCursos';
+import GestaoTreinamentos from '../pages/Admin/GestaoTreinamentos';
 
 export default function Routes() {
   // const tipoUsuario = useSelector((state) => state.auth.usuario.tipo);
@@ -28,6 +30,7 @@ export default function Routes() {
       <MyRoute exact path="/usuarios" component={Usuario} isClosed />
       <MyRoute exact path="/gestao-videos" component={GestaoVideos} isClosed />
       <MyRoute exact path="/gestao-cursos" component={GestaoCursos} isClosed />
+      <MyRoute exact path="/gestao-treinamentos" component={GestaoTreinamentos} isClosed />
       <MyRoute exact path="/videos/:cod_video" component={Video} isClosed />
       <MyRoute path="*" component={Error} />
     </Switch>
