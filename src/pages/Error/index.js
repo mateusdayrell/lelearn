@@ -7,7 +7,7 @@ export default function Error() {
     <>
       <Navbar />
       <div className="container">
-        <h1>Página de erro</h1>
+        <h1 className="text-red-500">Página de erro!!!</h1>
       </div>
     </>
   );
