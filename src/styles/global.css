@@ -48,7 +48,7 @@ select {
   @apply bg-slate-50 border rounded-md py-1 px-2;
 }
 
-
+/* --BUTTONS-- */
 .btn{
   @apply bg-verde-100 hover:bg-verde-200 text-white font-semibold py-2 px-4 rounded-xl shadow m-1
 }
@@ -60,61 +60,30 @@ select {
 .round-red-btn{
   @apply py-3 px-3 rounded-full shadow text-white  bg-red-500 hover:bg-red-700
 }
+/* --BUTTONS-- */
 
-.Modal {
-  @apply absolute top-[10%] bg-[#121214] rounded-xl shadow-lg py-4 min-w-[32em];
-}
-
-.Modal .ModalHeader{
-  @apply flex pb-3 pl-8 font-bold text-lg justify-between
-}
-
-.Modal .ModalContent{
-  @apply  py-5 text-white
-}
-
-.Modal .ModalFooter{
-  @apply flex justify-end px-6 gap-4 pt-4
-}
-
-.Modal .CloseModal{
-  @apply mr-10 text-white hover:text-zinc-300 cursor-pointer transition-all
-}
-
-.Overlay {
-  @apply fixed top-0 left-0 right-0 bottom-0 bg-black/60 flex justify-center backdrop-blur-md overflow-auto
-}
-
-.Modal label{
-  @apply bg-[#323238] px-2 py-2 my-2 mx-6 rounded-t-md text-[#00B37E] border-b-2 border-[#00B37E] font-light text-sm
-}
-
-.Modal label input, .Modal label textarea, .Modal label select{
-  @apply border-none text-[white] bg-[#323238] w-full
-}
-
-.Modal span{
-  @apply text-white font-medium
-}
-
-.form-gestao{
-  @apply flex flex-col justify-center mx-auto w-[450px] gap-1
-}
-.container-usuario{
-  @apply flex flex-col gap-[17] p-10 bg-[#09090a] min-w-[670px]
-}
-.search-container{
-  @apply bg-[#1E1E1E] shadow-xl py-[16px] w-[100%]    items-center border-2 border-[#1E1E1E] rounded-b-3xl
-}
+/* --SEARCH-- */
 .title{
-  @apply text-[#00B37E] mt-8 ml-10 font-thin
+  @apply text-[#00B37E] ml-10 font-thin text-xl
 }
+
+.search-container{
+  @apply bg-[#1E1E1E] shadow-xl py-[16px] w-[100%] items-center border-2 border-[#1E1E1E] rounded-b-3xl
+}
+
 .search-form{
   @apply flex  items-center p-1 m-3 justify-around
 }
-.container-usuario input, .container-usuario select, .form-usuario input, .form-usuario select{
-  @apply w-full m-2
-}
-.input-style{
+
+.search-input{
   @apply bg-slate-50 border w-[20%] rounded-full py-1 px-2 text-start
 }
+/* --SEARCH-- */
+
+/* .form-gestao{
+  @apply flex flex-col justify-center mx-auto w-[450px] gap-1
+} */
+
+/* .container-usuario input, .container-usuario select, .form-usuario input, .form-usuario select{
+  @apply w-full bg-red-400
+} */
