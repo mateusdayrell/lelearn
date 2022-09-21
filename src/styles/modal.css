@@ -30,6 +30,10 @@
   @apply border-none text-[white] bg-[#323238] w-full
 }
 
+.Modal .ModalInput input:disabled  {
+  @apply text-slate-400 cursor-not-allowed;
+}
+
 .Modal span{
   @apply text-white font-medium
 }
