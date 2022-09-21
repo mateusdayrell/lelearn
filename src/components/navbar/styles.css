@@ -1,13 +1,14 @@
 
 .navbar{
-  background-color: #000;
+  background-color: #09090a;
   height: 10vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: fixed;
   width: 100%;
-  position: relative
+  position: relative;
+  border-bottom: 1px solid #ffff;
 }
 
 .navbar .nav-list{
