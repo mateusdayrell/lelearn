@@ -192,21 +192,23 @@ export default function GestaoVideos() {
     <>
       <Navbar />
       <Loading isLoading={isLoading} />
-      <div>
+      <div className="g-video-container">
+        <h1 className="title">Gestão de Vídeos</h1>
+
         <div className="search-container">
+          <p className="search-title">Pesquisar</p>
           <div className="search-form">
-            <label>Título</label>
             <input
               type="text"
+              className="search-input"
               name="titulo"
               placeholder="Título do vídeo"
               value={searchTitulo}
               onChange={(e) => setSearchTitulo(e.target.value)}
             />
-
-            <label>Curso</label>
             <select
               name="curso"
+              className="search-input"
               id="Curso"
               defaultValue={searchCurso}
               onChange={(e) => setSearchCurso(e.target.value)}
@@ -223,79 +225,72 @@ export default function GestaoVideos() {
                 : ''}
             </select>
 
-            <div className="buttons">
-              <button className="btn" type="button" onClick={handleSearch}>
+            <div className="flex gap-3">
+              <button
+                className="green-btn"
+                type="button"
+                onClick={handleSearch}
+              >
                 Pesquisar
               </button>
-              <button className="btn" type="button" onClick={clearSearch}>
+              <button className="red-btn" type="button" onClick={clearSearch}>
                 Limpar
               </button>
             </div>
           </div>
         </div>
 
-        <div className="overflow-auto rounded-lg shadow-xl">
-          <table className="w-full border-separate">
-            <thead className="bg-gray-100 border-b-2 border-gray-200 ">
-              <tr>
-                <th className="p-3 font-semibold tracking-wide text-center">
-                  Código
-                </th>
-                <th className="p-3 font-semibold tracking-wide text-center">
-                  Título
-                </th>
-                <th className="p-3 font-semibold tracking-wide text-center">
-                  Curso
-                </th>
-                <th className="p-3 font-semibold tracking-wide text-center">
-                  Ações
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-800 ">
-              {videos.map((video) => (
-                <tr
-                  key={video.cod_video}
-                  className="even:bg-gray-50 odd:bg-white hover:bg-gray-200"
-                >
-                  <td className="p-3 text-gray-700 text-center whitespace-nowrap">
-                    {video.cod_video}
-                  </td>
-                  <td className="p-3 text-gray-700 text-center whitespace-nowrap">
-                    {video.titulo_video}
-                  </td>
-                  <td className="p-3 text-gray-700 text-center whitespace-nowrap">
-                    {video.curso ? video.curso.nome_curso : video.cod_curso}
-                  </td>
-                  <td className="p-3 text-gray-700 text-center whitespace-nowrap flex justify-center gap-2">
-                    <button
-                      type="button"
-                      className="round-blue-btn"
-                      onClick={() => handleIsUpdating(video)}
-                    >
-                      <FaPencilAlt />
-                    </button>
-                    <button
-                      type="button"
-                      className="round-red-btn"
-                      onClick={() => handleIsDeleting(video.cod_video)}
-                    >
-                      <FaTrashAlt />
-                    </button>
-                  </td>
+        <div className="w-[98%] h-[1px] mx-3 my-6" />
+        <div className="bg-[#1E1E1E] border-2 border-[#1E1E1E] rounded-xl p-6 my-2">
+          <div className="bg-[#1E1E1E] shadow-xl py-[16px 0 16px 16px]">
+            <table>
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Título</th>
+                  <th>Curso</th>
+                  <th>Ações</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {videos.map((video) => (
+                  <tr key={video.cod_video}>
+                    <td className="">{video.cod_video}</td>
+                    <td className="">{video.titulo_video}</td>
+                    <td className="">
+                      {video.curso ? video.curso.nome_curso : video.cod_curso}
+                    </td>
+                    <td className="border-r-2">
+                      <span className="flex justify-center gap-2">
+                        <button
+                          type="button"
+                          className="round-blue-btn"
+                          onClick={() => handleIsUpdating(video)}
+                        >
+                          <FaPencilAlt />
+                        </button>
+                        <button
+                          type="button"
+                          className="round-red-btn"
+                          onClick={() => handleIsDeleting(video.cod_video)}
+                        >
+                          <FaTrashAlt />
+                        </button>
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <button
+            className="btn mx-auto my-5"
+            type="button"
+            onClick={() => setShowFormModal(true)}
+          >
+            Cadastrar
+          </button>
         </div>
-
-        <button
-          className="btn mx-auto my-5"
-          type="button"
-          onClick={() => setShowFormModal(true)}
-        >
-          Cadastrar
-        </button>
 
         <Modal
           isOpen={shwoFormModal}
@@ -312,68 +307,77 @@ export default function GestaoVideos() {
           </div>
           <div className="ModalContent">
             <div className="form-gestao-video">
-              <label>Código</label>
-              <input
-                type="text"
-                name="cod_video"
-                placeholder="Código"
-                disabled={!!isUpdating}
-                value={codVideo}
-                onChange={(e) => setCodVideo(e.target.value)}
-              />
+              <div className="ModalInput">
+                <label>Código</label>
+                <input
+                  type="text"
+                  name="cod_video"
+                  placeholder="Código"
+                  disabled={!!isUpdating}
+                  value={codVideo}
+                  onChange={(e) => setCodVideo(e.target.value)}
+                />
+              </div>
 
-              <label>Curso</label>
-              <select
-                name="curso"
-                defaultValue={codCurso}
-                onChange={(e) => setCodCurso(e.target.value)}
-              >
-                <option value="" disabled selected={codCurso === ''}>
-                  Selecione um curso
-                </option>
-                {cursos.length > 0
-                  ? cursos.map((item) => (
-                      <option key={item.cod_curso} value={item.cod_curso}>
-                        {item.nome_curso}
-                      </option>
-                    ))
-                  : ''}
-              </select>
+              <div className="ModalInput">
+                <label>Curso</label>
+                <select
+                  name="curso"
+                  defaultValue={codCurso}
+                  onChange={(e) => setCodCurso(e.target.value)}
+                >
+                  <option value="" disabled selected={codCurso === ''}>
+                    Selecione um curso
+                  </option>
+                  {cursos.length > 0
+                    ? cursos.map((item) => (
+                        <option key={item.cod_curso} value={item.cod_curso}>
+                          {item.nome_curso}
+                        </option>
+                      ))
+                    : ''}
+                </select>
+              </div>
 
-              <label>Título</label>
-              <input
-                type="text"
-                name="titulo"
-                placeholder="Título"
-                maxLength="40"
-                value={titulo}
-                onChange={(e) => setTitulo(e.target.value)}
-              />
+              <div className="ModalInput">
+                <label>Título</label>
+                <input
+                  type="text"
+                  name="titulo"
+                  placeholder="Título"
+                  maxLength="40"
+                  value={titulo}
+                  onChange={(e) => setTitulo(e.target.value)}
+                />
+              </div>
 
-              <label>Link</label>
-              <input
-                type="text"
-                name="link"
-                placeholder="Link"
-                maxLength="150"
-                value={link}
-                onChange={(e) => setLink(e.target.value)}
-              />
-
-              <label>Descrição</label>
-              <textarea
-                name="descricao"
-                placeholder="Descrição"
-                value={descricao}
-                onChange={(e) => setDescricao(e.target.value)}
-              />
+              <div className="ModalInput">
+                <label>Link</label>
+                <input
+                  type="text"
+                  name="link"
+                  placeholder="Link"
+                  maxLength="150"
+                  value={link}
+                  onChange={(e) => setLink(e.target.value)}
+                />
+              </div>
+              <div className="ModalInput">
+                <label>Descrição</label>
+                <textarea
+                  name="descricao"
+                  placeholder="Descrição"
+                  value={descricao}
+                  onChange={(e) => setDescricao(e.target.value)}
+                />
+              </div>
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="btn" type="button" onClick={clearModal}>
+            <button className="red-btn" type="button" onClick={clearModal}>
               Limpar
             </button>
-            <button className="btn" type="button" onClick={handleSubmit}>
+            <button className="green-btn" type="button" onClick={handleSubmit}>
               {isUpdating ? 'Atualizar' : 'Salvar'}
             </button>
           </div>
@@ -401,11 +405,11 @@ export default function GestaoVideos() {
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="btn" type="button" onClick={handleClose}>
+            <button className="yellow-btn" type="button" onClick={handleClose}>
               Cancelar
             </button>
             <button
-              className="btn"
+              className="red-btn"
               type="button"
               onClick={() => handleDelete(codVideo)}
             >

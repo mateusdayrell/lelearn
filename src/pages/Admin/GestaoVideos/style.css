@@ -1,3 +1,7 @@
+.g-video-container{
+  @apply flex flex-col gap-[17] px-10 py-3 bg-[#09090a] min-w-[670px]
+}
+
 .form-gestao-video{
   @apply flex flex-col justify-center mx-auto w-[450px] gap-1
 }
@@ -8,4 +12,14 @@
 
 .form-gestao-video input, .form-gestao-video select, .form-gestao-video textarea{
   @apply w-full
+}
+
+.g-video-container tr td:nth-child(4),
+.g-video-container tr th:nth-child(4) {
+  border-radius: 0 0.625rem 0.625rem 0;
+}
+
+.g-video-container tr td:nth-child(1),
+.g-video-container tr th:nth-child(1) {
+  border-radius: 0.625rem 0 0 0.625rem;
 }
