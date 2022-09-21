@@ -238,7 +238,7 @@ export default function Usuario() {
       <Loading isLoading={isLoading} />
 
       <div className="container-usuario">
-         <h1 className='title'>Gestao de Usuario</h1>
+         <h1 className='title'>Gestão de Usuários</h1>
         <div className="search-container">
           <div className="search-form">
 
