@@ -10,6 +10,7 @@ import axios from '../../../services/axios';
 import Loading from '../../../components/Loading';
 import Navbar from '../../../components/Navbar';
 import './style.css';
+
 export default function Usuario() {
   const [usuarios, setUsuarios] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -234,16 +235,16 @@ export default function Usuario() {
   };
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <Loading isLoading={isLoading} />
 
       <div className="container-usuario">
-         <h1 className='title'>Gestão de Usuários</h1>
+        <h1 className="title">Gestão de Usuários</h1>
         <div className="search-container">
+          <p className="search-title">Pesquisar</p>
           <div className="search-form">
-
             <input
-              className='input-style'
+              className="search-input"
               type="text"
               name="cpf"
               placeholder="CPF"
@@ -251,9 +252,8 @@ export default function Usuario() {
               onChange={(e) => setSearchCpf(e.target.value)}
             />
 
-
             <input
-              className='input-style'
+              className="search-input"
               type="text"
               name="nome"
               placeholder="Nome"
@@ -261,9 +261,8 @@ export default function Usuario() {
               onChange={(e) => setSearchNome(e.target.value)}
             />
 
-
             <select
-              className='input-style'
+              className="search-input"
               name="tipo"
               id="tipo"
               defaultValue={searchTipo}
@@ -276,67 +275,58 @@ export default function Usuario() {
               <option value="1">Usuário comum</option>
             </select>
 
-            <div className="flex">
-              <button className="btn" type="button" onClick={handleSearch}>
+            <div className="flex gap-3">
+              <button
+                className="green-btn"
+                type="button"
+                onClick={handleSearch}
+              >
                 Pesquisar
               </button>
-              <button className="btn" type="button" onClick={clearSearch}>
+              <button className="red-btn" type="button" onClick={clearSearch}>
                 Limpar
               </button>
             </div>
           </div>
         </div>
 
-        <div className="w-[98%] bg-white h-[1px] mx-3 my-6"></div>
-          <div className="bg-[#1E1E1E] border-2 border-[#1E1E1E] rounded-xl p-6 my-2">
-            <div className='bg-[#1E1E1E] shadow-xl py-[16px 0 16px 16px]'>
-            <table className="w-[100%]">
-              <thead className="bg-[#00B37E] text-white items-center m-4 ">
-                <tr className='items-center p-1 m-3 border-2 border-[#1E1E1E] rounded-xl'>
-                  <th className="p-3 font-semibold tracking-wide text-center">
-                    CPF
-                  </th>
-                  <th className="p-3 font-semibold tracking-wide text-center">
-                    Nome
-                  </th>
-                  <th className="p-3 font-semibold tracking-wide text-center">
-                    Tipo
-                  </th>
-                  <th className="p-3 font-semibold tracking-wide text-center">
-                    Ações
-                  </th>
+        <div className="w-[98%] h-[1px] mx-3 my-6" />
+        <div className="bg-[#1E1E1E] border-2 border-[#1E1E1E] rounded-xl p-6 my-2">
+          <div className="bg-[#1E1E1E] shadow-xl py-[16px 0 16px 16px]">
+            <table>
+              <thead>
+                <tr>
+                  <th>CPF</th>
+                  <th>Nome</th>
+                  <th>Tipo</th>
+                  <th>Ações</th>
                 </tr>
               </thead>
-              <tbody className="w-[100%] "> {/*w-100%*/}
+              <tbody>
                 {usuarios.map((usuario) => (
-                  <tr
-                    key={usuario.cpf}
-                    className="even:bg-gray-50 odd:bg-white hover:bg-gray-200 border-4 border-[#1E1E1E] rounded-xl"
-                  >
-                    <td className="p-3 text-gray-700 text-center whitespace-nowrap">
-                      {cpfValidator.format(usuario.cpf)}
-                    </td>
-                    <td className="p-3 text-gray-700 text-center whitespace-nowrap">
-                      {usuario.nome}
-                    </td>
-                    <td className="p-3 text-gray-700 text-center whitespace-nowrap">
+                  <tr key={usuario.cpf}>
+                    <td>{cpfValidator.format(usuario.cpf)}</td>
+                    <td>{usuario.nome}</td>
+                    <td>
                       {usuario.tipo === 0 ? 'Administrador' : 'Usuário comum'}
                     </td>
-                    <td className="p-3 text-gray-700 text-center whitespace-nowrap flex justify-center gap-2">
-                      <button
-                        type="button"
-                        className="round-blue-btn"
-                        onClick={() => handleIsUpdating(usuario)}
-                      >
-                        <FaPencilAlt />
-                      </button>
-                      <button
-                        type="button"
-                        className="round-red-btn"
-                        onClick={() => handleIsDeleting(usuario.cpf)}
-                      >
-                        <FaTrashAlt />
-                      </button>
+                    <td className="border-r-2">
+                      <span className="flex justify-center gap-2">
+                        <button
+                          type="button"
+                          className="round-blue-btn"
+                          onClick={() => handleIsUpdating(usuario)}
+                        >
+                          <FaPencilAlt />
+                        </button>
+                        <button
+                          type="button"
+                          className="round-red-btn"
+                          onClick={() => handleIsDeleting(usuario.cpf)}
+                        >
+                          <FaTrashAlt />
+                        </button>
+                      </span>
                     </td>
                   </tr>
                 ))}
@@ -367,88 +357,111 @@ export default function Usuario() {
           </div>
           <div className="ModalContent">
             <div className="form-usuario">
-              <label>CPF</label>
-              <input
-                id="cpf"
-                type="text"
-                name="cpf"
-                placeholder="CPF"
-                value={cpfValidator.format(cpf)}
-                maxLength={11}
-                disabled={!!isUpdating}
-                onChange={(e) => setCpf(e.target.value)}
-              />
-              <label>Nome</label>
-              <input
-                type="text"
-                name="nome"
-                placeholder="Nome"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-              />
-              <label>Telefone</label>
-              <input
-                type="text"
-                name="telefone"
-                placeholder="Telefone"
-                maxLength={11}
-                value={telefone}
-                onChange={(e) => setTelefone(e.target.value)}
-              />
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <label>Senha</label>
-              <input
-                type="password"
-                name="password"
-                placeholder="Senha"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <label>Confirmar senha</label>
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirmar senha"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-              <label>Tipo</label>
-              <select
-                name="tipo"
-                id="tipo"
-                defaultValue={tipo}
-                onChange={(e) => setTipo(e.target.value)}
-              >
-                <option value="" disabled selected>
-                  Selecione um tipo
-                </option>
-                <option value="0">Administrador</option>
-                <option value="1">Usuário comum</option>
-              </select>
-              <label>Data Nascimento</label>
-              <input
-                type="date"
-                value={dataNasc}
-                onChange={(e) =>
-                  setDataNasc(
-                    moment(e.target.value, 'YYYY-MM-DD').format('DD/MM/YYYY')
-                  )
-                }
-              />
+              <div className="ModalInput">
+                <label>CPF</label>
+                <input
+                  id="cpf"
+                  type="text"
+                  name="cpf"
+                  placeholder="CPF"
+                  value={cpfValidator.format(cpf)}
+                  maxLength={11}
+                  disabled={!!isUpdating}
+                  onChange={(e) => setCpf(e.target.value)}
+                />
+              </div>
+
+              <div className="ModalInput">
+                <label>Nome</label>
+                <input
+                  type="text"
+                  name="nome"
+                  placeholder="Nome"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                />
+              </div>
+
+              <div className="ModalInput">
+                <label>Telefone</label>
+                <input
+                  type="text"
+                  name="telefone"
+                  placeholder="Telefone"
+                  maxLength={11}
+                  value={telefone}
+                  onChange={(e) => setTelefone(e.target.value)}
+                />
+              </div>
+
+              <div className="ModalInput">
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+
+              <div className="ModalInput">
+                <label>Senha</label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Senha"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+
+              <div className="ModalInput">
+                <label>Confirmar senha</label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirmar senha"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+              </div>
+
+              <div className="ModalInput">
+                <label>Tipo</label>
+                <select
+                  name="tipo"
+                  id="tipo"
+                  defaultValue={tipo}
+                  onChange={(e) => setTipo(e.target.value)}
+                >
+                  <option value="" disabled selected>
+                    Selecione um tipo
+                  </option>
+                  <option value="0">Administrador</option>
+                  <option value="1">Usuário comum</option>
+                </select>
+              </div>
+
+              <div className="ModalInput">
+                <label>Data Nascimento</label>
+                <input
+                  type="date"
+                  value={dataNasc}
+                  onChange={(e) =>
+                    setDataNasc(
+                      moment(e.target.value, 'YYYY-MM-DD').format('DD/MM/YYYY')
+                    )
+                  }
+                />
+              </div>
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="btn" type="button" onClick={clearModal}>
+            <button className="red-btn" type="button" onClick={clearModal}>
               Limpar
             </button>
-            <button className="btn" type="submit" onClick={handleSubmit}>
+            <button className="green-btn" type="submit" onClick={handleSubmit}>
               {isUpdating ? 'Atualizar' : 'Salvar'}
             </button>
           </div>
@@ -478,11 +491,11 @@ export default function Usuario() {
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="btn" type="button" onClick={handleClose}>
+            <button className="yellow-btn" type="button" onClick={handleClose}>
               Cancelar
             </button>
             <button
-              className="btn"
+              className="red-btn"
               type="button"
               onClick={() => handleDelete(cpf)}
             >
