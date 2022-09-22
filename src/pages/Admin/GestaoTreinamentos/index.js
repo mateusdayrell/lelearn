@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
-// import Modal from 'react-modal';
-// import { get } from 'lodash';
+import Modal from 'react-modal';
+import { get } from 'lodash';
+import Multiselect from 'react-widgets/Multiselect';
 
 import './style.css';
 import Loading from '../../../components/Loading';
@@ -14,20 +15,20 @@ export default function GestaoTreinamentos() {
   const [usuarios, setUsuarios] = useState([]);
   const [cursos, setCursos] = useState([]);
 
-  // const [codVideo, setCodTreinamento] = useState('');
-  // const [codCurso, setCodCurso] = useState('');
-  // const [titulo, setTitulo] = useState('');
-  // const [descricao, setDescricao] = useState('');
-  // const [link, setLink] = useState('');
+  const [codTreinamento, setCodTreinamento] = useState('');
+  const [nome, setNome] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [treinUsuarios, setTreinUsuarios] = useState([]);
+  const [treinCursos, setTreinCursos] = useState([]);
 
   const [searchNome, setSearchNome] = useState('');
   const [searchUsuario, setSearchUsuario] = useState('');
   const [searchCurso, setSearchCurso] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
-  // const [shwoFormModal, setShowFormModal] = useState(false);
-  // const [showDeleteModal, setShowDeleteModal] = useState(false);
-  // const [isUpdating, setIsUpdating] = useState(false);
+  const [shwoFormModal, setShowFormModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
     loadRegisters();
@@ -52,10 +53,35 @@ export default function GestaoTreinamentos() {
     }
   };
 
+  // const formatArray = (data, tipo) => {
+  //   const array = []
+
+  //   if (tipo === 'usuarios') {
+  //     data.forEach(usuario => {
+  //       const obj = {
+  //         value: usuario.cpf,
+  //         label: usuario.nome
+  //       }
+  //       array.push(obj)
+  //     })
+  //   }
+  //   else {
+  //     data.forEach(cursos => {
+  //       const obj = {
+  //         value: cursos.cod_curso,
+  //         label: cursos.nome_curso
+  //       }
+  //       array.push(obj)
+  //     })
+  //   }
+  //   console.log(array)
+  //   return array;
+  // }
+
   const handleSearch = async () => {
     const querys = new URLSearchParams({
       nome_treinamento: searchNome,
-      cpf: searchCurso,
+      cpf: searchUsuario,
       cod_curso: searchCurso,
     }).toString();
 
@@ -72,49 +98,52 @@ export default function GestaoTreinamentos() {
     }
   };
 
-  // const handleSubmit = async (e) => {
-  // e.preventDefault();
-  // if (!validateForm()) return;
-  // try {
-  //   const regTemp = {
-  //     cod_video: codVideo,
-  //     cod_curso: codCurso,
-  //     titulo_video: titulo,
-  //     link,
-  //     desc_video: descricao,
-  //   };
-  //   setIsLoading(true);
-  //   if (isUpdating) {
-  //     await axios.put(`/treinamentos/${codVideo}`, regTemp);
-  //     toast.success('Vídeo atualizado com sucesso!');
-  //   } else {
-  //     await axios.post('/treinamentos', regTemp);
-  //     toast.success('Vídeo cadastrado com sucesso!');
-  //   }
-  //   setIsLoading(false);
-  //   handleClose();
-  //   setIsUpdating(false);
-  //   loadRegisters();
-  // } catch (error) {
-  //   setIsLoading(false);
-  //   const erros = get(error, 'response.data.erros', []);
-  //   erros.map((err) => toast.error(err));
-  // }
-  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // if (!validateForm()) return;
 
-  // const handleDelete = async () => {
-  // handleClose();
-  // setIsLoading(true);
-  // try {
-  //   await axios.delete(`/treinamentos/${codigo}`);
-  //   setIsLoading(false);
-  //   toast.success('Vídeo excluído com sucesso!');
-  //   await loadRegisters();
-  // } catch (error) {
-  //   setIsLoading(false);
-  //   const { erros } = error.response.data;
-  //   erros.map((err) => toast.error(err));
-  // }
+    const regTemp = {
+      cod_treinamento: codTreinamento,
+      nome_treinamento: nome,
+      desc_treinamento: descricao,
+      usuarios: treinUsuarios,
+      cursos: treinCursos,
+    };
+
+    try {
+      setIsLoading(true);
+      if (isUpdating) {
+        await axios.put(`/treinamentos/${codTreinamento}`, regTemp);
+
+        toast.success('Treinamento atualizado com sucesso!');
+      } else {
+        await axios.post('/treinamentos', regTemp);
+        toast.success('Treinamento cadastrado com sucesso!');
+      }
+      setIsLoading(false);
+      handleClose();
+      setIsUpdating(false);
+      loadRegisters();
+    } catch (error) {
+      setIsLoading(false);
+      const erros = get(error, 'response.data.erros', []);
+      erros.map((err) => toast.error(err));
+    }
+  };
+
+  // const handleDelete = async (codigo) => {
+  //   handleClose();
+  //   setIsLoading(true);
+  //   try {
+  //     await axios.delete(`/treinamentos/${codigo}`);
+  //     setIsLoading(false);
+  //     toast.success('Treinamento excluído com sucesso!');
+  //     await loadRegisters();
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //     const { erros } = error.response.data;
+  //     erros.map((err) => toast.error(err));
+  //   }
   // };
 
   // const validateForm = () => {
@@ -152,42 +181,45 @@ export default function GestaoTreinamentos() {
   //   return controle;
   // };
 
-  const handleIsUpdating = () => {
-    // setIsUpdating(true);
-    // setShowFormModal(true);
-    // setCodTreinamento(vid.cod_video);
-    // setTitulo(vid.titulo_video);
-    // setCodCurso(vid.cod_curso);
-    // setLink(vid.link);
-    // setDescricao(vid.desc_video);
-    // setShowDeleteModal(false);
+  const handleIsUpdating = (treinamento) => {
+    setIsUpdating(true);
+    setShowFormModal(true);
+    setShowDeleteModal(false);
+
+    setCodTreinamento(treinamento.cod_treinamento);
+    setNome(treinamento.nome_treinamento);
+    setDescricao(treinamento.desc_treinamento);
+    setTreinUsuarios(treinamento.usuarios);
+    setTreinCursos(treinamento.cursos);
   };
 
-  const handleIsDeleting = () => {
-    // setCodTreinamento(cod);
-    // setShowDeleteModal(true);
+  const handleIsDeleting = (cod) => {
+    setCodTreinamento(cod);
+    setShowDeleteModal(true);
+    setShowFormModal(false);
   };
 
   const clearSearch = () => {
-    // setSearchTitulo('');
-    // setSearchCurso('');
-    // loadRegisters();
+    setSearchNome('');
+    setSearchUsuario('');
+    setSearchCurso('');
+    loadRegisters();
   };
 
-  // const handleClose = () => {
-  // setShowFormModal(false);
-  // setShowDeleteModal(false);
-  // setIsUpdating(false);
-  // clearModal();
-  // };
+  const handleClose = () => {
+    setShowFormModal(false);
+    setShowDeleteModal(false);
+    setIsUpdating(false);
+    clearModal();
+  };
 
-  // const clearModal = () => {
-  // setCodTreinamento('');
-  // setCodCurso('');
-  // setTitulo('');
-  // setLink('');
-  // setDescricao('');
-  // };
+  const clearModal = () => {
+    setCodTreinamento('');
+    setNome('');
+    setDescricao('');
+    setTreinUsuarios([]);
+    setTreinCursos([]);
+  };
 
   return (
     <>
@@ -219,8 +251,8 @@ export default function GestaoTreinamentos() {
               </option>
               {usuarios.length > 0
                 ? usuarios.map((u) => (
-                    <option key={u.cod_curso} value={u.cod_curso}>
-                      {u.nome_curso}
+                    <option key={u.cpf} value={u.cpf}>
+                      {u.nome}
                     </option>
                   ))
                 : ''}
@@ -305,13 +337,13 @@ export default function GestaoTreinamentos() {
           <button
             className="btn mx-auto my-5"
             type="button"
-            // onClick={() => setShowFormModal(true)}
+            onClick={() => setShowFormModal(true)}
           >
             Cadastrar
           </button>
         </div>
 
-        {/* <Modal
+        <Modal
           isOpen={shwoFormModal}
           onRequestClose={handleClose}
           className="Modal"
@@ -324,63 +356,33 @@ export default function GestaoTreinamentos() {
               x
             </button>
           </div>
+
           <div className="ModalContent">
             <div className="form-gestao-video">
               <div className="ModalInput">
                 <label>Código</label>
                 <input
                   type="text"
-                  name="cod_video"
+                  name="cod_treinamento"
                   placeholder="Código"
                   disabled={!!isUpdating}
-                  value={codVideo}
+                  value={codTreinamento}
                   onChange={(e) => setCodTreinamento(e.target.value)}
                 />
               </div>
 
               <div className="ModalInput">
-                <label>Curso</label>
-                <select
-                  name="curso"
-                  defaultValue={codCurso}
-                  onChange={(e) => setCodCurso(e.target.value)}
-                >
-                  <option value="" disabled selected={codCurso === ''}>
-                    Selecione um curso
-                  </option>
-                  {cursos.length > 0
-                    ? cursos.map((item) => (
-                        <option key={item.cod_curso} value={item.cod_curso}>
-                          {item.nome_curso}
-                        </option>
-                      ))
-                    : ''}
-                </select>
-              </div>
-
-              <div className="ModalInput">
-                <label>Título</label>
+                <label>Nome</label>
                 <input
                   type="text"
-                  name="titulo"
-                  placeholder="Título"
+                  name="nome"
+                  placeholder="Nome"
                   maxLength="40"
-                  value={titulo}
-                  onChange={(e) => setTitulo(e.target.value)}
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
                 />
               </div>
 
-              <div className="ModalInput">
-                <label>Link</label>
-                <input
-                  type="text"
-                  name="link"
-                  placeholder="Link"
-                  maxLength="150"
-                  value={link}
-                  onChange={(e) => setLink(e.target.value)}
-                />
-              </div>
               <div className="ModalInput">
                 <label>Descrição</label>
                 <textarea
@@ -390,6 +392,64 @@ export default function GestaoTreinamentos() {
                   onChange={(e) => setDescricao(e.target.value)}
                 />
               </div>
+
+              <div className="ModalInput">
+                <label>Vincular usuários</label>
+                <Multiselect
+                  dataKey="cpf"
+                  textField="nome"
+                  data={usuarios}
+                  defaultValue={treinUsuarios}
+                  onChange={(e) => setTreinUsuarios(e)}
+                />
+              </div>
+
+              <div className="ModalInput">
+                <label>Vincular cursos</label>
+                <Multiselect
+                  dataKey="cod_curso"
+                  textField="nome_curso"
+                  data={cursos}
+                  defaultValue={treinCursos}
+                  onChange={(e) => setTreinCursos(e)}
+                />
+              </div>
+
+              {/* <div className="ModalInput">
+                <select
+                  name="usuario"
+                  onChange={(e) => setTreinUsuarios(e.target.value)}
+                >
+                  <option value="" disabled selected>
+                    Selecione um usuário
+                  </option>
+                  {usuarios.length > 0
+                    ? usuarios.map((u) => (
+                        <option key={u.cpf} value={u.cpf}>
+                          {u.nome}
+                        </option>
+                      ))
+                    : ''}
+                </select>
+              </div>
+
+              <div className="ModalInput">
+                <select
+                  name="curso"
+                  onChange={(e) => setTreinCursos(e.target.value)}
+                >
+                  <option value="" disabled selected>
+                    Selecione um curso
+                  </option>
+                  {cursos.length > 0
+                    ? cursos.map((c) => (
+                        <option key={c.cod_curso} value={c.cod_curso}>
+                          {c.nome_curso}
+                        </option>
+                      ))
+                    : ''}
+                </select>
+              </div> */}
             </div>
           </div>
           <div className="ModalFooter">
@@ -402,7 +462,7 @@ export default function GestaoTreinamentos() {
           </div>
         </Modal>
 
-        <Modal
+        {/* <Modal
           isOpen={showDeleteModal}
           onRequestClose={handleClose}
           className="Modal"
