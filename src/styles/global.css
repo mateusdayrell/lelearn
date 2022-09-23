@@ -17,7 +17,7 @@ body {
 }
 
 html, body, #root {
-  @apply h-full bg-[#09090a];
+  @apply h-full bg-[#09090A];
 }
 
 a {
@@ -64,21 +64,21 @@ select {
 }
 
 .red-btn{
-  @apply bg-transparent hover:bg-red-600 text-red-500 font-semibold hover:text-white
-  py-2 px-4 border border-red-500 hover:border-transparent rounded-xl
+  @apply bg-transparent hover:bg-vermelho-100 text-vermelho-100 font-semibold hover:text-white
+  py-2 px-4 border border-vermelho-100 hover:border-transparent rounded-xl
 }
 
 .yellow-btn{
-  @apply bg-transparent hover:bg-yellow-600 text-yellow-500 font-semibold hover:text-white
-  py-2 px-4 border border-yellow-500 hover:border-transparent rounded-xl
+  @apply bg-transparent hover:bg-laranja-100 text-laranja-100 font-semibold hover:text-white
+  py-2 px-4 border border-laranja-100 hover:border-transparent rounded-xl
 }
 
 .round-blue-btn{
-  @apply py-3 px-3 rounded-full shadow text-white bg-blue-500 hover:bg-blue-700
+  @apply py-3 px-3 rounded-full shadow text-white bg-azul-100 hover:bg-blue-700
 }
 
 .round-red-btn{
-  @apply py-3 px-3 rounded-full shadow text-white  bg-red-500 hover:bg-red-700
+  @apply py-3 px-3 rounded-full shadow text-white  bg-vermelho-100 hover:bg-red-700
 }
 /* --BUTTONS-- */
 
@@ -88,7 +88,7 @@ select {
 }
 
 .search-container{
-  @apply bg-[#1E1E1E] shadow-xl pt-[10px] w-[100%] items-center border-2 border-[#1E1E1E] rounded-b-3xl
+  @apply bg-[#121214] shadow-xl pt-[10px] w-[100%] items-center rounded-b-3xl
 }
 
 .search-title{
@@ -121,11 +121,11 @@ thead{
 }
 
 thead tr {
-  @apply items-center p-1 m-3 border-2 border-[#1E1E1E]
+  @apply items-center p-1 m-3 border-2 border-[#09090A]
 }
 
 tbody tr {
-  @apply even:bg-gray-100 odd:bg-white hover:bg-gray-200 border-4 border-[#1E1E1E]
+  @apply even:bg-gray-100 odd:bg-white hover:bg-gray-200 border-[5px] border-[#09090A]
 }
 
 th {
