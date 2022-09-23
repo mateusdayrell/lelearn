@@ -73,7 +73,6 @@ export default function GestaoVideos() {
 
     try {
       const regTemp = {
-        cod_video: codVideo,
         cod_curso: codCurso,
         titulo_video: titulo,
         link,
@@ -118,11 +117,6 @@ export default function GestaoVideos() {
 
   const validateForm = () => {
     let controle = true;
-
-    if (!codVideo) {
-      toast.error('Preencha o campo Código!');
-      controle = false;
-    }
 
     if (!titulo) {
       toast.error('Preencha o campo Título!');
@@ -307,17 +301,19 @@ export default function GestaoVideos() {
           </div>
           <div className="ModalContent">
             <div className="form-gestao-video">
-              <div className="ModalInput">
-                <label>Código</label>
-                <input
-                  type="text"
-                  name="cod_video"
-                  placeholder="Código"
-                  disabled={!!isUpdating}
-                  value={codVideo}
-                  onChange={(e) => setCodVideo(e.target.value)}
-                />
-              </div>
+              {isUpdating ?
+                <div className="ModalInput">
+                  <label>Código</label>
+                  <input
+                    type="text"
+                    name="cod_video"
+                    placeholder="Código"
+                    disabled
+                    value={codVideo}
+                    onChange={(e) => setCodVideo(e.target.value)}
+                  />
+                </div>
+                : '' }
 
               <div className="ModalInput">
                 <label>Curso</label>

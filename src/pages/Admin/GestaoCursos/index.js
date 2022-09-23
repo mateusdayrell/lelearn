@@ -30,7 +30,7 @@ export default function GestaoCursos() {
     setIsLoading(true);
     try {
       const { data } = await axios.get('/cursos/');
-      console.log(data);
+
       setIsLoading(false);
       setCursos(data);
     } catch (error) {
@@ -48,7 +48,7 @@ export default function GestaoCursos() {
     setIsLoading(true);
     try {
       const { data } = await axios.get(`/cursos/search/${querys}`);
-      console.log(data);
+
       setIsLoading(false);
       setCursos(data);
     } catch (error) {
@@ -63,7 +63,6 @@ export default function GestaoCursos() {
 
     try {
       const regTemp = {
-        cod_curso: codCurso,
         nome_curso: nome,
         desc_curso: descricao,
       };
@@ -106,11 +105,6 @@ export default function GestaoCursos() {
 
   const validateForm = () => {
     let validated = true;
-
-    if (!codCurso) {
-      toast.error('Preencha o campo Código!');
-      validated = false;
-    }
 
     if (!nome) {
       toast.error('Preencha o campo Nome!');
@@ -168,7 +162,6 @@ export default function GestaoCursos() {
       <div className="gestao-curso-conatiner">
         <div className="search-container">
           <div className="search-form">
-            <label>Título</label>
             <input
               type="text"
               name="titulo"
@@ -177,7 +170,7 @@ export default function GestaoCursos() {
               onChange={(e) => setSearchNome(e.target.value)}
             />
 
-            <div className="buttons">
+            <div className="flex gap-3">
               <button className="btn" type="button" onClick={handleSearch}>
                 Pesquisar
               </button>
@@ -192,18 +185,12 @@ export default function GestaoCursos() {
           <table className="w-full border-separate">
             <thead className="bg-gray-100 border-b-2 border-gray-200 ">
               <tr>
-                <th className="p-3 font-semibold tracking-wide text-center">
-                  Código
-                </th>
-                <th className="p-3 font-semibold tracking-wide text-center">
-                  Nome
-                </th>
-                <th className="p-3 font-semibold tracking-wide text-center">
-                  Ações
-                </th>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Ações</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-800 ">
+            <tbody>
               {cursos.map((curso) => (
                 <tr
                   key={curso.cod_curso}
@@ -260,33 +247,43 @@ export default function GestaoCursos() {
           </div>
           <div className="ModalContent">
             <div className="form-gestao-video">
-              <label>Código</label>
-              <input
-                type="text"
-                name="cod_video"
-                placeholder="Código"
-                disabled={!!isUpdating}
-                value={codCurso}
-                onChange={(e) => setCodCurso(e.target.value)}
-              />
+              {isUpdating ? (
+                <div className="ModalInput">
+                  <label>Código</label>
+                  <input
+                    type="text"
+                    name="cod_video"
+                    placeholder="Código"
+                    disabled
+                    value={codCurso}
+                    onChange={(e) => setCodCurso(e.target.value)}
+                  />
+                </div>
+              ) : (
+                ''
+              )}
 
-              <label>Nome</label>
-              <input
-                type="text"
-                name="nome"
-                placeholder="Nome"
-                maxLength="40"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-              />
+              <div className="ModalInput">
+                <label>Nome</label>
+                <input
+                  type="text"
+                  name="nome"
+                  placeholder="Nome"
+                  maxLength="40"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                />
+              </div>
 
-              <label>Descrição</label>
-              <textarea
-                name="descricao"
-                placeholder="Descrição"
-                value={descricao}
-                onChange={(e) => setDescricao(e.target.value)}
-              />
+              <div className="ModalInput">
+                <label>Descrição</label>
+                <textarea
+                  name="descricao"
+                  placeholder="Descrição"
+                  value={descricao}
+                  onChange={(e) => setDescricao(e.target.value)}
+                />
+              </div>
 
               {isUpdating ? (
                 <>
