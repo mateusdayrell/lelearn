@@ -53,31 +53,6 @@ export default function GestaoTreinamentos() {
     }
   };
 
-  // const formatArray = (data, tipo) => {
-  //   const array = []
-
-  //   if (tipo === 'usuarios') {
-  //     data.forEach(usuario => {
-  //       const obj = {
-  //         value: usuario.cpf,
-  //         label: usuario.nome
-  //       }
-  //       array.push(obj)
-  //     })
-  //   }
-  //   else {
-  //     data.forEach(cursos => {
-  //       const obj = {
-  //         value: cursos.cod_curso,
-  //         label: cursos.nome_curso
-  //       }
-  //       array.push(obj)
-  //     })
-  //   }
-  //   console.log(array)
-  //   return array;
-  // }
-
   const handleSearch = async () => {
     const querys = new URLSearchParams({
       nome_treinamento: searchNome,
@@ -100,7 +75,7 @@ export default function GestaoTreinamentos() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (!validateForm()) return;
+    if (!validateForm()) return;
 
     const regTemp = {
       cod_treinamento: codTreinamento,
@@ -131,55 +106,44 @@ export default function GestaoTreinamentos() {
     }
   };
 
-  // const handleDelete = async (codigo) => {
-  //   handleClose();
-  //   setIsLoading(true);
-  //   try {
-  //     await axios.delete(`/treinamentos/${codigo}`);
-  //     setIsLoading(false);
-  //     toast.success('Treinamento excluído com sucesso!');
-  //     await loadRegisters();
-  //   } catch (error) {
-  //     setIsLoading(false);
-  //     const { erros } = error.response.data;
-  //     erros.map((err) => toast.error(err));
-  //   }
-  // };
+  const handleDelete = async (codigo) => {
+    handleClose();
+    setIsLoading(true);
+    try {
+      await axios.delete(`/treinamentos/${codigo}`);
+      setIsLoading(false);
 
-  // const validateForm = () => {
-  //   let controle = true;
+      toast.success('Treinamento excluído com sucesso!');
+      await loadRegisters();
+    } catch (error) {
+      setIsLoading(false);
 
-  //   if (!codVideo) {
-  //     toast.error('Preencha o campo Código!');
-  //     controle = false;
-  //   }
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
+  };
 
-  //   if (!titulo) {
-  //     toast.error('Preencha o campo Título!');
-  //     controle = false;
-  //   } else if (titulo.length < 3 || titulo.length > 40) {
-  //     controle = false;
-  //     toast.error('O campo Título deve ter entre 3 e 40 caracteres');
-  //   }
+  const validateForm = () => {
+    let controle = true;
 
-  //   if (!link) {
-  //     controle = false;
-  //     toast.error('Preencha o campo Link!');
-  //   } else if (link.length < 3 || link.length > 150) {
-  //     controle = false;
-  //     toast.error('O campo Link deve ter entre 3 e 150 caracteres');
-  //   }
+    if (!nome) {
+      toast.error('Preencha o campo Título!');
+      controle = false;
+    } else if (nome.length < 3 || nome.length > 30) {
+      controle = false;
+      toast.error('O campo Título deve ter entre 3 e 30 caracteres');
+    }
 
-  //   if (descricao.length > 0 && descricao.length < 3) {
-  //     controle = false;
-  //     toast.error('O campo Descrição deve ter no mínimo 3 caracteres!');
-  //   } else if (descricao.length > 150) {
-  //     controle = false;
-  //     toast.error('O campo Descrição deve ter no máximo 150 caracteres!');
-  //   }
+    if (descricao.length > 0 && descricao.length < 3) {
+      controle = false;
+      toast.error('O campo Descrição deve ter no mínimo 3 caracteres!');
+    } else if (descricao.length > 150) {
+      controle = false;
+      toast.error('O campo Descrição deve ter no máximo 150 caracteres!');
+    }
 
-  //   return controle;
-  // };
+    return controle;
+  };
 
   const handleIsUpdating = (treinamento) => {
     setIsUpdating(true);
@@ -351,7 +315,7 @@ export default function GestaoTreinamentos() {
           ariaHideApp={false}
         >
           <div className="ModalHeader">
-            <span>{isUpdating ? 'Editar' : 'Cadastrar'} vídeo</span>
+            <span>{isUpdating ? 'Editar' : 'Cadastrar'} treinamento</span>
             <button className="CloseModal" type="button" onClick={handleClose}>
               x
             </button>
@@ -359,17 +323,19 @@ export default function GestaoTreinamentos() {
 
           <div className="ModalContent">
             <div className="form-gestao-video">
-              <div className="ModalInput">
-                <label>Código</label>
-                <input
-                  type="text"
-                  name="cod_treinamento"
-                  placeholder="Código"
-                  disabled={!!isUpdating}
-                  value={codTreinamento}
-                  onChange={(e) => setCodTreinamento(e.target.value)}
-                />
-              </div>
+              {isUpdating ?
+                <div className="ModalInput">
+                  <label>Código</label>
+                  <input
+                    type="text"
+                    name="cod_treinamento"
+                    placeholder="Código"
+                    disabled={!!isUpdating}
+                    value={codTreinamento}
+                    onChange={(e) => setCodTreinamento(e.target.value)}
+                  />
+                </div>
+              : '' }
 
               <div className="ModalInput">
                 <label>Nome</label>
@@ -384,7 +350,7 @@ export default function GestaoTreinamentos() {
               </div>
 
               <div className="ModalInput">
-                <label>Descrição</label>
+                <label>Descrição <small>(opcional)</small></label>
                 <textarea
                   name="descricao"
                   placeholder="Descrição"
@@ -394,7 +360,7 @@ export default function GestaoTreinamentos() {
               </div>
 
               <div className="ModalInput">
-                <label>Vincular usuários</label>
+                <label>Vincular usuários <small>(opcional)</small></label>
                 <Multiselect
                   dataKey="cpf"
                   textField="nome"
@@ -405,7 +371,7 @@ export default function GestaoTreinamentos() {
               </div>
 
               <div className="ModalInput">
-                <label>Vincular cursos</label>
+                <label>Vincular cursos <small>(opcional)</small></label>
                 <Multiselect
                   dataKey="cod_curso"
                   textField="nome_curso"
@@ -462,7 +428,7 @@ export default function GestaoTreinamentos() {
           </div>
         </Modal>
 
-        {/* <Modal
+        <Modal
           isOpen={showDeleteModal}
           onRequestClose={handleClose}
           className="Modal"
@@ -470,7 +436,7 @@ export default function GestaoTreinamentos() {
           ariaHideApp={false}
         >
           <div className="ModalHeader">
-            <span>Excluir vídeo</span>
+            <span>Excluir Treinamento</span>
             <button className="CloseModal" type="button" onClick={handleClose}>
               x
             </button>
@@ -479,7 +445,7 @@ export default function GestaoTreinamentos() {
             <div className="px-8 max-w-xl">
               <p>
                 Caso prossiga com a exclusão do item, o mesmo não será mais
-                recuperado. Deseja realmente excluir o vídeo {codVideo}?
+                recuperado. Deseja realmente excluir o vídeo {codTreinamento}?
               </p>
             </div>
           </div>
@@ -490,12 +456,12 @@ export default function GestaoTreinamentos() {
             <button
               className="red-btn"
               type="button"
-              onClick={() => handleDelete(codVideo)}
+              onClick={() => handleDelete(codTreinamento)}
             >
               Excluir
             </button>
           </div>
-        </Modal> */}
+        </Modal>
       </div>
     </>
   );
