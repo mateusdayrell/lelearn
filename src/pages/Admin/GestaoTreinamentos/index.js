@@ -3,12 +3,12 @@ import { toast } from 'react-toastify';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 import Modal from 'react-modal';
 import { get } from 'lodash';
-import Multiselect from 'react-widgets/Multiselect';
 
 import './style.css';
 import Loading from '../../../components/Loading';
 import Navbar from '../../../components/Navbar';
 import axios from '../../../services/axios';
+import Multiselect from '../../../components/Multiselect';
 
 export default function GestaoTreinamentos() {
   const [treinamentos, setTreinamentos] = useState([]);
@@ -184,6 +184,35 @@ export default function GestaoTreinamentos() {
     setTreinUsuarios([]);
     setTreinCursos([]);
   };
+
+  const handleChange = (type, obj) => {
+    if(type === "usuarios") {
+      const newArrayUsuarios = [...treinUsuarios]
+
+      newArrayUsuarios.push(JSON.parse(obj)) // converter string para objeto
+      newArrayUsuarios.sort((a, b) => a.nome > b.nome ? 1 : -1) // ordenar por nome
+
+      setTreinUsuarios(newArrayUsuarios)
+    } else {
+      const newArrayCursos = [...treinCursos]
+
+      newArrayCursos.push(JSON.parse(obj)) // converter string para objeto
+      newArrayCursos.sort((a, b) => a.nome_curso > b.nome_curso ? 1 : -1) // ordenar por nome
+
+      setTreinCursos(newArrayCursos)
+    }
+  }
+
+  const handleRemove = (type, cod) => {
+    if(type === "usuarios") {
+      const newArrayUsuarios = treinUsuarios.filter(el => el.cpf !== cod); // remover obj do array
+      setTreinUsuarios(newArrayUsuarios)
+    }
+    else {
+      const newArrayCursos = treinCursos.filter(el => el.cod_curso !== cod); // remover obj do array
+      setTreinCursos(newArrayCursos)
+    }
+  }
 
   return (
     <>
@@ -362,60 +391,29 @@ export default function GestaoTreinamentos() {
               <div className="ModalInput">
                 <label>Vincular usuários <small>(opcional)</small></label>
                 <Multiselect
-                  dataKey="cpf"
-                  textField="nome"
-                  data={usuarios}
-                  defaultValue={treinUsuarios}
-                  onChange={(e) => setTreinUsuarios(e)}
+                  type="usuarios"
+                  array={usuarios}
+                  treinamento={treinUsuarios}
+                  value="cpf"
+                  label="nome"
+                  handleChange={handleChange}
+                  handleRemove={handleRemove}
                 />
               </div>
 
               <div className="ModalInput">
                 <label>Vincular cursos <small>(opcional)</small></label>
                 <Multiselect
-                  dataKey="cod_curso"
-                  textField="nome_curso"
-                  data={cursos}
-                  defaultValue={treinCursos}
-                  onChange={(e) => setTreinCursos(e)}
+                  type="cursos"
+                  array={cursos}
+                  treinamento={treinCursos}
+                  value="cod_curso"
+                  label="nome_curso"
+                  handleChange={handleChange}
+                  handleRemove={handleRemove}
                 />
               </div>
 
-              {/* <div className="ModalInput">
-                <select
-                  name="usuario"
-                  onChange={(e) => setTreinUsuarios(e.target.value)}
-                >
-                  <option value="" disabled selected>
-                    Selecione um usuário
-                  </option>
-                  {usuarios.length > 0
-                    ? usuarios.map((u) => (
-                        <option key={u.cpf} value={u.cpf}>
-                          {u.nome}
-                        </option>
-                      ))
-                    : ''}
-                </select>
-              </div>
-
-              <div className="ModalInput">
-                <select
-                  name="curso"
-                  onChange={(e) => setTreinCursos(e.target.value)}
-                >
-                  <option value="" disabled selected>
-                    Selecione um curso
-                  </option>
-                  {cursos.length > 0
-                    ? cursos.map((c) => (
-                        <option key={c.cod_curso} value={c.cod_curso}>
-                          {c.nome_curso}
-                        </option>
-                      ))
-                    : ''}
-                </select>
-              </div> */}
             </div>
           </div>
           <div className="ModalFooter">
