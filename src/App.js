@@ -9,7 +9,6 @@ import history from './services/history';
 import Routes from './routes';
 import './styles/global.css';
 import './styles/modal.css';
-import "react-widgets/styles.css";
 import 'react-toastify/dist/ReactToastify.css'; // toasts
 
 function App() {
