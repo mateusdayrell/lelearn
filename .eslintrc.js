@@ -29,6 +29,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
     'no-use-before-define': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
+    'react/forbid-prop-types': 'off',
     camelcase: 'off',
     // eslint-disable-next-line no-dupe-keys
     'react-hooks/exhaustive-deps': 'off',
