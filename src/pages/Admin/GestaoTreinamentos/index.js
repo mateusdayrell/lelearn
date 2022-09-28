@@ -9,6 +9,7 @@ import Loading from '../../../components/Loading';
 import Navbar from '../../../components/Navbar';
 import axios from '../../../services/axios';
 import Multiselect from '../../../components/Multiselect';
+import Pagination from '../../../components/Pagination';
 
 export default function GestaoTreinamentos() {
   const [treinamentos, setTreinamentos] = useState([]);
@@ -30,6 +31,10 @@ export default function GestaoTreinamentos() {
   const [shwoFormModal, setShowFormModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+
+  const itemsPerPage = 3
+  const [inicio, setInicio] = useState(0)
+  const [fim, setFim] = useState(itemsPerPage)
 
   useEffect(() => {
     loadRegisters();
@@ -80,7 +85,6 @@ export default function GestaoTreinamentos() {
     if (!validateForm()) return;
 
     const regTemp = {
-      // cod_treinamento: codTreinamento,
       nome_treinamento: nome,
       desc_treinamento: descricao,
       usuarios: treinUsuarios,
@@ -216,6 +220,11 @@ export default function GestaoTreinamentos() {
     }
   }
 
+  const handleNewPage = (novoInicio, novoFim) => {
+    setInicio(novoInicio)
+    setFim(novoFim)
+  }
+
   return (
     <>
       <Navbar />
@@ -314,7 +323,7 @@ export default function GestaoTreinamentos() {
                 </tr>
               </thead>
               <tbody>
-                {treinamentos.map((treinamento) => (
+                {treinamentos.slice(inicio, fim).map((treinamento) => (
                   <tr key={treinamento.cod_treinamento}>
                     <td className="">{treinamento.cod_treinamento}</td>
                     <td className="">{treinamento.nome_treinamento}</td>
@@ -351,6 +360,13 @@ export default function GestaoTreinamentos() {
           >
             Cadastrar
           </button>
+
+          {treinamentos &&
+            <Pagination
+              total={treinamentos.length}
+              itemsPerPage={itemsPerPage}
+              handleNewPage={handleNewPage} />
+          }
         </div>
 
         <Modal
