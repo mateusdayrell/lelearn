@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AiOutlineClose } from "react-icons/ai";
 
-export default function Multiselect({ type, array, treinamento, value, label, handleChange, handleRemove }) {
+export default function Multiselect({ type, array, treinamento, value, label, handleSelectChange, handleSelectRemove }) {
   const verifyEqual = (cod) => {
     let controle = false
 
@@ -13,8 +13,8 @@ export default function Multiselect({ type, array, treinamento, value, label, ha
     return controle
   }
 
-  const handleSelectChange = (eventValue) => {
-    handleChange(type, eventValue)
+  const handleIsChanging = (eventValue) => {
+    handleSelectChange(type, eventValue)
     document.getElementById(`select-${type}`).selectedIndex = 0 // resetar valor do select apos selecionar
   }
 
@@ -30,7 +30,7 @@ export default function Multiselect({ type, array, treinamento, value, label, ha
                     {trein[label]}
                   </div>
                   <div className="flex flex-auto">
-                      <button type='button' onClick={() => handleRemove(type, trein[value])}>
+                      <button type='button' onClick={() => handleSelectRemove(type, trein[value])}>
                           <AiOutlineClose/>
                       </button>
                   </div>
@@ -43,7 +43,7 @@ export default function Multiselect({ type, array, treinamento, value, label, ha
           <select
             name={type}
             id={`select-${type}`}
-            onChange={e => handleSelectChange(e.target.value)}>
+            onChange={e => handleIsChanging(e.target.value)}>
               <option value="" disabled selected>Selecione um {type === 'usuarios' ? 'usuário' : 'curso'}</option>
               {array.length > 0
                 ? array.map((el) => (
@@ -68,8 +68,8 @@ Multiselect.defaultProps = {
   treinamento: [],
   value: 'cpf',
   label: 'nome',
-  handleChange: () => null,
-  handleRemove: () => null,
+  handleSelectChange: () => null,
+  handleSelectRemove: () => null,
 };
 
 Multiselect.propTypes = {
@@ -78,6 +78,6 @@ Multiselect.propTypes = {
   treinamento: PropTypes.array,
   value: PropTypes.string,
   label: PropTypes.string,
-  handleChange: PropTypes.func,
-  handleRemove: PropTypes.func,
+  handleSelectChange: PropTypes.func,
+  handleSelectRemove: PropTypes.func,
 };
