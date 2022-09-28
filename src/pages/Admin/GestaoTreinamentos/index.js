@@ -24,6 +24,7 @@ export default function GestaoTreinamentos() {
   const [searchNome, setSearchNome] = useState('');
   const [searchUsuario, setSearchUsuario] = useState('');
   const [searchCurso, setSearchCurso] = useState('');
+  const [searchOrdem, setSearchOrdem] = useState('')
 
   const [isLoading, setIsLoading] = useState(false);
   const [shwoFormModal, setShowFormModal] = useState(false);
@@ -58,6 +59,7 @@ export default function GestaoTreinamentos() {
       nome_treinamento: searchNome,
       cpf: searchUsuario,
       cod_curso: searchCurso,
+      order: searchOrdem
     }).toString();
 
     setIsLoading(true);
@@ -78,7 +80,7 @@ export default function GestaoTreinamentos() {
     if (!validateForm()) return;
 
     const regTemp = {
-      cod_treinamento: codTreinamento,
+      // cod_treinamento: codTreinamento,
       nome_treinamento: nome,
       desc_treinamento: descricao,
       usuarios: treinUsuarios,
@@ -185,7 +187,7 @@ export default function GestaoTreinamentos() {
     setTreinCursos([]);
   };
 
-  const handleChange = (type, obj) => {
+  const handleSelectChange = (type, obj) => {
     if(type === "usuarios") {
       const newArrayUsuarios = [...treinUsuarios]
 
@@ -203,7 +205,7 @@ export default function GestaoTreinamentos() {
     }
   }
 
-  const handleRemove = (type, cod) => {
+  const handleSelectRemove = (type, cod) => {
     if(type === "usuarios") {
       const newArrayUsuarios = treinUsuarios.filter(el => el.cpf !== cod); // remover obj do array
       setTreinUsuarios(newArrayUsuarios)
@@ -267,6 +269,21 @@ export default function GestaoTreinamentos() {
                     </option>
                   ))
                 : ''}
+            </select>
+
+            <select
+              name="ordem"
+              className="search-input"
+              defaultValue={searchOrdem}
+              onChange={(e) => setSearchOrdem(e.target.value)}
+            >
+              <option value="" disabled selected={searchOrdem === ''}>
+                Ordenar por
+              </option>
+              <option value="nome_treinamento asc">A-z</option>
+              <option value="nome_treinamento desc">Z-a</option>
+              <option value="created_at asc">Mais recente primeiro</option>
+              <option value="created_at desc">Mais antigo primeiro</option>
             </select>
 
             <div className="flex gap-3">
@@ -396,8 +413,8 @@ export default function GestaoTreinamentos() {
                   treinamento={treinUsuarios}
                   value="cpf"
                   label="nome"
-                  handleChange={handleChange}
-                  handleRemove={handleRemove}
+                  handleSelectChange={handleSelectChange}
+                  handleSelectRemove={handleSelectRemove}
                 />
               </div>
 
@@ -409,8 +426,8 @@ export default function GestaoTreinamentos() {
                   treinamento={treinCursos}
                   value="cod_curso"
                   label="nome_curso"
-                  handleChange={handleChange}
-                  handleRemove={handleRemove}
+                  handleSelectChange={handleSelectChange}
+                  handleSelectRemove={handleSelectRemove}
                 />
               </div>
 
