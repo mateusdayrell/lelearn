@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
 
-function Pagination({total, itemsPerPage, handleNewPage, maxButtons}) {
+export default function Pagination({total, itemsPerPage, handleNewPage, maxButtons}) {
   const totalPages = Math.ceil(total / itemsPerPage)
   const [currentPage, setCurrentPage] = useState(1)
 
@@ -43,5 +43,3 @@ Pagination.proptotals = {
   maxButtons: PropTypes.number,
   handleNewPage: PropTypes.func,
 };
-
-export default Pagination

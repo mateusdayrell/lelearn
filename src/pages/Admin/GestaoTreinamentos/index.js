@@ -428,7 +428,7 @@ export default function GestaoTreinamentos() {
                   array={usuarios}
                   treinamento={treinUsuarios}
                   value="cpf"
-                  label="nome"
+                  key="nome"
                   handleSelectChange={handleSelectChange}
                   handleSelectRemove={handleSelectRemove}
                 />
@@ -441,7 +441,7 @@ export default function GestaoTreinamentos() {
                   array={cursos}
                   treinamento={treinCursos}
                   value="cod_curso"
-                  label="nome_curso"
+                  key="nome_curso"
                   handleSelectChange={handleSelectChange}
                   handleSelectRemove={handleSelectRemove}
                 />
