@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { BookBookmark, Users, SignOut, BookOpen, YoutubeLogo, MonitorPlay } from "phosphor-react";
+import {
+  BookBookmark,
+  Users,
+  SignOut,
+  BookOpen,
+  YoutubeLogo,
+  MonitorPlay,
+} from 'phosphor-react';
 
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -28,14 +35,29 @@ export default function Navbar() {
 
   return (
     <div className="navbar">
-      <div className='logo-content'>
+      {/* LOGO */}
+      <div className="logo-content">
         <Link className="link" to="/">
-          <svg width="27" height="27" viewBox="0 0 39 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6.36963 31.2345H19.5V36H0V0H6.36963V31.2345Z" fill="#00B37E" />
-            <path d="M25.8696 31.2345H39V36H19.5V0H25.8696V31.2345Z" fill="#00B37E" />
+          <svg
+            width="27"
+            height="27"
+            viewBox="0 0 39 36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6.36963 31.2345H19.5V36H0V0H6.36963V31.2345Z"
+              fill="#00B37E"
+            />
+            <path
+              d="M25.8696 31.2345H39V36H19.5V0H25.8696V31.2345Z"
+              fill="#00B37E"
+            />
           </svg>
         </Link>
-        <div className='list-content'>
+      </div>
+      {/* ICONES */}
+      <div className="list-content">
         <ul>
           <li>
             <Link className="link" to="/videos">
@@ -64,11 +86,16 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-      <div className='profile-content'>
+      {/* USUARIO */}
+      <div className="profile-content">
+        {/* <div>
+          <div className="circle">{nome}</div>
+        </div> */}
         <Link onClick={handleLogout} className="link" to="/login">
-          <SignOut size={24} />Sair
+          <SignOut size={24} />
+          Sair
         </Link>
       </div>
-      </div>
+    </div>
   );
 }
