@@ -186,7 +186,7 @@ export default function GestaoVideos() {
     <>
       <Navbar />
       <Loading isLoading={isLoading} />
-      <div className="g-video-container">
+      <div className="container-body">
         <h1 className="title">Gestão de Vídeos</h1>
 
         <div className="search-container">

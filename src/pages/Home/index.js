@@ -6,9 +6,12 @@ import Navbar from '../../components/Navbar';
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <h1>Home</h1>
-      <button>hello</button>
+      <div className='container-navbar'>
+        <Navbar />
+      </div>
+      <div className='container-body'>
+        <h1>Home</h1>
+      </div>
     </>
   );
 }

@@ -36,58 +36,48 @@ export default function Navbar() {
 
   return (
     <div className="navbar">
-      <div className="logo-content">
+      <div className='logo-content'>
         <Link className="link" to="/">
-          <img src={logoLigth} alt="" />
+          <svg width="30" height="27" viewBox="0 0 39 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.36963 31.2345H19.5V36H0V0H6.36963V31.2345Z" fill="#00B37E" />
+            <path d="M25.8696 31.2345H39V36H19.5V0H25.8696V31.2345Z" fill="#00B37E" />
+          </svg>
         </Link>
       </div>
-      <ul className="nav-list">
-        <li>
-          <Link className="link" to="/">
-            <FaHome className="icon" size={26} />
-            <span className="link-name">Home</span>
-          </Link>
-        </li>
-        <li>
-          <Link className="link" to="/videos">
-            <FaVideo className="icon" size={24} />
-            <span className="link-name">Vídeo</span>
-          </Link>
-        </li>
-        <li>
-          <Link className="link" to="/cursos">
-            <FaClone className="icon" size={24} />
-            <span className="link-name">Curso</span>
-          </Link>
-        </li>
-        <li>
-          <Link className="link" to="/treinamentos">
-            <FaGripHorizontal className="icon" size={24} />
-            <span className="link-name">Treinamentos</span>
-          </Link>
-        </li>
-        <li>
-          <Link className="link" to="/usuarios">
-            <FaUser className="icon" size={24} />
-            <span className="link-name">Usuários</span>
-          </Link>
-        </li>
-        <li>
-          <Link className="link" to="/gestao-videos">
-            <FaVideo className="icon" size={24} />
-            <span className="link-name">Gestao vídeos</span>
-          </Link>
-        </li>
-      </ul>
-
-      <div className="profile">
-        <div>
-          <div className="circle">{nome}</div>
-        </div>
+      <div className='list-content'>
+        <ul>
+          <li>
+            <Link className="link" to="/videos">
+              <FaVideo className="icon" size={24} />
+            </Link>
+          </li>
+          <li>
+            <Link className="link" to="/cursos">
+              <FaClone className="icon" size={24} />
+            </Link>
+          </li>
+          <li>
+            <Link className="link" to="/treinamentos">
+              <FaGripHorizontal className="icon" size={24} />
+            </Link>
+          </li>
+          <li>
+            <Link className="link" to="/usuarios">
+              <FaUser className="icon" size={24} />
+            </Link>
+          </li>
+          <li>
+            <Link className="link" to="/gestao-videos">
+              <FaVideo className="icon" size={24} />
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <div className='profile-content'>
         <Link onClick={handleLogout} className="link" to="/login">
           <FaPowerOff className="icon" size={24} />
         </Link>
       </div>
-    </div>
+    </div >
   );
 }
