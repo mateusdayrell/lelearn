@@ -159,7 +159,7 @@ export default function GestaoCursos() {
     <>
       <Navbar />
       <Loading isLoading={isLoading} />
-      <div className="gestao-curso-conatiner">
+      <div className="container-body">
         <div className="search-container">
           <div className="search-form">
             <input

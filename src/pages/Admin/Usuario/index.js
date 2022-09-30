@@ -238,7 +238,7 @@ export default function Usuario() {
       <Navbar />
       <Loading isLoading={isLoading} />
 
-      <div className="container-usuario">
+      <div className="container-body">
         <h1 className="title">Gestão de Usuários</h1>
         <div className="search-container">
           <p className="search-title">Pesquisar</p>
