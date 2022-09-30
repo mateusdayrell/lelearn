@@ -67,7 +67,7 @@ export default function Navbar() {
       </div>
       <div className='profile-content'>
         <Link onClick={handleLogout} className="link" to="/login">
-          <SignOut size={24} />
+          <SignOut size={24} />Sair
         </Link>
       </div>
     </div >
