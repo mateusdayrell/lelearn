@@ -25,9 +25,14 @@ export default function OrderSelect({ nameKey, handleOrderChange, searchOrdem, a
   }
 
   return (
-      <select
+    <div className="flex gap-2 items-center text-sm max-w-min">
+      <span>
+        <label className='text-white text font-extralight'>Ordem</label>
+      </span>
+      <span className='border-b border-gray-300'>
+        <select
+          className="border-none text-[white] bg-transparent text-sm"
           name="ordem"
-          className="search-input"
           defaultValue={searchOrdem}
           onChange={(e) => handleChange(e.target.value)}
         >
@@ -39,6 +44,8 @@ export default function OrderSelect({ nameKey, handleOrderChange, searchOrdem, a
           <option value="created_at asc">Mais antigo primeiro</option>
           <option value="created_at desc">Mais recente primeiro</option>
         </select>
+      </span>
+    </div>
   );
 }
 
