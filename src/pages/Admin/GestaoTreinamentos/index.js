@@ -10,6 +10,7 @@ import Navbar from '../../../components/Navbar';
 import axios from '../../../services/axios';
 import Multiselect from '../../../components/Multiselect';
 import Pagination from '../../../components/Pagination';
+import OrderSelect from '../../../components/OrderSelect';
 
 export default function GestaoTreinamentos() {
   const [treinamentos, setTreinamentos] = useState([]);
@@ -25,7 +26,7 @@ export default function GestaoTreinamentos() {
   const [searchNome, setSearchNome] = useState('');
   const [searchUsuario, setSearchUsuario] = useState('');
   const [searchCurso, setSearchCurso] = useState('');
-  const [searchOrdem, setSearchOrdem] = useState('')
+  const [searchOrdem, setSearchOrdem] = useState('nome_treinamento asc')
 
   const [isLoading, setIsLoading] = useState(false);
   const [shwoFormModal, setShowFormModal] = useState(false);
@@ -64,7 +65,6 @@ export default function GestaoTreinamentos() {
       nome_treinamento: searchNome,
       cpf: searchUsuario,
       cod_curso: searchCurso,
-      order: searchOrdem
     }).toString();
 
     setIsLoading(true);
@@ -73,6 +73,7 @@ export default function GestaoTreinamentos() {
       setIsLoading(false);
 
       setTreinamentos(data);
+      setSearchOrdem('nome_treinamento asc') // reserar valor do input ao pesquisar
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
@@ -133,11 +134,11 @@ export default function GestaoTreinamentos() {
     let controle = true;
 
     if (!nome) {
-      toast.error('Preencha o campo Título!');
+      toast.error('Preencha o campo Nome!');
       controle = false;
     } else if (nome.length < 3 || nome.length > 30) {
       controle = false;
-      toast.error('O campo Título deve ter entre 3 e 30 caracteres');
+      toast.error('O campo Nome deve ter entre 3 e 30 caracteres');
     }
 
     if (descricao.length > 0 && descricao.length < 3) {
@@ -191,7 +192,7 @@ export default function GestaoTreinamentos() {
     setTreinCursos([]);
   };
 
-  const handleSelectChange = (type, obj) => {
+  const handleMultiSelectChange = (type, obj) => {
     if(type === "usuarios") {
       const newArrayUsuarios = [...treinUsuarios]
 
@@ -209,7 +210,7 @@ export default function GestaoTreinamentos() {
     }
   }
 
-  const handleSelectRemove = (type, cod) => {
+  const handleMultiSelectRemove = (type, cod) => {
     if(type === "usuarios") {
       const newArrayUsuarios = treinUsuarios.filter(el => el.cpf !== cod); // remover obj do array
       setTreinUsuarios(newArrayUsuarios)
@@ -223,6 +224,11 @@ export default function GestaoTreinamentos() {
   const handleNewPage = (novoInicio, novoFim) => {
     setInicio(novoInicio)
     setFim(novoFim)
+  }
+
+  const handleOrderChange = (array, ordem) => {
+    setTreinamentos(array)
+    setSearchOrdem(ordem)
   }
 
   return (
@@ -280,21 +286,6 @@ export default function GestaoTreinamentos() {
                 : ''}
             </select>
 
-            <select
-              name="ordem"
-              className="search-input"
-              defaultValue={searchOrdem}
-              onChange={(e) => setSearchOrdem(e.target.value)}
-            >
-              <option value="" disabled selected={searchOrdem === ''}>
-                Ordenar por
-              </option>
-              <option value="nome_treinamento asc">A-z</option>
-              <option value="nome_treinamento desc">Z-a</option>
-              <option value="created_at asc">Mais recente primeiro</option>
-              <option value="created_at desc">Mais antigo primeiro</option>
-            </select>
-
             <div className="flex gap-3">
               <button
                 className="green-btn"
@@ -308,6 +299,14 @@ export default function GestaoTreinamentos() {
               </button>
             </div>
           </div>
+        </div>
+
+        <div>
+          <OrderSelect
+            nameKey="nome_treinamento"
+            handleOrderChange={handleOrderChange}
+            searchOrdem={searchOrdem}
+            array={treinamentos} />
         </div>
 
         <div className="w-[98%] h-[1px] mx-3 my-6" />
@@ -429,8 +428,8 @@ export default function GestaoTreinamentos() {
                   treinamento={treinUsuarios}
                   value="cpf"
                   label="nome"
-                  handleSelectChange={handleSelectChange}
-                  handleSelectRemove={handleSelectRemove}
+                  handleMultiSelectChange={handleMultiSelectChange}
+                  handleMultiSelectRemove={handleMultiSelectRemove}
                 />
               </div>
 
@@ -442,8 +441,8 @@ export default function GestaoTreinamentos() {
                   treinamento={treinCursos}
                   value="cod_curso"
                   label="nome_curso"
-                  handleSelectChange={handleSelectChange}
-                  handleSelectRemove={handleSelectRemove}
+                  handleMultiSelectChange={handleMultiSelectChange}
+                  handleMultiSelectRemove={handleMultiSelectRemove}
                 />
               </div>
 

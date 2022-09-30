@@ -193,6 +193,7 @@ export default function GestaoVideos() {
           <p className="search-title">Pesquisar</p>
           <div className="search-form">
             <input
+              title="Informe o título do vídeo a ser pesquisado"
               type="text"
               className="search-input"
               name="titulo"
@@ -201,6 +202,7 @@ export default function GestaoVideos() {
               onChange={(e) => setSearchTitulo(e.target.value)}
             />
             <select
+              title="Selecione um curso ao qual o vídeo pertence"
               name="curso"
               className="search-input"
               id="Curso"
@@ -212,22 +214,27 @@ export default function GestaoVideos() {
               </option>
               {cursos.length > 0
                 ? cursos.map((c) => (
-                    <option key={c.cod_curso} value={c.cod_curso}>
-                      {c.nome_curso}
-                    </option>
-                  ))
+                  <option key={c.cod_curso} value={c.cod_curso}>
+                    {c.nome_curso}
+                  </option>
+                ))
                 : ''}
             </select>
 
             <div className="flex gap-3">
               <button
+                title="Pesquisar vídeo"
                 className="green-btn"
                 type="button"
                 onClick={handleSearch}
               >
                 Pesquisar
               </button>
-              <button className="red-btn" type="button" onClick={clearSearch}>
+              <button
+                title="Limpar campos"
+                className="red-btn"
+                type="button"
+                onClick={clearSearch}>
                 Limpar
               </button>
             </div>
@@ -257,15 +264,17 @@ export default function GestaoVideos() {
                     <td className="border-r-2">
                       <span className="flex justify-center gap-2">
                         <button
+                          title="Editar vídeo"
                           type="button"
-                          className="round-blue-btn"
+                          className="green-btn"
                           onClick={() => handleIsUpdating(video)}
                         >
                           <FaPencilAlt />
                         </button>
                         <button
+                          title="Excluir vídeo"
                           type="button"
-                          className="round-red-btn"
+                          className="red-btn"
                           onClick={() => handleIsDeleting(video.cod_video)}
                         >
                           <FaTrashAlt />
@@ -278,6 +287,7 @@ export default function GestaoVideos() {
             </table>
           </div>
           <button
+            title="Cadastrar vídeo"
             className="btn mx-auto my-5"
             type="button"
             onClick={() => setShowFormModal(true)}
@@ -295,7 +305,11 @@ export default function GestaoVideos() {
         >
           <div className="ModalHeader">
             <span>{isUpdating ? 'Editar' : 'Cadastrar'} vídeo</span>
-            <button className="CloseModal" type="button" onClick={handleClose}>
+            <button
+             title="Fechar"
+             className="CloseModal"
+             type="button"
+             onClick={handleClose}>
               x
             </button>
           </div>
@@ -313,7 +327,7 @@ export default function GestaoVideos() {
                     onChange={(e) => setCodVideo(e.target.value)}
                   />
                 </div>
-                : '' }
+                : ''}
 
               <div className="ModalInput">
                 <label>Curso</label>
@@ -327,10 +341,10 @@ export default function GestaoVideos() {
                   </option>
                   {cursos.length > 0
                     ? cursos.map((item) => (
-                        <option key={item.cod_curso} value={item.cod_curso}>
-                          {item.nome_curso}
-                        </option>
-                      ))
+                      <option key={item.cod_curso} value={item.cod_curso}>
+                        {item.nome_curso}
+                      </option>
+                    ))
                     : ''}
                 </select>
               </div>
@@ -370,10 +384,18 @@ export default function GestaoVideos() {
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="red-btn" type="button" onClick={clearModal}>
+            <button
+              title="Limpar campos"
+              className="red-btn"
+              type="button"
+              onClick={clearModal}>
               Limpar
             </button>
-            <button className="green-btn" type="button" onClick={handleSubmit}>
+            <button
+              title="Concluir cadastro"
+              className="green-btn"
+              type="button"
+              onClick={handleSubmit}>
               {isUpdating ? 'Atualizar' : 'Salvar'}
             </button>
           </div>
@@ -388,7 +410,11 @@ export default function GestaoVideos() {
         >
           <div className="ModalHeader">
             <span>Excluir vídeo</span>
-            <button className="CloseModal" type="button" onClick={handleClose}>
+            <button
+              title="Fechar"
+              className="CloseModal"
+              type="button"
+              onClick={handleClose}>
               x
             </button>
           </div>
@@ -401,10 +427,15 @@ export default function GestaoVideos() {
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="yellow-btn" type="button" onClick={handleClose}>
+            <button
+              title="Cancelar operação"
+              className="yellow-btn"
+              type="button"
+              onClick={handleClose}>
               Cancelar
             </button>
             <button
+              title="Excluir vídeo"
               className="red-btn"
               type="button"
               onClick={() => handleDelete(codVideo)}

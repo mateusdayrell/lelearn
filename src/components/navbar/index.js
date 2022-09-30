@@ -35,8 +35,7 @@ export default function Navbar() {
             <path d="M25.8696 31.2345H39V36H19.5V0H25.8696V31.2345Z" fill="#00B37E" />
           </svg>
         </Link>
-      </div>
-      <div className='list-content'>
+        <div className='list-content'>
         <ul>
           <li>
             <Link className="link" to="/videos">
@@ -70,6 +69,6 @@ export default function Navbar() {
           <SignOut size={24} />Sair
         </Link>
       </div>
-    </div >
+      </div>
   );
 }

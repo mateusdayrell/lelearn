@@ -129,11 +129,11 @@ thead{
 }
 
 thead tr {
-  @apply items-center p-1 m-3 border-2 border-[#09090A]
+  @apply items-center p-1 m-3 border-2 border-[#1E1E1E]
 }
 
 tbody tr {
-  @apply even:bg-gray-100 odd:bg-white hover:bg-gray-200 border-[5px] border-[#09090A]
+  @apply even:bg-gray-100 odd:bg-white hover:bg-gray-200 border-4 border-[#1E1E1E]
 }
 
 th {
