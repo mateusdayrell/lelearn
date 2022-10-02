@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
-import { MagnifyingGlass, ProhibitInset, Plus } from 'phosphor-react';
+import { MagnifyingGlass, ProhibitInset, Plus, X } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
 
@@ -312,7 +312,7 @@ export default function GestaoVideos() {
               className="CloseModal"
               type="button"
               onClick={handleClose}>
-              x
+              <X size={24} />
             </button>
           </div>
           <div className="ModalContent">

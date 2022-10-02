@@ -1,9 +1,10 @@
 .navbar{
-  @apply bg-cinza-400 flex h-full w-14 py-3 flex-col items-center justify-between fixed
+  @apply bg-cinza-400 flex h-full w-14 py-3 flex-col items-center justify-between fixed 
+  shadow-white shadow-sm
 }
 
 .logo-content svg path{
-  @apply fill-cinza-100 hover:fill-verde-100
+  @apply fill-verde-100 hover:fill-verde-200
 }
 
 .list-content ul li{ 

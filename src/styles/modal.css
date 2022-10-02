@@ -1,21 +1,21 @@
 .Modal {
-  @apply absolute top-[10%] bg-[#121214] rounded-xl shadow-lg py-4 min-w-[32em];
+  @apply absolute top-[5%] bg-cinza-500 rounded-xl shadow-lg py-4 min-w-[30em];
 }
 
 .Modal .ModalHeader{
-  @apply flex pb-3 pl-8 font-bold text-lg justify-between
+  @apply flex pb-3 pl-10 font-medium text-lg justify-between
 }
 
 .Modal .ModalContent{
-  @apply  py-5 text-white  px-2
+  @apply  py-5 text-cinza-100  px-2
 }
 
 .Modal .ModalFooter{
-  @apply flex justify-end px-6 gap-4 pt-4
+  @apply flex justify-end pr-10 gap-3 pt-4
 }
 
 .Modal .CloseModal{
-  @apply mr-10 text-white hover:text-zinc-300 cursor-pointer transition-all
+  @apply mr-10 text-cinza-100 hover:text-cinza-300 cursor-pointer transition-all
 }
 
 .Overlay {
@@ -23,17 +23,17 @@
 }
 
 .Modal .ModalInput{
-  @apply bg-[#323238] px-2 py-2 my-2 mx-6 rounded-t-md text-[#00B37E] border-b-2 border-[#00B37E] font-light text-sm
+  @apply bg-[#323238] px-2 py-2 my-2 mx-6 rounded-t-md text-verde-100 border-b-2 border-verde-100 font-light text-sm
 }
 
 .Modal .ModalInput input, .Modal .ModalInput select, .Modal .ModalInput textarea {
-  @apply border-none text-[white] bg-[#323238] w-full
+  @apply border-none text-cinza-100 bg-[#323238] w-full
 }
 
 .Modal .ModalInput input:disabled  {
-  @apply text-slate-400 cursor-not-allowed;
+  @apply text-cinza-300 cursor-not-allowed;
 }
 
 .Modal span{
-  @apply text-white font-medium
+  @apply text-cinza-100 font-light
 }
