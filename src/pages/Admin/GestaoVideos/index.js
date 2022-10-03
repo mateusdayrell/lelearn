@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import { MagnifyingGlass, ProhibitInset, Plus, X } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
 
@@ -189,56 +190,65 @@ export default function GestaoVideos() {
       <div className="container-body">
         <h1 className="title">Gestão de Vídeos</h1>
 
-        <div className="search-container">
-          <p className="search-title">Pesquisar</p>
-          <div className="search-form">
-            <input
-              title="Informe o título do vídeo a ser pesquisado"
-              type="text"
-              className="search-input"
-              name="titulo"
-              placeholder="Título do vídeo"
-              value={searchTitulo}
-              onChange={(e) => setSearchTitulo(e.target.value)}
-            />
-            <select
-              title="Selecione um curso ao qual o vídeo pertence"
-              name="curso"
-              className="search-input"
-              id="Curso"
-              defaultValue={searchCurso}
-              onChange={(e) => setSearchCurso(e.target.value)}
-            >
-              <option value="" disabled selected={searchCurso === ''}>
-                Selecione um curso
-              </option>
-              {cursos.length > 0
-                ? cursos.map((c) => (
-                  <option key={c.cod_curso} value={c.cod_curso}>
-                    {c.nome_curso}
+        <div className='top-forms-container'>
+          <div className="search-container">
+            <div className="search-form">
+              <div className='search-container-inputs'>
+                <input
+                  type="text"
+                  className="search-input"
+                  name="titulo"
+                  placeholder="Título do vídeo"
+                  value={searchTitulo}
+                  onChange={(e) => setSearchTitulo(e.target.value)}
+                />
+                <select
+                  name="curso"
+                  className="search-input"
+                  id="Curso"
+                  defaultValue={searchCurso}
+                  onChange={(e) => setSearchCurso(e.target.value)}
+                >
+                  <option value="" disabled selected={searchCurso === ''}>
+                    Selecione um curso
                   </option>
-                ))
-                : ''}
-            </select>
+                  {cursos.length > 0
+                    ? cursos.map((c) => (
+                      <option key={c.cod_curso} value={c.cod_curso}>
+                        {c.nome_curso}
+                      </option>
+                    ))
+                    : ''}
+                </select>
+              </div>
 
-            <div className="flex gap-3">
-              <button
-                title="Pesquisar vídeo"
-                className="green-btn"
-                type="button"
-                onClick={handleSearch}
-              >
-                Pesquisar
-              </button>
-              <button
-                title="Limpar campos"
-                className="red-btn"
-                type="button"
-                onClick={clearSearch}>
-                Limpar
-              </button>
+              <div className="search-container-buttons">
+                <button
+                  title="Pesquisar"
+                  className="green-btn"
+                  type="button"
+                  onClick={handleSearch}
+                >
+                  <MagnifyingGlass size={24} />
+                </button>
+                <button
+                  title="Limpar campos"
+                  className="red-btn"
+                  type="button"
+                  onClick={clearSearch}>
+                  <ProhibitInset size={24} />
+                </button>
+              </div>
             </div>
           </div>
+          <button
+            title="Cadastrar vídeo"
+            className="green-btn"
+            type="button"
+            onClick={() => setShowFormModal(true)}
+          >
+            <Plus size={24} />
+          </button>
         </div>
 
         <div className="w-[98%] h-[1px] mx-3 my-6" />
@@ -264,7 +274,7 @@ export default function GestaoVideos() {
                     <td className="border-r-2">
                       <span className="flex justify-center gap-2">
                         <button
-                          title="Editar vídeo"
+                          title="Editar"
                           type="button"
                           className="green-btn"
                           onClick={() => handleIsUpdating(video)}
@@ -272,7 +282,7 @@ export default function GestaoVideos() {
                           <FaPencilAlt />
                         </button>
                         <button
-                          title="Excluir vídeo"
+                          title="Excluir"
                           type="button"
                           className="red-btn"
                           onClick={() => handleIsDeleting(video.cod_video)}
@@ -286,14 +296,6 @@ export default function GestaoVideos() {
               </tbody>
             </table>
           </div>
-          <button
-            title="Cadastrar vídeo"
-            className="btn mx-auto my-5"
-            type="button"
-            onClick={() => setShowFormModal(true)}
-          >
-            Cadastrar
-          </button>
         </div>
 
         <Modal
@@ -306,11 +308,11 @@ export default function GestaoVideos() {
           <div className="ModalHeader">
             <span>{isUpdating ? 'Editar' : 'Cadastrar'} vídeo</span>
             <button
-             title="Fechar"
-             className="CloseModal"
-             type="button"
-             onClick={handleClose}>
-              x
+              title="Fechar"
+              className="CloseModal"
+              type="button"
+              onClick={handleClose}>
+              <X size={24} />
             </button>
           </div>
           <div className="ModalContent">
