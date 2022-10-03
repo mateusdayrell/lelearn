@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import { FaPencilAlt, FaTrashAlt, FaFileImage } from 'react-icons/fa';
 import Modal from 'react-modal';
 import { get } from 'lodash';
 
@@ -14,8 +14,10 @@ export default function GestaoCursos() {
   const [codCurso, setCodCurso] = useState('');
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
+  const [foto, setFoto] = useState(null)
   const [videos, setVideos] = useState([]);
   const [searchNome, setSearchNome] = useState('');
+  const [showFoto, setShowFoto] = useState('')
 
   const [isLoading, setIsLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -61,20 +63,28 @@ export default function GestaoCursos() {
   const handleSubmit = async () => {
     if (!validateForm()) return;
 
-    try {
-      const regTemp = {
-        nome_curso: nome,
-        desc_curso: descricao,
-      };
+    const formData = new FormData()
+    formData.append('nome_curso', nome)
+    if(descricao) formData.append('dec_curso', descricao)
+    if(foto) formData.append('foto', foto)
 
+    const header = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      }
+    }
+
+    try {
       setIsLoading(true);
-      if (isUpdating) {
-        await axios.put(`/cursos/${codCurso}`, regTemp);
+
+      if(isUpdating) {
+        await axios.put(`/cursos/${codCurso}`, formData, header)
         toast.success('Curso atualizado com sucesso!');
       } else {
-        await axios.post('/cursos', regTemp);
+        await axios.post('/cursos', formData, header);
         toast.success('Curso cadastrado com sucesso!');
       }
+
       setIsLoading(false);
 
       handleClose();
@@ -129,6 +139,7 @@ export default function GestaoCursos() {
     setVideos(curso.videos);
     setIsUpdating(true);
     setShowFormModal(true);
+    if(curso.arquivo_url) setShowFoto(curso.arquivo_url)
   };
 
   const handleIsDeleting = (cod) => {
@@ -152,8 +163,17 @@ export default function GestaoCursos() {
     setCodCurso('');
     setNome('');
     setDescricao('');
+    setFoto(null);
+    setShowFoto('')
     setVideos([]);
   };
+
+  const handleShowFoto = (e) => {
+    const file = e.target.files[0]
+    const fileUrl = URL.createObjectURL(file)
+    setFoto(file)
+    setShowFoto(fileUrl)
+  }
 
   return (
     <>
@@ -187,6 +207,7 @@ export default function GestaoCursos() {
               <tr>
                 <th>Código</th>
                 <th>Nome</th>
+                <th>Imagem</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -201,6 +222,13 @@ export default function GestaoCursos() {
                   </td>
                   <td className="p-3 text-gray-700 text-center whitespace-nowrap">
                     {curso.nome_curso}
+                  </td>
+                  <td>
+                    <div className="w-24 h-24">
+                      {get(curso, 'arquivo_url', false) ?
+                        <img src={curso.arquivo_url} alt="Imagem do curso" />
+                      : <FaFileImage size={36}/>}
+                    </div>
                   </td>
                   <td className="p-3 text-gray-700 text-center whitespace-nowrap flex justify-center gap-2">
                     <button
@@ -273,6 +301,17 @@ export default function GestaoCursos() {
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                 />
+              </div>
+
+              <div className='ModalInpu'>
+                <input type="file" onChange={handleShowFoto}/>
+              </div>
+
+              <div>
+                {showFoto ?
+                  <img src={showFoto} alt="Imagem do curso" />
+                  : <FaFileImage size={36}/>
+                }
               </div>
 
               <div className="ModalInput">
