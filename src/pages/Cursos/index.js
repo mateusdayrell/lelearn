@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { get } from 'lodash';
+import { FaFileImage } from 'react-icons/fa';
 
 import './style.css';
 import Navbar from '../../components/Navbar';
@@ -30,16 +32,23 @@ export default function Cursos() {
     <>
       <Navbar />
       <Loading isLoading={isLoading} />
-      <h1>Cursos</h1>
-      <div className="container">
+      <div className="container-body">
+        <h1>Cursos</h1>
         {cursos.map((curso) => (
-          <div key={curso.cod_curso}>
-            <div
-              className="curso"
-              onClick={() => handleRedirect(curso.cod_curso)}
-            >
-              {curso.nome_curso}
-            </div>
+          <div key={curso.cod_curso} className="border p-2 text-white">
+              {get(curso, 'arquivo_url', false) ?
+                <img className='h-80 w-96' src={curso.arquivo_url} alt="Imagem do curso" />
+                : <FaFileImage size={36}/>
+              }
+              <h2 className='text-xl'>{curso.nome_curso}</h2>
+              <p>{curso.desc_curso}</p>
+              <button
+                type='button'
+                className='btn'
+                onClick={() => handleRedirect(curso.cod_curso)}
+              >
+                Acessar
+              </button>
           </div>
         ))}
       </div>

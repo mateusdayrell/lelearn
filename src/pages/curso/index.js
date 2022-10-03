@@ -42,20 +42,22 @@ export default function Cursos() {
     <>
       <Navbar />
       <Loading isLoading={isLoading} />
+      <div className="container-body text-gray-50">
       <h1>Cursos</h1>
-      <div className="container-video">
-        <div>{curso.nome_curso}</div>
-        <h3>Videos</h3>
-        {videos.map((video) => (
-          <div key={video.cod_video}>
-            <div
-              className="video"
-              onClick={() => handleRedirect(video.cod_video)}
-            >
-              {video.titulo_video}
+        <div>
+          <div>{curso.nome_curso}</div>
+          <h3>Videos</h3>
+          {videos.map((video, indice) => (
+            <div key={video.cod_video}>
+              <div
+                className="video"
+                onClick={() => handleRedirect(video.cod_video)}
+              >
+                {indice + 1} - {video.titulo_video}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </>
   );
