@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 /* @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto:wght@400;500;900&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto:wght@400;500;900&display=swap');*/
+@import url('https://fonts.googleapis.com/css?family=Poppins');
 
 * {
   @apply m-0 p-0 outline-0 box-border;
@@ -12,11 +13,12 @@ body {
   @apply min-h-screen;
   font-family: 'Montserrat', sans-serif;
   font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', inherit;
   -webkit-font-smoothing: antialiased;
 }
 
 html, body, #root {
-  @apply h-full bg-[#121214];
+  @apply h-full bg-cinza-500;
 }
 
 a {
@@ -32,21 +34,23 @@ label{
 }
 
 input {
-  @apply bg-slate-50 border rounded-md py-1 px-2;
+  @apply border rounded-md py-1 px-2 h-8 text-cinza-300;
 }
 
 input:disabled  {
-  @apply bg-slate-200 border rounded-md py-1 px-2;
+  @apply border rounded-md py-1 px-2;
 }
 
 textarea {
-  @apply bg-slate-50 border rounded-md py-1 px-2;
+  @apply border rounded-md py-1 px-1;
 }
 
 select {
-  @apply bg-slate-50 border rounded-md py-1 px-2;
+  @apply border rounded-md py-1 px-2 h-8 text-cinza-300;
 }
 
+
+/* A SER ESTILIZADO AINDA */
 ::-webkit-scrollbar {
   display: none;
 }
@@ -62,8 +66,8 @@ select {
 }
 
 .green-btn {
-  @apply bg-transparent hover:bg-verde-100 text-verde-100 font-semibold hover:text-white
-  py-2 px-4 border border-verde-100 hover:border-transparent rounded-xl
+  @apply bg-verde-100 hover:bg-verde-200 text-cinza-100 
+  py-2 px-2 border border-verde-100 hover:border-transparent rounded-full 
 }
 
 .blue-btn{
@@ -72,8 +76,8 @@ select {
 }
 
 .red-btn{
-  @apply bg-transparent hover:bg-vermelho-100 text-vermelho-100 font-semibold hover:text-white
-  py-2 px-4 border border-vermelho-100 hover:border-transparent rounded-xl
+  @apply bg-vermelho-100 hover:bg-vermelho-200 text-cinza-100
+  py-2 px-2 border border-vermelho-100 hover:border-transparent rounded-full
 }
 
 .yellow-btn{
@@ -91,25 +95,34 @@ select {
 /* --BUTTONS-- */
 
 /* --SEARCH-- */
+.top-forms-container{
+  @apply w-full flex justify-between items-center
+}
+
 .title{
-  @apply text-[#00B37E] ml-10 mb-2 text-2xl font-semibold tracking-wide
+  @apply text-verde-100 mb-2 text-xl font-medium tracking-wide
 }
 
 .search-container{
-  @apply bg-[#1E1E1E] shadow-xl pt-[10px] w-[100%] items-center rounded-b-3xl
-}
-
-.search-title{
-  @apply text-[#FFFFFF] mb-[-10px] ml-8
+  @apply bg-cinza-400 w-2/3 p-3 rounded-b-2xl
 }
 
 .search-form{
-  @apply flex items-center p-1 m-2 justify-around
+  @apply flex items-center justify-between
+}
+
+.search-container-inputs{
+  @apply w-2/3
+}
+
+.search-container-buttons{
+  @apply flex gap-2 
 }
 
 .search-input{
-  @apply bg-slate-50 border w-[20%] rounded-full px-2 pl-3 text-start
+  @apply border w-[45%] rounded-full text-start mr-3
 }
+
 /* --SEARCH-- */
 
 /* .form-gestao{
@@ -129,7 +142,7 @@ thead{
 }
 
 thead tr {
-  @apply items-center p-1 m-3 border-2 border-[#1E1E1E]
+  @apply items-center p-1 m-3 border-2 border-[#1f1f23]
 }
 
 tbody tr {

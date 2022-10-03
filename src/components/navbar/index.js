@@ -47,11 +47,9 @@ export default function Navbar() {
           >
             <path
               d="M6.36963 31.2345H19.5V36H0V0H6.36963V31.2345Z"
-              fill="#00B37E"
             />
             <path
               d="M25.8696 31.2345H39V36H19.5V0H25.8696V31.2345Z"
-              fill="#00B37E"
             />
           </svg>
         </Link>
