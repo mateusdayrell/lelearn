@@ -25,13 +25,13 @@ export default function OrderSelect({ nameKey, handleOrderChange, searchOrdem, a
   }
 
   return (
-    <div className="flex gap-2 items-center text-sm max-w-min">
+    <div className="order-select flex gap-2 items-center text-sm max-w-min">
       <span>
-        <label className='text-white text font-extralight'>Ordem</label>
+        <label className='text-white text font-extralight text-xs'>Ordem</label>
       </span>
-      <span className='border-b border-gray-300'>
+      <span className='border-b border-gray-300 bg-transparent'>
         <select
-          className="border-none text-[white] bg-transparent text-sm"
+          className="border-none text-[white] bg-transparent text-xs "
           name="ordem"
           defaultValue={searchOrdem}
           onChange={(e) => handleChange(e.target.value)}
@@ -39,10 +39,10 @@ export default function OrderSelect({ nameKey, handleOrderChange, searchOrdem, a
           <option value="" disabled selected={searchOrdem === ''}>
             Ordenar por
           </option>
-          <option value={`${nameKey} asc`} selected={searchOrdem === `${nameKey} asc`}>A-z</option>
-          <option value={`${nameKey} desc`}>Z-a</option>
-          <option value="created_at asc">Mais antigo primeiro</option>
-          <option value="created_at desc">Mais recente primeiro</option>
+          <option className='text-gray-900' value={`${nameKey} asc`} selected={searchOrdem === `${nameKey} asc`}>A-z</option>
+          <option className='text-gray-900' value={`${nameKey} desc`}>Z-a</option>
+          <option className='text-gray-900' value="created_at asc">Mais antigo primeiro</option>
+          <option className='text-gray-900' value="created_at desc">Mais recente primeiro</option>
         </select>
       </span>
     </div>
