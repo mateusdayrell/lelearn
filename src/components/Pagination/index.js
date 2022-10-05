@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
+import "./style.css"
 
 export default function Pagination({total, itemsPerPage, handleNewPage, maxButtons}) {
   const totalPages = Math.ceil(total / itemsPerPage)
@@ -13,13 +14,14 @@ export default function Pagination({total, itemsPerPage, handleNewPage, maxButto
   }
 
   return(
-    <div>
+    <div className="pagination-container">
       {Array.from({length: totalPages}).map((el, index) => (
         index === 0 || index === totalPages-1 ||
         index === currentPage || index === currentPage || index === currentPage - 1 || index === currentPage - 2 ?
         <button
-          className="btn"
+          className={currentPage === index + 1 ? "selected" : "page"}
           type="button"
+          title={`Página ${index+1}`}
           onClick={() => handleClick(index)}
         >
           {index + 1}

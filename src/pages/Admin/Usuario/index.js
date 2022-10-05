@@ -12,6 +12,7 @@ import axios from '../../../services/axios';
 import Loading from '../../../components/Loading';
 import Navbar from '../../../components/Navbar';
 import OrderSelect from '../../../components/OrderSelect';
+import Pagination from '../../../components/Pagination';
 import './style.css';
 
 export default function Usuario() {
@@ -32,8 +33,11 @@ export default function Usuario() {
   const [searchNome, setSearchNome] = useState('');
   const [searchCpf, setSearchCpf] = useState('');
   const [searchTipo, setSearchTipo] = useState('');
-
   const [searchOrdem, setSearchOrdem] = useState('')
+
+  const itemsPerPage = 10
+  const [inicio, setInicio] = useState(0)
+  const [fim, setFim] = useState(itemsPerPage)
 
   useEffect(() => {
     loadRegisters();
@@ -241,6 +245,12 @@ export default function Usuario() {
     setUsuarios(array)
     setSearchOrdem(ordem)
   }
+
+  const handleNewPage = (novoInicio, novoFim) => {
+    setInicio(novoInicio)
+    setFim(novoFim)
+  }
+
   return (
     <>
       <Navbar />
@@ -325,7 +335,7 @@ export default function Usuario() {
         </div>
 
         <div className='text-[#d1d7e1]'>
-        {usuarios.map((usuario) => (
+        {usuarios.slice(inicio, fim).map((usuario) => (
           <div
             key={usuario.cpf}
             className="w-full shadow-md shadow-zinc-700 rounded-lg py-4 pl-6 pr-8 mb-3 bg-[#323238] flex justify-between items-center"
@@ -358,6 +368,15 @@ export default function Usuario() {
             </span>
           </div>
         ))}
+        </div>
+
+        <div className='mt-3 ml-2'>
+          {usuarios &&
+              <Pagination
+                total={usuarios.length}
+                itemsPerPage={itemsPerPage}
+                handleNewPage={handleNewPage} />
+          }
         </div>
 
 

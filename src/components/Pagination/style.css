@@ -1,0 +1,9 @@
+.pagination-container {
+  @apply flex gap-1
+}
+.pagination-container .selected{
+  @apply bg-verde-200 w-9 h-9 rounded-full shadow shadow-gray-700 text-gray-50 font-bold underline
+}
+.pagination-container .page{
+  @apply bg-verde-100 w-9 h-9 rounded-full text-gray-50
+}
