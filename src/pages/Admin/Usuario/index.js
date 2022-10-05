@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import moment from 'moment';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
@@ -28,7 +27,6 @@ export default function Usuario() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [tipo, setTipo] = useState('');
-  const [dataNasc, setDataNasc] = useState('');
 
   const [searchNome, setSearchNome] = useState('');
   const [searchCpf, setSearchCpf] = useState('');
@@ -91,7 +89,6 @@ export default function Usuario() {
         email,
         telefone,
         tipo,
-        data_nasc: dataNasc,
       };
 
       if (password) {
@@ -141,7 +138,6 @@ export default function Usuario() {
     setPassword('');
     setConfirmPassword('');
     setTipo(usuario.tipo);
-    setDataNasc(moment(usuario.data_nasc).format('YYYY-MM-DD'));
     setShowFromModal(true);
     setIsUpdating(true);
   };
@@ -222,7 +218,6 @@ export default function Usuario() {
     setPassword('');
     setConfirmPassword('');
     setTipo('');
-    setDataNasc('');
   };
 
   const clearSearch = () => {
@@ -466,19 +461,6 @@ export default function Usuario() {
                   <option value="0">Administrador</option>
                   <option value="1">Usuário comum</option>
                 </select>
-              </div>
-
-              <div className="ModalInput">
-                <label>Data Nascimento</label>
-                <input
-                  type="date"
-                  value={dataNasc}
-                  onChange={(e) =>
-                    setDataNasc(
-                      moment(e.target.value, 'YYYY-MM-DD').format('DD/MM/YYYY')
-                    )
-                  }
-                />
               </div>
             </div>
           </div>
