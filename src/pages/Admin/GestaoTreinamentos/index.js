@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import { MagnifyingGlass, ProhibitInset, Plus, X } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
 
@@ -193,7 +194,7 @@ export default function GestaoTreinamentos() {
   };
 
   const handleMultiSelectChange = (type, obj) => {
-    if(type === "usuarios") {
+    if (type === "usuarios") {
       const newArrayUsuarios = [...treinUsuarios]
 
       newArrayUsuarios.push(JSON.parse(obj)) // converter string para objeto
@@ -211,7 +212,7 @@ export default function GestaoTreinamentos() {
   }
 
   const handleMultiSelectRemove = (type, cod) => {
-    if(type === "usuarios") {
+    if (type === "usuarios") {
       const newArrayUsuarios = treinUsuarios.filter(el => el.cpf !== cod); // remover obj do array
       setTreinUsuarios(newArrayUsuarios)
     }
@@ -235,70 +236,83 @@ export default function GestaoTreinamentos() {
     <>
       <Navbar />
       <Loading isLoading={isLoading} />
-      <div className="g-video-container">
+      <div className="container-body">
         <h1 className="title">Gestão de Treinamentos</h1>
 
-        <div className="search-container">
-          <p className="search-title">Pesquisar</p>
-          <div className="search-form">
-            <input
-              type="text"
-              className="search-input"
-              name="nome"
-              placeholder="Nome do treinamento"
-              value={searchNome}
-              onChange={(e) => setSearchNome(e.target.value)}
-            />
+        <div className='top-forms-container'>
+          <div className="search-container">
+            <div className="search-form">
+              <div className='search-container-inputs'>
+                <input
+                  type="text"
+                  className="search-input"
+                  name="nome"
+                  placeholder="Nome do treinamento"
+                  value={searchNome}
+                  onChange={(e) => setSearchNome(e.target.value)}
+                />
 
-            <select
-              name="usuario"
-              className="search-input"
-              defaultValue={searchUsuario}
-              onChange={(e) => setSearchUsuario(e.target.value)}
-            >
-              <option value="" disabled selected={searchUsuario === ''}>
-                Selecione um usuário
-              </option>
-              {usuarios.length > 0
-                ? usuarios.map((u) => (
-                    <option key={u.cpf} value={u.cpf}>
-                      {u.nome}
-                    </option>
-                  ))
-                : ''}
-            </select>
+                <select
+                  name="usuario"
+                  className="search-input"
+                  defaultValue={searchUsuario}
+                  onChange={(e) => setSearchUsuario(e.target.value)}
+                >
+                  <option value="" disabled selected={searchUsuario === ''}>
+                    Selecione um usuário
+                  </option>
+                  {usuarios.length > 0
+                    ? usuarios.map((u) => (
+                      <option key={u.cpf} value={u.cpf}>
+                        {u.nome}
+                      </option>
+                    ))
+                    : ''}
+                </select>
 
-            <select
-              name="curso"
-              className="search-input"
-              defaultValue={searchCurso}
-              onChange={(e) => setSearchCurso(e.target.value)}
-            >
-              <option value="" disabled selected={searchCurso === ''}>
-                Selecione um curso
-              </option>
-              {cursos.length > 0
-                ? cursos.map((c) => (
-                    <option key={c.cod_curso} value={c.cod_curso}>
-                      {c.nome_curso}
-                    </option>
-                  ))
-                : ''}
-            </select>
+                <select
+                  name="curso"
+                  className="search-input"
+                  defaultValue={searchCurso}
+                  onChange={(e) => setSearchCurso(e.target.value)}
+                >
+                  <option value="" disabled selected={searchCurso === ''}>
+                    Selecione um curso
+                  </option>
+                  {cursos.length > 0
+                    ? cursos.map((c) => (
+                      <option key={c.cod_curso} value={c.cod_curso}>
+                        {c.nome_curso}
+                      </option>
+                    ))
+                    : ''}
+                </select>
+              </div>
 
-            <div className="flex gap-3">
-              <button
-                className="green-btn"
-                type="button"
-                onClick={handleSearch}
-              >
-                Pesquisar
-              </button>
-              <button className="red-btn" type="button" onClick={clearSearch}>
-                Limpar
-              </button>
+              <div className='search-container-buttons'>
+                <button
+                  className="green-btn"
+                  type="button"
+                  onClick={handleSearch}
+                >
+                  <MagnifyingGlass size={24} />
+                </button>
+                <button
+                  className="red-btn"
+                  type="button"
+                  onClick={clearSearch}>
+                  <ProhibitInset size={24} />
+                </button>
+              </div>
             </div>
           </div>
+          <button
+            className="green-btn"
+            type="button"
+            onClick={() => setShowFormModal(true)}
+          >
+            <Plus size={24} />
+          </button>
         </div>
 
         <div>
@@ -352,13 +366,6 @@ export default function GestaoTreinamentos() {
               </tbody>
             </table>
           </div>
-          <button
-            className="btn mx-auto my-5"
-            type="button"
-            onClick={() => setShowFormModal(true)}
-          >
-            Cadastrar
-          </button>
 
           {treinamentos &&
             <Pagination
@@ -396,7 +403,7 @@ export default function GestaoTreinamentos() {
                     onChange={(e) => setCodTreinamento(e.target.value)}
                   />
                 </div>
-              : '' }
+                : ''}
 
               <div className="ModalInput">
                 <label>Nome</label>
