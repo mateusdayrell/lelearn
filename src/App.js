@@ -7,6 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react'; // redux
 import store, { persistor } from './store'; // redux
 import history from './services/history';
 import Routes from './routes';
+import Footer from './components/Footer';
 import './styles/global.css';
 import './styles/modal.css';
 import 'react-toastify/dist/ReactToastify.css'; // toasts
@@ -20,6 +21,7 @@ function App() {
           <ToastContainer autoClose={3000} className="toast-container" />
         </Router>
       </PersistGate>
+      <Footer/>
     </Provider>
   );
 }
