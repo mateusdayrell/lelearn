@@ -6,6 +6,7 @@ import { MagnifyingGlass, PaintBrushHousehold, Plus } from 'phosphor-react';
 import Modal from 'react-modal';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import { isEmail, isMobilePhone } from 'validator';
+import InputMask from 'react-input-mask';
 
 import axios from '../../../services/axios';
 import Loading from '../../../components/Loading';
@@ -87,7 +88,7 @@ export default function Usuario() {
         cpf,
         nome,
         email,
-        telefone,
+        telefone: telefone.replace(/\D/g, ''),
         tipo,
       };
 
@@ -150,6 +151,8 @@ export default function Usuario() {
   const validateForm = () => {
     let controle = true;
 
+    const telefoneFormatado = telefone.replace(/\D/g, '')
+
     if (!cpf) {
       toast.error('Preencha o campo CPF!');
       controle = false;
@@ -169,10 +172,10 @@ export default function Usuario() {
       controle = false;
     }
 
-    if (telefone && (telefone.length < 10 || telefone.length > 11)) {
+    if (telefoneFormatado && (telefoneFormatado.length < 10 || telefoneFormatado.length > 11)) {
       toast.error('O campo telefone deve ter 10 ou 11 caracteres!');
       controle = false;
-    } else if (telefone && !isMobilePhone(telefone, 'pt-BR')) {
+    } else if (telefoneFormatado && !isMobilePhone(telefoneFormatado, 'pt-BR')) {
       toast.error('Telefone inválido!');
       controle = false;
     }
@@ -404,15 +407,17 @@ export default function Usuario() {
 
               <div className="ModalInput">
                 <label>Telefone</label>
-                <input
+                <InputMask
+                  mask="(99) 9 9999-9999"
+                  value={telefone}
                   type="text"
                   name="telefone"
                   placeholder="Telefone"
-                  maxLength={11}
-                  value={telefone}
                   onChange={(e) => setTelefone(e.target.value)}
                 />
               </div>
+
+
 
               <div className="ModalInput">
                 <label>Email</label>
