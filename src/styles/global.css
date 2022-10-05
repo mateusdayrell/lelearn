@@ -66,8 +66,8 @@ select {
 }
 
 .green-btn {
-  @apply bg-verde-100 hover:bg-verde-200 text-cinza-100 
-  py-2 px-2 border border-verde-100 hover:border-transparent rounded-full 
+  @apply bg-verde-100 hover:bg-verde-200 text-cinza-100
+  py-2 px-3 border border-verde-100 hover:border-transparent rounded-full
 }
 
 .blue-btn{
@@ -92,6 +92,12 @@ select {
 .round-red-btn{
   @apply py-3 px-3 rounded-full shadow text-white  bg-vermelho-100 hover:bg-red-700
 }
+
+.round-green-btn{
+  @apply bg-verde-100 hover:bg-verde-200 text-cinza-100
+  py-2 px-2 border border-verde-100 hover:border-transparent rounded-full
+}
+
 /* --BUTTONS-- */
 
 /* --SEARCH-- */
@@ -104,7 +110,7 @@ select {
 }
 
 .search-container{
-  @apply bg-cinza-400 w-3/4 p-3 rounded-b-2xl
+  @apply bg-[#323238] w-3/4 p-3 rounded-xl shadow-md shadow-zinc-700
 }
 
 .search-form{
@@ -116,7 +122,7 @@ select {
 }
 
 .search-container-buttons{
-  @apply flex gap-2 
+  @apply flex gap-2
 }
 
 .search-input{

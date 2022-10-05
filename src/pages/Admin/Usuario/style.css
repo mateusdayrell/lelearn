@@ -2,23 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-.container-usuario{
+/* .tabela-usuario{
   @apply flex flex-col gap-[17] px-10 py-3 bg-[#09090a] min-w-[670px]
-}
+} */
 
-.container-usuario table {
+/* .tabela-usuario table {
   border-spacing: 0 5px;
 }
 
-.container-usuario tr td:nth-child(4),
-.container-usuario tr th:nth-child(4) {
+.tabela-usuario tr td:nth-child(4),
+.tabela-usuario tr th:nth-child(4) {
   border-radius: 0 0.625rem 0.625rem 0;
 }
 
-.container-usuario tr td:nth-child(1),
-.container-usuario tr th:nth-child(1) {
+.tabela-usuario tr td:nth-child(1),
+.tabela-usuario tr th:nth-child(1) {
   border-radius: 0.625rem 0 0 0.625rem;
-}
+} */
 
 /*.container-usuario{
   @apply flex flex-col gap-16 p-10

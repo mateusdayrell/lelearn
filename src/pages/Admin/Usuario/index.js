@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
-import Modal from 'react-modal';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import { MagnifyingGlass, PaintBrushHousehold, Plus } from 'phosphor-react';
+import Modal from 'react-modal';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import { isEmail, isMobilePhone } from 'validator';
+
 import axios from '../../../services/axios';
 import Loading from '../../../components/Loading';
 import Navbar from '../../../components/Navbar';
+import OrderSelect from '../../../components/OrderSelect';
 import './style.css';
 
 export default function Usuario() {
@@ -30,6 +33,8 @@ export default function Usuario() {
   const [searchNome, setSearchNome] = useState('');
   const [searchCpf, setSearchCpf] = useState('');
   const [searchTipo, setSearchTipo] = useState('');
+
+  const [searchOrdem, setSearchOrdem] = useState('')
 
   useEffect(() => {
     loadRegisters();
@@ -233,6 +238,11 @@ export default function Usuario() {
     setIsUpdating(false);
     clearModal();
   };
+
+  const handleOrderChange = (array, ordem) => {
+    setUsuarios(array)
+    setSearchOrdem(ordem)
+  }
   return (
     <>
       <Navbar />
@@ -240,107 +250,118 @@ export default function Usuario() {
 
       <div className="container-body">
         <h1 className="title">Gestão de Usuários</h1>
-        <div className="search-container">
-          <p className="search-title">Pesquisar</p>
-          <div className="search-form">
-            <input
-              className="search-input"
-              type="text"
-              name="cpf"
-              placeholder="CPF"
-              value={searchCpf}
-              onChange={(e) => setSearchCpf(e.target.value)}
-            />
 
-            <input
-              className="search-input"
-              type="text"
-              name="nome"
-              placeholder="Nome"
-              value={searchNome}
-              onChange={(e) => setSearchNome(e.target.value)}
-            />
+        <div className='top-forms-container'>
+          <div className="search-container">
+            {/* <p className="search-title">Pesquisar</p> */}
+            <div className="search-form">
+              <input
+                className="search-input"
+                type="text"
+                name="cpf"
+                placeholder="CPF"
+                value={searchCpf}
+                onChange={(e) => setSearchCpf(e.target.value)}
+              />
 
-            <select
-              className="search-input"
-              name="tipo"
-              id="tipo"
-              defaultValue={searchTipo}
-              onChange={(e) => setSearchTipo(e.target.value)}
-            >
-              <option value="" disabled selected={searchTipo === ''}>
-                Selecione um tipo
-              </option>
-              <option value="0">Administrador</option>
-              <option value="1">Usuário comum</option>
-            </select>
+              <input
+                className="search-input"
+                type="text"
+                name="nome"
+                placeholder="Nome"
+                value={searchNome}
+                onChange={(e) => setSearchNome(e.target.value)}
+              />
 
-            <div className="flex gap-3">
-              <button
-                className="green-btn"
-                type="button"
-                onClick={handleSearch}
+              <select
+                className="search-input"
+                name="tipo"
+                id="tipo"
+                defaultValue={searchTipo}
+                onChange={(e) => setSearchTipo(e.target.value)}
               >
-                Pesquisar
-              </button>
-              <button className="red-btn" type="button" onClick={clearSearch}>
-                Limpar
-              </button>
+                <option value="" disabled selected={searchTipo === ''}>
+                  Selecione um tipo
+                </option>
+                <option value="0">Administrador</option>
+                <option value="1">Usuário comum</option>
+              </select>
+
+              <div className="flex gap-3">
+              <button
+                    title="Pesquisar"
+                    className="round-green-btn"
+                    type="button"
+                    onClick={handleSearch}
+                  >
+                    <MagnifyingGlass size={22} />
+                  </button>
+                  <button
+                    title="Limpar campos"
+                    className="red-btn"
+                    type="button"
+                    onClick={clearSearch}>
+                    <PaintBrushHousehold size={22} />
+                  </button>
+              </div>
             </div>
           </div>
+          <span className='flex justify-center items-center w-1/4'>
+            <button
+              title="Cadastrar"
+              className="green-btn"
+              type="button"
+              onClick={() => setShowFromModal(true)}
+            >
+              <Plus size={24} />
+            </button>
+          </span>
         </div>
 
-        <div className="w-[98%] h-[1px] mx-3 my-6" />
-        <div className="bg-[#1E1E1E] border-2 border-[#1E1E1E] rounded-xl p-6 my-2">
-          <div className="bg-[#1E1E1E] shadow-xl py-[16px 0 16px 16px]">
-            <table>
-              <thead>
-                <tr>
-                  <th>CPF</th>
-                  <th>Nome</th>
-                  <th>Tipo</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                {usuarios.map((usuario) => (
-                  <tr key={usuario.cpf}>
-                    <td>{cpfValidator.format(usuario.cpf)}</td>
-                    <td>{usuario.nome}</td>
-                    <td>
-                      {usuario.tipo === 0 ? 'Administrador' : 'Usuário comum'}
-                    </td>
-                    <td className="border-r-2">
-                      <span className="flex justify-center gap-2">
-                        <button
-                          type="button"
-                          className="round-blue-btn"
-                          onClick={() => handleIsUpdating(usuario)}
-                        >
-                          <FaPencilAlt />
-                        </button>
-                        <button
-                          type="button"
-                          className="round-red-btn"
-                          onClick={() => handleIsDeleting(usuario.cpf)}
-                        >
-                          <FaTrashAlt />
-                        </button>
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <button
-            className="btn mx-auto my-5"
-            type="button"
-            onClick={() => setShowFromModal(true)}
-          >
-            Cadastrar
-          </button>
+        <div className='mt-4 mb-8 ml-2'>
+          <OrderSelect
+            nameKey="nome"
+            handleOrderChange={handleOrderChange}
+            searchOrdem={searchOrdem}
+            array={usuarios} />
         </div>
+
+        <div className='text-[#d1d7e1]'>
+        {usuarios.map((usuario) => (
+          <div
+            key={usuario.cpf}
+            className="w-full shadow-md shadow-zinc-700 rounded-lg py-4 pl-6 pr-8 mb-3 bg-[#323238] flex justify-between items-center"
+          >
+            <span>
+              <span className='border-r-2 py-2 pr-3 border-verde-100'>{cpfValidator.format(usuario.cpf)}</span>
+              <span className='pl-3'>{usuario.nome}</span>
+              <span className={usuario.tipo === 0 ? 'text-sm text-azul-100 rounded px-1 pb-[2px] ml-3': 'text-sm text-laranja-100 rounded px-1 pb-[2px] ml-3'}>
+                <small>{usuario.tipo === 0 ? 'Administrador' : 'Comum'}</small>
+              </span>
+            </span>
+
+            <span className='flex gap-5'>
+              <button
+                type="button"
+                title="Editar"
+                className='round-green-btn'
+                onClick={() => handleIsUpdating(usuario)}
+              >
+                <FaPencilAlt/>
+              </button>
+              <button
+                type="button"
+                title="Excluir"
+                className='red-btn'
+                onClick={() => handleIsDeleting(usuario.cpf)}
+              >
+                <FaTrashAlt />
+              </button>
+            </span>
+          </div>
+        ))}
+        </div>
+
 
         <Modal
           isOpen={showFormModal}
@@ -351,7 +372,11 @@ export default function Usuario() {
         >
           <div className="ModalHeader">
             <span>{isUpdating ? 'Editar' : 'Cadastrar'} usuário</span>
-            <button className="CloseModal" type="button" onClick={handleClose}>
+            <button
+              className="CloseModal"
+              type="button"
+              title="Fechar modal"
+              onClick={handleClose}>
               x
             </button>
           </div>
@@ -458,10 +483,18 @@ export default function Usuario() {
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="red-btn" type="button" onClick={clearModal}>
+            <button
+              className="bg-vermelho-100 text-white w-24 py-2 rounded-xl hover:bg-vermelho-200"
+              title="Limpar campos"
+              type="button"
+              onClick={clearModal}>
               Limpar
             </button>
-            <button className="green-btn" type="submit" onClick={handleSubmit}>
+            <button
+              className="bg-verde-100 text-white w-24 py-2 rounded-xl hover:bg-verde-200"
+              title={isUpdating ? 'Atualizar dados' : 'Salvar dados'}
+              type="submit"
+              onClick={handleSubmit}>
               {isUpdating ? 'Atualizar' : 'Salvar'}
             </button>
           </div>
@@ -476,7 +509,11 @@ export default function Usuario() {
         >
           <div className="ModalHeader">
             <span>Excluir usuário</span>
-            <button className="CloseModal" type="button" onClick={handleClose}>
+            <button
+              className="CloseModal"
+              title="Fechar modal"
+              type="button"
+              onClick={handleClose}>
               x
             </button>
           </div>
@@ -491,11 +528,16 @@ export default function Usuario() {
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="yellow-btn" type="button" onClick={handleClose}>
+            <button
+             className="bg-verde-100 text-white w-24 py-2 rounded-xl hover:bg-verde-200"
+             title="Cancelar"
+             type="button"
+             onClick={handleClose} >
               Cancelar
             </button>
             <button
-              className="red-btn"
+              className="bg-vermelho-100 text-white w-24 py-2 rounded-xl hover:bg-vermelho-200"
+              title="Excluir"
               type="button"
               onClick={() => handleDelete(cpf)}
             >
