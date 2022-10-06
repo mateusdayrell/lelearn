@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
-import { MagnifyingGlass, ProhibitInset, Plus, X } from 'phosphor-react';
+import { MagnifyingGlass, PaintBrushHousehold, Plus, X } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
 
 import './style.css';
 import Loading from '../../../components/Loading';
 import Navbar from '../../../components/Navbar';
+import OrderSelect from '../../../components/OrderSelect';
+import Pagination from '../../../components/Pagination';
 import axios from '../../../services/axios';
 
 export default function GestaoVideos() {
@@ -22,11 +24,16 @@ export default function GestaoVideos() {
 
   const [searchTitulo, setSearchTitulo] = useState('');
   const [searchCurso, setSearchCurso] = useState('');
+  const [searchOrdem, setSearchOrdem] = useState('')
 
   const [isLoading, setIsLoading] = useState(false);
   const [shwoFormModal, setShowFormModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+
+  const itemsPerPage = 10
+  const [inicio, setInicio] = useState(0)
+  const [fim, setFim] = useState(itemsPerPage)
 
   useEffect(() => {
     loadRegisters();
@@ -183,11 +190,21 @@ export default function GestaoVideos() {
     setDescricao('');
   };
 
+  const handleOrderChange = (array, ordem) => {
+    setVideos(array)
+    setSearchOrdem(ordem)
+  }
+
+  const handleNewPage = (novoInicio, novoFim) => {
+    setInicio(novoInicio)
+    setFim(novoFim)
+  }
+
   return (
     <>
       <Navbar />
       <Loading isLoading={isLoading} />
-      <div className="container-body">
+      <div className="container-body container-video">
         <h1 className="title">Gestão de Vídeos</h1>
 
         <div className='top-forms-container'>
@@ -225,7 +242,7 @@ export default function GestaoVideos() {
               <div className="search-container-buttons">
                 <button
                   title="Pesquisar"
-                  className="green-btn"
+                  className="round-green-btn"
                   type="button"
                   onClick={handleSearch}
                 >
@@ -236,66 +253,74 @@ export default function GestaoVideos() {
                   className="red-btn"
                   type="button"
                   onClick={clearSearch}>
-                  <ProhibitInset size={24} />
+                  <PaintBrushHousehold size={24} />
                 </button>
               </div>
             </div>
           </div>
-          <button
-            title="Cadastrar vídeo"
-            className="green-btn"
-            type="button"
-            onClick={() => setShowFormModal(true)}
-          >
-            <Plus size={24} />
-          </button>
+          <span className='flex justify-center items-center w-1/4'>
+            <button
+              title="Cadastrar vídeo"
+              className="green-btn"
+              type="button"
+              onClick={() => setShowFormModal(true)}
+            >
+              <Plus size={24} />
+            </button>
+          </span>
         </div>
 
-        <div className="w-[98%] h-[1px] mx-3 my-6" />
-        <div className="bg-[#1E1E1E] border-2 border-[#1E1E1E] rounded-xl p-6 my-2">
-          <div className="bg-[#1E1E1E] shadow-xl py-[16px 0 16px 16px]">
-            <table>
-              <thead>
-                <tr>
-                  <th>Código</th>
-                  <th>Título</th>
-                  <th>Curso</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                {videos.map((video) => (
-                  <tr key={video.cod_video}>
-                    <td className="">{video.cod_video}</td>
-                    <td className="">{video.titulo_video}</td>
-                    <td className="">
-                      {video.curso ? video.curso.nome_curso : video.cod_curso}
-                    </td>
-                    <td className="border-r-2">
-                      <span className="flex justify-center gap-2">
-                        <button
-                          title="Editar"
-                          type="button"
-                          className="green-btn"
-                          onClick={() => handleIsUpdating(video)}
-                        >
-                          <FaPencilAlt />
-                        </button>
-                        <button
-                          title="Excluir"
-                          type="button"
-                          className="red-btn"
-                          onClick={() => handleIsDeleting(video.cod_video)}
-                        >
-                          <FaTrashAlt />
-                        </button>
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <div className='mt-4 mb-8 ml-2'>
+          <OrderSelect
+            nameKey="titulo_video"
+            handleOrderChange={handleOrderChange}
+            searchOrdem={searchOrdem}
+            array={videos} />
+        </div>
+
+        <div className='text-[#d1d7e1]'>
+          {videos.slice(inicio, fim).map((video) => (
+            <div
+              key={video.cod_video}
+              className="w-full shadow-md shadow-zinc-700 rounded-lg py-4 pl-6 pr-8 mb-3 bg-[#323238] flex justify-between items-center"
+            >
+              <span>
+                <span className='border-r-2 py-2 pr-3 border-verde-100'>{video.cod_video}</span>
+                <span className='pl-3'>{video.titulo_video}</span>
+                <span className='text-sm text-azul-100 rounded px-1 pb-[2px] ml-3'>
+                  <small>{video.curso ? video.curso.nome_curso : ''}</small>
+                </span>
+              </span>
+
+              <span className='flex gap-5'>
+                <button
+                  type="button"
+                  title="Editar"
+                  className='round-green-btn'
+                  onClick={() => handleIsUpdating(video)}
+                >
+                  <FaPencilAlt/>
+                </button>
+                <button
+                  type="button"
+                  title="Excluir"
+                  className='red-btn'
+                  onClick={() => handleIsDeleting(video.cod_video)}
+                >
+                  <FaTrashAlt />
+                </button>
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className='mt-3 ml-2'>
+          {videos &&
+              <Pagination
+                total={videos.length}
+                itemsPerPage={itemsPerPage}
+                handleNewPage={handleNewPage} />
+          }
         </div>
 
         <Modal
@@ -388,14 +413,14 @@ export default function GestaoVideos() {
           <div className="ModalFooter">
             <button
               title="Limpar campos"
-              className="red-btn"
+              className="bg-vermelho-100 text-white w-24 py-2 rounded-xl hover:bg-vermelho-200"
               type="button"
               onClick={clearModal}>
               Limpar
             </button>
             <button
-              title="Concluir cadastro"
-              className="green-btn"
+              className="bg-verde-100 text-white w-24 py-2 rounded-xl hover:bg-verde-200"
+              title={isUpdating ? 'Atualizar dados' : 'Salvar dados'}
               type="button"
               onClick={handleSubmit}>
               {isUpdating ? 'Atualizar' : 'Salvar'}
@@ -417,7 +442,7 @@ export default function GestaoVideos() {
               className="CloseModal"
               type="button"
               onClick={handleClose}>
-              x
+              <X size={24} />
             </button>
           </div>
           <div className="ModalContent">
@@ -429,16 +454,16 @@ export default function GestaoVideos() {
             </div>
           </div>
           <div className="ModalFooter">
-            <button
-              title="Cancelar operação"
-              className="yellow-btn"
-              type="button"
-              onClick={handleClose}>
+          <button
+             className="bg-verde-100 text-white w-24 py-2 rounded-xl hover:bg-verde-200"
+             title="Cancelar"
+             type="button"
+             onClick={handleClose} >
               Cancelar
             </button>
             <button
-              title="Excluir vídeo"
-              className="red-btn"
+              className="bg-vermelho-100 text-white w-24 py-2 rounded-xl hover:bg-vermelho-200"
+              title="Excluir"
               type="button"
               onClick={() => handleDelete(codVideo)}
             >
