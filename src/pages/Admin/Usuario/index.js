@@ -127,6 +127,7 @@ export default function Usuario() {
       await axios.delete(`/usuarios/${cpfUsuario}`);
 
       setIsLoading(false);
+      toast.success('Usuário excluído com sucesso!');
       await loadRegisters();
     } catch (error) {
       setIsLoading(false);
