@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 // import { Player, Youtube, DefaultUi } from '@vime/react';
 // import getYoutubeId from 'get-youtube-id'
 
@@ -7,19 +9,23 @@ import './style.css';
 // import '@vime/core/themes/default.css';
 import Navbar from '../../components/Navbar';
 import Loading from '../../components/Loading';
+import Checkbox from '../../components/Checkbox';
 import axios from '../../services/axios';
 
 export default function Cursos() {
   const params = useParams();
 
+  const cpf = useSelector((state) => state.auth.usuario.cpf);
+
   const [video, setVideo] = useState({});
-  const [outrosVideos, setOutrosVideos] = useState([]);
+  const [videosCurso, setVideosCurso] = useState([]);
+  const [videosUsuario, setVideosUsuario] = useState([])
   const [curso, setCurso] = useState({});
   const [comentarios, setComentarios] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [ready, setReady] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     loadRegisters();
   }, []);
 
@@ -30,14 +36,15 @@ export default function Cursos() {
   const loadRegisters = async () => {
     const { cod_video } = params;
     setIsLoading(true);
-
     try {
       const { data } = await axios.get(`/videos/${cod_video}`);
+      const usuarioVideosResponde = await axios.get(`usuarios-videos/${cpf}`)
 
       setVideo(data);
       setCurso(data.curso);
       setComentarios(data.comentarios);
-      setOutrosVideos(data.curso.videos);
+      setVideosCurso(data.curso.videos);
+      setVideosUsuario(usuarioVideosResponde.data);
 
       setIsLoading(false);
     } catch (error) {
@@ -46,11 +53,27 @@ export default function Cursos() {
     }
   };
 
+  const handleCheckbox = async (codVideo) => {
+    try {
+      setIsLoading(true)
+      const { data } = await axios.put(`/usuarios-videos/${cpf}/${codVideo}`)
+      setIsLoading(false);
+
+      setVideosUsuario(data)
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+      toast.error('Erro ao marcar aula como assistida/não assistida')
+    }
+  }
+
+  const handleWatched = codVideo => videosUsuario.flatMap(el => el.cod_video === codVideo).includes(true)
+
   return (
     <>
       <Navbar />
       <Loading isLoading={isLoading} />
-      <div className=" ml-14 flex">
+      <div className="ml-16 flex">
         <div className="video-container">
           <h1>Vídeos</h1>
           <div className="bg-black flex justify-center">
@@ -70,7 +93,20 @@ export default function Cursos() {
             </div>
           </div>
           <div className="p-8 max-w-[1100px] mx-auto">
-            <h1 className="text-2xl font-bold">{video.titulo_video}</h1>
+            <div className='w-56' />
+
+            <div className='flex justify-between'>
+              <h1 className="text-2xl font-bold">{video.titulo_video}</h1>
+                <span className='flex items-center gap-2'>
+                  <label htmlFor="video-checkbox" className='inline'>Aula assistida</label>
+                  <Checkbox
+                    cId="video-checkbox"
+                    cValue={video.cod_video}
+                    handleCheckbox={handleCheckbox}
+                    checked={handleWatched(video.cod_video)}
+                  />
+              </span>
+            </div>
             <p className="mb-6 mt-2 text-zinc-400">{video.desc_video}</p>
 
             <h3>Curso: {curso.nome_curso}</h3>
@@ -88,22 +124,27 @@ export default function Cursos() {
         </div>
 
         <div className="video-list">
-          <span className="font-bold text-2xl pb-4 mb-6 border-b border-zinc-700 block">
+          <span className="font-bold text-center text-2xl pb-4 mb-6 border-b border-zinc-700 block">
             Conteúdo do curso
           </span>
 
           <div className="flex flex-col gap-6">
-            {outrosVideos.map((el, i) => (
+            {videosCurso.map((el, i) => (
               <div
                 key={el.cod_video}
-                className="bg-zinc-800 rounded p-4 border border-zinc-300 cursor-pointer"
+                className={`${el.cod_video === video.cod_video ? "bg-verde-200" : "bg-zinc-800"} rounded p-4 border border-zinc-300 cursor-pointer`}
               >
-                <div className="flex justify-between">
-                  <span>
-                    {i + 1} - {el.titulo_video}
-                  </span>
-                  <input type="checkbox" name="" id="" />
-                </div>
+                  <div className="flex justify-between">
+                    <span>
+                      {i + 1} - {el.titulo_video}
+                    </span>
+                    <Checkbox
+                      cId={`c-${el.cod_video}`}
+                      cValue={el.cod_video}
+                      handleCheckbox={handleCheckbox}
+                      checked={handleWatched(el.cod_video)}
+                    />
+                  </div>
               </div>
             ))}
           </div>
