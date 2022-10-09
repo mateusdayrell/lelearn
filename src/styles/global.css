@@ -13,7 +13,7 @@ body {
   @apply min-h-screen;
   font-family: 'Montserrat', sans-serif;
   font-family: 'Roboto', sans-serif;
-  font-family: 'Poppins', inherit;
+  font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -34,7 +34,7 @@ label{
 }
 
 input {
-  @apply border rounded-md py-1 px-2 h-8 text-cinza-300;
+  @apply border rounded-md py-1 px-2 h-8 text-cinza-300 text-sm;
 }
 
 input:disabled  {
@@ -46,7 +46,7 @@ textarea {
 }
 
 select {
-  @apply border rounded-md py-1 px-2 h-8 text-cinza-300;
+  @apply border rounded-md py-1 px-2 h-8 text-cinza-300 text-sm;
 }
 
 
@@ -67,7 +67,7 @@ select {
 
 .green-btn {
   @apply bg-verde-100 hover:bg-verde-200 text-cinza-100
-  py-2 px-3 border border-verde-100 hover:border-transparent rounded-full
+  py-2 px-2 border border-verde-100 hover:border-transparent rounded-full
 }
 
 .blue-btn{
@@ -110,7 +110,7 @@ select {
 }
 
 .search-container{
-  @apply bg-[#323238] w-3/4 p-3 rounded-xl shadow-md shadow-zinc-700
+  @apply bg-cinza-400 w-3/4 p-3 rounded-xl shadow-md
 }
 
 .search-form{

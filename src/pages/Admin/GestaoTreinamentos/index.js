@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
-import { MagnifyingGlass, ProhibitInset, Plus, X } from 'phosphor-react';
+import { MagnifyingGlass, PaintBrushHousehold, Plus, X } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
 
@@ -301,7 +301,7 @@ export default function GestaoTreinamentos() {
                   className="red-btn"
                   type="button"
                   onClick={clearSearch}>
-                  <ProhibitInset size={24} />
+                  <PaintBrushHousehold size={24} />
                 </button>
               </div>
             </div>
@@ -323,183 +323,173 @@ export default function GestaoTreinamentos() {
             array={treinamentos} />
         </div>
 
-        <div className="w-[98%] h-[1px] mx-3 my-6" />
-        <div className="bg-[#1E1E1E] border-2 border-[#1E1E1E] rounded-xl p-6 my-2">
-          <div className="bg-[#1E1E1E] shadow-xl py-[16px 0 16px 16px]">
-            <table>
-              <thead>
-                <tr>
-                  <th>Código</th>
-                  <th>Nome</th>
-                  <th>Descrição</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                {treinamentos.slice(inicio, fim).map((treinamento) => (
-                  <tr key={treinamento.cod_treinamento}>
-                    <td className="">{treinamento.cod_treinamento}</td>
-                    <td className="">{treinamento.nome_treinamento}</td>
-                    <td className="">{treinamento.desc_treinamento}</td>
-                    <td className="border-r-2">
-                      <span className="flex justify-center gap-2">
-                        <button
-                          type="button"
-                          className="round-blue-btn"
-                          onClick={() => handleIsUpdating(treinamento)}
-                        >
-                          <FaPencilAlt />
-                        </button>
-                        <button
-                          type="button"
-                          className="round-red-btn"
-                          onClick={() =>
-                            handleIsDeleting(treinamento.cod_treinamento)
-                          }
-                        >
-                          <FaTrashAlt />
-                        </button>
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <div className='text-[#d1d7e1]'>
+          {treinamentos.slice(inicio, fim).map((treinamento) => (
+            <div
+              key={treinamento.treinamento}
+              className="w-full shadow-md shadow-zinc-700 rounded-lg py-4 pl-6 pr-8 mb-3 bg-[#323238] flex justify-between items-center"
+            >
+              <span>
+                <span className='border-r-2 py-2 pr-3 border-verde-100'>{treinamento.cod_treinamento}</span>
+                <span className='pl-3'>{treinamento.nome_treinamento}</span>
+              </span>
 
-          {treinamentos &&
-            <Pagination
-              total={treinamentos.length}
-              itemsPerPage={itemsPerPage}
-              handleNewPage={handleNewPage} />
-          }
+              <span className='flex gap-5'>
+                <button
+                  type="button"
+                  title="Editar"
+                  className='round-green-btn'
+                  onClick={() => handleIsUpdating(treinamento)}
+                >
+                  <FaPencilAlt />
+                </button>
+                <button
+                  type="button"
+                  title="Excluir"
+                  className='red-btn'
+                  onClick={() => handleIsDeleting(treinamento.cod_treinamento)}
+                >
+                  <FaTrashAlt />
+                </button>
+              </span>
+            </div>
+          ))}
+        </div>
+        
+      <div className='mt-3 ml-2'>
+        {treinamentos &&
+          <Pagination
+            total={treinamentos.length}
+            itemsPerPage={itemsPerPage}
+            handleNewPage={handleNewPage} />
+        }
+      </div>
+
+      <Modal
+        isOpen={shwoFormModal}
+        onRequestClose={handleClose}
+        className="Modal"
+        overlayClassName="Overlay"
+        ariaHideApp={false}
+      >
+        <div className="ModalHeader">
+          <span>{isUpdating ? 'Editar' : 'Cadastrar'} treinamento</span>
+          <button className="CloseModal" type="button" onClick={handleClose}>
+            x
+          </button>
         </div>
 
-        <Modal
-          isOpen={shwoFormModal}
-          onRequestClose={handleClose}
-          className="Modal"
-          overlayClassName="Overlay"
-          ariaHideApp={false}
-        >
-          <div className="ModalHeader">
-            <span>{isUpdating ? 'Editar' : 'Cadastrar'} treinamento</span>
-            <button className="CloseModal" type="button" onClick={handleClose}>
-              x
-            </button>
-          </div>
-
-          <div className="ModalContent">
-            <div className="form-gestao-video">
-              {isUpdating ?
-                <div className="ModalInput">
-                  <label>Código</label>
-                  <input
-                    type="text"
-                    name="cod_treinamento"
-                    placeholder="Código"
-                    disabled={!!isUpdating}
-                    value={codTreinamento}
-                    onChange={(e) => setCodTreinamento(e.target.value)}
-                  />
-                </div>
-                : ''}
-
+        <div className="ModalContent">
+          <div className="form-gestao-video">
+            {isUpdating ?
               <div className="ModalInput">
-                <label>Nome</label>
+                <label>Código</label>
                 <input
                   type="text"
-                  name="nome"
-                  placeholder="Nome"
-                  maxLength="40"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
+                  name="cod_treinamento"
+                  placeholder="Código"
+                  disabled={!!isUpdating}
+                  value={codTreinamento}
+                  onChange={(e) => setCodTreinamento(e.target.value)}
                 />
               </div>
+              : ''}
 
-              <div className="ModalInput">
-                <label>Descrição <small>(opcional)</small></label>
-                <textarea
-                  name="descricao"
-                  placeholder="Descrição"
-                  value={descricao}
-                  onChange={(e) => setDescricao(e.target.value)}
-                />
-              </div>
-
-              <div className="ModalInput">
-                <label>Vincular usuários <small>(opcional)</small></label>
-                <Multiselect
-                  type="usuarios"
-                  array={usuarios}
-                  treinamento={treinUsuarios}
-                  value="cpf"
-                  label="nome"
-                  handleMultiSelectChange={handleMultiSelectChange}
-                  handleMultiSelectRemove={handleMultiSelectRemove}
-                />
-              </div>
-
-              <div className="ModalInput">
-                <label>Vincular cursos <small>(opcional)</small></label>
-                <Multiselect
-                  type="cursos"
-                  array={cursos}
-                  treinamento={treinCursos}
-                  value="cod_curso"
-                  label="nome_curso"
-                  handleMultiSelectChange={handleMultiSelectChange}
-                  handleMultiSelectRemove={handleMultiSelectRemove}
-                />
-              </div>
-
+            <div className="ModalInput">
+              <label>Nome</label>
+              <input
+                type="text"
+                name="nome"
+                placeholder="Nome"
+                maxLength="40"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
             </div>
-          </div>
-          <div className="ModalFooter">
-            <button className="red-btn" type="button" onClick={clearModal}>
-              Limpar
-            </button>
-            <button className="green-btn" type="button" onClick={handleSubmit}>
-              {isUpdating ? 'Atualizar' : 'Salvar'}
-            </button>
-          </div>
-        </Modal>
 
-        <Modal
-          isOpen={showDeleteModal}
-          onRequestClose={handleClose}
-          className="Modal"
-          overlayClassName="Overlay"
-          ariaHideApp={false}
-        >
-          <div className="ModalHeader">
-            <span>Excluir Treinamento</span>
-            <button className="CloseModal" type="button" onClick={handleClose}>
-              x
-            </button>
-          </div>
-          <div className="ModalContent">
-            <div className="px-8 max-w-xl">
-              <p>
-                Caso prossiga com a exclusão do item, o mesmo não será mais
-                recuperado. Deseja realmente excluir o vídeo {codTreinamento}?
-              </p>
+            <div className="ModalInput">
+              <label>Descrição <small>(opcional)</small></label>
+              <textarea
+                name="descricao"
+                placeholder="Descrição"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+              />
             </div>
+
+            <div className="ModalInput">
+              <label>Vincular usuários <small>(opcional)</small></label>
+              <Multiselect
+                type="usuarios"
+                array={usuarios}
+                treinamento={treinUsuarios}
+                value="cpf"
+                label="nome"
+                handleMultiSelectChange={handleMultiSelectChange}
+                handleMultiSelectRemove={handleMultiSelectRemove}
+              />
+            </div>
+
+            <div className="ModalInput">
+              <label>Vincular cursos <small>(opcional)</small></label>
+              <Multiselect
+                type="cursos"
+                array={cursos}
+                treinamento={treinCursos}
+                value="cod_curso"
+                label="nome_curso"
+                handleMultiSelectChange={handleMultiSelectChange}
+                handleMultiSelectRemove={handleMultiSelectRemove}
+              />
+            </div>
+
           </div>
-          <div className="ModalFooter">
-            <button className="yellow-btn" type="button" onClick={handleClose}>
-              Cancelar
-            </button>
-            <button
-              className="red-btn"
-              type="button"
-              onClick={() => handleDelete(codTreinamento)}
-            >
-              Excluir
-            </button>
+        </div>
+        <div className="ModalFooter">
+          <button className="red-btn" type="button" onClick={clearModal}>
+            Limpar
+          </button>
+          <button className="green-btn" type="button" onClick={handleSubmit}>
+            {isUpdating ? 'Atualizar' : 'Salvar'}
+          </button>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={showDeleteModal}
+        onRequestClose={handleClose}
+        className="Modal"
+        overlayClassName="Overlay"
+        ariaHideApp={false}
+      >
+        <div className="ModalHeader">
+          <span>Excluir Treinamento</span>
+          <button className="CloseModal" type="button" onClick={handleClose}>
+            x
+          </button>
+        </div>
+        <div className="ModalContent">
+          <div className="px-8 max-w-xl">
+            <p>
+              Caso prossiga com a exclusão do item, o mesmo não será mais
+              recuperado. Deseja realmente excluir o vídeo {codTreinamento}?
+            </p>
           </div>
-        </Modal>
-      </div>
+        </div>
+        <div className="ModalFooter">
+          <button className="yellow-btn" type="button" onClick={handleClose}>
+            Cancelar
+          </button>
+          <button
+            className="red-btn"
+            type="button"
+            onClick={() => handleDelete(codTreinamento)}
+          >
+            Excluir
+          </button>
+        </div>
+      </Modal>
+    </div>
     </>
   );
 }
