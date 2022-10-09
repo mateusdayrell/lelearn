@@ -333,7 +333,7 @@ export default function GestaoTreinamentos() {
             >
               <div className='container-information-list'>
                 <span className='cod-container-list'>{treinamento.cod_treinamento}</span>
-                <div className='bar-container-list'></div>
+                <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{treinamento.nome_treinamento}</span>
                 </span>

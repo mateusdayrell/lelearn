@@ -3,8 +3,11 @@ import { toast } from 'react-toastify';
 import { FaPencilAlt, FaTrashAlt, FaFileImage } from 'react-icons/fa';
 import Modal from 'react-modal';
 import { get } from 'lodash';
+import { MagnifyingGlass, PaintBrushHousehold, PencilSimple, Plus, TrashSimple, X } from 'phosphor-react';
+import OrderSelect from '../../../components/OrderSelect';
 
 import './style.css';
+
 import axios from '../../../services/axios';
 import Navbar from '../../../components/Navbar';
 import Loading from '../../../components/Loading';
@@ -18,7 +21,10 @@ export default function GestaoCursos() {
   const [videos, setVideos] = useState([]);
   const [searchNome, setSearchNome] = useState('');
   const [showFoto, setShowFoto] = useState('')
-
+  const itemsPerPage = 10
+  const [inicio, setInicio] = useState(0)
+  const [fim, setFim] = useState(itemsPerPage)
+  const [searchOrdem, setSearchOrdem] = useState('')
   const [isLoading, setIsLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [shwoFormModal, setShowFormModal] = useState(false);
@@ -32,7 +38,6 @@ export default function GestaoCursos() {
     setIsLoading(true);
     try {
       const { data } = await axios.get('/cursos/');
-
       setIsLoading(false);
       setCursos(data);
     } catch (error) {
@@ -41,7 +46,10 @@ export default function GestaoCursos() {
       erros.map((err) => toast.error(err));
     }
   };
-
+  const handleOrderChange = (array, ordem) => {
+    setCursos(array)
+    setSearchOrdem(ordem)
+  }
   const handleSearch = async () => {
     const querys = new URLSearchParams({
       nome_curso: searchNome,
@@ -65,8 +73,8 @@ export default function GestaoCursos() {
 
     const formData = new FormData()
     formData.append('nome_curso', nome)
-    if(descricao) formData.append('dec_curso', descricao)
-    if(foto) formData.append('foto', foto)
+    if (descricao) formData.append('dec_curso', descricao)
+    if (foto) formData.append('foto', foto)
 
     const header = {
       headers: {
@@ -77,7 +85,7 @@ export default function GestaoCursos() {
     try {
       setIsLoading(true);
 
-      if(isUpdating) {
+      if (isUpdating) {
         await axios.put(`/cursos/${codCurso}`, formData, header)
         toast.success('Curso atualizado com sucesso!');
       } else {
@@ -139,7 +147,7 @@ export default function GestaoCursos() {
     setVideos(curso.videos);
     setIsUpdating(true);
     setShowFormModal(true);
-    if(curso.arquivo_url) setShowFoto(curso.arquivo_url)
+    if (curso.arquivo_url) setShowFoto(curso.arquivo_url)
   };
 
   const handleIsDeleting = (cod) => {
@@ -180,29 +188,96 @@ export default function GestaoCursos() {
       <Navbar />
       <Loading isLoading={isLoading} />
       <div className="container-body">
-        <div className="search-container">
-          <div className="search-form">
-            <input
-              type="text"
-              name="titulo"
-              placeholder="Título do vídeo"
-              value={searchNome}
-              onChange={(e) => setSearchNome(e.target.value)}
-            />
+        <h1 className="title">Gestão de Cursos</h1>
 
-            <div className="flex gap-3">
-              <button className="btn" type="button" onClick={handleSearch}>
-                Pesquisar
-              </button>
-              <button className="btn" type="button" onClick={clearSearch}>
-                Limpar
-              </button>
+        <div className="top-forms-container">
+          <div className="search-container">
+            <div className="search-form">
+
+              <input
+                className='search-input'
+                type="text"
+                name="titulo"
+                placeholder="Pesquisar"
+                value={searchNome}
+                onChange={(e) => setSearchNome(e.target.value)}
+              />
+
+              <div className="search-container-buttons">
+                <button
+                  title="Pesquisar"
+                  className="green-btn"
+                  type="button"
+                  onClick={handleSearch}
+                >
+                  <MagnifyingGlass size={24} />
+                </button>
+                <button
+                  title="Limpar campos"
+                  className="red-btn"
+                  type="button"
+                  onClick={clearSearch}>
+                  <PaintBrushHousehold size={24} />
+                </button>
+              </div>
             </div>
           </div>
+          <span className='search-container-cadastrar'>
+            <button
+              title="Cadastrar curso"
+              className="green-btn"
+              type="button"
+              onClick={() => setShowFormModal(true)}
+            >
+              <Plus size={24} />
+            </button>
+          </span>
         </div>
 
-        <div className="overflow-auto rounded-lg shadow-xl">
-          <table className="w-full border-separate">
+        <div className='container-order'>
+          <OrderSelect
+            nameKey="nome_curso"
+            handleOrderChange={handleOrderChange}
+            searchOrdem={searchOrdem}
+            array={cursos} />
+        </div>
+
+        <div className="container-list">
+          {cursos.slice(inicio, fim).map((curso) => (
+            <div
+              key={cursos.cod_curso}
+              className="list"
+            >
+              <div className='container-information-list'>
+                <span className='cod-container-list'>{curso.cod_curso}</span>
+                <div className='bar-container-list' />
+                <span className='name-container-list'>
+                  <span>{curso.nome_curso}</span>
+                </span>
+              </div>
+
+              <span className='buttons-container-list'>
+                <button
+                  type="button"
+                  title="Editar"
+                  className='round-green-btn'
+                  onClick={() => handleIsUpdating(curso)}
+                >
+                  <PencilSimple size={20} />
+                </button>
+                <button
+                  type="button"
+                  title="Excluir"
+                  className='red-btn'
+                  onClick={() => handleIsDeleting(curso.cod_curso)}
+                >
+                  <TrashSimple size={20} />
+                </button>
+              </span>
+            </div>
+          ))}
+
+          {/* <table className="w-full border-separate">
             <thead className="bg-gray-100 border-b-2 border-gray-200 ">
               <tr>
                 <th>Código</th>
@@ -249,17 +324,8 @@ export default function GestaoCursos() {
                 </tr>
               ))}
             </tbody>
-          </table>
+              </table> */}
         </div>
-
-        <button
-          className="btn mx-auto my-5"
-          type="button"
-          onClick={() => setShowFormModal(true)}
-        >
-          Cadastrar
-        </button>
-
         <Modal
           isOpen={shwoFormModal}
           onRequestClose={handleClose}
@@ -303,15 +369,16 @@ export default function GestaoCursos() {
                 />
               </div>
 
-              <div className='ModalInpu'>
-                <input type="file" onChange={handleShowFoto}/>
-              </div>
-
-              <div>
-                {showFoto ?
-                  <img src={showFoto} alt="Imagem do curso" />
-                  : <FaFileImage size={36}/>
-                }
+              <div className='uploadimg'>
+                <div className='ModalInput flex'>
+                  <input type="file" onChange={handleShowFoto} />
+                  <div className='flex'>
+                    {showFoto ?
+                      <img src={showFoto} alt="Imagem do curso" />
+                      : <FaFileImage size={36} />
+                    }
+                  </div>
+                </div>
               </div>
 
               <div className="ModalInput">
@@ -345,10 +412,10 @@ export default function GestaoCursos() {
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="btn" type="button" onClick={clearModal}>
+            <button className="red-btn" type="button" onClick={clearModal}>
               Limpar
             </button>
-            <button className="btn" type="button" onClick={handleSubmit}>
+            <button className="green-btn" type="button" onClick={handleSubmit}>
               {isUpdating ? 'Atualizar' : 'Salvar'}
             </button>
           </div>
@@ -376,11 +443,11 @@ export default function GestaoCursos() {
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="btn" type="button" onClick={handleClose}>
+            <button className="yellow-btn" type="button" onClick={handleClose}>
               Cancelar
             </button>
             <button
-              className="btn"
+              className="red-btn"
               type="button"
               onClick={() => handleDelete(codCurso)}
             >
