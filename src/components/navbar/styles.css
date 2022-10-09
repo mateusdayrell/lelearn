@@ -1,16 +1,54 @@
 .navbar{
-  @apply bg-cinza-400 flex h-full w-14 py-3 flex-col items-center justify-between fixed
-  shadow-white shadow-sm z-10
+  @apply bg-cinza-400 flex h-full py-3 flex-col justify-between fixed
+  shadow-white shadow-sm z-10 duration-500 text-sm
+}
+.navbar-open{
+  @apply w-64 items-start
+}
+.navbar-closed{
+  @apply w-14 items-start
 }
 
+
+.logo-content{
+  @apply w-14 justify-center flex
+}
 .logo-content svg path{
   @apply fill-verde-100 hover:fill-verde-200
 }
 
-.list-content ul li{
-  @apply w-8 h-8 m-2 hover:bg-verde-100 flex items-center justify-center rounded-md
+
+.list-content{
+  @apply w-14 flex flex-col text-cinza-100
+}
+.list-content-closed{
+  @apply w-14 flex pl-3
+}
+.list-content-closed a{
+  @apply my-2 flex items-center
+}
+.list-content-closed .icons{
+  @apply w-8 h-8 hover:bg-verde-100 flex items-center justify-center rounded-md
+}
+.list-content-open{
+  @apply w-56 h-10 flex justify-center pl-3
+}
+.list-content-open a{
+  @apply flex my-2 items-center 
+}
+.list-content-open a span{
+  @apply ml-2 hover:text-verde-100
+}
+.list-content-open a .icons{
+  @apply w-8 h-8 hover:bg-verde-100 flex items-center justify-center rounded-md
 }
 
+.profile-content{
+  @apply w-14 justify-center flex
+}
+.profile-content-open{
+  @apply w-56 flex justify-start pl-3
+}
 .link{
-  @apply text-cinza-100
+  @apply text-cinza-100 flex 
 }
