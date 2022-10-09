@@ -78,11 +78,16 @@ export default function Navbar() {
       open ? "list-content-closed" : "list-content-open"
     } list-content`}>
         {menus?.map((menu, i) => (
-            <Link to={menu?.link} key={i}>
+            <Link to={menu?.link} key={i} className={`group`}>
               <div className="icons">{React.createElement(menu?.icon, { size: "24" })}</div>
               <span style={{transitionDelay: `${i + 4}0ms`,}}
                 className={`whitespace-pre duration-500 ${open && "hidden"}`}
               >
+                {menu?.name}
+              </span>
+              <span className={`${!open && 'hidden'} absolute left-48 bg-verde-100 font-semibold whitespace-pre text-cinza-500 w-0 overflow-hidden
+              rounded-md drop-shadow-lg px-0 py-0 group-hover:px-2 group-hover:h-8 group-hover:left-14 group-hover:duration-300 group-hover:w-fit
+              flex items-center`}>
                 {menu?.name}
               </span>
             </Link>
