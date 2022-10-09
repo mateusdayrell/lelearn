@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { FaPencilAlt, FaTrashAlt, FaFileImage } from 'react-icons/fa';
 import Modal from 'react-modal';
 import { get } from 'lodash';
 import { MagnifyingGlass, PaintBrushHousehold, PencilSimple, Plus, TrashSimple, X } from 'phosphor-react';
@@ -11,12 +10,14 @@ import './style.css';
 import axios from '../../../services/axios';
 import Navbar from '../../../components/Navbar';
 import Loading from '../../../components/Loading';
+import Pagination from '../../../components/Pagination';
+import FileInput from '../../../components/FileInput';
 
 export default function GestaoCursos() {
   const [cursos, setCursos] = useState([]);
   const [codCurso, setCodCurso] = useState('');
   const [nome, setNome] = useState('');
-  const [descricao, setDescricao] = useState('');
+  const [descricao, setDescricao] = useState(null);
   const [foto, setFoto] = useState(null)
   const [videos, setVideos] = useState([]);
   const [searchNome, setSearchNome] = useState('');
@@ -73,7 +74,7 @@ export default function GestaoCursos() {
 
     const formData = new FormData()
     formData.append('nome_curso', nome)
-    if (descricao) formData.append('dec_curso', descricao)
+    formData.append('desc_curso', descricao)
     if (foto) formData.append('foto', foto)
 
     const header = {
@@ -170,7 +171,7 @@ export default function GestaoCursos() {
   const clearModal = () => {
     setCodCurso('');
     setNome('');
-    setDescricao('');
+    setDescricao(null);
     setFoto(null);
     setShowFoto('')
     setVideos([]);
@@ -181,6 +182,11 @@ export default function GestaoCursos() {
     const fileUrl = URL.createObjectURL(file)
     setFoto(file)
     setShowFoto(fileUrl)
+  }
+
+  const handleNewPage = (novoInicio, novoFim) => {
+    setInicio(novoInicio)
+    setFim(novoFim)
   }
 
   return (
@@ -234,6 +240,8 @@ export default function GestaoCursos() {
           </span>
         </div>
 
+
+
         <div className='container-order'>
           <OrderSelect
             nameKey="nome_curso"
@@ -276,56 +284,17 @@ export default function GestaoCursos() {
               </span>
             </div>
           ))}
-
-          {/* <table className="w-full border-separate">
-            <thead className="bg-gray-100 border-b-2 border-gray-200 ">
-              <tr>
-                <th>Código</th>
-                <th>Nome</th>
-                <th>Imagem</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cursos.map((curso) => (
-                <tr
-                  key={curso.cod_curso}
-                  className="even:bg-gray-50 odd:bg-white hover:bg-gray-200"
-                >
-                  <td className="p-3 text-gray-700 text-center whitespace-nowrap">
-                    {curso.cod_curso}
-                  </td>
-                  <td className="p-3 text-gray-700 text-center whitespace-nowrap">
-                    {curso.nome_curso}
-                  </td>
-                  <td>
-                    <div className="w-24 h-24">
-                      {get(curso, 'arquivo_url', false) ?
-                        <img src={curso.arquivo_url} alt="Imagem do curso" />
-                      : <FaFileImage size={36}/>}
-                    </div>
-                  </td>
-                  <td className="p-3 text-gray-700 text-center whitespace-nowrap flex justify-center gap-2">
-                    <button
-                      type="button"
-                      className="round-blue-btn"
-                      onClick={() => handleIsUpdating(curso)}
-                    >
-                      <FaPencilAlt />
-                    </button>
-                    <button
-                      type="button"
-                      className="round-red-btn"
-                      onClick={() => handleIsDeleting(curso.cod_curso)}
-                    >
-                      <FaTrashAlt />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-              </table> */}
         </div>
+
+        <div className='mt-3 ml-2'>
+          {videos &&
+            <Pagination
+              total={cursos.length}
+              itemsPerPage={itemsPerPage}
+              handleNewPage={handleNewPage} />
+          }
+        </div>
+
         <Modal
           isOpen={shwoFormModal}
           onRequestClose={handleClose}
@@ -336,7 +305,7 @@ export default function GestaoCursos() {
           <div className="ModalHeader">
             <span>{isUpdating ? 'Editar' : 'Cadastrar'} curso</span>
             <button className="CloseModal" type="button" onClick={handleClose}>
-              x
+              <X size={24}/>
             </button>
           </div>
           <div className="ModalContent">
@@ -369,16 +338,9 @@ export default function GestaoCursos() {
                 />
               </div>
 
-              <div className='uploadimg'>
-                <div className='ModalInput flex'>
-                  <input type="file" onChange={handleShowFoto} />
-                  <div className='flex'>
-                    {showFoto ?
-                      <img src={showFoto} alt="Imagem do curso" />
-                      : <FaFileImage size={36} />
-                    }
-                  </div>
-                </div>
+              <div className="ModalInput">
+                <label>Foto</label>
+                <FileInput handleShowFile={handleShowFoto} foto={showFoto}/>
               </div>
 
               <div className="ModalInput">
@@ -392,20 +354,22 @@ export default function GestaoCursos() {
               </div>
 
               {isUpdating ? (
-                <>
-                  <label>Vídeos</label>
-                  <ul>
-                    {videos.length > 0 ? (
-                      videos.map((video) => (
-                        <span key={video.cod_video}>
-                          <li>{video.titulo_video}</li>
-                        </span>
-                      ))
-                    ) : (
-                      <span>Nenhum vídeo</span>
-                    )}
-                  </ul>
-                </>
+                <table>
+                    <thead>
+                      <th>Titulo vídeo</th>
+                    </thead>
+                    <tbody>
+                      {videos.length > 0 ? (
+                        videos.map((video) => (
+                          <tr key={video.cod_video}>
+                            <thead>{video.titulo_video}</thead>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr><td>Nenhum vídeo</td></tr>
+                      )}
+                    </tbody>
+                  </table>
               ) : (
                 ''
               )}
@@ -431,7 +395,7 @@ export default function GestaoCursos() {
           <div className="ModalHeader">
             <span>Excluir curso</span>
             <button className="CloseModal" type="button" onClick={handleClose}>
-              x
+            <X size={24}/>
             </button>
           </div>
           <div className="ModalContent">
