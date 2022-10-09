@@ -29,7 +29,7 @@ export default function OrderSelect({ nameKey, handleOrderChange, searchOrdem, a
       <span>
         <label className='text-white text font-extralight text-xs'>Ordem</label>
       </span>
-      <span className='border-b border-gray-300 bg-transparent'>
+      <span className='bg-transparent'>
         <select
           className="border-none text-[white] bg-transparent text-xs "
           name="ordem"
@@ -39,10 +39,10 @@ export default function OrderSelect({ nameKey, handleOrderChange, searchOrdem, a
           <option value="" disabled selected={searchOrdem === ''}>
             Ordenar por
           </option>
-          <option className='text-gray-900' value={`${nameKey} asc`} selected={searchOrdem === `${nameKey} asc`}>A-z</option>
-          <option className='text-gray-900' value={`${nameKey} desc`}>Z-a</option>
-          <option className='text-gray-900' value="created_at asc">Mais antigo primeiro</option>
-          <option className='text-gray-900' value="created_at desc">Mais recente primeiro</option>
+          <option className='text-gray-900 bg-transparent' value={`${nameKey} asc`} selected={searchOrdem === `${nameKey} asc`}>A-z</option>
+          <option className='text-gray-900 bg-transparent' value={`${nameKey} desc`}>Z-a</option>
+          <option className='text-gray-900 bg-transparent' value="created_at asc">Mais antigo primeiro</option>
+          <option className='text-gray-900 bg-transparent' value="created_at desc">Mais recente primeiro</option>
         </select>
       </span>
     </div>

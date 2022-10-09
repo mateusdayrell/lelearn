@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
-import { MagnifyingGlass, PaintBrushHousehold, Plus, X } from 'phosphor-react';
+import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
 
@@ -258,7 +257,7 @@ export default function GestaoVideos() {
               </div>
             </div>
           </div>
-          <span className='flex justify-center items-center w-1/4'>
+          <span className='search-container-cadastrar'>
             <button
               title="Cadastrar vídeo"
               className="green-btn"
@@ -270,7 +269,7 @@ export default function GestaoVideos() {
           </span>
         </div>
 
-        <div className='mt-4 mb-8 ml-2'>
+        <div className='container-order'>
           <OrderSelect
             nameKey="titulo_video"
             handleOrderChange={handleOrderChange}
@@ -278,28 +277,31 @@ export default function GestaoVideos() {
             array={videos} />
         </div>
 
-        <div className='text-[#d1d7e1]'>
+        <div className='container-list'>
           {videos.slice(inicio, fim).map((video) => (
             <div
               key={video.cod_video}
-              className="w-full shadow-md shadow-zinc-700 rounded-lg py-4 pl-6 pr-8 mb-3 bg-[#323238] flex justify-between items-center"
+              className="list"
             >
-              <span>
-                <span className='border-r-2 py-2 pr-3 border-verde-100'>{video.cod_video}</span>
-                <span className='pl-3'>{video.titulo_video}</span>
-                <span className='text-sm text-azul-100 rounded px-1 pb-[2px] ml-3'>
-                  <small>{video.curso ? video.curso.nome_curso : ''}</small>
+              <div className='container-information-list'>
+                <span className='cod-container-list'>{video.cod_video}</span>
+                <div className='bar-container-list'></div>
+                <span className='name-container-list'>
+                  <span>{video.titulo_video}</span>
+                  <span className='subname-container-list-blue'>
+                    <small>{video.curso ? video.curso.nome_curso : ''}</small>
+                  </span>
                 </span>
-              </span>
+              </div>
 
-              <span className='flex gap-5'>
+              <span className='buttons-container-list'>
                 <button
                   type="button"
                   title="Editar"
                   className='round-green-btn'
                   onClick={() => handleIsUpdating(video)}
                 >
-                  <FaPencilAlt/>
+                  <PencilSimple size={20} />
                 </button>
                 <button
                   type="button"
@@ -307,7 +309,7 @@ export default function GestaoVideos() {
                   className='red-btn'
                   onClick={() => handleIsDeleting(video.cod_video)}
                 >
-                  <FaTrashAlt />
+                  <TrashSimple size={20} />
                 </button>
               </span>
             </div>
@@ -316,10 +318,10 @@ export default function GestaoVideos() {
 
         <div className='mt-3 ml-2'>
           {videos &&
-              <Pagination
-                total={videos.length}
-                itemsPerPage={itemsPerPage}
-                handleNewPage={handleNewPage} />
+            <Pagination
+              total={videos.length}
+              itemsPerPage={itemsPerPage}
+              handleNewPage={handleNewPage} />
           }
         </div>
 
@@ -454,11 +456,11 @@ export default function GestaoVideos() {
             </div>
           </div>
           <div className="ModalFooter">
-          <button
-             className="bg-verde-100 text-white w-24 py-2 rounded-xl hover:bg-verde-200"
-             title="Cancelar"
-             type="button"
-             onClick={handleClose} >
+            <button
+              className="bg-verde-100 text-white w-24 py-2 rounded-xl hover:bg-verde-200"
+              title="Cancelar"
+              type="button"
+              onClick={handleClose} >
               Cancelar
             </button>
             <button

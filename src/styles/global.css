@@ -97,7 +97,6 @@ select {
   @apply bg-verde-100 hover:bg-verde-200 text-cinza-100
   py-2 px-2 border border-verde-100 hover:border-transparent rounded-full
 }
-
 /* --BUTTONS-- */
 
 /* --SEARCH-- */
@@ -129,7 +128,44 @@ select {
   @apply border w-52 rounded-full text-start mr-2
 }
 
+.search-container-cadastrar{
+  @apply flex justify-end items-center w-1/4
+}
 /* --SEARCH-- */
+
+/* --CONTAINER LIST-- */
+.container-order{
+  @apply mt-4 mb-8 ml-2
+}
+.container-list{
+  @apply text-cinza-200
+}
+.list{
+  @apply w-full shadow-md rounded-lg py-4 pl-6 pr-8 mb-3 bg-cinza-400 flex justify-between items-center
+}
+.container-information-list{
+  @apply flex
+}
+.cod-container-list{
+  @apply py-2 w-32 flex justify-center
+}
+.bar-container-list{
+  @apply bg-verde-100 w-[0.15em] h-10 rounded-xl mx-2
+}
+.name-container-list{
+  @apply py-2
+}
+.subname-container-list-blue{
+  @apply text-sm text-azul-100 rounded-xl px-1 pb-[2px] ml-3 bg-azul-200
+}
+.subname-container-list-orange{
+  @apply text-sm text-laranja-100 rounded-xl px-1 pb-[2px] ml-3 bg-laranja-200
+}
+.buttons-container-list{
+  @apply flex gap-2
+}
+
+/* --CONTAINER LIST-- */
 
 /* .form-gestao{
   @apply flex flex-col justify-center mx-auto w-[450px] gap-1
