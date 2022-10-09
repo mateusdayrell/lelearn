@@ -16,7 +16,7 @@ export default function GestaoVideos() {
   const [cursos, setCursos] = useState([]);
 
   const [codVideo, setCodVideo] = useState('');
-  const [codCurso, setCodCurso] = useState('');
+  const [codCurso, setCodCurso] = useState(null);
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
   const [link, setLink] = useState('');
@@ -183,7 +183,7 @@ export default function GestaoVideos() {
 
   const clearModal = () => {
     setCodVideo('');
-    setCodCurso('');
+    setCodCurso(null);
     setTitulo('');
     setLink('');
     setDescricao('');
@@ -288,9 +288,11 @@ export default function GestaoVideos() {
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{video.titulo_video}</span>
-                  <span className='subname-container-list-blue'>
-                    <small>{video.curso ? video.curso.nome_curso : ''}</small>
-                  </span>
+                  {video.curso ?
+                    <span className='subname-container-list-blue'>
+                      <small>{video.curso ? video.curso.nome_curso : ''}</small>
+                    </span>
+                  : ''}
                 </span>
               </div>
 
@@ -365,7 +367,7 @@ export default function GestaoVideos() {
                   defaultValue={codCurso}
                   onChange={(e) => setCodCurso(e.target.value)}
                 >
-                  <option value="" disabled selected={codCurso === ''}>
+                  <option value="" disabled selected={codCurso === null}>
                     Selecione um curso
                   </option>
                   {cursos.length > 0
