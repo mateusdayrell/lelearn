@@ -343,7 +343,7 @@ export default function Usuario() {
               className="list"
             >
               <div className='container-information-list'>
-                <span className='cod-container-list'>{cpfValidator.format(usuario.cpf)}</span>
+                <span className='cpf-container-list'>{cpfValidator.format(usuario.cpf)}</span>
                 <div className='bar-container-list'></div>
                 <span className='name-container-list'>
                   <span>{usuario.nome}</span>
@@ -399,7 +399,7 @@ export default function Usuario() {
               type="button"
               title="Fechar modal"
               onClick={handleClose}>
-              x
+              <X size={24} />
             </button>
           </div>
           <div className="ModalContent">

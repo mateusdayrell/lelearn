@@ -147,6 +147,9 @@ select {
   @apply flex
 }
 .cod-container-list{
+  @apply py-2 w-12 flex justify-center
+}
+.cpf-container-list{
   @apply py-2 w-32 flex justify-center
 }
 .bar-container-list{

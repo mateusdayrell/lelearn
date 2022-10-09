@@ -3,9 +3,11 @@ import {
   BookBookmark,
   Users,
   SignOut,
-  BookOpen,
+  Bookmark,
   YoutubeLogo,
   MonitorPlay,
+  Books,
+  BookmarksSimple,
 } from 'phosphor-react';
 
 import { Link } from 'react-router-dom';
@@ -69,7 +71,7 @@ export default function Navbar() {
           </li>
           <li>
             <Link className="link" to="/treinamentos">
-              <BookOpen size={24} />
+              <Bookmark size={24} />
             </Link>
           </li>
           <li>
@@ -80,6 +82,16 @@ export default function Navbar() {
           <li>
             <Link className="link" to="/gestao-videos">
               <MonitorPlay size={24} />
+            </Link>
+          </li>
+          <li>
+            <Link className="link" to="/gestao-cursos">
+              <Books size={24} />
+            </Link>
+          </li>
+          <li>
+            <Link className="link" to="/gestao-treinamentos">
+              <BookmarksSimple size={24} />
             </Link>
           </li>
         </ul>
