@@ -285,7 +285,7 @@ export default function GestaoVideos() {
             >
               <div className='container-information-list'>
                 <span className='cod-container-list'>{video.cod_video}</span>
-                <div className='bar-container-list'></div>
+                <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{video.titulo_video}</span>
                   <span className='subname-container-list-blue'>

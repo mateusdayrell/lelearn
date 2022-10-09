@@ -129,7 +129,7 @@ select {
 }
 
 .search-container-cadastrar{
-  @apply flex justify-end items-center w-1/4
+  @apply flex justify-center items-center w-1/4
 }
 /* --SEARCH-- */
 
