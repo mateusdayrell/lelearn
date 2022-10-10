@@ -151,8 +151,9 @@ export default function GestaoCursos() {
     if (curso.arquivo_url) setShowFoto(curso.arquivo_url)
   };
 
-  const handleIsDeleting = (cod) => {
-    setCodCurso(cod);
+  const handleIsDeleting = (curso) => {
+    setCodCurso(curso.cod_curso);
+    setNome(curso.nome_curso);
     setShowDeleteModal(true);
   };
 
@@ -171,7 +172,7 @@ export default function GestaoCursos() {
   const clearModal = () => {
     setCodCurso('');
     setNome('');
-    setDescricao(null);
+    setDescricao('');
     setFoto(null);
     setShowFoto('')
     setVideos([]);
@@ -184,6 +185,11 @@ export default function GestaoCursos() {
     setShowFoto(fileUrl)
   }
 
+  const handleRemoveFoto = () => {
+    setFoto(null)
+    setShowFoto('')
+  }
+
   const handleNewPage = (novoInicio, novoFim) => {
     setInicio(novoInicio)
     setFim(novoFim)
@@ -193,7 +199,7 @@ export default function GestaoCursos() {
     <>
       <Navbar />
       <Loading isLoading={isLoading} />
-      <div className="container-body">
+      <div className="container-body g-curso-container">
         <h1 className="title">Gestão de Cursos</h1>
 
         <div className="top-forms-container">
@@ -277,7 +283,7 @@ export default function GestaoCursos() {
                   type="button"
                   title="Excluir"
                   className='red-btn'
-                  onClick={() => handleIsDeleting(curso.cod_curso)}
+                  onClick={() => handleIsDeleting(curso)}
                 >
                   <TrashSimple size={20} />
                 </button>
@@ -340,7 +346,7 @@ export default function GestaoCursos() {
 
               <div className="ModalInput">
                 <label>Foto</label>
-                <FileInput handleShowFile={handleShowFoto} foto={showFoto}/>
+                <FileInput handleShowFile={handleShowFoto} foto={showFoto} removeFoto={handleRemoveFoto}/>
               </div>
 
               <div className="ModalInput">
@@ -353,26 +359,39 @@ export default function GestaoCursos() {
                 />
               </div>
 
-              {isUpdating ? (
-                <table>
-                    <thead>
-                      <th>Titulo vídeo</th>
-                    </thead>
-                    <tbody>
-                      {videos.length > 0 ? (
-                        videos.map((video) => (
-                          <tr key={video.cod_video}>
-                            <thead>{video.titulo_video}</thead>
-                          </tr>
-                        ))
-                      ) : (
-                        <tr><td>Nenhum vídeo</td></tr>
-                      )}
-                    </tbody>
-                  </table>
-              ) : (
-                ''
-              )}
+              {isUpdating ?
+                <div className="ModalInput">
+                <label htmlFor="" className='pb-2'>Vídeos</label>
+                  <table className='table-curso'>
+                      <thead>
+                        <tr>
+                          <th>Título</th>
+                          <th>Link</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {videos.length > 0 ? (
+                          videos.map((video) => (
+                            <tr key={video.cod_video}>
+                              <td>{video.titulo_video}</td>
+                              <td>
+                                <button
+                                  type="button"
+                                  className='rounded-lg bg-verde-100 text-white px-2 py-1 my-2 hover:bg-verde-200'
+                                >
+                                  Acessar
+                                </button>
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr><td colSpan={2}>Nenhum vídeo cadastrado</td></tr>
+                        )}
+                      </tbody>
+                    </table>
+                </div>
+              : ''}
+
             </div>
           </div>
           <div className="ModalFooter">
@@ -402,16 +421,19 @@ export default function GestaoCursos() {
             <div className="px-8 max-w-xl">
               <p>
                 Caso prossiga com a exclusão do item, o mesmo não será mais
-                recuperado. Deseja realmente excluir o curso {codCurso}?
+                recuperado. Deseja realmente excluir o curso {nome}?
               </p>
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="yellow-btn" type="button" onClick={handleClose}>
+            <button
+              className="bg-cinza-300 text-white w-24 py-2 rounded-xl hover:bg-gray-500"
+              type="button"
+              onClick={handleClose}>
               Cancelar
             </button>
             <button
-              className="red-btn"
+              className="bg-vermelho-100 text-white w-24 py-2 rounded-xl hover:bg-vermelho-200"
               type="button"
               onClick={() => handleDelete(codCurso)}
             >

@@ -163,8 +163,9 @@ export default function GestaoVideos() {
     setShowDeleteModal(false);
   };
 
-  const handleIsDeleting = (cod) => {
-    setCodVideo(cod);
+  const handleIsDeleting = (vid) => {
+    setCodVideo(vid.cod_video);
+    setTitulo(vid.titulo_video)
     setShowDeleteModal(true);
   };
 
@@ -309,7 +310,7 @@ export default function GestaoVideos() {
                   type="button"
                   title="Excluir"
                   className='red-btn'
-                  onClick={() => handleIsDeleting(video.cod_video)}
+                  onClick={() => handleIsDeleting(video)}
                 >
                   <TrashSimple size={20} />
                 </button>
@@ -453,13 +454,13 @@ export default function GestaoVideos() {
             <div className="px-8 max-w-xl">
               <p>
                 Caso prossiga com a exclusão do item, o mesmo não será mais
-                recuperado. Deseja realmente excluir o vídeo {codVideo}?
+                recuperado. Deseja realmente excluir o vídeo {titulo}?
               </p>
             </div>
           </div>
           <div className="ModalFooter">
             <button
-              className="bg-verde-100 text-white w-24 py-2 rounded-xl hover:bg-verde-200"
+              className="bg-cinza-300 text-white w-24 py-2 rounded-xl hover:bg-gray-500"
               title="Cancelar"
               type="button"
               onClick={handleClose} >

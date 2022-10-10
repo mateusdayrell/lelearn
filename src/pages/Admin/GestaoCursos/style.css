@@ -1,0 +1,9 @@
+.table-curso tr td:nth-child(2),
+.table-curso tr th:nth-child(2) {
+  border-radius: 0 0.625rem 0.625rem 0;
+}
+
+.table-curso tr td:nth-child(1),
+.table-curso tr th:nth-child(1) {
+  border-radius: 0.625rem 0 0 0.625rem;
+}

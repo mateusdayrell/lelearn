@@ -179,7 +179,7 @@ select {
 } */
 
 table{
-  @apply w-[100%]
+  @apply w-full
 }
 
 thead{
@@ -187,17 +187,17 @@ thead{
 }
 
 thead tr {
-  @apply items-center p-1 m-3 border-2 border-[#1f1f23]
+  @apply items-center p-1 m-3
 }
 
 tbody tr {
-  @apply even:bg-gray-100 odd:bg-white hover:bg-gray-200 border-4 border-[#1E1E1E]
+  @apply even:bg-gray-100 odd:bg-white hover:bg-gray-200 border-4 border-[#323238]
 }
 
 th {
-  @apply p-3 font-semibold tracking-wide text-center
+  @apply py-2 font-semibold tracking-wide
 }
 
 td {
-  @apply p-3 text-gray-700 text-center whitespace-nowrap
+  @apply text-gray-700 text-left whitespace-nowrap pl-1
 }

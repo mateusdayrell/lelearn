@@ -34,7 +34,7 @@ export default function GestaoTreinamentos() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const itemsPerPage = 3
+  const itemsPerPage = 10
   const [inicio, setInicio] = useState(0)
   const [fim, setFim] = useState(itemsPerPage)
 
@@ -165,8 +165,9 @@ export default function GestaoTreinamentos() {
     setTreinCursos(treinamento.cursos);
   };
 
-  const handleIsDeleting = (cod) => {
-    setCodTreinamento(cod);
+  const handleIsDeleting = (treinamento) => {
+    setCodTreinamento(treinamento.cod_treinamento);
+    setNome(treinamento.nome_treinamento)
     setShowDeleteModal(true);
     setShowFormModal(false);
   };
@@ -352,7 +353,7 @@ export default function GestaoTreinamentos() {
                   type="button"
                   title="Excluir"
                   className='red-btn'
-                  onClick={() => handleIsDeleting(treinamento.cod_treinamento)}
+                  onClick={() => handleIsDeleting(treinamento)}
                 >
                   <TrashSimple size={20} />
                 </button>
@@ -477,16 +478,19 @@ export default function GestaoTreinamentos() {
             <div className="px-8 max-w-xl">
               <p>
                 Caso prossiga com a exclusão do item, o mesmo não será mais
-                recuperado. Deseja realmente excluir o vídeo {codTreinamento}?
+                recuperado. Deseja realmente excluir o treinamento {nome}?
               </p>
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="yellow-btn" type="button" onClick={handleClose}>
+            <button
+              className="bg-cinza-300 text-white w-24 py-2 rounded-xl hover:bg-gray-500"
+              type="button"
+              onClick={handleClose}>
               Cancelar
             </button>
             <button
-              className="red-btn"
+              className="bg-vermelho-100 text-white w-24 py-2 rounded-xl hover:bg-vermelho-200"
               type="button"
               onClick={() => handleDelete(codTreinamento)}
             >

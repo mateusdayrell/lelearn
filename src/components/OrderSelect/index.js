@@ -41,8 +41,8 @@ export default function OrderSelect({ nameKey, handleOrderChange, searchOrdem, a
           </option>
           <option className='text-gray-900 bg-transparent' value={`${nameKey} asc`} selected={searchOrdem === `${nameKey} asc`}>A-z</option>
           <option className='text-gray-900 bg-transparent' value={`${nameKey} desc`}>Z-a</option>
-          <option className='text-gray-900 bg-transparent' value="created_at asc">Mais antigo primeiro</option>
-          <option className='text-gray-900 bg-transparent' value="created_at desc">Mais recente primeiro</option>
+          <option className='text-gray-900 bg-transparent' value="updated_at asc">Mais antigo primeiro</option>
+          <option className='text-gray-900 bg-transparent' value="updated_at desc">Mais recente primeiro</option>
         </select>
       </span>
     </div>

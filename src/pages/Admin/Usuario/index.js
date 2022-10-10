@@ -148,8 +148,9 @@ export default function Usuario() {
     setIsUpdating(true);
   };
 
-  const handleIsDeleting = (cod) => {
-    setCpf(cod);
+  const handleIsDeleting = (usuario) => {
+    setCpf(usuario.cpf);
+    setNome(usuario.nome)
     setShowDeleteModal(true);
   };
 
@@ -344,7 +345,7 @@ export default function Usuario() {
             >
               <div className='container-information-list'>
                 <span className='cpf-container-list'>{cpfValidator.format(usuario.cpf)}</span>
-                <div className='bar-container-list'></div>
+                <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{usuario.nome}</span>
                   <span className={usuario.tipo === 0 ? 'subname-container-list-blue' : 'text-sm text-laranja-100 rounded-xl px-1 pb-[2px] ml-3 bg-[#6d4b24]'}>
@@ -366,7 +367,7 @@ export default function Usuario() {
                   type="button"
                   title="Excluir"
                   className='red-btn'
-                  onClick={() => handleIsDeleting(usuario.cpf)}
+                  onClick={() => handleIsDeleting(usuario)}
                 >
                   <TrashSimple size={20} />
                 </button>
@@ -533,14 +534,13 @@ export default function Usuario() {
               <p>
                 Caso prossiga com a exclusão do item, o mesmo não será mais
                 recuperado.
-                <br /> Deseja realmente excluir o usuário de CPF{' '}
-                {cpfValidator.format(cpf)}?
+                <br /> Deseja realmente excluir o usuário {nome}?
               </p>
             </div>
           </div>
           <div className="ModalFooter">
             <button
-              className="bg-verde-100 text-white w-24 py-2 rounded-xl hover:bg-verde-200"
+              className="bg-cinza-300 text-white w-24 py-2 rounded-xl hover:bg-gray-500"
               title="Cancelar"
               type="button"
               onClick={handleClose} >
