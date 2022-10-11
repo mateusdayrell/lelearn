@@ -48,7 +48,7 @@ FileInput.defaultProps = {
 
 FileInput.propTypes = {
   handleShowFile: PropTypes.func,
-  foto: PropTypes.array,
+  foto: PropTypes.string,
   removeFoto: PropTypes.func,
 };
 

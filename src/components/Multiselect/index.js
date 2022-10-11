@@ -23,7 +23,7 @@ export default function Multiselect({ type, array, treinamento, value, label, ha
         <div className="flex flex-auto flex-wrap">
           {treinamento.map((trein) => (
                 <div
-                  key={trein[value]}
+                  key={`*${trein[value]}`}
                   className="flex justify-center items-center m-1 py-1 px-2 rounded-full text-gray-100 bg-verde-100 border border-gray-400 gap-1"
                 >
                   <div className="text-xs leading-none max-w-full flex-initial">
@@ -44,11 +44,12 @@ export default function Multiselect({ type, array, treinamento, value, label, ha
             name={type}
             id={`select-${type}`}
             onChange={e => handleIsChanging(e.target.value)}>
-              <option value="" disabled selected>Selecione um {type === 'usuarios' ? 'usuário' : 'curso'}</option>
+              <option value="" disabled selected>Selecione um {type}</option>
               {array.length > 0
-                ? array.map((el) => (
+                ? array.map((el, i) => (
                     <option
-                      key={el[value]}
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={`${el[value]}${i}`}
                       value={JSON.stringify(el)}
                       className={verifyEqual(el[value]) ? "bg-verde-100 text-gray-50" : ''} disabled={verifyEqual(el.cpf)}
                     >
