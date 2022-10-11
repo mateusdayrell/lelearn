@@ -9,17 +9,20 @@ import Loading from '../../../components/Loading';
 import Navbar from '../../../components/Navbar';
 import OrderSelect from '../../../components/OrderSelect';
 import Pagination from '../../../components/Pagination';
+import Multiselect from '../../../components/Multiselect';
 import axios from '../../../services/axios';
+
+const ITEMS_PER_PAGE = 10
 
 export default function GestaoVideos() {
   const [videos, setVideos] = useState([]);
   const [cursos, setCursos] = useState([]);
 
   const [codVideo, setCodVideo] = useState('');
-  const [codCurso, setCodCurso] = useState(null);
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
   const [link, setLink] = useState('');
+  const [videoCursos, setVideoCursos] = useState([])
 
   const [searchTitulo, setSearchTitulo] = useState('');
   const [searchCurso, setSearchCurso] = useState('');
@@ -30,9 +33,8 @@ export default function GestaoVideos() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const itemsPerPage = 10
   const [inicio, setInicio] = useState(0)
-  const [fim, setFim] = useState(itemsPerPage)
+  const [fim, setFim] = useState(ITEMS_PER_PAGE)
 
   useEffect(() => {
     loadRegisters();
@@ -80,8 +82,8 @@ export default function GestaoVideos() {
 
     try {
       const regTemp = {
-        cod_curso: codCurso,
         titulo_video: titulo,
+        cursos: videoCursos,
         link,
         desc_video: descricao,
       };
@@ -157,7 +159,7 @@ export default function GestaoVideos() {
     setShowFormModal(true);
     setCodVideo(vid.cod_video);
     setTitulo(vid.titulo_video);
-    setCodCurso(vid.cod_curso);
+    setVideoCursos(vid.cursos)
     setLink(vid.link);
     setDescricao(vid.desc_video);
     setShowDeleteModal(false);
@@ -184,8 +186,8 @@ export default function GestaoVideos() {
 
   const clearModal = () => {
     setCodVideo('');
-    setCodCurso(null);
     setTitulo('');
+    setVideoCursos([])
     setLink('');
     setDescricao('');
   };
@@ -199,6 +201,21 @@ export default function GestaoVideos() {
     setInicio(novoInicio)
     setFim(novoFim)
   }
+
+  const handleMultiSelectChange = (type, obj) => {
+      const newArrayCursos = [...videoCursos]
+
+      newArrayCursos.push(JSON.parse(obj)) // converter string para objeto
+      newArrayCursos.sort((a, b) => a.nome_curso > b.nome_curso ? 1 : -1) // ordenar por nome
+
+      setVideoCursos(newArrayCursos)
+  }
+
+  const handleMultiSelectRemove = (type, cod) => {
+      const newArrayCursos = videoCursos.filter(el => el.cod_curso !== cod); // remover obj do array
+      setVideoCursos(newArrayCursos)
+  }
+
 
   return (
     <>
@@ -289,10 +306,12 @@ export default function GestaoVideos() {
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{video.titulo_video}</span>
-                  {video.curso ?
-                    <span className='subname-container-list-blue'>
-                      <small>{video.curso ? video.curso.nome_curso : ''}</small>
-                    </span>
+                  {video.cursos.length > 0 ?
+                    video.cursos.map(item => (
+                      <span key={item.cod_curso} className='subname-container-list-blue'>
+                        <small>{item.nome_curso}</small>
+                      </span>
+                    ))
                   : ''}
                 </span>
               </div>
@@ -323,7 +342,7 @@ export default function GestaoVideos() {
           {videos &&
             <Pagination
               total={videos.length}
-              itemsPerPage={itemsPerPage}
+              itemsPerPage={ITEMS_PER_PAGE}
               handleNewPage={handleNewPage} />
           }
         </div>
@@ -362,26 +381,6 @@ export default function GestaoVideos() {
                 : ''}
 
               <div className="ModalInput">
-                <label>Curso</label>
-                <select
-                  name="curso"
-                  defaultValue={codCurso}
-                  onChange={(e) => setCodCurso(e.target.value)}
-                >
-                  <option value="" disabled selected={codCurso === null}>
-                    Selecione um curso
-                  </option>
-                  {cursos.length > 0
-                    ? cursos.map((item) => (
-                      <option key={item.cod_curso} value={item.cod_curso}>
-                        {item.nome_curso}
-                      </option>
-                    ))
-                    : ''}
-                </select>
-              </div>
-
-              <div className="ModalInput">
                 <label>Título</label>
                 <input
                   type="text"
@@ -390,6 +389,19 @@ export default function GestaoVideos() {
                   maxLength="40"
                   value={titulo}
                   onChange={(e) => setTitulo(e.target.value)}
+                />
+              </div>
+
+              <div className="ModalInput">
+                <label>Vincular Cursos <small>(opcional)</small></label>
+                <Multiselect
+                  type="curso"
+                  array={cursos}
+                  treinamento={videoCursos}
+                  value="cod_curso"
+                  label="nome_curso"
+                  handleMultiSelectChange={handleMultiSelectChange}
+                  handleMultiSelectRemove={handleMultiSelectRemove}
                 />
               </div>
 
@@ -405,7 +417,7 @@ export default function GestaoVideos() {
                 />
               </div>
               <div className="ModalInput">
-                <label>Descrição</label>
+                <label>Descrição <small>(opcional)</small></label>
                 <textarea
                   name="descricao"
                   placeholder="Descrição"
