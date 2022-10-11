@@ -12,24 +12,32 @@ import Navbar from '../../../components/Navbar';
 import Loading from '../../../components/Loading';
 import Pagination from '../../../components/Pagination';
 import FileInput from '../../../components/FileInput';
+import Multiselect from '../../../components/Multiselect';
+
+const ITEMS_PER_PAGE = 10
 
 export default function GestaoCursos() {
   const [cursos, setCursos] = useState([]);
+  const [videos, setVideos] = useState([]);
+
   const [codCurso, setCodCurso] = useState('');
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState(null);
+  const [cursoVideos, setCursoVideos] = useState([])
   const [foto, setFoto] = useState(null)
-  const [videos, setVideos] = useState([]);
-  const [searchNome, setSearchNome] = useState('');
   const [showFoto, setShowFoto] = useState('')
-  const itemsPerPage = 10
-  const [inicio, setInicio] = useState(0)
-  const [fim, setFim] = useState(itemsPerPage)
-  const [searchOrdem, setSearchOrdem] = useState('')
+
+  const [searchNome, setSearchNome] = useState('');
+  const [searchVideo, setSearchVideo] = useState('')
+  const [searchOrdem, setSearchOrdem] = useState('');
+
   const [isLoading, setIsLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [shwoFormModal, setShowFormModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const [inicio, setInicio] = useState(0)
+  const [fim, setFim] = useState(ITEMS_PER_PAGE)
 
   useEffect(() => {
     loadRegisters();
@@ -38,23 +46,30 @@ export default function GestaoCursos() {
   const loadRegisters = async () => {
     setIsLoading(true);
     try {
-      const { data } = await axios.get('/cursos/');
+      const cursosResponse = await axios.get('/cursos/');
+      const videosReponse = await axios.get('/videos/');
       setIsLoading(false);
-      setCursos(data);
+      setCursos(cursosResponse.data);
+      setVideos(videosReponse.data)
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
     }
   };
+
   const handleOrderChange = (array, ordem) => {
     setCursos(array)
     setSearchOrdem(ordem)
   }
+
   const handleSearch = async () => {
     const querys = new URLSearchParams({
       nome_curso: searchNome,
+      cod_video: searchVideo
     }).toString();
+
+    console.log(searchVideo)
 
     setIsLoading(true);
     try {
@@ -75,6 +90,7 @@ export default function GestaoCursos() {
     const formData = new FormData()
     formData.append('nome_curso', nome)
     formData.append('desc_curso', descricao)
+    formData.append('videos', JSON.stringify(cursoVideos))
     if (foto) formData.append('foto', foto)
 
     const header = {
@@ -145,7 +161,7 @@ export default function GestaoCursos() {
     setCodCurso(curso.cod_curso);
     setNome(curso.nome_curso);
     setDescricao(curso.desc_curso);
-    setVideos(curso.videos);
+    setCursoVideos(curso.videos);
     setIsUpdating(true);
     setShowFormModal(true);
     if (curso.arquivo_url) setShowFoto(curso.arquivo_url)
@@ -175,7 +191,7 @@ export default function GestaoCursos() {
     setDescricao('');
     setFoto(null);
     setShowFoto('')
-    setVideos([]);
+    setCursoVideos([]);
   };
 
   const handleShowFoto = (e) => {
@@ -195,6 +211,20 @@ export default function GestaoCursos() {
     setFim(novoFim)
   }
 
+  const handleMultiSelectChange = (type, obj) => {
+    const newArrayVideos = [...cursoVideos]
+
+    newArrayVideos.push(JSON.parse(obj)) // converter string para objeto
+    newArrayVideos.sort((a, b) => a.titulo_video > b.titulo_video ? 1 : -1) // ordenar por nome
+
+    setCursoVideos(newArrayVideos)
+}
+
+const handleMultiSelectRemove = (type, cod) => {
+    const newArrayVideos = cursoVideos.filter(el => el.cod_video !== cod); // remover obj do array
+    setCursoVideos(newArrayVideos)
+}
+
   return (
     <>
       <Navbar />
@@ -204,8 +234,8 @@ export default function GestaoCursos() {
 
         <div className="top-forms-container">
           <div className="search-container">
-            <div className="search-form">
 
+            <div className="search-form">
               <input
                 className='search-input'
                 type="text"
@@ -214,7 +244,24 @@ export default function GestaoCursos() {
                 value={searchNome}
                 onChange={(e) => setSearchNome(e.target.value)}
               />
-
+              <select
+                  name="video"
+                  className="search-input"
+                  id="video"
+                  defaultValue={searchVideo}
+                  onChange={(e) => setSearchVideo(e.target.value)}
+                >
+                  <option value="" disabled >
+                    Selecione um vídeo
+                  </option>
+                  {videos.length > 0
+                    ? videos.map((c) => (
+                      <option key={`s${c.cod_video}`} value={c.cod_video}>
+                        {c.titulo_video}
+                      </option>
+                    ))
+                    : ''}
+                </select>
               <div className="search-container-buttons">
                 <button
                   title="Pesquisar"
@@ -232,6 +279,7 @@ export default function GestaoCursos() {
                   <PaintBrushHousehold size={24} />
                 </button>
               </div>
+
             </div>
           </div>
           <span className='search-container-cadastrar'>
@@ -246,8 +294,6 @@ export default function GestaoCursos() {
           </span>
         </div>
 
-
-
         <div className='container-order'>
           <OrderSelect
             nameKey="nome_curso"
@@ -259,7 +305,7 @@ export default function GestaoCursos() {
         <div className="container-list">
           {cursos.slice(inicio, fim).map((curso) => (
             <div
-              key={cursos.cod_curso}
+              key={curso.cod_curso}
               className="list"
             >
               <div className='container-information-list'>
@@ -267,6 +313,13 @@ export default function GestaoCursos() {
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{curso.nome_curso}</span>
+                  {curso.videos.length > 0 ?
+                    curso.videos.map(item => (
+                      <span key={`${item.cod_video}${curso.cod_curso}`} className='subname-container-list-blue'>
+                        <small>{item.titulo_video}</small>
+                      </span>
+                    ))
+                  : ''}
                 </span>
               </div>
 
@@ -296,7 +349,7 @@ export default function GestaoCursos() {
           {videos &&
             <Pagination
               total={cursos.length}
-              itemsPerPage={itemsPerPage}
+              itemsPerPage={ITEMS_PER_PAGE}
               handleNewPage={handleNewPage} />
           }
         </div>
@@ -345,12 +398,25 @@ export default function GestaoCursos() {
               </div>
 
               <div className="ModalInput">
-                <label>Foto</label>
+                <label>Foto <small>(opcional)</small></label>
                 <FileInput handleShowFile={handleShowFoto} foto={showFoto} removeFoto={handleRemoveFoto}/>
               </div>
 
               <div className="ModalInput">
-                <label>Descrição</label>
+                <label>Vincular Vídeos <small>(opcional)</small></label>
+                <Multiselect
+                  type="vídeo"
+                  array={videos}
+                  treinamento={cursoVideos}
+                  value="cod_video"
+                  label="titulo_video"
+                  handleMultiSelectChange={handleMultiSelectChange}
+                  handleMultiSelectRemove={handleMultiSelectRemove}
+                />
+              </div>
+
+              <div className="ModalInput">
+                <label>Descrição <small>(opcional)</small></label>
                 <textarea
                   name="descricao"
                   placeholder="Descrição"
@@ -359,7 +425,7 @@ export default function GestaoCursos() {
                 />
               </div>
 
-              {isUpdating ?
+              {/* {isUpdating ?
                 <div className="ModalInput">
                 <label htmlFor="" className='pb-2'>Vídeos</label>
                   <table className='table-curso'>
@@ -370,8 +436,8 @@ export default function GestaoCursos() {
                         </tr>
                       </thead>
                       <tbody>
-                        {videos.length > 0 ? (
-                          videos.map((video) => (
+                        {cursoVideos.length > 0 ? (
+                          cursoVideos.map((video) => (
                             <tr key={video.cod_video}>
                               <td>{video.titulo_video}</td>
                               <td>
@@ -390,7 +456,7 @@ export default function GestaoCursos() {
                       </tbody>
                     </table>
                 </div>
-              : ''}
+              : ''} */}
 
             </div>
           </div>
