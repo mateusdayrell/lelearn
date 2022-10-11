@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import "./style.css"
 
-export default function Pagination({total, itemsPerPage, handleNewPage, maxButtons}) {
+export default function Pagination({total, itemsPerPage, handleNewPage}) {
   const totalPages = Math.ceil(total / itemsPerPage)
   const [currentPage, setCurrentPage] = useState(1)
 
@@ -19,6 +20,8 @@ export default function Pagination({total, itemsPerPage, handleNewPage, maxButto
         index === 0 || index === totalPages-1 ||
         index === currentPage || index === currentPage || index === currentPage - 1 || index === currentPage - 2 ?
         <button
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
           className={currentPage === index + 1 ? "selected" : "page"}
           type="button"
           title={`Página ${index+1}`}
