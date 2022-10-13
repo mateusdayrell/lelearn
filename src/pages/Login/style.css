@@ -1,15 +1,16 @@
-.green-gradient{
-  background: rgb(0,135,95);
-  background: radial-gradient(circle, rgba(0,135,95,1) 13%, rgba(30,61,52,1) 61%, rgba(15,34,28,1) 84%, rgba(0,0,0,1) 100%);
+.container-login{
+  @apply w-1/4 bg-cinza-400 shadow-lg rounded-xl p-2 flex flex-col items-center justify-center
+}
+.title-login{
+  @apply text-3xl my-8 text-verde-100 font-semibold
+}
+.content-inputs{
+  @apply w-3/4
 }
 
-.elipse-1{
-  position: absolute;
-  width: 281.71px;
-  height: 282.04px;
-  left: 143px;
-  top: 145px;
-  background: #81D8F7;
-  opacity: 0.45;
-  filter: blur(158.5px);
+.input-login{
+  @apply relative text-cinza-200 focus-within:text-verde-100 my-2
+}
+.input-animation{
+  @apply w-full pl-10 text-sm rounded-xl focus:outline-none focus:text-cinza-400 py-3
 }
