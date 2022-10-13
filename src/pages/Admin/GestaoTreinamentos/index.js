@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
@@ -195,7 +194,7 @@ export default function GestaoTreinamentos() {
   };
 
   const handleMultiSelectChange = (type, obj) => {
-    if (type === "usuarios") {
+    if (type === "usuario") {
       const newArrayUsuarios = [...treinUsuarios]
 
       newArrayUsuarios.push(JSON.parse(obj)) // converter string para objeto
@@ -213,7 +212,7 @@ export default function GestaoTreinamentos() {
   }
 
   const handleMultiSelectRemove = (type, cod) => {
-    if (type === "usuarios") {
+    if (type === "usuario") {
       const newArrayUsuarios = treinUsuarios.filter(el => el.cpf !== cod); // remover obj do array
       setTreinUsuarios(newArrayUsuarios)
     }
@@ -259,12 +258,12 @@ export default function GestaoTreinamentos() {
                   defaultValue={searchUsuario}
                   onChange={(e) => setSearchUsuario(e.target.value)}
                 >
-                  <option value="" disabled selected={searchUsuario === ''}>
+                  <option value="" disabled>
                     Selecione um usuário
                   </option>
                   {usuarios.length > 0
                     ? usuarios.map((u) => (
-                      <option key={u.cpf} value={u.cpf}>
+                      <option key={`s1${u.cpf}`} value={u.cpf}>
                         {u.nome}
                       </option>
                     ))
@@ -277,12 +276,12 @@ export default function GestaoTreinamentos() {
                   defaultValue={searchCurso}
                   onChange={(e) => setSearchCurso(e.target.value)}
                 >
-                  <option value="" disabled selected={searchCurso === ''}>
+                  <option value="" disabled>
                     Selecione um curso
                   </option>
                   {cursos.length > 0
                     ? cursos.map((c) => (
-                      <option key={c.cod_curso} value={c.cod_curso}>
+                      <option key={`s2${c.cod_curso}`} value={c.cod_curso}>
                         {c.nome_curso}
                       </option>
                     ))
@@ -329,7 +328,7 @@ export default function GestaoTreinamentos() {
         <div className='container-list'>
           {treinamentos.slice(inicio, fim).map((treinamento) => (
             <div
-              key={treinamento.treinamento}
+              key={`trein${treinamento.cod_treinamento}`}
               className="list"
             >
               <div className='container-information-list'>
@@ -426,9 +425,9 @@ export default function GestaoTreinamentos() {
               <div className="ModalInput">
                 <label>Vincular usuários <small>(opcional)</small></label>
                 <Multiselect
-                  type="usuarios"
-                  array={usuarios}
-                  treinamento={treinUsuarios}
+                  type="usuario"
+                  arrLista={usuarios}
+                  arrSuperior={treinUsuarios}
                   value="cpf"
                   label="nome"
                   handleMultiSelectChange={handleMultiSelectChange}
@@ -439,9 +438,9 @@ export default function GestaoTreinamentos() {
               <div className="ModalInput">
                 <label>Vincular cursos <small>(opcional)</small></label>
                 <Multiselect
-                  type="cursos"
-                  array={cursos}
-                  treinamento={treinCursos}
+                  type="curso"
+                  arrLista={cursos}
+                  arrSuperior={treinCursos}
                   value="cod_curso"
                   label="nome_curso"
                   handleMultiSelectChange={handleMultiSelectChange}

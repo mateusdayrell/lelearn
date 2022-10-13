@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
-import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple } from 'phosphor-react';
 import Modal from 'react-modal';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
@@ -290,7 +289,7 @@ export default function Usuario() {
                   defaultValue={searchTipo}
                   onChange={(e) => setSearchTipo(e.target.value)}
                 >
-                  <option value="" disabled selected={searchTipo === ''}>
+                  <option value="" disabled>
                     Selecione um tipo
                   </option>
                   <option value="0">Administrador</option>

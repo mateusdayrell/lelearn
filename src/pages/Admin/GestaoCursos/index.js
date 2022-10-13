@@ -69,8 +69,6 @@ export default function GestaoCursos() {
       cod_video: searchVideo
     }).toString();
 
-    console.log(searchVideo)
-
     setIsLoading(true);
     try {
       const { data } = await axios.get(`/cursos/search/${querys}`);
@@ -236,32 +234,31 @@ const handleMultiSelectRemove = (type, cod) => {
           <div className="search-container">
 
             <div className="search-form">
-              <input
-                className='search-input'
-                type="text"
-                name="titulo"
-                placeholder="Pesquisar"
-                value={searchNome}
-                onChange={(e) => setSearchNome(e.target.value)}
-              />
-              <select
+              <div className='search-container-inputs'>
+                <input
+                  className='search-input'
+                  type="text"
+                  name="titulo"
+                  placeholder="Nome do curso"
+                  value={searchNome}
+                  onChange={(e) => setSearchNome(e.target.value)}
+                />
+                <select
                   name="video"
                   className="search-input"
                   id="video"
                   defaultValue={searchVideo}
-                  onChange={(e) => setSearchVideo(e.target.value)}
-                >
-                  <option value="" disabled >
-                    Selecione um vídeo
-                  </option>
-                  {videos.length > 0
-                    ? videos.map((c) => (
-                      <option key={`s${c.cod_video}`} value={c.cod_video}>
-                        {c.titulo_video}
-                      </option>
-                    ))
-                    : ''}
+                  onChange={(e) => setSearchVideo(e.target.value)}>
+                    <option value="" disabled >Selecione um vídeo</option>
+                    {videos.length > 0
+                      ? videos.map((c) => (
+                          <option key={`s${c.cod_video}`} value={c.cod_video}>
+                            {c.titulo_video}
+                          </option>
+                        ))
+                      : ''}
                 </select>
+              </div>
               <div className="search-container-buttons">
                 <button
                   title="Pesquisar"
@@ -406,8 +403,8 @@ const handleMultiSelectRemove = (type, cod) => {
                 <label>Vincular Vídeos <small>(opcional)</small></label>
                 <Multiselect
                   type="vídeo"
-                  array={videos}
-                  treinamento={cursoVideos}
+                  arrLista={videos}
+                  arrSuperior={cursoVideos}
                   value="cod_video"
                   label="titulo_video"
                   handleMultiSelectChange={handleMultiSelectChange}

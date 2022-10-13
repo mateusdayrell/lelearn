@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AiOutlineClose } from "react-icons/ai";
+import { X } from 'phosphor-react';
 
-export default function Multiselect({ type, array, treinamento, value, label, handleMultiSelectChange, handleMultiSelectRemove }) {
+export default function Multiselect({ type, arrLista, arrSuperior, value, label, handleMultiSelectChange, handleMultiSelectRemove }) {
   const verifyEqual = (cod) => {
     let controle = false
 
-    treinamento.forEach(element => {
+    arrSuperior.forEach(element => {
       if(element[value] === cod) controle = true
     });
 
@@ -20,18 +20,18 @@ export default function Multiselect({ type, array, treinamento, value, label, ha
 
   return (
       <div className="my-2 p-1 flex flex-col gap bg-[#323238] rounded svelte-1l8159u">
-        <div className="flex flex-auto flex-wrap">
-          {treinamento.map((trein) => (
+        <div className="flex max-w-2xl overflow-scroll max-h-24 flex-wrap">
+          {arrSuperior.map((trein) => (
                 <div
-                  key={`*${trein[value]}`}
-                  className="flex justify-center items-center m-1 py-1 px-2 rounded-full text-gray-100 bg-verde-100 border border-gray-400 gap-1"
+                  key={`sup${trein[value]}${type}`}
+                  className="flex flex-none justify-center items-center m-1 py-1.5 px-2.5 rounded-full text-gray-50 bg-verde-100 hover:bg-verde-200 border border-gray-400 hover:border-verde-200 gap-1 flex-wrap"
                 >
-                  <div className="text-xs leading-none max-w-full flex-initial">
+                  <div className="text-xs leading-none max-w-full flex-initial pt-1">
                     {trein[label]}
                   </div>
                   <div className="flex flex-auto">
-                      <button type='button' onClick={() => handleMultiSelectRemove(type, trein[value])}>
-                          <AiOutlineClose/>
+                      <button type='button' className='hover:text-red-600 hover:text-lg' title={`Remover ${type}`} onClick={() => handleMultiSelectRemove(type, trein[value])}>
+                        <X weight="bold" />
                       </button>
                   </div>
                 </div>
@@ -43,13 +43,13 @@ export default function Multiselect({ type, array, treinamento, value, label, ha
           <select
             name={type}
             id={`select-${type}`}
+            defaultValue=""
             onChange={e => handleIsChanging(e.target.value)}>
-              <option value="" disabled selected>Selecione um {type}</option>
-              {array.length > 0
-                ? array.map((el, i) => (
+              <option value="" disabled>Selecione um {type}</option>
+              {arrLista.length > 0
+                ? arrLista.map((el) => (
                     <option
-                      // eslint-disable-next-line react/no-array-index-key
-                      key={`${el[value]}${i}`}
+                      key={`inf${el[value]}${type}`}
                       value={JSON.stringify(el)}
                       className={verifyEqual(el[value]) ? "bg-verde-100 text-gray-50" : ''} disabled={verifyEqual(el.cpf)}
                     >
@@ -65,8 +65,8 @@ export default function Multiselect({ type, array, treinamento, value, label, ha
 
 Multiselect.defaultProps = {
   type: 'usuarios',
-  array: [],
-  treinamento: [],
+  arrLista: [],
+  arrSuperior: [],
   value: 'cpf',
   label: 'nome',
   handleMultiSelectChange: () => null,
@@ -75,8 +75,8 @@ Multiselect.defaultProps = {
 
 Multiselect.propTypes = {
   type: PropTypes.string,
-  array: PropTypes.array,
-  treinamento: PropTypes.array,
+  arrLista: PropTypes.array,
+  arrSuperior: PropTypes.array,
   value: PropTypes.string,
   label: PropTypes.string,
   handleMultiSelectChange: PropTypes.func,

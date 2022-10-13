@@ -243,12 +243,12 @@ export default function GestaoVideos() {
                   defaultValue={searchCurso}
                   onChange={(e) => setSearchCurso(e.target.value)}
                 >
-                  <option value="" disabled selected={searchCurso === ''}>
+                  <option value="" disabled>
                     Selecione um curso
                   </option>
                   {cursos.length > 0
                     ? cursos.map((c) => (
-                      <option key={c.cod_curso} value={c.cod_curso}>
+                      <option key={`s1${c.cod_curso}`} value={c.cod_curso}>
                         {c.nome_curso}
                       </option>
                     ))
@@ -298,7 +298,7 @@ export default function GestaoVideos() {
         <div className='container-list'>
           {videos.slice(inicio, fim).map((video) => (
             <div
-              key={video.cod_video}
+              key={`vid${video.cod_video}`}
               className="list"
             >
               <div className='container-information-list'>
@@ -396,8 +396,8 @@ export default function GestaoVideos() {
                 <label>Vincular Cursos <small>(opcional)</small></label>
                 <Multiselect
                   type="curso"
-                  array={cursos}
-                  treinamento={videoCursos}
+                  arrLista={cursos}
+                  arrSuperior={videoCursos}
                   value="cod_curso"
                   label="nome_curso"
                   handleMultiSelectChange={handleMultiSelectChange}
