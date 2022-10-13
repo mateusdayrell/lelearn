@@ -9,6 +9,7 @@ import {
   Books,
   BookmarksSimple,
   CaretDoubleRight,
+  House
 } from 'phosphor-react';
 
 import { Link } from 'react-router-dom';
@@ -26,6 +27,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(true);
 
   const menus = [
+    { name: "Página Inicial", link: "/home", icon: House},
     { name: "Videos", link: "/videos", icon: YoutubeLogo },
     { name: "Cursos", link: "/cursos", icon: BookBookmark },
     { name: "Treinamentos", link: "/treinamentos", icon: Bookmark },
