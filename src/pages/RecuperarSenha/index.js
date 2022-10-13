@@ -17,7 +17,7 @@ export default function RecuperarSenha() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [currentForm, setCurrentForm] = useState('form2');
+  const [currentForm, setCurrentForm] = useState('form1');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSendCode = async () => {
