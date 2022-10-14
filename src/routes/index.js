@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import { Switch } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import MyRoute from './MyRoute';
 import Login from '../pages/Login';
@@ -18,7 +18,7 @@ import GestaoCursos from '../pages/Admin/GestaoCursos';
 import GestaoTreinamentos from '../pages/Admin/GestaoTreinamentos';
 
 export default function Routes() {
-  // const tipoUsuario = useSelector((state) => state.auth.usuario.tipo);
+  const tipoUsuario = useSelector((state) => state.auth.usuario.tipo); // TIPO -> 0 === ADMINISTRADOR, TIPO -> 1 === USUARIO COMUM
   return (
     <Switch>
       <MyRoute exact path="/" component={Home} />
@@ -27,12 +27,18 @@ export default function Routes() {
       <MyRoute exact path="/treinamentos" component={Treinamento} isClosed />
       <MyRoute exact path="/cursos/:cod_curso" component={Curso} isClosed />
       <MyRoute exact path="/cursos" component={Cursos} isClosed />
-      <MyRoute exact path="/usuarios" component={Usuario} isClosed />
-      <MyRoute exact path="/gestao-videos" component={GestaoVideos} isClosed />
-      <MyRoute exact path="/gestao-cursos" component={GestaoCursos} isClosed />
-      <MyRoute exact path="/gestao-treinamentos" component={GestaoTreinamentos} isClosed />
       <MyRoute exact path="/videos/:cod_video" component={Video} isClosed />
       <MyRoute path="*" component={Error} />
+
+      {tipoUsuario === 0 ? // ADMINISTRADOR
+        <>
+          <MyRoute exact path="/usuarios" component={Usuario} isClosed />
+          <MyRoute exact path="/gestao-videos" component={GestaoVideos} isClosed />
+          <MyRoute exact path="/gestao-cursos" component={GestaoCursos} isClosed />
+          <MyRoute exact path="/gestao-treinamentos" component={GestaoTreinamentos} isClosed />
+        </>
+      : ''}
+
     </Switch>
   );
 }
