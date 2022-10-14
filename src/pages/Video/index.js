@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 // import { Player, Youtube, DefaultUi } from '@vime/react';
 // import getYoutubeId from 'get-youtube-id'
@@ -14,6 +14,7 @@ import axios from '../../services/axios';
 
 export default function Cursos() {
   const params = useParams();
+  const history = useHistory();
 
   const cpf = useSelector((state) => state.auth.usuario.cpf);
 
@@ -26,24 +27,26 @@ export default function Cursos() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    loadRegisters();
+    loadRegisters(params.cod_video);
   }, []);
 
   useEffect(() => {
     setReady(true);
   }, [video]);
 
-  const loadRegisters = async () => {
-    const { cod_video } = params;
+  const loadRegisters = async (codVideo) => {
+    const { cod_curso } = params
+    const cod_video = codVideo || params.cod_video
     setIsLoading(true);
     try {
-      const { data } = await axios.get(`/videos/${cod_video}`);
+      const { data } = await axios.get(`/curso-video/${cod_curso}/${cod_video}`);
+      // const cursoResponse = await axios.get(`/cursos/${cod_curso}`)
       const usuarioVideosResponde = await axios.get(`usuarios-videos/${cpf}`)
 
-      setVideo(data);
-      setCurso(data.curso);
-      setComentarios(data.comentarios);
-      setVideosCurso(data.curso.videos);
+      setVideo(data.Video);
+      setCurso(data.Curso);
+      setComentarios(data.Video.comentarios);
+      setVideosCurso(data.Curso.videos);
       setVideosUsuario(usuarioVideosResponde.data);
 
       setIsLoading(false);
@@ -69,6 +72,12 @@ export default function Cursos() {
 
   const handleWatched = codVideo => videosUsuario.flatMap(el => el.cod_video === codVideo).includes(true)
 
+  const handleRedirect = (codVideo) => {
+    const { cod_curso } = params
+    history.push(`/videos/${cod_curso}/${codVideo}`);
+    loadRegisters(codVideo)
+  };
+
   return (
     <>
       <Navbar />
@@ -79,8 +88,8 @@ export default function Cursos() {
           <div className="bg-black flex justify-center">
             <div className="h-full w-full max-w-[1100px] max-h-[60vh] aspect-video">
               <div>
-                {ready ? (
-                  <iframe width="853" height="480" src={video.link} title="Como inserir vídeo do YouTube no seu site HTML (Embed)" frameBorder="0" allow="accelerometer" allowFullScreen />
+                {/* {ready ? (
+                  // <iframe width="853" height="480" src={video.link} title="Como inserir vídeo do YouTube no seu site HTML (Embed)" frameBorder="0" allow="accelerometer" allowFullScreen />
 
                   // <Player>
                   //   <Youtube videoId={video.link} />
@@ -88,7 +97,7 @@ export default function Cursos() {
                   // </Player>
                 ) : (
                   ''
-                )}
+                )} */}
               </div>
             </div>
           </div>
@@ -135,9 +144,10 @@ export default function Cursos() {
                 className={`${el.cod_video === video.cod_video ? "bg-verde-200" : "bg-zinc-800"} rounded p-4 border border-zinc-300 cursor-pointer`}
               >
                   <div className="flex justify-between">
-                    <span>
+
+                    <button type='button' onClick={() => handleRedirect(el.cod_video)}>
                       {i + 1} - {el.titulo_video}
-                    </span>
+                    </button>
                     <Checkbox
                       cId={`c-${el.cod_video}`}
                       cValue={el.cod_video}

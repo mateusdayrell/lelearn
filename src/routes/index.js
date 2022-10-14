@@ -27,7 +27,7 @@ export default function Routes() {
       <MyRoute exact path="/treinamentos" component={Treinamento} isClosed />
       <MyRoute exact path="/cursos/:cod_curso" component={Curso} isClosed />
       <MyRoute exact path="/cursos" component={Cursos} isClosed />
-      <MyRoute exact path="/videos/:cod_video" component={Video} isClosed />
+      <MyRoute exact path="/videos/:cod_curso/:cod_video" component={Video} isClosed />
       <MyRoute path="*" component={Error} />
 
       {tipoUsuario === 0 ? // ADMINISTRADOR

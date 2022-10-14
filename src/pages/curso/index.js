@@ -35,7 +35,8 @@ export default function Cursos() {
   };
 
   const handleRedirect = (cod_video) => {
-    history.push(`/videos/${cod_video}`);
+    const { cod_curso } = params;
+    history.push(`/videos/${cod_curso}/${cod_video}`);
   };
 
   return (
