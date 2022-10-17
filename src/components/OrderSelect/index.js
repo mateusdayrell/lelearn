@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TextAlignLeft } from 'phosphor-react';
 
 export default function OrderSelect({ nameKey, handleOrderChange, searchOrdem, array }) {
 
@@ -25,22 +26,20 @@ export default function OrderSelect({ nameKey, handleOrderChange, searchOrdem, a
   }
 
   return (
-    <div className="order-select flex gap-2 items-center text-sm max-w-min">
-      <span>
-        <label className='text-white text font-extralight text-xs'>Ordem</label>
-      </span>
+    <div className="order-select flex items-center text-sm max-w-min text-white cursor-pointer">
+      <TextAlignLeft size={24} />
       <span className='bg-transparent'>
         <select
-          className="border-none text-[white] bg-transparent text-xs "
+          className="border-none text-[white] bg-cinza-500 text-xs cursor-pointer"
           name="ordem"
           defaultValue={searchOrdem}
           onChange={(e) => handleChange(e.target.value)}
         >
           <option value="" disabled> Ordenar por </option>
-          <option className='text-gray-900 bg-transparent' value={`${nameKey} asc`}>A-Z</option>
-          <option className='text-gray-900 bg-transparent' value={`${nameKey} desc`}>Z-A</option>
-          <option className='text-gray-900 bg-transparent' value="updated_at asc">Data de inclusão (Mais antigo)</option>
-          <option className='text-gray-900 bg-transparent' value="updated_at desc">Data de inclusão (Mais recente)</option>
+          <option className=' bg-transparent' value={`${nameKey} asc`}>A-Z</option>
+          <option className=' bg-transparent' value={`${nameKey} desc`}>Z-A</option>
+          <option className=' bg-transparent' value="updated_at asc">Data de inclusão (Mais antigo)</option>
+          <option className=' bg-transparent' value="updated_at desc">Data de inclusão (Mais recente)</option>
         </select>
       </span>
     </div>
