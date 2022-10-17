@@ -50,9 +50,15 @@ select {
 }
 
 
-/* A SER ESTILIZADO AINDA */
+/* SCROLL */
 ::-webkit-scrollbar {
-  display: none;
+  @apply w-2
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-3xl bg-zinc-700 hover:bg-zinc-500
 }
 
 /* --CONTAINERS-- */

@@ -21,6 +21,11 @@ export default function Routes() {
   const tipoUsuario = useSelector((state) => state.auth.usuario.tipo); // TIPO -> 0 === ADMINISTRADOR, TIPO -> 1 === USUARIO COMUM
   return (
     <>
+      <Switch>
+        <MyRoute exact path="/login" component={Login} />
+        <MyRoute exat path="/recuperar-senha" component={RecuperarSenha} />
+      </Switch>
+      
       {tipoUsuario === 0 && // ADMINISTRADOR
         <Switch>
           <MyRoute exact path="/usuarios" component={Usuario} isClosed />
