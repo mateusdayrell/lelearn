@@ -23,7 +23,7 @@ export default function Navbar() {
 
   const {nome, tipo} = useSelector((state) => state.auth.usuario); // TIPO -> 0 === ADMINISTRADOR, TIPO -> 1 === USUARIO COMUM
 
-  const selected = "w-8 h-8 bg-verde-100 hover:bg-verde-200 flex items-center justify-center rounded-md hover:text-cinza-500"
+  const selected = "w-8 h-8 bg-verde-100 hover:bg-verde-200 flex items-center justify-center rounded-md text-cinza-500"
   const [nomeUsuario, setNomeUsuario] = useState('Não logado');
   const [open, setOpen] = useState(true);
   const [word1, setWord1] = useState('')
@@ -122,12 +122,12 @@ export default function Navbar() {
 
       {/* USUARIO */}
       <div className={` ${open ? "profile-content-closed" : "profile-content-open"} profile-content`}>
-        <Link onClick={handleLogout} className="link" to="/login">
+        <span className='avatar-name'>{word1}{word2}</span>
+        <span className={`${open && "hidden"} name`}>{nomeUsuario}</span>
+        <Link onClick={handleLogout} className={`${open && "hidden"} link`} to="/login">
           <SignOut size={24} />
           Sair
         </Link>
-        <span className='bg-verde-100 text-white font-bold px-2 py-2.5 rounded-full tracking-widest'>{word1}{word2}</span>
-        <span className={`${open && "hidden"} `}>{nomeUsuario}</span>
       </div>
     </div>
   );
