@@ -2,14 +2,14 @@
   @apply w-1/4 bg-cinza-400 shadow-lg rounded-xl p-2 flex flex-col items-center justify-center
 }
 .title-login{
-  @apply text-3xl my-8 text-verde-100 font-semibold
+  @apply text-3xl my-8 text-verde-100 font-semibold select-none
 }
 .content-inputs{
   @apply w-3/4
 }
 
 .input-login{
-  @apply relative text-cinza-200 focus-within:text-verde-100 my-2
+  @apply relative text-cinza-300 focus-within:text-verde-100 my-2
 }
 .input-animation{
   @apply w-full pl-10 text-sm rounded-xl focus:outline-none focus:text-cinza-400 py-3
