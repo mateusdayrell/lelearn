@@ -37,7 +37,7 @@
   @apply flex my-2 items-center 
 }
 .list-content-open a span{
-  @apply hover:text-verde-100
+  @apply hover:text-verde-100 ml-1
 }
 .list-content-open a .icons{
   @apply w-8 h-8 hover:bg-verde-100 flex items-center justify-center rounded-md hover:text-cinza-500

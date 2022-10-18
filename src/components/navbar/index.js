@@ -128,10 +128,10 @@ export default function Navbar() {
         <span className={`${open && "hidden"} name`}>
           {nomeUsuario}
         </span>
-        <Link onClick={handleLogout} className={`${open && "hidden"} link`} to="/login">
+        {/*<Link onClick={handleLogout} className={`${open && "hidden"} link`} to="/login">
           <SignOut size={24} />
           Sair
-        </Link>
+        </Link>*/}
       </div>
     </div>
   );
