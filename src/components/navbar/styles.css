@@ -14,7 +14,7 @@
   @apply w-14 justify-center flex
 }
 .logo-content svg path{
-  @apply fill-verde-100 hover:fill-verde-200
+  @apply fill-cinza-100
 }
 
 
