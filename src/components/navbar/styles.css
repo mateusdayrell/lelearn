@@ -37,25 +37,28 @@
   @apply flex my-2 items-center 
 }
 .list-content-open a span{
-  @apply ml-2 hover:text-verde-100
+  @apply hover:text-verde-100
 }
 .list-content-open a .icons{
-  @apply w-8 h-8 hover:bg-verde-100 flex items-center justify-center rounded-md 
+  @apply w-8 h-8 hover:bg-verde-100 flex items-center justify-center rounded-md hover:text-cinza-500
 }
 
 .profile-content{
-  @apply w-14 justify-center flex
+  @apply w-14 
 }
 .profile-content-open{
-  @apply w-56 flex justify-center pl-3
+  @apply w-56 flex pl-2 items-center
 }
 .link{
   @apply text-cinza-100 flex 
 }
 .avatar-name{
-  @apply bg-cinza-300 text-white font-thin text-base px-2 py-2 rounded-full tracking-widest 
-  hover:bg-verde-100 hover:text-cinza-500 duration-150 select-none cursor-pointer
+  @apply bg-cinza-100 text-cinza-500 font-thin text-base w-10 h-10 rounded-full tracking-widest flex justify-center items-center
+  hover:bg-verde-100 duration-150 select-none cursor-pointer shadow-md
+}
+.profile-content-closed{
+  @apply pl-2
 }
 .profile-content-open .name{
-  @apply ml-2
+  @apply ml-6 text-cinza-100 
 }
