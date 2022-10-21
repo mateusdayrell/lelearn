@@ -266,7 +266,7 @@ export default function Usuario() {
               <div className='search-container-inputs'>
                 <input
                   className="search-input"
-                  type="text"
+                  type="number"
                   name="cpf"
                   placeholder="CPF"
                   value={searchCpf}

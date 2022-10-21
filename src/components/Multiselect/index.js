@@ -26,11 +26,11 @@ export default function Multiselect({ type, arrLista, arrSuperior, value, label,
                   key={`sup${trein[value]}${type}`}
                   className="flex flex-none justify-center items-center m-1 py-1.5 px-2.5 rounded-full text-gray-50 bg-verde-100 hover:bg-verde-200 border border-gray-400 hover:border-verde-200 gap-1 flex-wrap"
                 >
-                  <div className="text-xs leading-none max-w-full flex-initial pt-1">
+                  <div className="text-xs leading-none max-w-full flex-initial">
                     {trein[label]}
                   </div>
                   <div className="flex flex-auto">
-                      <button type='button' className='hover:text-red-600 hover:text-lg' title={`Remover ${type}`} onClick={() => handleMultiSelectRemove(type, trein[value])}>
+                      <button type='button' className='hover:text-red-500' title={`Remover ${type}`} onClick={() => handleMultiSelectRemove(type, trein[value])}>
                         <X weight="bold" />
                       </button>
                   </div>
