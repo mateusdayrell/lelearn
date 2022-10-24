@@ -9,7 +9,8 @@ import {
   Books,
   BookmarksSimple,
   CaretDoubleRight,
-  House
+  House,
+  CaretUp,
 } from 'phosphor-react';
 
 import { Link } from 'react-router-dom';
@@ -77,18 +78,19 @@ export default function Navbar() {
 
       {/* LOGO */}
       <div className="logo-content">
-        <Link className="link" to="/">
+        <div className='logoicon'>
           <svg
             width="27"
             height="27"
             viewBox="0 0 39 36"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            class="logoicon"
           >
             <path d="M6.36963 31.2345H19.5V36H0V0H6.36963V31.2345Z" />
             <path d="M25.8696 31.2345H39V36H19.5V0H25.8696V31.2345Z" />
           </svg>
-        </Link>
+        </div>
         <CaretDoubleRight
           size={20}
           className={`absolute cursor-pointer -right-3 top-4 rounded-full text-cinza-100 bg-cinza-400 hover:text-verde-100 duration-500 ${!open && "rotate-180 text-verde-100 hover:text-cinza-100"}`}
@@ -122,16 +124,18 @@ export default function Navbar() {
 
       {/* USUARIO */}
       <div className={` ${open ? "profile-content-closed" : "profile-content-open"} profile-content`}>
-        <span className='avatar-name'>
+
+        <Link onClick={handleLogout} className={`${open && "hidden"} name`} to="/login">
+          <SignOut size={24} />
+          Sair
+        </Link>
+
+        <span className='avatar'>
           {word1}{word2}
         </span>
         <span className={`${open && "hidden"} name`}>
           {nomeUsuario}
         </span>
-        <Link onClick={handleLogout} className={`${open && "hidden"} link`} to="/login">
-          <SignOut size={24} />
-          Sair
-        </Link>
       </div>
     </div>
   );

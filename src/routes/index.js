@@ -9,7 +9,7 @@ import RecuperarSenha from '../pages/RecuperarSenha';
 import Home from '../pages/Home';
 import Video from '../pages/Video';
 import Cursos from '../pages/Cursos';
-import Curso from '../pages/Curso';
+import Curso from '../pages/curso';
 import Treinamento from '../pages/Treinamento';
 import Error from '../pages/Error';
 import Usuario from '../pages/Admin/Usuario';

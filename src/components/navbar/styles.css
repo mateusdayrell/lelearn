@@ -52,7 +52,7 @@
 .link{
   @apply text-cinza-100 flex 
 }
-.avatar-name{
+.avatar{
   @apply bg-cinza-100 text-cinza-500 font-thin text-base w-10 h-10 rounded-full tracking-widest flex justify-center items-center
   hover:bg-verde-100 duration-150 select-none cursor-pointer shadow-md
 }
@@ -62,3 +62,39 @@
 .profile-content-open .name{
   @apply ml-6 text-cinza-100 
 }
+
+
+/* ANIMATION LOGO ICON */
+.logoicon svg path{
+  stroke-dashoffset: 0;
+  stroke-dasharray: 500;
+  stroke: white;
+  fill:white;
+}
+
+.logoicon:hover path {
+  animation: stroke-animation 15s ease-in-out forwards;
+  fill:none;
+  stroke-width: 2;
+}
+
+@keyframes stroke-animation {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  30% {
+    stroke-dashoffset: 1550;
+  }
+  60% {
+    stroke-dashoffset: 3100;
+    transform: scale(1);
+  }
+  90% {
+    transform: scale(1);
+  }
+  100% {
+    stroke-dashoffset: 3100;
+  }
+}
+
+/* ANIMATION LOGO ICON */
