@@ -9,7 +9,7 @@ import RecuperarSenha from '../pages/RecuperarSenha';
 import Home from '../pages/Home';
 import Video from '../pages/Video';
 import Cursos from '../pages/Cursos';
-import Curso from '../pages/curso';
+import Curso from '../pages/Curso';
 import Treinamento from '../pages/Treinamento';
 import Error from '../pages/Error';
 import Usuario from '../pages/Admin/Usuario';
@@ -19,6 +19,7 @@ import GestaoTreinamentos from '../pages/Admin/GestaoTreinamentos';
 
 export default function Routes() {
   const tipoUsuario = useSelector((state) => state.auth.usuario.tipo); // TIPO -> 0 === ADMINISTRADOR, TIPO -> 1 === USUARIO COMUM
+  console.log(tipoUsuario)
   return (
     <>
       {tipoUsuario === 0 && // ADMINISTRADOR
@@ -52,7 +53,7 @@ export default function Routes() {
         </Switch>
       }
 
-      {!tipoUsuario === 0 &&
+      {!tipoUsuario &&
         <Switch>
           <MyRoute exact path="/login" component={Login} />
           <MyRoute exat path="/recuperar-senha" component={RecuperarSenha} />
