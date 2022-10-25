@@ -19,7 +19,6 @@ import GestaoTreinamentos from '../pages/Admin/GestaoTreinamentos';
 
 export default function Routes() {
   const tipoUsuario = useSelector((state) => state.auth.usuario.tipo); // TIPO -> 0 === ADMINISTRADOR, TIPO -> 1 === USUARIO COMUM
-  console.log(tipoUsuario)
   return (
     <>
       {tipoUsuario === 0 && // ADMINISTRADOR

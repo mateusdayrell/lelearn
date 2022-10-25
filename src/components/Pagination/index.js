@@ -38,13 +38,11 @@ export default function Pagination({total, itemsPerPage, handleNewPage}) {
 Pagination.defaultProps = {
   total: 0,
   itemsPerPage: 0,
-  maxButtons: 5,
   handleNewPage: () => null,
 };
 
-Pagination.proptotals = {
+Pagination.propTypes = {
   total: PropTypes.number,
   itemsPerPage: PropTypes.number,
-  maxButtons: PropTypes.number,
   handleNewPage: PropTypes.func,
 };
