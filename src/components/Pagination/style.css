@@ -1,9 +1,9 @@
 .pagination-container {
-  @apply flex gap-1
+  @apply flex gap-1 items-center
 }
 .pagination-container .selected{
-  @apply bg-verde-200 w-9 h-9 rounded-full shadow shadow-gray-700 text-gray-50 font-bold underline
+  @apply bg-verde-100 w-8 h-8 rounded-md shadow-md text-cinza-500 text-base
 }
 .pagination-container .page{
-  @apply bg-verde-100 w-9 h-9 rounded-full text-gray-50
+  @apply bg-cinza-400 w-6 h-6 rounded-md text-cinza-100 shadow-md text-xs
 }

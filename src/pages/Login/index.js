@@ -41,39 +41,39 @@ export default function Login(props) {
   return (
     <>
       <Loading isLoading={isLoading} />
-      <div className='flex items-center justify-evenly px-10'>
+      <div className='container-body-login'>
         <Svg/>
         <div className='container-login'>
           <h1 className='title-login'>Login</h1>
           <div className='content-inputs'>
-            <div class="input-login">
+            <div className="input-login">
               <input
                 type="text"
                 name="email"
                 placeholder="E-mail"
-                class="input-animation"
+                className="input-animation"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)} />
-              <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+              <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                 <EnvelopeSimple size={20} />
               </span>
             </div>
-            <div class="input-login">
+            <div className="input-login">
               <input
                 type="password"
                 name="senha"
                 placeholder="Senha"
-                class="input-animation"
+                className="input-animation"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)} />
-              <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+              <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                 <Key size={20} />
               </span>
             </div>
             <Link className="text-xs text-cinza-100 hover:text-cinza-300 duration-200 pl-2 select-none" to="/recuperar-senha">
               Esqueceu a senha?
             </Link>
-            <button className="bg-verde-100 my-8 select-none hover:bg-verde-200 text-cinza-100 w-full py-1
+            <button className="bg-verde-100 mt-8 mb-10 select-none hover:bg-verde-200 text-cinza-100 w-full py-1
              rounded-lg duration-150 shadow-sm hover:shadow-verde-200 shadow-verde-100"
               type="button"
               onClick={handleSubmit}>

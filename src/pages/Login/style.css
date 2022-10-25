@@ -1,3 +1,7 @@
+.container-body-login{
+  @apply flex items-center justify-around min-h-full
+}
+
 .container-login{
   @apply w-1/4 bg-cinza-400 shadow-lg rounded-xl p-2 flex flex-col items-center justify-center
 }
@@ -9,7 +13,7 @@
 }
 
 .input-login{
-  @apply relative text-cinza-300 focus-within:text-verde-100 my-2
+  @apply relative text-cinza-300 focus-within:text-verde-100 mt-4
 }
 .input-animation{
   @apply w-full pl-10 text-sm rounded-xl focus:outline-none focus:text-cinza-400 py-3
