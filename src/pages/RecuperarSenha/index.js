@@ -5,7 +5,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import { isEmail } from 'validator';
-import { X, IdentificationCard } from 'phosphor-react';
+import { X, IdentificationCard, At, PaperPlaneRight, EnvelopeSimpleOpen, Key } from 'phosphor-react';
 
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
@@ -188,25 +188,34 @@ export default function RecuperarSenha() {
                 <input
                   type="text"
                   name="cpf"
+                  className='input-animation'
                   value={cpfValidator.format(cpf)}
                   maxLength={11}
                   onChange={(e) => setCpf(e.target.value)}
                 />
-                <span className='absolute inset-y-0 left-0 flex items-center pl-2'>
-                  <IdentificationCard size={20} />
+                <span className='input-icon'>
+                  <IdentificationCard size={24} />
                 </span>
               </div>
-              <label htmlFor="">Informe o seu email</label>
-              <input
-                type="text"
-                name="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <button className="btn w-40" type="button" onClick={handleSendCode}>
-                Enviar código
-              </button>
+              <div className='input-password'>
+                <span>E-mail</span>
+                <input
+                  type="text"
+                  name="email"
+                  className='input-animation'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <span className='input-icon'>
+                  <At size={24} />
+                </span>
+              </div>
+              <div className='content-button-password'>
+                <button className="buttonpassword" type="button" onClick={handleSendCode}>
+                  Enviar código
+                  <PaperPlaneRight size={22} />
+                </button>
+              </div>
             </div>
 
             <div
@@ -217,13 +226,19 @@ export default function RecuperarSenha() {
             >
               <label htmlFor="">Confirme sua identidade</label>
               <p>Foi enviado para o email "{email}" um código para a redefinição de senha. Por favor, informe o código no campo abaixo.</p>
-              <input
-                type="text"
-                name="cpf"
-                placeholder="Código"
-                value={token}
-                onChange={(e) => setToken(e.target.value)}
-              />
+              <div className='input-password'>
+                <span>Código</span>
+                <input
+                  type="text"
+                  name="cpf"
+                  className='input-animation'
+                  value={token}
+                  onChange={(e) => setToken(e.target.value)}
+                />
+                <span className='input-icon'>
+                  <EnvelopeSimpleOpen size={24} />
+                </span>
+              </div>
               <div className="w-full flex mx-auto gap-3 mt-4 flex-col">
                 <button
                   className="btn w-40"
@@ -232,7 +247,7 @@ export default function RecuperarSenha() {
                 >
                   Voltar
                 </button>
-                <button className="btn w-40" type="button" onClick={getUserToken}>
+                <button className="buttonpassword" type="button" onClick={getUserToken}>
                   Verificar código
                 </button>
               </div>
@@ -244,28 +259,33 @@ export default function RecuperarSenha() {
                 currentForm === 'form3' ? { display: 'flex' } : { display: 'none' }
               }
             >
-              <h1 className="mx-auto font-extrabold text-2xl">
-                Redefina a sua nova senha
-              </h1>
-
-              <label htmlFor="">Senha</label>
-              <input
-                type="password"
-                name="senha"
-                placeholder="Senha"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-
-              <label htmlFor="">Confirmar senha</label>
-              <input
-                type="password"
-                name="senha"
-                placeholder="Confirmar senha"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-
+              <label>Crie uma nova senha</label>
+              <div className='input-password'>
+                <span>Nova Senha</span>
+                <input
+                  type="password"
+                  name="senha"
+                  className='input-animation'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <span className='input-icon'>
+                  <Key size={24} />
+                </span>
+              </div>
+              <div className='input-password'>
+                <span>Confirme sua nova senha</span>
+                <input
+                  type="password"
+                  name="senha"
+                  className='input-animation'
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <span className='input-icon'>
+                  <Key size={24} />
+                </span>
+              </div>
               <button
                 className="btn w-40"
                 type="button"

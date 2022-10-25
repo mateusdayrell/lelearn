@@ -28,8 +28,23 @@
 .forms .form-1, .form-2, .form-3, .form-4{
   @apply flex flex-col
 }
+.forms p{
+  @apply text-sm
+}
 .input-password{
   @apply relative text-cinza-300 focus-within:text-verde-100 mt-4
+}
+.input-animation{
+  @apply w-full pl-10 text-sm rounded-xl focus:outline-none focus:text-cinza-400 py-3
+}
+.input-icon{
+  @apply absolute inset-y-0 left-0 top-6 flex items-center pl-2
+}
+.content-button-password{
+  @apply w-full flex flex-row-reverse my-4
+}
+.buttonpassword{
+  @apply bg-verde-100 hover:bg-verde-200 text-cinza-100 font-medium py-2 px-4 rounded-xl shadow m-1 duration-200 flex items-center gap-2
 }
 /* FORMULARIOS */
 /* BODY - CONTAINER RECUPERAR SENHA */

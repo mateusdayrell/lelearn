@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { EnvelopeSimple, Key } from 'phosphor-react';
+import { At, Key } from 'phosphor-react';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 
@@ -57,7 +57,7 @@ export default function Login(props) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)} />
               <span className="absolute inset-y-0 top-6 left-0 flex items-center pl-2">
-                <EnvelopeSimple size={24} />
+                <At size={24} />
               </span>
             </div>
             <div className="input-login">
