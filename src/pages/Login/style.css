@@ -13,7 +13,7 @@
 }
 
 .input-login{
-  @apply relative text-cinza-300 focus-within:text-verde-100 mt-4
+  @apply relative text-cinza-300 focus-within:text-verde-100 mt-3 duration-100
 }
 .input-animation{
   @apply w-full pl-10 text-sm rounded-xl focus:outline-none focus:text-cinza-400 py-3

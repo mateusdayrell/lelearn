@@ -42,32 +42,36 @@ export default function Login(props) {
     <>
       <Loading isLoading={isLoading} />
       <div className='container-body-login'>
-        <Svg/>
+        <Svg />
         <div className='container-login'>
           <h1 className='title-login'>Login</h1>
           <div className='content-inputs'>
             <div className="input-login">
+              <span className='text-sm'>
+                E-mail
+              </span>
               <input
                 type="text"
                 name="email"
-                placeholder="E-mail"
                 className="input-animation"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)} />
-              <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-                <EnvelopeSimple size={20} />
+              <span className="absolute inset-y-0 top-6 left-0 flex items-center pl-2">
+                <EnvelopeSimple size={24} />
               </span>
             </div>
             <div className="input-login">
+              <span className='text-sm'>
+                Senha
+              </span>
               <input
                 type="password"
                 name="senha"
-                placeholder="Senha"
                 className="input-animation"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)} />
-              <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-                <Key size={20} />
+              <span className="absolute inset-y-0 top-6 left-0 flex items-center pl-2">
+                <Key size={24} />
               </span>
             </div>
             <Link className="text-xs text-cinza-100 hover:text-cinza-300 duration-200 pl-2 select-none" to="/recuperar-senha">
