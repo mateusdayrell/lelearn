@@ -218,8 +218,8 @@ export default function Usuario() {
     return controle;
   };
 
-  const clearModal = () => {
-    setCpf('');
+  const clearModal = (parameter) => {
+    if (!parameter) setCpf('');
     setNome('');
     setTelefone('');
     setEmail('');
@@ -288,7 +288,7 @@ export default function Usuario() {
                   className="search-input"
                   name="tipo"
                   id="tipo"
-                  defaultValue={searchTipo}
+                  value={searchTipo}
                   onChange={(e) => setSearchTipo(e.target.value)}
                 >
                   <option value="" disabled>
@@ -489,10 +489,10 @@ export default function Usuario() {
                 <select
                   name="tipo"
                   id="tipo"
-                  defaultValue={tipo}
+                  value={tipo}
                   onChange={(e) => setTipo(e.target.value)}
                 >
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                     Selecione um tipo
                   </option>
                   <option value="0">Administrador</option>
@@ -506,7 +506,7 @@ export default function Usuario() {
               className="bg-vermelho-100 text-white w-24 py-2 rounded-xl hover:bg-vermelho-200"
               title="Limpar campos"
               type="button"
-              onClick={clearModal}>
+              onClick={() => clearModal("limpar")}>
               Limpar
             </button>
             <button

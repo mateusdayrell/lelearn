@@ -184,8 +184,8 @@ export default function GestaoVideos() {
     clearModal();
   };
 
-  const clearModal = () => {
-    setCodVideo('');
+  const clearModal = (parameter) => {
+    if (!parameter) setCodVideo('');
     setTitulo('');
     setVideoCursos([])
     setLink('');
@@ -240,7 +240,7 @@ export default function GestaoVideos() {
                   name="curso"
                   className="search-input"
                   id="Curso"
-                  defaultValue={searchCurso}
+                  value={searchCurso}
                   onChange={(e) => setSearchCurso(e.target.value)}
                 >
                   <option value="" disabled>
@@ -435,7 +435,7 @@ export default function GestaoVideos() {
               title="Limpar campos"
               className="bg-vermelho-100 text-white w-24 py-2 rounded-xl hover:bg-vermelho-200"
               type="button"
-              onClick={clearModal}>
+              onClick={() => clearModal("limpar")}>
               Limpar
             </button>
             <button

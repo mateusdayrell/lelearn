@@ -186,8 +186,8 @@ export default function GestaoCursos() {
     loadRegisters();
   };
 
-  const clearModal = () => {
-    setCodCurso('');
+  const clearModal = (parameter) => {
+    if (!parameter) setCodCurso('');
     setNome('');
     setDescricao('');
     setFoto(null);
@@ -251,7 +251,7 @@ const handleOrder = (array) => setCursoVideos(array)
                   name="video"
                   className="search-input"
                   id="video"
-                  defaultValue={searchVideo}
+                  value={searchVideo}
                   onChange={(e) => setSearchVideo(e.target.value)}>
                     <option value="" disabled >Selecione um vídeo</option>
                     {videos.length > 0
@@ -431,7 +431,7 @@ const handleOrder = (array) => setCursoVideos(array)
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="red-btn" type="button" onClick={clearModal}>
+            <button className="red-btn" type="button" onClick={() => clearModal("limpar")}>
               Limpar
             </button>
             <button className="green-btn" type="button" onClick={handleSubmit}>

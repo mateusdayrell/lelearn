@@ -32,7 +32,7 @@ export default function OrderSelect({ nameKey, handleOrderChange, searchOrdem, a
         <select
           className="border-none text-[white] bg-cinza-500 text-xs cursor-pointer"
           name="ordem"
-          defaultValue={searchOrdem}
+          value={searchOrdem}
           onChange={(e) => handleChange(e.target.value)}
         >
           <option value="" disabled> Ordenar por </option>

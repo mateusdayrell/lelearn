@@ -185,8 +185,8 @@ export default function GestaoTreinamentos() {
     clearModal();
   };
 
-  const clearModal = () => {
-    setCodTreinamento('');
+  const clearModal = (parameter) => {
+    if (!parameter) setCodTreinamento('');
     setNome('');
     setDescricao('');
     setTreinUsuarios([]);
@@ -255,7 +255,7 @@ export default function GestaoTreinamentos() {
                 <select
                   name="usuario"
                   className="search-input"
-                  defaultValue={searchUsuario}
+                  value={searchUsuario}
                   onChange={(e) => setSearchUsuario(e.target.value)}
                 >
                   <option value="" disabled>
@@ -273,7 +273,7 @@ export default function GestaoTreinamentos() {
                 <select
                   name="curso"
                   className="search-input"
-                  defaultValue={searchCurso}
+                  value={searchCurso}
                   onChange={(e) => setSearchCurso(e.target.value)}
                 >
                   <option value="" disabled>
@@ -453,7 +453,7 @@ export default function GestaoTreinamentos() {
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="red-btn" type="button" onClick={clearModal}>
+            <button className="red-btn" type="button" onClick={() => clearModal("limpar")}>
               Limpar
             </button>
             <button className="green-btn" type="button" onClick={handleSubmit}>
