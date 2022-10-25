@@ -265,13 +265,15 @@ export default function Usuario() {
             <div className="search-form">
               <div className='search-container-inputs'>
                 <input
-                  className="search-input"
-                  type="number"
-                  name="cpf"
-                  placeholder="CPF"
-                  value={searchCpf}
-                  onChange={(e) => setSearchCpf(e.target.value)}
-                />
+                    id="cpf-search"
+                    type="text"
+                    className="search-input"
+                    name="cpf"
+                    placeholder="CPF"
+                    value={cpfValidator.format(searchCpf)}
+                    maxLength={11}
+                    onChange={(e) => setSearchCpf(e.target.value)}
+                  />
 
                 <input
                   className="search-input"
