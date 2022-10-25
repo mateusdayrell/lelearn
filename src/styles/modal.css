@@ -22,15 +22,15 @@
   @apply fixed top-0 left-0 right-0 bottom-0 bg-black/60 flex justify-center backdrop-blur-md overflow-auto
 }
 
-.Modal .ModalInput{
+.Modal .InputArea{
   @apply bg-[#323238] px-2 py-2 my-2 mx-6 rounded-t-md text-verde-100 border-b-2 border-verde-100 font-light text-sm
 }
 
-.Modal .ModalInput input, .Modal .ModalInput select, .Modal .ModalInput textarea {
+.Modal .InputArea .ModalInput, .Modal .InputArea select, .Modal .InputArea textarea {
   @apply border-none text-cinza-100 bg-[#323238] w-full
 }
 
-.Modal .ModalInput input:disabled  {
+.Modal .InputArea input:disabled  {
   @apply text-cinza-300 cursor-not-allowed;
 }
 

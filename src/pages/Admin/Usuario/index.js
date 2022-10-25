@@ -404,11 +404,12 @@ export default function Usuario() {
           </div>
           <div className="ModalContent">
             <div className="form-usuario">
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>CPF</label>
                 <input
                   id="cpf"
                   type="text"
+                  className='ModalInput'
                   name="cpf"
                   placeholder="CPF"
                   value={cpfValidator.format(cpf)}
@@ -418,10 +419,11 @@ export default function Usuario() {
                 />
               </div>
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Nome</label>
                 <input
                   type="text"
+                  className='ModalInput'
                   name="nome"
                   placeholder="Nome"
                   value={nome}
@@ -429,12 +431,13 @@ export default function Usuario() {
                 />
               </div>
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Telefone</label>
                 <InputMask
                   mask="(99) 9 9999-9999"
                   value={telefone}
                   type="text"
+                  className='ModalInput'
                   name="telefone"
                   placeholder="Telefone"
                   onChange={(e) => setTelefone(e.target.value)}
@@ -443,10 +446,11 @@ export default function Usuario() {
 
 
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Email</label>
                 <input
                   type="email"
+                  className='ModalInput'
                   name="email"
                   placeholder="Email"
                   value={email}
@@ -454,10 +458,11 @@ export default function Usuario() {
                 />
               </div>
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Senha</label>
                 <input
                   type="password"
+                  className='ModalInput'
                   name="password"
                   placeholder="Senha"
                   value={password}
@@ -465,10 +470,11 @@ export default function Usuario() {
                 />
               </div>
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Confirmar senha</label>
                 <input
                   type="password"
+                  className='ModalInput'
                   name="confirmPassword"
                   placeholder="Confirmar senha"
                   value={confirmPassword}
@@ -476,7 +482,7 @@ export default function Usuario() {
                 />
               </div>
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Tipo</label>
                 <select
                   name="tipo"

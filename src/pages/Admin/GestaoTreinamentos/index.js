@@ -387,10 +387,11 @@ export default function GestaoTreinamentos() {
           <div className="ModalContent">
             <div className="form-gestao-video">
               {isUpdating ?
-                <div className="ModalInput">
+                <div className="InputArea">
                   <label>Código</label>
                   <input
                     type="text"
+                    className='ModalInput'
                     name="cod_treinamento"
                     placeholder="Código"
                     disabled={!!isUpdating}
@@ -400,10 +401,11 @@ export default function GestaoTreinamentos() {
                 </div>
                 : ''}
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Nome</label>
                 <input
                   type="text"
+                  className='ModalInput'
                   name="nome"
                   placeholder="Nome"
                   maxLength="40"
@@ -412,7 +414,7 @@ export default function GestaoTreinamentos() {
                 />
               </div>
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Descrição <small>(opcional)</small></label>
                 <textarea
                   name="descricao"
@@ -422,7 +424,7 @@ export default function GestaoTreinamentos() {
                 />
               </div>
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Vincular usuários <small>(opcional)</small></label>
                 <Multiselect
                   type="usuario"
@@ -435,7 +437,7 @@ export default function GestaoTreinamentos() {
                 />
               </div>
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Vincular cursos <small>(opcional)</small></label>
                 <Multiselect
                   type="curso"

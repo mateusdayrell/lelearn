@@ -367,10 +367,11 @@ export default function GestaoVideos() {
           <div className="ModalContent">
             <div className="form-gestao-video">
               {isUpdating ?
-                <div className="ModalInput">
+                <div className="InputArea">
                   <label>Código</label>
                   <input
                     type="text"
+                    className='ModalInput'
                     name="cod_video"
                     placeholder="Código"
                     disabled
@@ -380,10 +381,11 @@ export default function GestaoVideos() {
                 </div>
                 : ''}
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Título</label>
                 <input
                   type="text"
+                  className='ModalInput'
                   name="titulo"
                   placeholder="Título"
                   maxLength="40"
@@ -392,7 +394,7 @@ export default function GestaoVideos() {
                 />
               </div>
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Vincular Cursos <small>(opcional)</small></label>
                 <Multiselect
                   type="curso"
@@ -405,10 +407,11 @@ export default function GestaoVideos() {
                 />
               </div>
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Link</label>
                 <input
                   type="text"
+                  className='ModalInput'
                   name="link"
                   placeholder="Link"
                   maxLength="150"
@@ -416,7 +419,7 @@ export default function GestaoVideos() {
                   onChange={(e) => setLink(e.target.value)}
                 />
               </div>
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Descrição <small>(opcional)</small></label>
                 <textarea
                   name="descricao"
