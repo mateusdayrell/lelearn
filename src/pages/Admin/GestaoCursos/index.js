@@ -13,6 +13,7 @@ import Loading from '../../../components/Loading';
 import Pagination from '../../../components/Pagination';
 import FileInput from '../../../components/FileInput';
 import Multiselect from '../../../components/Multiselect';
+import VideoList from '../../../components/VideoList';
 
 const ITEMS_PER_PAGE = 10
 
@@ -155,11 +156,13 @@ export default function GestaoCursos() {
     return validated;
   };
 
+  const orderArray = (arr) => arr.sort((a, b) => a.cursos_videos.ordem > b.cursos_videos.ordem ? 1 : -1)
+
   const handleIsUpdating = (curso) => {
     setCodCurso(curso.cod_curso);
     setNome(curso.nome_curso);
     setDescricao(curso.desc_curso);
-    setCursoVideos(curso.videos);
+    setCursoVideos(orderArray(curso.videos));
     setIsUpdating(true);
     setShowFormModal(true);
     if (curso.arquivo_url) setShowFoto(curso.arquivo_url)
@@ -213,7 +216,6 @@ export default function GestaoCursos() {
     const newArrayVideos = [...cursoVideos]
 
     newArrayVideos.push(JSON.parse(obj)) // converter string para objeto
-    newArrayVideos.sort((a, b) => a.titulo_video > b.titulo_video ? 1 : -1) // ordenar por nome
 
     setCursoVideos(newArrayVideos)
 }
@@ -222,6 +224,8 @@ const handleMultiSelectRemove = (type, cod) => {
     const newArrayVideos = cursoVideos.filter(el => el.cod_video !== cod); // remover obj do array
     setCursoVideos(newArrayVideos)
 }
+
+const handleOrder = (array) => setCursoVideos(array)
 
   return (
     <>
@@ -310,13 +314,6 @@ const handleMultiSelectRemove = (type, cod) => {
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{curso.nome_curso}</span>
-                  {curso.videos.length > 0 ?
-                    curso.videos.map(item => (
-                      <span key={`${item.cod_video}${curso.cod_curso}`} className='subname-container-list-blue'>
-                        <small>{item.titulo_video}</small>
-                      </span>
-                    ))
-                  : ''}
                 </span>
               </div>
 
@@ -367,10 +364,11 @@ const handleMultiSelectRemove = (type, cod) => {
           <div className="ModalContent">
             <div className="form-gestao-video">
               {isUpdating ? (
-                <div className="ModalInput">
+                <div className="InputArea">
                   <label>Código</label>
                   <input
                     type="text"
+                    className='ModalInput'
                     name="cod_video"
                     placeholder="Código"
                     disabled
@@ -382,10 +380,11 @@ const handleMultiSelectRemove = (type, cod) => {
                 ''
               )}
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Nome</label>
                 <input
                   type="text"
+                  className='ModalInput'
                   name="nome"
                   placeholder="Nome"
                   maxLength="40"
@@ -394,12 +393,12 @@ const handleMultiSelectRemove = (type, cod) => {
                 />
               </div>
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Foto <small>(opcional)</small></label>
                 <FileInput handleShowFile={handleShowFoto} foto={showFoto} removeFoto={handleRemoveFoto}/>
               </div>
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Vincular Vídeos <small>(opcional)</small></label>
                 <Multiselect
                   type="vídeo"
@@ -412,7 +411,7 @@ const handleMultiSelectRemove = (type, cod) => {
                 />
               </div>
 
-              <div className="ModalInput">
+              <div className="InputArea">
                 <label>Descrição <small>(opcional)</small></label>
                 <textarea
                   name="descricao"
@@ -422,38 +421,12 @@ const handleMultiSelectRemove = (type, cod) => {
                 />
               </div>
 
-              {/* {isUpdating ?
-                <div className="ModalInput">
-                <label htmlFor="" className='pb-2'>Vídeos</label>
-                  <table className='table-curso'>
-                      <thead>
-                        <tr>
-                          <th>Título</th>
-                          <th>Link</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {cursoVideos.length > 0 ? (
-                          cursoVideos.map((video) => (
-                            <tr key={video.cod_video}>
-                              <td>{video.titulo_video}</td>
-                              <td>
-                                <button
-                                  type="button"
-                                  className='rounded-lg bg-verde-100 text-white px-2 py-1 my-2 hover:bg-verde-200'
-                                >
-                                  Acessar
-                                </button>
-                              </td>
-                            </tr>
-                          ))
-                        ) : (
-                          <tr><td colSpan={2}>Nenhum vídeo cadastrado</td></tr>
-                        )}
-                      </tbody>
-                    </table>
+              {cursoVideos.length > 0 &&
+                <div className="InputArea">
+                  <label>Vídeos</label>
+                  <VideoList videos={cursoVideos} handleOrder={handleOrder}/>
                 </div>
-              : ''} */}
+              }
 
             </div>
           </div>
