@@ -5,6 +5,7 @@ import './style.css';
 import Navbar from '../../components/Navbar';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
+import { orderVideos } from '../../helpers/orderVideos';
 
 export default function Cursos() {
   const history = useHistory();
@@ -26,7 +27,7 @@ export default function Cursos() {
       const { data } = await axios.get(`/cursos/${cod_curso}`);
 
       setCurso(data);
-      setVideos(data.videos);
+      setVideos(orderVideos(data.videos));
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);

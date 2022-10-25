@@ -94,7 +94,7 @@ export default function VideoList({videos, handleOrder}) {
               </>
             }
           </span>
-          <span className='flex-1'>{video.titulo_video}</span>
+          <span className='flex-1'>{video.titulo_video} {video.cursos_videos.ordem}</span>
         </div>
       ))}
     </>

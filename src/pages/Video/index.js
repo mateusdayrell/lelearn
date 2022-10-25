@@ -11,6 +11,7 @@ import Navbar from '../../components/Navbar';
 import Loading from '../../components/Loading';
 import Checkbox from '../../components/Checkbox';
 import axios from '../../services/axios';
+import { orderVideos } from '../../helpers/orderVideos';
 
 export default function Cursos() {
   const params = useParams();
@@ -43,10 +44,10 @@ export default function Cursos() {
       // const cursoResponse = await axios.get(`/cursos/${cod_curso}`)
       const usuarioVideosResponde = await axios.get(`usuarios-videos/${cpf}`)
 
-      setVideo(data.Video);
-      setCurso(data.Curso);
-      setComentarios(data.Video.comentarios);
-      setVideosCurso(data.Curso.videos);
+      setVideo(data.video);
+      setCurso(data.curso);
+      setComentarios(data.video.comentarios);
+      setVideosCurso(orderVideos(data.curso.videos));
       setVideosUsuario(usuarioVideosResponde.data);
 
       setIsLoading(false);

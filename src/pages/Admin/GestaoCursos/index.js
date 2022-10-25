@@ -14,6 +14,7 @@ import Pagination from '../../../components/Pagination';
 import FileInput from '../../../components/FileInput';
 import Multiselect from '../../../components/Multiselect';
 import VideoList from '../../../components/VideoList';
+import { orderVideos } from '../../../helpers/orderVideos';
 
 const ITEMS_PER_PAGE = 10
 
@@ -156,13 +157,11 @@ export default function GestaoCursos() {
     return validated;
   };
 
-  const orderArray = (arr) => arr.sort((a, b) => a.cursos_videos.ordem > b.cursos_videos.ordem ? 1 : -1)
-
   const handleIsUpdating = (curso) => {
     setCodCurso(curso.cod_curso);
     setNome(curso.nome_curso);
     setDescricao(curso.desc_curso);
-    setCursoVideos(orderArray(curso.videos));
+    setCursoVideos(orderVideos(curso.videos));
     setIsUpdating(true);
     setShowFormModal(true);
     if (curso.arquivo_url) setShowFoto(curso.arquivo_url)
