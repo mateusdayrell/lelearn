@@ -63,45 +63,45 @@ select {
 
 /* --CONTAINERS-- */
 .container-body{
-  @apply flex flex-col gap-[17] pl-20 pr-10 py-3 min-w-[670px]
+  @apply flex flex-col gap-[17] pl-20 pr-10 py-3 min-w-[670px] min-h-[90%]
 }
 
 /* --BUTTONS-- */
 .btn{
-  @apply bg-verde-100 hover:bg-verde-200 text-white font-semibold py-2 px-4 rounded-xl shadow m-1
+  @apply bg-verde-100 hover:bg-verde-200 text-white font-semibold py-2 px-4 rounded-xl shadow m-1 duration-200
 }
 
 .green-btn {
   @apply bg-verde-100 hover:bg-verde-200 text-cinza-100
-  py-2 px-2 border border-verde-100 hover:border-transparent rounded-full
+  py-2 px-2 border border-verde-100 hover:border-transparent rounded-full duration-200
 }
 
 .blue-btn{
   @apply bg-transparent hover:bg-blue-600 text-blue-500 font-semibold hover:text-white
-  py-0 px-3 border border-blue-500 hover:border-transparent rounded-xl
+  py-0 px-3 border border-blue-500 hover:border-transparent rounded-xl duration-200
 }
 
 .red-btn{
   @apply bg-vermelho-100 hover:bg-vermelho-200 text-cinza-100
-  py-2 px-2 border border-vermelho-100 hover:border-transparent rounded-full
+  py-2 px-2 border border-vermelho-100 hover:border-transparent rounded-full duration-200
 }
 
 .yellow-btn{
   @apply bg-transparent hover:bg-laranja-100 text-laranja-100 font-semibold hover:text-white
-  py-2 px-4 border border-laranja-100 hover:border-transparent rounded-xl
+  py-2 px-4 border border-laranja-100 hover:border-transparent rounded-xl duration-200
 }
 
 .round-blue-btn{
-  @apply py-3 px-3 rounded-full shadow text-white bg-azul-100 hover:bg-blue-700
+  @apply py-3 px-3 rounded-full shadow text-white bg-azul-100 hover:bg-blue-700 duration-200
 }
 
 .round-red-btn{
-  @apply py-3 px-3 rounded-full shadow text-white  bg-vermelho-100 hover:bg-red-700
+  @apply py-3 px-3 rounded-full shadow text-white  bg-vermelho-100 hover:bg-red-700 duration-200
 }
 
 .round-green-btn{
   @apply bg-verde-100 hover:bg-verde-200 text-cinza-100
-  py-2 px-2 border border-verde-100 hover:border-transparent rounded-full
+  py-2 px-2 border border-verde-100 hover:border-transparent rounded-full duration-200
 }
 /* --BUTTONS-- */
 

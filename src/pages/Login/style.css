@@ -16,5 +16,5 @@
   @apply relative text-cinza-300 focus-within:text-verde-100 mt-4
 }
 .input-animation{
-  @apply w-full pl-10 text-sm rounded-xl focus:outline-none focus:text-cinza-400 focus-within:border-verde-100 focus-within:border-2 py-3
+  @apply w-full pl-10 text-sm rounded-xl focus:outline-none focus:text-cinza-400 py-3
 }
