@@ -1,11 +1,35 @@
+/* BODY - PAGINA */
+.container-body-password{
+  @apply min-w-[670px] min-h-[90%] 
+}
+/* BODY - PAGINA */
+
+/* BODY - CONTAINER RECUPERAR SENHA */
 .password-container{
-  @apply flex flex-col w-[60vw] h-[60vh] mx-auto bg-gray-300 rounded-lg shadow-xl content-center justify-center gap-10 mt-20
+  @apply bg-cinza-400 rounded-lg shadow-md max-w-2xl p-4 
+  /* TODOS OS ITEMS (FORMS, TITULOS) NO MEIO DO CONTAINER */
+  flex items-center flex-col
 }
-
-.password-container div{
-  @apply flex flex-col mx-auto
+/* CABEÇALHO */
+.header-password{
+  @apply w-full flex items-center justify-center gap-10 text-cinza-100
 }
-
-.password-container input {
-  @apply my-2 rounded-md px-3 py-1
+.title-password{
+  @apply text-3xl my-6 text-verde-100 font-medium select-none
 }
+.close-btn{
+  @apply hover:text-cinza-300 duration-200
+}
+/* CABEÇALHO */
+/* FORMULARIOS */
+.forms{
+  @apply w-2/3 text-cinza-100
+}
+.forms .form-1, .form-2, .form-3, .form-4{
+  @apply flex flex-col
+}
+.input-password{
+  @apply relative text-cinza-300 focus-within:text-verde-100 mt-4
+}
+/* FORMULARIOS */
+/* BODY - CONTAINER RECUPERAR SENHA */

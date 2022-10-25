@@ -5,6 +5,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import { isEmail } from 'validator';
+import { X, IdentificationCard } from 'phosphor-react';
 
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
@@ -162,171 +163,180 @@ export default function RecuperarSenha() {
     <>
       <Loading isLoading={isLoading} />
 
-      <div className="password-container">
-        <div
-          className="form-1"
-          style={
-            currentForm === 'form1' ? { display: 'flex' } : { display: 'none' }
-          }
-        >
-          <label htmlFor="">Informe o seu cpf</label>
-          <input
-            type="text"
-            name="cpf"
-            value={cpfValidator.format(cpf)}
-            maxLength={11}
-            onChange={(e) => setCpf(e.target.value)}
-          />
-          <label htmlFor="">Informe o seu email</label>
-          <p>Um código será enviado para o seu email</p>
-          <input
-            type="text"
-            name="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button className="btn w-40" type="button" onClick={handleSendCode}>
-            Enviar código
-          </button>
-        </div>
+      <div className='container-body-password'>
+        <div className="password-container">
+          <div className='header-password'>
+            <h1 className='title-password'>Recuperar Senha</h1>
+            <Link
+              to="/login"
+              className='close-btn'
+              style={
+                currentForm !== 'form4' ? { display: 'flex' } : { display: 'none' }
+              }>
+              <X size={24} />
+            </Link>
+          </div>
+          <div className='forms'>
+            <div
+              className="form-1"
+              style={
+                currentForm === 'form1' ? { display: 'flex' } : { display: 'none' }
+              }>
+              <p>Para que prossigamos com a redefinição de sua senha, preenche os campos abaixo com as suas informações conforme solicitado.</p>
+              <div className='input-password'>
+                <span>CPF</span>
+                <input
+                  type="text"
+                  name="cpf"
+                  value={cpfValidator.format(cpf)}
+                  maxLength={11}
+                  onChange={(e) => setCpf(e.target.value)}
+                />
+                <span className='absolute inset-y-0 left-0 flex items-center pl-2'>
+                  <IdentificationCard size={20} />
+                </span>
+              </div>
+              <label htmlFor="">Informe o seu email</label>
+              <input
+                type="text"
+                name="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button className="btn w-40" type="button" onClick={handleSendCode}>
+                Enviar código
+              </button>
+            </div>
 
-        <div
-          className="form-2"
-          style={
-            currentForm === 'form2' ? { display: 'flex' } : { display: 'none' }
-          }
-        >
-          <label htmlFor="">Confirme sua identidade</label>
-          <p>Digite o código que enviamos para o email informado</p>
-          <input
-            type="text"
-            name="cpf"
-            placeholder="Código"
-            value={token}
-            onChange={(e) => setToken(e.target.value)}
-          />
-          <div className="w-full flex mx-auto gap-3 mt-4 flex-col">
-            <button
-              className="btn w-40"
-              type="button"
-              onClick={() => setCurrentForm('form1')}
+            <div
+              className="form-2"
+              style={
+                currentForm === 'form2' ? { display: 'flex' } : { display: 'none' }
+              }
             >
-              Voltar
-            </button>
-            <button className="btn w-40" type="button" onClick={getUserToken}>
-              Verificar código
-            </button>
+              <label htmlFor="">Confirme sua identidade</label>
+              <p>Foi enviado para o email "{email}" um código para a redefinição de senha. Por favor, informe o código no campo abaixo.</p>
+              <input
+                type="text"
+                name="cpf"
+                placeholder="Código"
+                value={token}
+                onChange={(e) => setToken(e.target.value)}
+              />
+              <div className="w-full flex mx-auto gap-3 mt-4 flex-col">
+                <button
+                  className="btn w-40"
+                  type="button"
+                  onClick={() => setCurrentForm('form1')}
+                >
+                  Voltar
+                </button>
+                <button className="btn w-40" type="button" onClick={getUserToken}>
+                  Verificar código
+                </button>
+              </div>
+            </div>
+
+            <div
+              className="form-3"
+              style={
+                currentForm === 'form3' ? { display: 'flex' } : { display: 'none' }
+              }
+            >
+              <h1 className="mx-auto font-extrabold text-2xl">
+                Redefina a sua nova senha
+              </h1>
+
+              <label htmlFor="">Senha</label>
+              <input
+                type="password"
+                name="senha"
+                placeholder="Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+
+              <label htmlFor="">Confirmar senha</label>
+              <input
+                type="password"
+                name="senha"
+                placeholder="Confirmar senha"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+
+              <button
+                className="btn w-40"
+                type="button"
+                onClick={() => setCurrentForm('form2')}
+              >
+                Voltar
+              </button>
+
+              <button
+                className="btn w-40"
+                type="button"
+                onClick={handleNewPassword}
+              >
+                Confirmar
+              </button>
+            </div>
+
+            <div
+              className="form-4"
+              style={
+                currentForm === 'form4' ? { display: 'flex' } : { display: 'none' }
+              }
+            >
+              <h1 className="mx-auto font-extrabold text-2xl">
+                A sua senha foi atualizada com sucesso!
+              </h1>
+              <button
+                className="btn w-40"
+                type="button"
+                onClick={() => setCurrentForm('form3')}
+              >
+                Voltar
+              </button>
+
+              <Link className="mx-auto text-blue-600" to="/login">
+                Fazer login
+              </Link>
+            </div>
           </div>
         </div>
-
-        <div
-          className="form-3"
-          style={
-            currentForm === 'form3' ? { display: 'flex' } : { display: 'none' }
-          }
-        >
-          <h1 className="mx-auto font-extrabold text-2xl">
-            Redefina a sua nova senha
-          </h1>
-
-          <label htmlFor="">Senha</label>
-          <input
-            type="password"
-            name="senha"
-            placeholder="Senha"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <label htmlFor="">Confirmar senha</label>
-          <input
-            type="password"
-            name="senha"
-            placeholder="Confirmar senha"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-
+        <div>
+          <h2>Teste</h2>
           <button
-            className="btn w-40"
             type="button"
+            className="btn"
+            onClick={() => setCurrentForm('form1')}
+          >
+            form1
+          </button>
+          <button
+            type="button"
+            className="btn"
             onClick={() => setCurrentForm('form2')}
           >
-            Voltar
+            form2
           </button>
-
           <button
-            className="btn w-40"
             type="button"
-            onClick={handleNewPassword}
-          >
-            Confirmar
-          </button>
-        </div>
-
-        <div
-          className="form-4"
-          style={
-            currentForm === 'form4' ? { display: 'flex' } : { display: 'none' }
-          }
-        >
-          <h1 className="mx-auto font-extrabold text-2xl">
-            A sua senha foi atualizada com sucesso!
-          </h1>
-          <button
-            className="btn w-40"
-            type="button"
+            className="btn"
             onClick={() => setCurrentForm('form3')}
           >
-            Voltar
+            form3
           </button>
-
-          <Link className="mx-auto text-blue-600" to="/login">
-            Fazer login
-          </Link>
+          <button
+            type="button"
+            className="btn"
+            onClick={() => setCurrentForm('form4')}
+          >
+            form4
+          </button>
         </div>
-
-        <Link
-          className="mx-auto text-blue-600"
-          to="/login"
-          style={
-            currentForm !== 'form4' ? { display: 'flex' } : { display: 'none' }
-          }
-        >
-          Voltar para página de login
-        </Link>
-      </div>
-      <div>
-        <h2>Teste</h2>
-        <button
-          type="button"
-          className="btn"
-          onClick={() => setCurrentForm('form1')}
-        >
-          form1
-        </button>
-        <button
-          type="button"
-          className="btn"
-          onClick={() => setCurrentForm('form2')}
-        >
-          form2
-        </button>
-        <button
-          type="button"
-          className="btn"
-          onClick={() => setCurrentForm('form3')}
-        >
-          form3
-        </button>
-        <button
-          type="button"
-          className="btn"
-          onClick={() => setCurrentForm('form4')}
-        >
-          form4
-        </button>
       </div>
     </>
   );
