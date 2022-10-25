@@ -239,9 +239,9 @@ export default function RecuperarSenha() {
                   <EnvelopeSimpleOpen size={24} />
                 </span>
               </div>
-              <div className="w-full flex mx-auto gap-3 mt-4 flex-col">
+              <div className="content-button-password">
                 <button
-                  className="btn w-40"
+                  className="buttonpassword"
                   type="button"
                   onClick={() => setCurrentForm('form1')}
                 >
@@ -286,21 +286,22 @@ export default function RecuperarSenha() {
                   <Key size={24} />
                 </span>
               </div>
-              <button
-                className="btn w-40"
-                type="button"
-                onClick={() => setCurrentForm('form2')}
-              >
-                Voltar
-              </button>
-
-              <button
-                className="btn w-40"
-                type="button"
-                onClick={handleNewPassword}
-              >
-                Confirmar
-              </button>
+              <div className='content-button-password'>
+                <button
+                  className="buttonpassword"
+                  type="button"
+                  onClick={() => setCurrentForm('form2')}
+                >
+                  Voltar
+                </button>
+                <button
+                  className="buttonpassword"
+                  type="button"
+                  onClick={handleNewPassword}
+                >
+                  Confirmar
+                </button>
+              </div>
             </div>
 
             <div
@@ -309,20 +310,12 @@ export default function RecuperarSenha() {
                 currentForm === 'form4' ? { display: 'flex' } : { display: 'none' }
               }
             >
-              <h1 className="mx-auto font-extrabold text-2xl">
-                A sua senha foi atualizada com sucesso!
-              </h1>
-              <button
-                className="btn w-40"
-                type="button"
-                onClick={() => setCurrentForm('form3')}
-              >
-                Voltar
-              </button>
-
-              <Link className="mx-auto text-blue-600" to="/login">
-                Fazer login
-              </Link>
+              <label>Sua senha foi redefinida com sucesso.</label>
+              <div className='content-button-password'>
+                <Link className="buttonpassword" to="/login">
+                  Fazer login
+                </Link>
+              </div>
             </div>
           </div>
         </div>
