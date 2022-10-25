@@ -1,6 +1,7 @@
+/* NAVBAR */
 .navbar{
   @apply bg-cinza-400 flex h-full py-3 flex-col justify-between fixed
-  shadow-white shadow-sm z-10 duration-500 text-sm
+  shadow-white shadow-sm z-10 duration-200 text-sm
 }
 .navbar-open{
   @apply w-64 items-start
@@ -8,18 +9,24 @@
 .navbar-closed{
   @apply w-14 items-start
 }
+/* NAVBAR */
 
-
+/* CONTEINER SUPERIOR - LOGO */
 .logo-content{
-  @apply w-14 justify-center flex
+  @apply w-14 justify-center flex 
 }
-.logo-content svg path{
-  @apply fill-cinza-100
+.logo-content-open{
+  @apply w-60 flex items-center
 }
+/* ANIMATION LOGO ICON */
 
+/* ANIMATION LOGO ICON */
 
+/* CONTEINER SUPERIOR - LOGO */
+
+/* CONTEINER DO MEIO - LINKS */
 .list-content{
-  @apply w-14 flex flex-col text-cinza-100
+  @apply w-14 flex flex-col text-cinza-100 
 }
 .list-content-closed{
   @apply w-14 flex pl-3
@@ -42,59 +49,28 @@
 .list-content-open a .icons{
   @apply w-8 h-8 hover:bg-verde-100 flex items-center justify-center rounded-md hover:text-cinza-500
 }
+/* CONTEINER DO MEIO - LINKS */
 
+
+/* CONTEINER INFERIOR - INFORMAÇÕES DO USUÁRIO */
 .profile-content{
-  @apply w-14 
+  @apply w-14 py-1 ml-1 pl-1 text-cinza-100
 }
 .profile-content-open{
-  @apply w-56 flex pl-2 items-center
+  @apply w-60 flex flex-col shadow-md rounded-md bg-cinza-350
 }
-.link{
-  @apply text-cinza-100 flex 
+.userinfo{
+  @apply flex items-center justify-between pr-3
 }
 .avatar{
-  @apply bg-cinza-100 text-cinza-500 font-thin text-base w-10 h-10 rounded-full tracking-widest flex justify-center items-center
-  hover:bg-verde-100 duration-150 select-none cursor-pointer shadow-md
-}
-.profile-content-closed{
-  @apply pl-2
-}
-.profile-content-open .name{
-  @apply ml-6 text-cinza-100 
+  @apply bg-cinza-100 text-cinza-500 font-thin text-base w-10 h-10 rounded-full tracking-wide flex justify-center items-center
+  select-none shadow-md
 }
 
-
-/* ANIMATION LOGO ICON */
-.logoicon svg path{
-  stroke-dashoffset: 0;
-  stroke-dasharray: 500;
-  stroke: white;
-  fill:white;
+.optionsmenu{
+  @apply w-10 flex flex-col duration-500 pl-2 my-2
 }
-
-.logoicon:hover path {
-  animation: stroke-animation 15s ease-in-out forwards;
-  fill:none;
-  stroke-width: 2;
+.optionsmenu .link{
+  @apply w-10 flex text-sm hover:text-verde-100 duration-150 gap-2
 }
-
-@keyframes stroke-animation {
-  0% {
-    stroke-dashoffset: 0;
-  }
-  30% {
-    stroke-dashoffset: 1550;
-  }
-  60% {
-    stroke-dashoffset: 3100;
-    transform: scale(1);
-  }
-  90% {
-    transform: scale(1);
-  }
-  100% {
-    stroke-dashoffset: 3100;
-  }
-}
-
-/* ANIMATION LOGO ICON */
+/* CONTEINER INFERIOR - INFORMAÇÕES DO USUÁRIO */

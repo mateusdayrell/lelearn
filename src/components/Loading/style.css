@@ -24,3 +24,7 @@
 .loading-container span{
   z-index: 2;
 }
+
+.icon{
+  @apply animate-spin
+}
