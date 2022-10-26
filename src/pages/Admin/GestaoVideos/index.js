@@ -306,13 +306,13 @@ export default function GestaoVideos() {
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{video.titulo_video}</span>
-                  {video.cursos.length > 0 ?
+                  {/*{video.cursos.length > 0 ?
                     video.cursos.map(item => (
                       <span key={item.cod_curso} className='subname-container-list-blue'>
                         <small>{item.nome_curso}</small>
                       </span>
                     ))
-                  : ''}
+                  : ''}*/}
                 </span>
               </div>
 
