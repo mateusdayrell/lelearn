@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ArrowUp, ArrowDown } from 'phosphor-react';
 import { toast } from 'react-toastify';
 
-export default function VideoList({videos, handleOrder}) {
+export default function VideoList({videos, persistVideosOrder}) {
   const [show, setShow] = useState('')
   const [order, setOrder] = useState('')
 
@@ -24,7 +24,7 @@ export default function VideoList({videos, handleOrder}) {
 
     array.splice(i-1, 2, array[i], array[i-1])
 
-    handleOrder(array)
+    persistVideosOrder(array)
     handleClear()
   }
 
@@ -35,7 +35,7 @@ export default function VideoList({videos, handleOrder}) {
 
     array.splice(i, 2, array[i+1], array[i])
 
-    handleOrder(array)
+    persistVideosOrder(array)
     handleClear()
   }
 
@@ -51,7 +51,7 @@ export default function VideoList({videos, handleOrder}) {
     const [element] = array.splice(i, 1)
     array.splice(order-1, 0, element)
 
-    handleOrder(array)
+    persistVideosOrder(array)
     handleClear()
   }
 
@@ -62,7 +62,7 @@ export default function VideoList({videos, handleOrder}) {
           key={video.cod_video}
           className="text-white border my-2 p-2 rounded flex items-center gap-2"
         >
-          <span className='flex w-24'>
+          <span className='flex w-[100px]'>
             {show === index ?
               <>
                 <input
@@ -94,7 +94,7 @@ export default function VideoList({videos, handleOrder}) {
               </>
             }
           </span>
-          <span className='flex-1'>{video.titulo_video} {video.cursos_videos.ordem}</span>
+          <span className='flex-1'>{video.titulo_video}</span>
         </div>
       ))}
     </>
@@ -103,10 +103,10 @@ export default function VideoList({videos, handleOrder}) {
 
 VideoList.defaultProps = {
   videos: [],
-  handleOrder: () => null,
+  persistVideosOrder: () => null,
 };
 
 VideoList.propTypes = {
   videos: PropTypes.array,
-  handleOrder: PropTypes.func,
+  persistVideosOrder: PropTypes.func,
 };

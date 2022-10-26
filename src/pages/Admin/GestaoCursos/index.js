@@ -157,14 +157,25 @@ export default function GestaoCursos() {
     return validated;
   };
 
-  const handleIsUpdating = (curso) => {
-    setCodCurso(curso.cod_curso);
-    setNome(curso.nome_curso);
-    setDescricao(curso.desc_curso);
-    setCursoVideos(orderVideos(curso.videos));
-    setIsUpdating(true);
-    setShowFormModal(true);
-    if (curso.arquivo_url) setShowFoto(curso.arquivo_url)
+  const handleIsUpdating = async (curso) => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.get(`/videos/get-by-curso/${curso.cod_curso}`);
+      setIsLoading(false);
+
+      setCursoVideos(orderVideos(data));
+      setCodCurso(curso.cod_curso);
+      setNome(curso.nome_curso);
+      setDescricao(curso.desc_curso);
+      if (curso.arquivo_url) setShowFoto(curso.arquivo_url)
+
+      setIsUpdating(true);
+      setShowFormModal(true);
+    } catch (error) {
+      setIsLoading(false);
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
   };
 
   const handleIsDeleting = (curso) => {
@@ -224,7 +235,7 @@ const handleMultiSelectRemove = (type, cod) => {
     setCursoVideos(newArrayVideos)
 }
 
-const handleOrder = (array) => setCursoVideos(array)
+const persistVideosOrder = (array) => setCursoVideos(array)
 
   return (
     <>
@@ -423,7 +434,7 @@ const handleOrder = (array) => setCursoVideos(array)
               {cursoVideos.length > 0 &&
                 <div className="InputArea">
                   <label>Vídeos</label>
-                  <VideoList videos={cursoVideos} handleOrder={handleOrder}/>
+                  <VideoList videos={cursoVideos} persistVideosOrder={persistVideosOrder}/>
                 </div>
               }
 
@@ -456,7 +467,7 @@ const handleOrder = (array) => setCursoVideos(array)
             <div className="px-8 max-w-xl">
               <p>
                 Caso prossiga com a exclusão do item, o mesmo não será mais
-                recuperado. Deseja realmente excluir o curso {nome}?
+                recuperado. Deseja realmente excluir o curso <i>{nome}</i>?
               </p>
             </div>
           </div>

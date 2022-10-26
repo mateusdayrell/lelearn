@@ -9,7 +9,6 @@ import Loading from '../../../components/Loading';
 import Navbar from '../../../components/Navbar';
 import OrderSelect from '../../../components/OrderSelect';
 import Pagination from '../../../components/Pagination';
-import Multiselect from '../../../components/Multiselect';
 import axios from '../../../services/axios';
 
 const ITEMS_PER_PAGE = 10
@@ -154,15 +153,26 @@ export default function GestaoVideos() {
     return controle;
   };
 
-  const handleIsUpdating = (vid) => {
-    setIsUpdating(true);
-    setShowFormModal(true);
-    setCodVideo(vid.cod_video);
-    setTitulo(vid.titulo_video);
-    setVideoCursos(vid.cursos)
-    setLink(vid.link);
-    setDescricao(vid.desc_video);
-    setShowDeleteModal(false);
+  const handleIsUpdating = async (vid) => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.get(`/cursos/get-by-video/${vid.cod_video}`);
+      setIsLoading(false);
+
+      setVideoCursos(data)
+      setCodVideo(vid.cod_video);
+      setTitulo(vid.titulo_video);
+      setLink(vid.link);
+      setDescricao(vid.desc_video);
+
+      setIsUpdating(true);
+      setShowFormModal(true);
+      setShowDeleteModal(false);
+    } catch (error) {
+      setIsLoading(false);
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
   };
 
   const handleIsDeleting = (vid) => {
@@ -201,21 +211,6 @@ export default function GestaoVideos() {
     setInicio(novoInicio)
     setFim(novoFim)
   }
-
-  const handleMultiSelectChange = (type, obj) => {
-      const newArrayCursos = [...videoCursos]
-
-      newArrayCursos.push(JSON.parse(obj)) // converter string para objeto
-      newArrayCursos.sort((a, b) => a.nome_curso > b.nome_curso ? 1 : -1) // ordenar por nome
-
-      setVideoCursos(newArrayCursos)
-  }
-
-  const handleMultiSelectRemove = (type, cod) => {
-      const newArrayCursos = videoCursos.filter(el => el.cod_curso !== cod); // remover obj do array
-      setVideoCursos(newArrayCursos)
-  }
-
 
   return (
     <>
@@ -306,13 +301,6 @@ export default function GestaoVideos() {
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{video.titulo_video}</span>
-                  {video.cursos.length > 0 ?
-                    video.cursos.map(item => (
-                      <span key={item.cod_curso} className='subname-container-list-blue'>
-                        <small>{item.nome_curso}</small>
-                      </span>
-                    ))
-                  : ''}
                 </span>
               </div>
 
@@ -395,19 +383,6 @@ export default function GestaoVideos() {
               </div>
 
               <div className="InputArea">
-                <label>Vincular Cursos <small>(opcional)</small></label>
-                <Multiselect
-                  type="curso"
-                  arrLista={cursos}
-                  arrSuperior={videoCursos}
-                  value="cod_curso"
-                  label="nome_curso"
-                  handleMultiSelectChange={handleMultiSelectChange}
-                  handleMultiSelectRemove={handleMultiSelectRemove}
-                />
-              </div>
-
-              <div className="InputArea">
                 <label>Link</label>
                 <input
                   type="text"
@@ -428,6 +403,13 @@ export default function GestaoVideos() {
                   onChange={(e) => setDescricao(e.target.value)}
                 />
               </div>
+
+              {videoCursos.length > 0 &&
+                <div className="InputArea">
+                  <label>Cursos</label>
+                  {videoCursos.map(curso => <div key={curso.cod_curso}>{curso.nome_curso}</div>)}
+                </div>
+              }
             </div>
           </div>
           <div className="ModalFooter">
@@ -469,7 +451,7 @@ export default function GestaoVideos() {
             <div className="px-8 max-w-xl">
               <p>
                 Caso prossiga com a exclusão do item, o mesmo não será mais
-                recuperado. Deseja realmente excluir o vídeo {titulo}?
+                recuperado. Deseja realmente excluir o vídeo <i>{titulo}</i>?
               </p>
             </div>
           </div>
