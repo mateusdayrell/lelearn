@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
+import ModalTreinamento from '../../../components/ModalTreinamento';
 
 import './style.css';
 import Loading from '../../../components/Loading';
@@ -47,7 +48,6 @@ export default function GestaoTreinamentos() {
       const treinamentosResponse = await axios.get('/treinamentos/');
       const usuariosResponse = await axios.get('/usuarios/');
       const cursosResponse = await axios.get('/cursos/');
-
       setIsLoading(false);
 
       setTreinamentos(treinamentosResponse.data);
@@ -152,16 +152,26 @@ export default function GestaoTreinamentos() {
     return controle;
   };
 
-  const handleIsUpdating = (treinamento) => {
-    setIsUpdating(true);
-    setShowFormModal(true);
-    setShowDeleteModal(false);
+  const handleIsUpdating = async(treinamento) => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.get(`/treinamentos/${treinamento.cod_treinamento}`);
+      setIsLoading(false);
 
-    setCodTreinamento(treinamento.cod_treinamento);
-    setNome(treinamento.nome_treinamento);
-    setDescricao(treinamento.desc_treinamento);
-    setTreinUsuarios(treinamento.usuarios);
-    setTreinCursos(treinamento.cursos);
+      setTreinUsuarios(data.usuarios);
+      setTreinCursos(data.cursos);
+      setCodTreinamento(treinamento.cod_treinamento);
+      setNome(treinamento.nome_treinamento);
+      setDescricao(treinamento.desc_treinamento);
+
+      setIsUpdating(true);
+      setShowFormModal(true);
+      setShowDeleteModal(false);
+    } catch (error) {
+      setIsLoading(false);
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
   };
 
   const handleIsDeleting = (treinamento) => {
@@ -370,7 +380,7 @@ export default function GestaoTreinamentos() {
           }
         </div>
 
-        <Modal
+        {/* <Modal
           isOpen={shwoFormModal}
           onRequestClose={handleClose}
           className="Modal"
@@ -460,7 +470,10 @@ export default function GestaoTreinamentos() {
               {isUpdating ? 'Atualizar' : 'Salvar'}
             </button>
           </div>
-        </Modal>
+        </Modal> */}
+
+        <ModalTreinamento shwoFormModal={shwoFormModal} handleClose={handleClose} isUpdating={isUpdating} codTreinamento={codTreinamento} setCodTreinamento={setCodTreinamento} nome={nome} setNome={setNome} descricao={descricao} setDescricao={setDescricao} usuarios={usuarios} treinUsuarios={treinUsuarios}
+  cursos={cursos} treinCursos={treinCursos} handleMultiSelectChange={handleMultiSelectChange} handleMultiSelectRemove={handleMultiSelectRemove} clearModal={clearModal} handleSubmit={handleSubmit} />
 
         <Modal
           isOpen={showDeleteModal}
