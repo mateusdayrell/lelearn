@@ -122,10 +122,6 @@ select {
   @apply flex items-center justify-between
 }
 
-.search-container-inputs{
-  @apply w-3/4
-}
-
 .search-container-buttons{
   @apply flex gap-2
 }
