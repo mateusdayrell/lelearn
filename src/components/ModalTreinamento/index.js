@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { X, CaretLeft } from 'phosphor-react';
 import Modal from 'react-modal';
-import Multiselect from '../Multiselect';
 
-export default function ModalTreinamento({ shwoFormModal, handleClose, isUpdating, codTreinamento, setCodTreinamento, nome, setNome, descricao, setDescricao, usuarios, treinUsuarios,
-cursos, treinCursos, handleMultiSelectChange, handleMultiSelectRemove, clearModal, handleSubmit  }) {
+import Multiselect from '../Multiselect';
+import UsuarioList from '../UsuarioList';
+
+export default function ModalTreinamento({ shwoFormModal, handleClose, isUpdating, codTreinamento,
+  setCodTreinamento, nome, setNome, descricao, setDescricao, usuarios, treinUsuarios, setTreinUsuarios, cursos,
+  treinCursos, setTreinCursos, handleMultiSelectChange, handleMultiSelectRemove, clearModal, handleSubmit }) {
 
   const [form, setForm] = useState(1)
 
@@ -15,12 +18,12 @@ cursos, treinCursos, handleMultiSelectChange, handleMultiSelectRemove, clearModa
 
   return (
     <Modal
-          isOpen={shwoFormModal}
-          onRequestClose={handleClose}
-          className="Modal"
-          overlayClassName="Overlay"
-          ariaHideApp={false}
-        >
+      isOpen={shwoFormModal}
+      onRequestClose={handleClose}
+      className="Modal"
+      overlayClassName="Overlay"
+      ariaHideApp={false}
+    >
           <div className="ModalHeader">
             <span>{isUpdating ? 'Editar' : 'Cadastrar'} treinamento</span>
             <button className="CloseModal" type="button" onClick={handleClose}>
@@ -69,19 +72,6 @@ cursos, treinCursos, handleMultiSelectChange, handleMultiSelectRemove, clearModa
                   />
                 </div>
 
-                <div className="InputArea">
-                  <label>Vincular usuários <small>(opcional)</small></label>
-                  <Multiselect
-                    type="usuario"
-                    arrLista={usuarios}
-                    arrSuperior={treinUsuarios}
-                    value="cpf"
-                    label="nome"
-                    handleMultiSelectChange={handleMultiSelectChange}
-                    handleMultiSelectRemove={handleMultiSelectRemove}
-                  />
-                </div>
-
                   <button
                     type="button"
                     className="buttonpassword"
@@ -96,62 +86,14 @@ cursos, treinCursos, handleMultiSelectChange, handleMultiSelectRemove, clearModa
                       Cursos
                   </button>
 
-                <div className="InputArea">
-                  <label>Vincular cursos <small>(opcional)</small></label>
-                  <Multiselect
-                    type="curso"
-                    arrLista={cursos}
-                    arrSuperior={treinCursos}
-                    value="cod_curso"
-                    label="nome_curso"
-                    handleMultiSelectChange={handleMultiSelectChange}
-                    handleMultiSelectRemove={handleMultiSelectRemove}
-                  />
-                </div>
-
               </div>
             </div>
           }
 
           {isUpdating && form === 1 &&
-            <div className="ModalContent">
-              <div className='flex  items-center pb-2 mb-2 mx-6 rounded-t-md gap-2'>
-                <button
-                  type='button'
-                  className='text-verde-100 hover:text-verde-200'
-                  onClick={() => setForm(0)}
-                  title='Voltar'>
-                    <CaretLeft size={32} weight="bold" />
-                </button>
-                <h2 className='text-verde-100'>Usuários</h2>
-              </div>
-
-              <div className="InputArea">
-                <label>Vincular usuários <small>(opcional)</small></label>
-                  <Multiselect
-                    type="usuario"
-                    arrLista={usuarios}
-                    arrSuperior={treinUsuarios}
-                    value="cpf"
-                    label="nome"
-                    handleMultiSelectChange={handleMultiSelectChange}
-                    handleMultiSelectRemove={handleMultiSelectRemove}
-                  />
-              </div>
-
-              {treinUsuarios.length > 0 &&
-                treinUsuarios.map(usuario => (
-                  <div key={usuario.cpf} className='flex'>
-                    <div>{usuario.nome}</div>
-                    <div>
-                      {usuario.treinamentos_usuarios.prazo ?
-                        <input type="date"/>
-                      : <button>Definir prazo</button>}
-                    </div>
-                  </div>
-                ))
-              }
-            </div>
+            <UsuarioList
+              usuarios={usuarios} treinUsuarios={treinUsuarios} setTreinUsuarios={setTreinUsuarios} setForm={setForm}
+              handleMultiSelectChange={handleMultiSelectChange} handleMultiSelectRemove={handleMultiSelectRemove} />
           }
 
           {isUpdating && form === 2 &&
@@ -171,8 +113,9 @@ cursos, treinCursos, handleMultiSelectChange, handleMultiSelectRemove, clearModa
                 <label>Vincular cursos <small>(opcional)</small></label>
                 <Multiselect
                   type="curso"
-                  arrLista={cursos}
-                  arrSuperior={treinCursos}
+                  listaArr={cursos}
+                  array={treinCursos}
+                  setArray={setTreinCursos}
                   value="cod_curso"
                   label="nome_curso"
                   handleMultiSelectChange={handleMultiSelectChange}
@@ -214,8 +157,10 @@ ModalTreinamento.defaultProps = {
   setDescricao: () => null,
   usuarios: [],
   treinUsuarios: [],
+  setTreinUsuarios: () => null,
   cursos: [],
   treinCursos: [],
+  setTreinCursos: () => null,
   handleMultiSelectChange: () => null,
   handleMultiSelectRemove: () => null,
   clearModal: () => null,
@@ -234,8 +179,10 @@ ModalTreinamento.propTypes = {
   setDescricao: PropTypes.func,
   usuarios: PropTypes.array,
   treinUsuarios: PropTypes.array,
+  setTreinUsuarios: PropTypes.func,
   cursos: PropTypes.array,
   treinCursos: PropTypes.array,
+  setTreinCursos: PropTypes.func,
   handleMultiSelectChange: PropTypes.func,
   handleMultiSelectRemove: PropTypes.func,
   clearModal: PropTypes.func,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple } from 'phosphor-react';
+import { MagnifyingGlass, PaintBrushHousehold, Plus, PencilSimple, TrashSimple } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
 import ModalTreinamento from '../../../components/ModalTreinamento';
@@ -9,7 +9,6 @@ import './style.css';
 import Loading from '../../../components/Loading';
 import Navbar from '../../../components/Navbar';
 import axios from '../../../services/axios';
-import Multiselect from '../../../components/Multiselect';
 import Pagination from '../../../components/Pagination';
 import OrderSelect from '../../../components/OrderSelect';
 
@@ -203,35 +202,6 @@ export default function GestaoTreinamentos() {
     setTreinCursos([]);
   };
 
-  const handleMultiSelectChange = (type, obj) => {
-    if (type === "usuario") {
-      const newArrayUsuarios = [...treinUsuarios]
-
-      newArrayUsuarios.push(JSON.parse(obj)) // converter string para objeto
-      newArrayUsuarios.sort((a, b) => a.nome > b.nome ? 1 : -1) // ordenar por nome
-
-      setTreinUsuarios(newArrayUsuarios)
-    } else {
-      const newArrayCursos = [...treinCursos]
-
-      newArrayCursos.push(JSON.parse(obj)) // converter string para objeto
-      newArrayCursos.sort((a, b) => a.nome_curso > b.nome_curso ? 1 : -1) // ordenar por nome
-
-      setTreinCursos(newArrayCursos)
-    }
-  }
-
-  const handleMultiSelectRemove = (type, cod) => {
-    if (type === "usuario") {
-      const newArrayUsuarios = treinUsuarios.filter(el => el.cpf !== cod); // remover obj do array
-      setTreinUsuarios(newArrayUsuarios)
-    }
-    else {
-      const newArrayCursos = treinCursos.filter(el => el.cod_curso !== cod); // remover obj do array
-      setTreinCursos(newArrayCursos)
-    }
-  }
-
   const handleNewPage = (novoInicio, novoFim) => {
     setInicio(novoInicio)
     setFim(novoFim)
@@ -380,100 +350,12 @@ export default function GestaoTreinamentos() {
           }
         </div>
 
-        {/* <Modal
-          isOpen={shwoFormModal}
-          onRequestClose={handleClose}
-          className="Modal"
-          overlayClassName="Overlay"
-          ariaHideApp={false}
-        >
-          <div className="ModalHeader">
-            <span>{isUpdating ? 'Editar' : 'Cadastrar'} treinamento</span>
-            <button className="CloseModal" type="button" onClick={handleClose}>
-              <X size={24}/>
-            </button>
-          </div>
-
-          <div className="ModalContent">
-            <div className="form-gestao-video">
-              {isUpdating ?
-                <div className="InputArea">
-                  <label>Código</label>
-                  <input
-                    type="text"
-                    className='ModalInput'
-                    name="cod_treinamento"
-                    placeholder="Código"
-                    disabled={!!isUpdating}
-                    value={codTreinamento}
-                    onChange={(e) => setCodTreinamento(e.target.value)}
-                  />
-                </div>
-                : ''}
-
-              <div className="InputArea">
-                <label>Nome</label>
-                <input
-                  type="text"
-                  className='ModalInput'
-                  name="nome"
-                  placeholder="Nome"
-                  maxLength="40"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                />
-              </div>
-
-              <div className="InputArea">
-                <label>Descrição <small>(opcional)</small></label>
-                <textarea
-                  name="descricao"
-                  placeholder="Descrição"
-                  value={descricao}
-                  onChange={(e) => setDescricao(e.target.value)}
-                />
-              </div>
-
-              <div className="InputArea">
-                <label>Vincular usuários <small>(opcional)</small></label>
-                <Multiselect
-                  type="usuario"
-                  arrLista={usuarios}
-                  arrSuperior={treinUsuarios}
-                  value="cpf"
-                  label="nome"
-                  handleMultiSelectChange={handleMultiSelectChange}
-                  handleMultiSelectRemove={handleMultiSelectRemove}
-                />
-              </div>
-
-              <div className="InputArea">
-                <label>Vincular cursos <small>(opcional)</small></label>
-                <Multiselect
-                  type="curso"
-                  arrLista={cursos}
-                  arrSuperior={treinCursos}
-                  value="cod_curso"
-                  label="nome_curso"
-                  handleMultiSelectChange={handleMultiSelectChange}
-                  handleMultiSelectRemove={handleMultiSelectRemove}
-                />
-              </div>
-
-            </div>
-          </div>
-          <div className="ModalFooter">
-            <button className="red-btn" type="button" onClick={() => clearModal("limpar")}>
-              Limpar
-            </button>
-            <button className="green-btn" type="button" onClick={handleSubmit}>
-              {isUpdating ? 'Atualizar' : 'Salvar'}
-            </button>
-          </div>
-        </Modal> */}
-
-        <ModalTreinamento shwoFormModal={shwoFormModal} handleClose={handleClose} isUpdating={isUpdating} codTreinamento={codTreinamento} setCodTreinamento={setCodTreinamento} nome={nome} setNome={setNome} descricao={descricao} setDescricao={setDescricao} usuarios={usuarios} treinUsuarios={treinUsuarios}
-  cursos={cursos} treinCursos={treinCursos} handleMultiSelectChange={handleMultiSelectChange} handleMultiSelectRemove={handleMultiSelectRemove} clearModal={clearModal} handleSubmit={handleSubmit} />
+        <ModalTreinamento
+          shwoFormModal={shwoFormModal} handleClose={handleClose} isUpdating={isUpdating} codTreinamento={codTreinamento}
+          setCodTreinamento={setCodTreinamento} nome={nome} setNome={setNome} descricao={descricao} setDescricao={setDescricao}
+          usuarios={usuarios} treinUsuarios={treinUsuarios} setTreinUsuarios={setTreinUsuarios} cursos={cursos}
+          treinCursos={treinCursos} setTreinCursos={setTreinCursos} clearModal={clearModal} handleSubmit={handleSubmit}
+        />
 
         <Modal
           isOpen={showDeleteModal}
