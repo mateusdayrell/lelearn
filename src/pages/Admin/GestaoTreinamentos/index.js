@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { MagnifyingGlass, PaintBrushHousehold, Plus, PencilSimple, TrashSimple } from 'phosphor-react';
+import { MagnifyingGlass, CaretLeft, X, PaintBrushHousehold, Plus, PencilSimple, TrashSimple } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
-import ModalTreinamento from '../../../components/ModalTreinamento';
+// import ModalTreinamento from '../../../components/ModalTreinamento';
 
 import './style.css';
 import Loading from '../../../components/Loading';
@@ -11,6 +11,7 @@ import Navbar from '../../../components/Navbar';
 import axios from '../../../services/axios';
 import Pagination from '../../../components/Pagination';
 import OrderSelect from '../../../components/OrderSelect';
+import Multiselect from '../../../components/Multiselect';
 
 export default function GestaoTreinamentos() {
   const [treinamentos, setTreinamentos] = useState([]);
@@ -32,6 +33,8 @@ export default function GestaoTreinamentos() {
   const [shwoFormModal, setShowFormModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+
+  const [form, setForm] = useState(0)
 
   const itemsPerPage = 10
   const [inicio, setInicio] = useState(0)
@@ -165,6 +168,7 @@ export default function GestaoTreinamentos() {
 
       setIsUpdating(true);
       setShowFormModal(true);
+      setForm(0);
       setShowDeleteModal(false);
     } catch (error) {
       setIsLoading(false);
@@ -189,6 +193,7 @@ export default function GestaoTreinamentos() {
 
   const handleClose = () => {
     setShowFormModal(false);
+    setForm(0)
     setShowDeleteModal(false);
     setIsUpdating(false);
     clearModal();
@@ -196,10 +201,12 @@ export default function GestaoTreinamentos() {
 
   const clearModal = (parameter) => {
     if (!parameter) setCodTreinamento('');
-    setNome('');
-    setDescricao('');
-    setTreinUsuarios([]);
-    setTreinCursos([]);
+    if (form === 0) {
+      setNome('');
+      setDescricao('');
+    }
+    if (form === 1) setTreinUsuarios([]);
+    if (form === 2) setTreinCursos([]);
   };
 
   const handleNewPage = (novoInicio, novoFim) => {
@@ -350,12 +357,142 @@ export default function GestaoTreinamentos() {
           }
         </div>
 
-        <ModalTreinamento
-          shwoFormModal={shwoFormModal} handleClose={handleClose} isUpdating={isUpdating} codTreinamento={codTreinamento}
-          setCodTreinamento={setCodTreinamento} nome={nome} setNome={setNome} descricao={descricao} setDescricao={setDescricao}
-          usuarios={usuarios} treinUsuarios={treinUsuarios} setTreinUsuarios={setTreinUsuarios} cursos={cursos}
-          treinCursos={treinCursos} setTreinCursos={setTreinCursos} clearModal={clearModal} handleSubmit={handleSubmit}
-        />
+        <Modal
+          isOpen={shwoFormModal}
+          onRequestClose={handleClose}
+          className="Modal"
+          overlayClassName="Overlay"
+          ariaHideApp={false}>
+
+          <div className="ModalHeader">
+            <span>{isUpdating ? 'Editar' : 'Cadastrar'} treinamento</span>
+            <button className="CloseModal" type="button" onClick={handleClose}>
+              <X size={24}/>
+            </button>
+          </div>
+
+          {form === 0 &&
+            <div className="ModalContent">
+              <div className="form-gestao-video">
+                {isUpdating ?
+                  <div className="InputArea">
+                    <label>Código</label>
+                    <input
+                      type="text"
+                      className='ModalInput'
+                      name="cod_treinamento"
+                      placeholder="Código"
+                      disabled={!!isUpdating}
+                      value={codTreinamento}
+                      onChange={(e) => setCodTreinamento(e.target.value)}
+                    />
+                  </div>
+                  : ''}
+
+                <div className="InputArea">
+                  <label>Nome</label>
+                  <input
+                    type="text"
+                    className='ModalInput'
+                    name="nome"
+                    placeholder="Nome"
+                    maxLength="40"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                  />
+                </div>
+
+                <div className="InputArea">
+                  <label>Descrição <small>(opcional)</small></label>
+                  <textarea
+                    name="descricao"
+                    placeholder="Descrição"
+                    value={descricao}
+                    onChange={(e) => setDescricao(e.target.value)}
+                  />
+                </div>
+
+                  <button
+                    type="button"
+                    className="buttonpassword"
+                    onClick={() => setForm(1)}>
+                      Usuários
+                  </button>
+
+                  <button
+                    type="button"
+                    className="buttonpassword"
+                    onClick={() => setForm(2)}>
+                      Cursos
+                  </button>
+
+              </div>
+            </div>
+          }
+
+          {form === 1 &&
+            <div className="ModalContent">
+              <div className='flex items-center pb-2 mb-2 mx-6 rounded-t-md gap-2'>
+                <button
+                  type='button'
+                  className='text-verde-100 hover:text-verde-200'
+                  onClick={() => setForm(0)}
+                  title='Voltar'>
+                    <CaretLeft size={32} weight="bold" />
+                </button>
+                <h2 className='text-verde-100'>Usuários</h2>
+              </div>
+
+              <div className="InputArea">
+                <label>Vincular usuários <small>(opcional)</small></label>
+                  <Multiselect
+                    type="usuário"
+                    listaArr={usuarios}
+                    array={treinUsuarios}
+                    setArray={setTreinUsuarios}
+                    value="cpf"
+                    label="nome"
+                  />
+              </div>
+            </div>
+          }
+
+          {form === 2 &&
+            <div className="ModalContent">
+              <div className='flex  items-center pb-2 mb-2 mx-6 rounded-t-md gap-2'>
+                <button
+                  type='button'
+                  className='text-verde-100 hover:text-verde-200'
+                  onClick={() => setForm(0)}
+                  title='Voltar'>
+                    <CaretLeft size={32} weight="bold" />
+                </button>
+                <h2 className='text-verde-100'>Cursos</h2>
+              </div>
+
+              <div className="InputArea">
+                <label>Vincular cursos <small>(opcional)</small></label>
+                <Multiselect
+                  type="curso"
+                  listaArr={cursos}
+                  array={treinCursos}
+                  setArray={setTreinCursos}
+                  value="cod_curso"
+                  label="nome_curso"
+                />
+              </div>
+            </div>
+          }
+
+          <div className="ModalFooter">
+            <button className="red-btn" type="button" onClick={() => clearModal("limpar")}>
+              Limpar
+            </button>
+            <button className="green-btn" type="button" onClick={handleSubmit}>
+              {isUpdating ? 'Atualizar' : 'Salvar'}
+            </button>
+          </div>
+        </Modal>
 
         <Modal
           isOpen={showDeleteModal}

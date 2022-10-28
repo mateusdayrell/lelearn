@@ -13,7 +13,6 @@ import Loading from '../../../components/Loading';
 import Pagination from '../../../components/Pagination';
 import FileInput from '../../../components/FileInput';
 import Multiselect from '../../../components/Multiselect';
-import VideoList from '../../../components/VideoList';
 import { orderVideos } from '../../../helpers/orderVideos';
 
 const ITEMS_PER_PAGE = 10
@@ -222,21 +221,6 @@ export default function GestaoCursos() {
     setFim(novoFim)
   }
 
-  const handleMultiSelectChange = (type, obj) => {
-    const newArrayVideos = [...cursoVideos]
-
-    newArrayVideos.push(JSON.parse(obj)) // converter string para objeto
-
-    setCursoVideos(newArrayVideos)
-}
-
-const handleMultiSelectRemove = (type, cod) => {
-    const newArrayVideos = cursoVideos.filter(el => el.cod_video !== cod); // remover obj do array
-    setCursoVideos(newArrayVideos)
-}
-
-const persistVideosOrder = (array) => setCursoVideos(array)
-
   return (
     <>
       <Navbar />
@@ -409,19 +393,6 @@ const persistVideosOrder = (array) => setCursoVideos(array)
               </div>
 
               <div className="InputArea">
-                <label>Vincular Vídeos <small>(opcional)</small></label>
-                <Multiselect
-                  type="vídeo"
-                  arrLista={videos}
-                  arrSuperior={cursoVideos}
-                  value="cod_video"
-                  label="titulo_video"
-                  handleMultiSelectChange={handleMultiSelectChange}
-                  handleMultiSelectRemove={handleMultiSelectRemove}
-                />
-              </div>
-
-              <div className="InputArea">
                 <label>Descrição <small>(opcional)</small></label>
                 <textarea
                   name="descricao"
@@ -431,13 +402,17 @@ const persistVideosOrder = (array) => setCursoVideos(array)
                 />
               </div>
 
-              {cursoVideos.length > 0 &&
-                <div className="InputArea">
-                  <label>Vídeos</label>
-                  <VideoList videos={cursoVideos} persistVideosOrder={persistVideosOrder}/>
-                </div>
-              }
-
+              <div className="InputArea">
+                <label>Vincular Vídeos <small>(opcional)</small></label>
+                <Multiselect
+                  type="vídeo"
+                  listaArr={videos}
+                  array={cursoVideos}
+                  setArray={setCursoVideos}
+                  value="cod_video"
+                  label="titulo_video"
+                />
+              </div>
             </div>
           </div>
           <div className="ModalFooter">
