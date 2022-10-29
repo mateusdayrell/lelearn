@@ -1,5 +1,5 @@
 .loading-container{
-  @apply absolute flex w-full h-full items-center justify-center text-cinza-100 flex-col text-xl z-[1] bg-black bg-opacity-80
+  @apply absolute flex w-full h-full items-center justify-center text-cinza-100 flex-col text-xl z-[1] bg-cinza-500
 }
 
 .loading-container span{

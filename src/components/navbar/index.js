@@ -136,7 +136,7 @@ export default function Navbar() {
 
 
         <div className={`${setopen ? "hidden" : ""} optionsmenu`}>
-          <Link onClick={handleLogout} className={`${setopen && "hidden"} link`}>
+          <Link onClick={handleLogout} className={`${setopen && "hidden"} link`} to="/login">
             <div><SignOut size={20}/></div>
             Sair
           </Link>
