@@ -16,6 +16,14 @@ export default function MyRoute({ component: Component, isClosed, ...rest }) {
     );
   }
 
+  if (isLoggedIn && (rest.path === '/login' || rest.path ==='/recuperar-senha')) {
+    return (
+      <Redirect
+        to={{ pathname: '/' }}
+      />
+    );
+  }
+
   // eslint-disable-next-line
   return <Route {...rest} component={Component} />;
 }
