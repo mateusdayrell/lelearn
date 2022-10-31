@@ -1,12 +1,13 @@
 /* BODY - PAGINA */
 .container-body-password{
-  @apply min-w-[670px] min-h-[90%] 
+  @apply min-w-[670px] min-h-[90%] w-[100%]  
 }
 /* BODY - PAGINA */
 
 /* BODY - CONTAINER RECUPERAR SENHA */
 .password-container{
-  @apply bg-cinza-400 rounded-lg shadow-md max-w-2xl p-4 
+  @apply bg-cinza-400 rounded-lg shadow-md max-w-2xl p-4 m-auto  mt-[120px] h-[400px]  justify-center
+
   /* TODOS OS ITEMS (FORMS, TITULOS) NO MEIO DO CONTAINER */
   flex items-center flex-col
 }
@@ -26,7 +27,7 @@
   @apply w-2/3 text-cinza-100
 }
 .forms .form-1, .form-2, .form-3, .form-4{
-  @apply flex flex-col
+  @apply flex flex-col  
 }
 .forms p{
   @apply text-sm
