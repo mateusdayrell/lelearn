@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
-import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple } from 'phosphor-react';
+import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple, CloudArrowUp } from 'phosphor-react';
 import Modal from 'react-modal';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import { isEmail, isMobilePhone } from 'validator';
@@ -265,15 +265,15 @@ export default function Usuario() {
             <div className="search-form">
               <div className='search-container-inputs'>
                 <input
-                    id="cpf-search"
-                    type="text"
-                    className="search-input"
-                    name="cpf"
-                    placeholder="CPF"
-                    value={cpfValidator.format(searchCpf)}
-                    maxLength={11}
-                    onChange={(e) => setSearchCpf(e.target.value)}
-                  />
+                  id="cpf-search"
+                  type="text"
+                  className="search-input"
+                  name="cpf"
+                  placeholder="CPF"
+                  value={cpfValidator.format(searchCpf)}
+                  maxLength={11}
+                  onChange={(e) => setSearchCpf(e.target.value)}
+                />
 
                 <input
                   className="search-input"
@@ -399,13 +399,12 @@ export default function Usuario() {
             <button
               className="CloseModal"
               type="button"
-              title="Fechar modal"
               onClick={handleClose}>
               <X size={24} />
             </button>
           </div>
           <div className="ModalContent">
-            <div className="form-usuario">
+            <div className="FormInput">
               <div className="InputArea">
                 <label>CPF</label>
                 <input
@@ -413,7 +412,6 @@ export default function Usuario() {
                   type="text"
                   className='ModalInput'
                   name="cpf"
-                  placeholder="CPF"
                   value={cpfValidator.format(cpf)}
                   maxLength={11}
                   disabled={!!isUpdating}
@@ -427,7 +425,6 @@ export default function Usuario() {
                   type="text"
                   className='ModalInput'
                   name="nome"
-                  placeholder="Nome"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                 />
@@ -441,12 +438,9 @@ export default function Usuario() {
                   type="text"
                   className='ModalInput'
                   name="telefone"
-                  placeholder="Telefone"
                   onChange={(e) => setTelefone(e.target.value)}
                 />
               </div>
-
-
 
               <div className="InputArea">
                 <label>Email</label>
@@ -454,19 +448,21 @@ export default function Usuario() {
                   type="email"
                   className='ModalInput'
                   name="email"
-                  placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+            </div>
 
+            <div className='ModalBar'></div>
+
+            <div className="FormInput">
               <div className="InputArea">
                 <label>Senha</label>
                 <input
                   type="password"
                   className='ModalInput'
                   name="password"
-                  placeholder="Senha"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -478,7 +474,6 @@ export default function Usuario() {
                   type="password"
                   className='ModalInput'
                   name="confirmPassword"
-                  placeholder="Confirmar senha"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
@@ -503,18 +498,16 @@ export default function Usuario() {
           </div>
           <div className="ModalFooter">
             <button
-              className="bg-vermelho-100 text-white w-24 py-2 rounded-xl hover:bg-vermelho-200"
-              title="Limpar campos"
+              className="RedBtn"
               type="button"
               onClick={() => clearModal("limpar")}>
               Limpar
             </button>
             <button
-              className="bg-verde-100 text-white w-24 py-2 rounded-xl hover:bg-verde-200"
-              title={isUpdating ? 'Atualizar dados' : 'Salvar dados'}
+              className="GreenBtn"
               type="submit"
               onClick={handleSubmit}>
-              {isUpdating ? 'Atualizar' : 'Salvar'}
+              {isUpdating ? 'Atualizar' : 'Cadastrar'}
             </button>
           </div>
         </Modal>
@@ -533,29 +526,29 @@ export default function Usuario() {
               title="Fechar modal"
               type="button"
               onClick={handleClose}>
-              x
+              <X size={24}/>
             </button>
           </div>
           <div className="ModalContent">
-            <div className="px-8 max-w-xl">
+            <div className="FormDelete">
               <p>
                 Caso prossiga com a exclusão do item, o mesmo não será mais
                 recuperado.
-                <br /> Deseja realmente excluir o usuário {nome}?
+              </p>
+              <p>
+                Deseja realmente excluir o usuário <i>{nome}</i> ?
               </p>
             </div>
           </div>
           <div className="ModalFooter">
             <button
-              className="bg-cinza-300 text-white w-24 py-2 rounded-xl hover:bg-gray-500"
-              title="Cancelar"
+              className="GrayBtn"
               type="button"
               onClick={handleClose} >
               Cancelar
             </button>
             <button
-              className="bg-vermelho-100 text-white w-24 py-2 rounded-xl hover:bg-vermelho-200"
-              title="Excluir"
+              className="RedBtn"
               type="button"
               onClick={() => handleDelete(cpf)}
             >

@@ -247,14 +247,14 @@ export default function GestaoCursos() {
                   id="video"
                   value={searchVideo}
                   onChange={(e) => setSearchVideo(e.target.value)}>
-                    <option value="" disabled >Selecione um vídeo</option>
-                    {videos.length > 0
-                      ? videos.map((c) => (
-                          <option key={`s${c.cod_video}`} value={c.cod_video}>
-                            {c.titulo_video}
-                          </option>
-                        ))
-                      : ''}
+                  <option value="" disabled >Selecione um vídeo</option>
+                  {videos.length > 0
+                    ? videos.map((c) => (
+                      <option key={`s${c.cod_video}`} value={c.cod_video}>
+                        {c.titulo_video}
+                      </option>
+                    ))
+                    : ''}
                 </select>
               </div>
               <div className="search-container-buttons">
@@ -352,7 +352,7 @@ export default function GestaoCursos() {
           <div className="ModalHeader">
             <span>{isUpdating ? 'Editar' : 'Cadastrar'} curso</span>
             <button className="CloseModal" type="button" onClick={handleClose}>
-              <X size={24}/>
+              <X size={24} />
             </button>
           </div>
           <div className="ModalContent">
@@ -364,7 +364,6 @@ export default function GestaoCursos() {
                     type="text"
                     className='ModalInput'
                     name="cod_video"
-                    placeholder="Código"
                     disabled
                     value={codCurso}
                     onChange={(e) => setCodCurso(e.target.value)}
@@ -380,7 +379,6 @@ export default function GestaoCursos() {
                   type="text"
                   className='ModalInput'
                   name="nome"
-                  placeholder="Nome"
                   maxLength="40"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
@@ -388,22 +386,21 @@ export default function GestaoCursos() {
               </div>
 
               <div className="InputArea">
-                <label>Foto <small>(opcional)</small></label>
-                <FileInput handleShowFile={handleShowFoto} foto={showFoto} removeFoto={handleRemoveFoto}/>
+                <label>Foto <small>(Opcional)</small></label>
+                <FileInput handleShowFile={handleShowFoto} foto={showFoto} removeFoto={handleRemoveFoto} />
               </div>
 
               <div className="InputArea">
-                <label>Descrição <small>(opcional)</small></label>
+                <label>Descrição <small>(Opcional)</small></label>
                 <textarea
                   name="descricao"
-                  placeholder="Descrição"
                   value={descricao}
                   onChange={(e) => setDescricao(e.target.value)}
                 />
               </div>
 
               <div className="InputArea">
-                <label>Vincular Vídeos <small>(opcional)</small></label>
+                <label>Vincular Vídeos <small>(Opcional)</small></label>
                 <Multiselect
                   type="vídeo"
                   listaArr={videos}
@@ -416,10 +413,10 @@ export default function GestaoCursos() {
             </div>
           </div>
           <div className="ModalFooter">
-            <button className="red-btn" type="button" onClick={() => clearModal("limpar")}>
+            <button className="RedBtn" type="button" onClick={() => clearModal("limpar")}>
               Limpar
             </button>
-            <button className="green-btn" type="button" onClick={handleSubmit}>
+            <button className="GreenBtn" type="button" onClick={handleSubmit}>
               {isUpdating ? 'Atualizar' : 'Salvar'}
             </button>
           </div>
@@ -435,26 +432,29 @@ export default function GestaoCursos() {
           <div className="ModalHeader">
             <span>Excluir curso</span>
             <button className="CloseModal" type="button" onClick={handleClose}>
-            <X size={24}/>
+              <X size={24} />
             </button>
           </div>
           <div className="ModalContent">
-            <div className="px-8 max-w-xl">
+            <div className="FormDelete">
               <p>
                 Caso prossiga com a exclusão do item, o mesmo não será mais
-                recuperado. Deseja realmente excluir o curso <i>{nome}</i>?
+                recuperado.
+              </p>
+              <p>
+                Deseja realmente excluir o curso <i>{nome}</i> ?
               </p>
             </div>
           </div>
           <div className="ModalFooter">
             <button
-              className="bg-cinza-300 text-white w-24 py-2 rounded-xl hover:bg-gray-500"
+              className="GrayBtn"
               type="button"
               onClick={handleClose}>
               Cancelar
             </button>
             <button
-              className="bg-vermelho-100 text-white w-24 py-2 rounded-xl hover:bg-vermelho-200"
+              className="RedBtn"
               type="button"
               onClick={() => handleDelete(codCurso)}
             >

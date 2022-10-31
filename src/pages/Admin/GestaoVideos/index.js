@@ -345,7 +345,6 @@ export default function GestaoVideos() {
           <div className="ModalHeader">
             <span>{isUpdating ? 'Editar' : 'Cadastrar'} vídeo</span>
             <button
-              title="Fechar"
               className="CloseModal"
               type="button"
               onClick={handleClose}>
@@ -353,7 +352,7 @@ export default function GestaoVideos() {
             </button>
           </div>
           <div className="ModalContent">
-            <div className="form-gestao-video">
+            <div className="FormInputGestao">
               {isUpdating ?
                 <div className="InputArea">
                   <label>Código</label>
@@ -375,7 +374,6 @@ export default function GestaoVideos() {
                   type="text"
                   className='ModalInput'
                   name="titulo"
-                  placeholder="Título"
                   maxLength="40"
                   value={titulo}
                   onChange={(e) => setTitulo(e.target.value)}
@@ -388,17 +386,15 @@ export default function GestaoVideos() {
                   type="text"
                   className='ModalInput'
                   name="link"
-                  placeholder="Link"
                   maxLength="150"
                   value={link}
                   onChange={(e) => setLink(e.target.value)}
                 />
               </div>
               <div className="InputArea">
-                <label>Descrição <small>(opcional)</small></label>
+                <label>Descrição <small>(Opcional)</small></label>
                 <textarea
                   name="descricao"
-                  placeholder="Descrição"
                   value={descricao}
                   onChange={(e) => setDescricao(e.target.value)}
                 />
@@ -414,18 +410,16 @@ export default function GestaoVideos() {
           </div>
           <div className="ModalFooter">
             <button
-              title="Limpar campos"
-              className="bg-vermelho-100 text-white w-24 py-2 rounded-xl hover:bg-vermelho-200"
+              className="RedBtn"
               type="button"
               onClick={() => clearModal("limpar")}>
               Limpar
             </button>
             <button
-              className="bg-verde-100 text-white w-24 py-2 rounded-xl hover:bg-verde-200"
-              title={isUpdating ? 'Atualizar dados' : 'Salvar dados'}
+              className="GreenBtn"
               type="button"
               onClick={handleSubmit}>
-              {isUpdating ? 'Atualizar' : 'Salvar'}
+              {isUpdating ? 'Atualizar' : 'Cadastrar'}
             </button>
           </div>
         </Modal>
@@ -440,7 +434,6 @@ export default function GestaoVideos() {
           <div className="ModalHeader">
             <span>Excluir vídeo</span>
             <button
-              title="Fechar"
               className="CloseModal"
               type="button"
               onClick={handleClose}>
@@ -448,24 +441,25 @@ export default function GestaoVideos() {
             </button>
           </div>
           <div className="ModalContent">
-            <div className="px-8 max-w-xl">
+            <div className="FormDelete">
               <p>
                 Caso prossiga com a exclusão do item, o mesmo não será mais
-                recuperado. Deseja realmente excluir o vídeo <i>{titulo}</i>?
+                recuperado.
+              </p>
+              <p>
+                Deseja realmente excluir o vídeo <i>{titulo}</i> ?
               </p>
             </div>
           </div>
           <div className="ModalFooter">
             <button
-              className="bg-cinza-300 text-white w-24 py-2 rounded-xl hover:bg-gray-500"
-              title="Cancelar"
+              className="GrayBtn"
               type="button"
               onClick={handleClose} >
               Cancelar
             </button>
             <button
-              className="bg-vermelho-100 text-white w-24 py-2 rounded-xl hover:bg-vermelho-200"
-              title="Excluir"
+              className="RedBtn"
               type="button"
               onClick={() => handleDelete(codVideo)}
             >

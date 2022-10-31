@@ -154,7 +154,7 @@ export default function GestaoTreinamentos() {
     return controle;
   };
 
-  const handleIsUpdating = async(treinamento) => {
+  const handleIsUpdating = async (treinamento) => {
     try {
       setIsLoading(true);
       const { data } = await axios.get(`/treinamentos/${treinamento.cod_treinamento}`);
@@ -367,7 +367,7 @@ export default function GestaoTreinamentos() {
           <div className="ModalHeader">
             <span>{isUpdating ? 'Editar' : 'Cadastrar'} treinamento</span>
             <button className="CloseModal" type="button" onClick={handleClose}>
-              <X size={24}/>
+              <X size={24} />
             </button>
           </div>
 
@@ -412,19 +412,19 @@ export default function GestaoTreinamentos() {
                   />
                 </div>
 
-                  <button
-                    type="button"
-                    className="buttonpassword"
-                    onClick={() => setForm(1)}>
-                      Usuários
-                  </button>
+                <button
+                  type="button"
+                  className="buttonpassword"
+                  onClick={() => setForm(1)}>
+                  Usuários
+                </button>
 
-                  <button
-                    type="button"
-                    className="buttonpassword"
-                    onClick={() => setForm(2)}>
-                      Cursos
-                  </button>
+                <button
+                  type="button"
+                  className="buttonpassword"
+                  onClick={() => setForm(2)}>
+                  Cursos
+                </button>
 
               </div>
             </div>
@@ -438,21 +438,21 @@ export default function GestaoTreinamentos() {
                   className='text-verde-100 hover:text-verde-200'
                   onClick={() => setForm(0)}
                   title='Voltar'>
-                    <CaretLeft size={32} weight="bold" />
+                  <CaretLeft size={32} weight="bold" />
                 </button>
                 <h2 className='text-verde-100'>Usuários</h2>
               </div>
 
               <div className="InputArea">
                 <label>Vincular usuários <small>(opcional)</small></label>
-                  <Multiselect
-                    type="usuário"
-                    listaArr={usuarios}
-                    array={treinUsuarios}
-                    setArray={setTreinUsuarios}
-                    value="cpf"
-                    label="nome"
-                  />
+                <Multiselect
+                  type="usuário"
+                  listaArr={usuarios}
+                  array={treinUsuarios}
+                  setArray={setTreinUsuarios}
+                  value="cpf"
+                  label="nome"
+                />
               </div>
             </div>
           }
@@ -465,7 +465,7 @@ export default function GestaoTreinamentos() {
                   className='text-verde-100 hover:text-verde-200'
                   onClick={() => setForm(0)}
                   title='Voltar'>
-                    <CaretLeft size={32} weight="bold" />
+                  <CaretLeft size={32} weight="bold" />
                 </button>
                 <h2 className='text-verde-100'>Cursos</h2>
               </div>
@@ -485,10 +485,10 @@ export default function GestaoTreinamentos() {
           }
 
           <div className="ModalFooter">
-            <button className="red-btn" type="button" onClick={() => clearModal("limpar")}>
+            <button className="RedBtn" type="button" onClick={() => clearModal("limpar")}>
               Limpar
             </button>
-            <button className="green-btn" type="button" onClick={handleSubmit}>
+            <button className="GreenBtn" type="button" onClick={handleSubmit}>
               {isUpdating ? 'Atualizar' : 'Salvar'}
             </button>
           </div>
@@ -504,26 +504,29 @@ export default function GestaoTreinamentos() {
           <div className="ModalHeader">
             <span>Excluir Treinamento</span>
             <button className="CloseModal" type="button" onClick={handleClose}>
-              x
+              <X size={24}/>
             </button>
           </div>
           <div className="ModalContent">
-            <div className="px-8 max-w-xl">
+            <div className="FormDelete">
               <p>
                 Caso prossiga com a exclusão do item, o mesmo não será mais
-                recuperado. Deseja realmente excluir o treinamento {nome}?
+                recuperado.
+              </p>
+              <p>
+                Deseja realmente excluir o treinamento <i>{nome}</i> ?
               </p>
             </div>
           </div>
           <div className="ModalFooter">
             <button
-              className="bg-cinza-300 text-white w-24 py-2 rounded-xl hover:bg-gray-500"
+              className="GrayBtn"
               type="button"
               onClick={handleClose}>
               Cancelar
             </button>
             <button
-              className="bg-vermelho-100 text-white w-24 py-2 rounded-xl hover:bg-vermelho-200"
+              className="RedBtn"
               type="button"
               onClick={() => handleDelete(codTreinamento)}
             >
