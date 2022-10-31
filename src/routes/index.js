@@ -29,8 +29,8 @@ export default function Routes() {
           <MyRoute exact path="/gestao-treinamentos" component={GestaoTreinamentos} isClosed />
 
           <MyRoute exact path="/" component={Home} />
-          <MyRoute exact path="/login" component={Login} />
-          <MyRoute exat path="/recuperar-senha" component={RecuperarSenha} />
+          {/*<MyRoute exact path="/login" component={Login} />
+          <MyRoute exat path="/recuperar-senha" component={RecuperarSenha} />*/}
           <MyRoute exact path="/treinamentos" component={Treinamento} isClosed />
           <MyRoute exact path="/cursos/:cod_curso" component={Curso} isClosed />
           <MyRoute exact path="/cursos" component={Cursos} isClosed />
@@ -42,8 +42,8 @@ export default function Routes() {
       {tipoUsuario === 1 && // USUARIO COMUM
         <Switch>
           <MyRoute exact path="/" component={Home} />
-          <MyRoute exact path="/login" component={Login} />
-          <MyRoute exat path="/recuperar-senha" component={RecuperarSenha} />
+          {/*<MyRoute exact path="/login" component={Login} />
+          <MyRoute exat path="/recuperar-senha" component={RecuperarSenha} />*/}
           <MyRoute exact path="/treinamentos" component={Treinamento} isClosed />
           <MyRoute exact path="/cursos/:cod_curso" component={Curso} isClosed />
           <MyRoute exact path="/cursos" component={Cursos} isClosed />
@@ -52,12 +52,12 @@ export default function Routes() {
         </Switch>
       }
 
-      {!tipoUsuario &&
-        <Switch>
+      {/*{!tipoUsuario &&*/}
+        {/*<Switch>*/}
           <MyRoute exact path="/login" component={Login} />
           <MyRoute exat path="/recuperar-senha" component={RecuperarSenha} />
-        </Switch>
-      }
+        {/*</Switch>*/}
+      
     </>
   );
 }

@@ -45,7 +45,7 @@
   @apply w-full flex flex-row-reverse my-4
 }
 .buttonpassword{
-  @apply bg-verde-100 hover:bg-verde-200 text-cinza-100 font-medium py-2 px-4 rounded-xl shadow m-1 duration-200 flex items-center gap-2
+  @apply  hover:bg-verde-200 text-cinza-100 font-medium py-2 px-4 rounded-xl shadow m-1 duration-200 flex items-center gap-2
 }
 /* FORMULARIOS */
 /* BODY - CONTAINER RECUPERAR SENHA */

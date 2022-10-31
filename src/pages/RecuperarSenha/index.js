@@ -211,7 +211,7 @@ export default function RecuperarSenha() {
                 </span>
               </div>
               <div className='content-button-password'>
-                <button className="buttonpassword" type="button" onClick={handleSendCode}>
+                <button className="buttonpassword bg-verde-100" type="button" onClick={handleSendCode}>
                   Enviar código
                   <PaperPlaneRight size={22} />
                 </button>
@@ -241,13 +241,13 @@ export default function RecuperarSenha() {
               </div>
               <div className="content-button-password">
                 <button
-                  className="buttonpassword"
+                  className="buttonpassword bg-verde-100"
                   type="button"
                   onClick={() => setCurrentForm('form1')}
                 >
                   Voltar
                 </button>
-                <button className="buttonpassword" type="button" onClick={getUserToken}>
+                <button className="buttonpassword bg-verde-100" type="button" onClick={getUserToken}>
                   Verificar código
                 </button>
               </div>
@@ -288,14 +288,14 @@ export default function RecuperarSenha() {
               </div>
               <div className='content-button-password'>
                 <button
-                  className="buttonpassword"
+                  className="buttonpassword bg-verde-100"
                   type="button"
                   onClick={() => setCurrentForm('form2')}
                 >
                   Voltar
                 </button>
                 <button
-                  className="buttonpassword"
+                  className="buttonpassword bg-verde-100"
                   type="button"
                   onClick={handleNewPassword}
                 >
@@ -312,7 +312,7 @@ export default function RecuperarSenha() {
             >
               <label>Sua senha foi redefinida com sucesso.</label>
               <div className='content-button-password'>
-                <Link className="buttonpassword" to="/login">
+                <Link className="buttonpassword bg-verde-100" to="/login">
                   Fazer login
                 </Link>
               </div>
