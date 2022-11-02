@@ -3,11 +3,10 @@ import {
   BookBookmark,
   Users,
   SignOut,
-  Bookmark,
+  Bookmarks,
   YoutubeLogo,
-  MonitorPlay,
   Books,
-  BookmarksSimple,
+  Bookmark,
   CaretDoubleRight,
   House,
   CaretUp,
@@ -35,11 +34,11 @@ export default function Navbar() {
   const menus = [
     { name: "Página Inicial", link: "/home", icon: House, users: [0, 1] },
     { name: "Cursos", link: "/cursos", icon: BookBookmark, users: [0, 1] },
-    { name: "Treinamentos", link: "/treinamentos", icon: Bookmark, users: [0, 1] },
+    { name: "Treinamentos", link: "/treinamentos", icon: Bookmarks, users: [0, 1] },
     { name: "Gestão de Usuários", link: "/usuarios", icon: Users, users: [0], margin: true },
     { name: "Gestão de Videos", link: "/gestao-videos", icon: YoutubeLogo, users: [0] },
     { name: "Gestão de Cursos", link: "/gestao-cursos", icon: Books, users: [0] },
-    { name: "Gestão de Treinamentos", link: "/gestao-treinamentos", icon: BookmarksSimple, users: [0] },
+    { name: "Gestão de Treinamentos", link: "/gestao-treinamentos", icon: Bookmark, users: [0] },
   ];
 
   useEffect(() => {

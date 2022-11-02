@@ -2,7 +2,7 @@
     @apply flex items-center w-full h-full
 }
 .ContentListsH{
-    @apply flex items-center w-full h-full
+    @apply flex items-center w-full h-full hover:text-cinza-100 transition-all
 }
 .BarBtnsLists{
     @apply bg-cinza-100 w-[1px] h-6 mx-3
