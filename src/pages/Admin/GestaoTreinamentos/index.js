@@ -370,10 +370,10 @@ export default function GestaoTreinamentos() {
               <div className='ContentListsH'>
                 <button
                   type='button'
-                  className='text-verde-100 hover:text-cinza-100 transition-all'
+                  className='text-cinza-100 hover:text-verde-100 transition-all'
                   onClick={() => setForm(0)}
                   title='Voltar'>
-                  <CaretLeft size={22} weight="bold" />
+                  <CaretLeft size={22}/>
                 </button>
                 <h2 className='text-cinza-100'>Usuários do Treinamento</h2>
               </div>
@@ -382,10 +382,10 @@ export default function GestaoTreinamentos() {
               <div className='ContentListsH'>
                 <button
                   type='button'
-                  className='text-verde-100 hover:text-cinza-100 transition-all'
+                  className='text-cinza-100 hover:text-verde-100 transition-all'
                   onClick={() => setForm(0)}
                   title='Voltar'>
-                  <CaretLeft size={22} weight="bold" />
+                  <CaretLeft size={22}/>
                 </button>
                 <h2 className='text-cinza-100'>Cursos do Treinamento</h2>
               </div>
@@ -460,7 +460,7 @@ export default function GestaoTreinamentos() {
           {form === 1 &&
             <div className="ModalContent">
 
-              <p className='text-sm my-4 pl-1 text-cinza-100'>Vincule os usuários que irão fazer este treinamento. A definição de prazo para os usuários é opcional.</p>
+              <p className='text-sm my-2 pl-1 text-cinza-200'>Vincule os usuários que irão fazer este treinamento. A definição de prazo para os usuários é opcional.</p>
 
               <div className="InputArea">
                 <label>Vincular Usuários <small>(Opcional)</small></label>
@@ -479,7 +479,7 @@ export default function GestaoTreinamentos() {
           {form === 2 &&
             <div className="ModalContent">
 
-              <p className='text-sm my-4 pl-1 text-cinza-100'>Vincule os cursos que estarão disponíveis no treinamento.</p>
+              <p className='text-sm my-2 pl-1 text-cinza-200'>Vincule os cursos que estarão disponíveis no treinamento.</p>
 
               <div className="InputArea">
                 <label>Vincular Cursos <small>(Opcional)</small></label>
