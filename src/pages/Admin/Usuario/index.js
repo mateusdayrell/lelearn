@@ -403,8 +403,10 @@ export default function Usuario() {
               <X size={24} />
             </button>
           </div>
+
+
           <div className="ModalContent">
-            <div className="FormInput">
+            <div className='FormInput'>
               <div className="InputArea">
                 <label>CPF</label>
                 <input
@@ -419,19 +421,10 @@ export default function Usuario() {
                 />
               </div>
 
-              <div className="InputArea">
-                <label>Nome</label>
-                <input
-                  type="text"
-                  className='ModalInput'
-                  name="nome"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                />
-              </div>
+              <div className='ModalBar'></div>
 
               <div className="InputArea">
-                <label>Telefone</label>
+                <label>Telefone (Opcional)</label>
                 <InputMask
                   mask="(99) 9 9999-9999"
                   value={telefone}
@@ -441,22 +434,31 @@ export default function Usuario() {
                   onChange={(e) => setTelefone(e.target.value)}
                 />
               </div>
-
-              <div className="InputArea">
-                <label>Email</label>
-                <input
-                  type="email"
-                  className='ModalInput'
-                  name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
             </div>
 
-            <div className='ModalBar'></div>
+            <div className="InputArea">
+              <label>Nome</label>
+              <input
+                type="text"
+                className='ModalInput'
+                name="nome"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
+            </div>
 
-            <div className="FormInput">
+            <div className="InputArea">
+              <label>Email</label>
+              <input
+                type="email"
+                className='ModalInput'
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div className='FormInput'>
               <div className="InputArea">
                 <label>Senha</label>
                 <input
@@ -468,6 +470,8 @@ export default function Usuario() {
                 />
               </div>
 
+              <div className='ModalBar'></div>
+
               <div className="InputArea">
                 <label>Confirmar senha</label>
                 <input
@@ -478,24 +482,25 @@ export default function Usuario() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
+            </div>
 
-              <div className="InputArea">
-                <label>Tipo</label>
-                <select
-                  name="tipo"
-                  id="tipo"
-                  value={tipo}
-                  onChange={(e) => setTipo(e.target.value)}
-                >
-                  <option value="" disabled>
-                    Selecione um tipo
-                  </option>
-                  <option value="0">Administrador</option>
-                  <option value="1">Usuário comum</option>
-                </select>
-              </div>
+            <div className="InputArea w-1/2">
+              <label>Tipo</label>
+              <select
+                name="tipo"
+                id="tipo"
+                value={tipo}
+                onChange={(e) => setTipo(e.target.value)}
+              >
+                <option value="" disabled>
+                  Selecione um tipo
+                </option>
+                <option value="0">Administrador</option>
+                <option value="1">Usuário comum</option>
+              </select>
             </div>
           </div>
+
           <div className="ModalFooter">
             <button
               className="RedBtn"
@@ -526,7 +531,7 @@ export default function Usuario() {
               title="Fechar modal"
               type="button"
               onClick={handleClose}>
-              <X size={24}/>
+              <X size={24} />
             </button>
           </div>
           <div className="ModalContent">

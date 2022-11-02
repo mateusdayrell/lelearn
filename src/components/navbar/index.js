@@ -35,11 +35,10 @@ export default function Navbar() {
 
   const menus = [
     { name: "Página Inicial", link: "/home", icon: House, users: [0, 1] },
-    { name: "Videos", link: "/videos", icon: YoutubeLogo, users: [0, 1] },
     { name: "Cursos", link: "/cursos", icon: BookBookmark, users: [0, 1] },
     { name: "Treinamentos", link: "/treinamentos", icon: Bookmark, users: [0, 1] },
     { name: "Gestão de Usuários", link: "/usuarios", icon: Users, users: [0], margin: true },
-    { name: "Gestão de Videos", link: "/gestao-videos", icon: MonitorPlay, users: [0] },
+    { name: "Gestão de Videos", link: "/gestao-videos", icon: YoutubeLogo, users: [0] },
     { name: "Gestão de Cursos", link: "/gestao-cursos", icon: Books, users: [0] },
     { name: "Gestão de Treinamentos", link: "/gestao-treinamentos", icon: BookmarksSimple, users: [0] },
   ];
@@ -101,8 +100,8 @@ export default function Navbar() {
           </svg>
         </div>
         <CaretDoubleRight
-          size={20}
-          className={`absolute cursor-pointer -right-3 top-4 rounded-full text-cinza-100 bg-cinza-400 hover:text-verde-100 duration-500 ${!open && "rotate-180 text-verde-100 hover:text-cinza-100"}`}
+          size={25}
+          className={`absolute cursor-pointer -right-3 top-3 rounded-full text-cinza-100 bg-cinza-400 hover:text-verde-100 duration-500 ${!open && "rotate-180 text-verde-100 hover:text-cinza-100"}`}
           onClick={() => setOpen(!open)} />
       </div>
 

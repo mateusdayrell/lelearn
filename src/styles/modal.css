@@ -1,29 +1,34 @@
 .Modal {
-  @apply absolute top-[5%] bg-cinza-500 rounded-xl shadow-lg py-3 px-3 min-w-[45em] ;
+  @apply absolute top-[5%] bg-cinza-500 rounded-xl shadow-lg py-3 px-5 min-w-[42.5em] max-w-min
 }
 
+
 .Modal .ModalHeader{
-  @apply flex font-medium text-lg justify-between select-none
+  @apply flex font-medium text-lg justify-between select-none 
 }
 .Modal .CloseModal{
   @apply text-cinza-100 hover:text-cinza-300 cursor-pointer transition-all
 }
+.Modal span{
+  @apply text-cinza-100 font-light
+}
+
 
 .Modal .ModalContent{
-  @apply py-2 text-cinza-100 flex h-full w-full
+  @apply py-2 text-cinza-100 h-full w-full
 }
 .ModalBar{
   @apply mx-2
 }
 .FormInput{
-  @apply w-1/2
+  @apply flex
 }
 .FormInputGestao{
   @apply w-full
 }
 .Modal .InputArea{
-  @apply bg-cinza-350 my-2 px-1 rounded-md text-cinza-100 border-b-2 border-cinza-200 
-  focus-within:border-verde-100 focus-within:text-verde-100 transition-all select-none
+  @apply bg-cinza-350 my-2 px-1 rounded-md text-verde-100 border-b-2 border-verde-100 w-full
+  focus-within:border-verde-200 transition-all select-none
 }
 .Modal .InputArea .ModalInput, .Modal .InputArea select, .Modal .InputArea textarea {
   @apply border-none text-cinza-200 bg-cinza-350 w-full focus-within:text-cinza-100
@@ -31,6 +36,8 @@
 .Modal label{
   @apply text-sm font-extralight
 }
+
+
 .RedBtn{
   @apply bg-vermelho-100 w-28 py-1 rounded-lg text-cinza-100 
   hover:bg-vermelho-200 transition-all 
@@ -41,7 +48,7 @@
 }
 .GrayBtn{
   @apply bg-cinza-300 text-white w-28 py-1 rounded-lg 
-  hover:bg-gray-500
+  hover:bg-gray-500 transition-all
 }
 
 
@@ -53,15 +60,10 @@
 }
 
 
-
 .Overlay {
   @apply fixed top-0 left-0 right-0 bottom-0 bg-black/60 flex justify-center backdrop-blur-md overflow-auto
 }
 
 .Modal .InputArea input:disabled  {
   @apply text-cinza-300 cursor-not-allowed;
-}
-
-.Modal span{
-  @apply text-cinza-100 font-light
 }
