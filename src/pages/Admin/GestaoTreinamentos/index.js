@@ -365,7 +365,31 @@ export default function GestaoTreinamentos() {
           ariaHideApp={false}>
 
           <div className="ModalHeader">
-            <span>{isUpdating ? 'Editar' : 'Cadastrar'} treinamento</span>
+            {form === 0 && <span>{isUpdating ? 'Editar' : 'Cadastrar'} treinamento</span>}
+            {form === 1 &&
+              <div className='ContentListsH'>
+                <button
+                  type='button'
+                  className='text-verde-100 hover:text-cinza-100 transition-all'
+                  onClick={() => setForm(0)}
+                  title='Voltar'>
+                  <CaretLeft size={22} weight="bold" />
+                </button>
+                <h2 className='text-cinza-100'>Usuários do Treinamento</h2>
+              </div>
+            }
+            {form === 2 &&
+              <div className='ContentListsH'>
+                <button
+                  type='button'
+                  className='text-verde-100 hover:text-cinza-100 transition-all'
+                  onClick={() => setForm(0)}
+                  title='Voltar'>
+                  <CaretLeft size={22} weight="bold" />
+                </button>
+                <h2 className='text-cinza-100'>Cursos do Treinamento</h2>
+              </div>
+            }
             <button className="CloseModal" type="button" onClick={handleClose}>
               <X size={24} />
             </button>
@@ -435,16 +459,6 @@ export default function GestaoTreinamentos() {
 
           {form === 1 &&
             <div className="ModalContent">
-              <div className='ContentListsH'>
-                <button
-                  type='button'
-                  className='text-verde-100 hover:text-cinza-100 transition-all'
-                  onClick={() => setForm(0)}
-                  title='Voltar'>
-                  <CaretLeft size={22} weight="bold" />
-                </button>
-                <h2 className='text-verde-100'>Usuários</h2>
-              </div>
 
               <p className='text-sm my-4 pl-1 text-cinza-100'>Vincule os usuários que irão fazer este treinamento. A definição de prazo para os usuários é opcional.</p>
 
@@ -464,16 +478,6 @@ export default function GestaoTreinamentos() {
 
           {form === 2 &&
             <div className="ModalContent">
-              <div className='ContentListsH'>
-                <button
-                  type='button'
-                  className='text-verde-100 hover:text-cinza-100 transition-all'
-                  onClick={() => setForm(0)}
-                  title='Voltar'>
-                  <CaretLeft size={22} weight="bold" />
-                </button>
-                <h2 className='text-verde-100'>Cursos</h2>
-              </div>
 
               <p className='text-sm my-4 pl-1 text-cinza-100'>Vincule os cursos que estarão disponíveis no treinamento.</p>
 
