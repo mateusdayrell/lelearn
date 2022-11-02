@@ -225,7 +225,7 @@ export default function RecuperarSenha() {
               }
             >
               <label htmlFor="">Confirme sua identidade</label>
-              <p>Foi enviado para o email "{email}" um código para a redefinição de senha. Por favor, informe o código no campo abaixo.</p>
+              <p>Foi enviado para o email <i>"{email}"</i> um código para a redefinição de senha. Por favor, informe o código no campo abaixo.</p>
               <div className='input-password'>
                 <span>Código</span>
                 <input
