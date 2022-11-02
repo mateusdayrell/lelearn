@@ -24,13 +24,12 @@ export default function Navbar() {
 
   const { nome, tipo } = useSelector((state) => state.auth.usuario); // TIPO -> 0 === ADMINISTRADOR, TIPO -> 1 === USUARIO COMUM
 
-  const selected = "w-8 h-8 bg-verde-100 hover:bg-verde-200 flex items-center justify-center rounded-md text-cinza-500"
+  const selected = "w-8 h-8 bg-verde-100 hover:bg-verde-200 flex items-center justify-center rounded-md text-cinza-500 shadow-md"
   const [nomeUsuario, setNomeUsuario] = useState('Não logado');
   const [open, setOpen] = useState(true);
   const [setopen, setOpenmn] = useState(true);
   const [word1, setWord1] = useState('')
   const [word2, setWord2] = useState('')
-
 
 
   const menus = [
@@ -101,7 +100,7 @@ export default function Navbar() {
         </div>
         <CaretDoubleRight
           size={25}
-          className={`absolute cursor-pointer -right-3 top-3 rounded-full text-cinza-100 bg-cinza-400 hover:text-verde-100 duration-500 ${!open && "rotate-180 text-verde-100 hover:text-cinza-100"}`}
+          className={`absolute cursor-pointer -right-[1em] top-3 rounded-full text-cinza-100 bg-cinza-400 hover:text-verde-100 duration-500 ${!open && "rotate-180 text-verde-100 hover:text-cinza-100"}`}
           onClick={() => setOpen(!open)} />
       </div>
 
@@ -115,7 +114,7 @@ export default function Navbar() {
               <div
                 className={handleCurrentMenu(menu.link) ? `${selected}` : "icons"}> {React.createElement(menu?.icon, { size: "24" })} </div>
               <span
-                style={{ transitionDelay: `${i + 4}0ms`,}}
+                style={{ transitionDelay: `${i + 4}0ms`, }}
                 className={`whitespace-pre duration-500 ${open && "hidden"} `}
               >
                 {menu?.name}
@@ -136,7 +135,7 @@ export default function Navbar() {
 
         <div className={`${setopen ? "hidden" : ""} optionsmenu`}>
           <Link onClick={handleLogout} className={`${setopen && "hidden"} link`} to="/login">
-            <div><SignOut size={20}/></div>
+            <div><SignOut size={20} /></div>
             Sair
           </Link>
           <span className={`${!open && "hidden"}`}>

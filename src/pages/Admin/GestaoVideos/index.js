@@ -369,7 +369,7 @@ export default function GestaoVideos() {
                 : ''}
 
               <div className="InputArea">
-                <label>Título</label>
+                <label>Título *</label>
                 <input
                   type="text"
                   className='ModalInput'
@@ -381,7 +381,7 @@ export default function GestaoVideos() {
               </div>
 
               <div className="InputArea">
-                <label>Link</label>
+                <label>Link *</label>
                 <input
                   type="text"
                   className='ModalInput'
@@ -407,6 +407,9 @@ export default function GestaoVideos() {
                 </div>
               }
             </div>
+
+            <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
+            
           </div>
           <div className="ModalFooter">
             <button

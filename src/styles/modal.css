@@ -9,8 +9,11 @@
 .Modal .CloseModal{
   @apply text-cinza-100 hover:text-cinza-300 cursor-pointer transition-all
 }
-.Modal span{
+.Modal .ModalHeader span{
   @apply text-cinza-100 font-light
+}
+.InformationP{
+  @apply font-extralight text-xs text-cinza-100
 }
 
 
@@ -31,7 +34,7 @@
   focus-within:border-verde-200 transition-all select-none
 }
 .Modal .InputArea .ModalInput, .Modal .InputArea select, .Modal .InputArea textarea {
-  @apply border-none text-cinza-200 bg-cinza-350 w-full focus-within:text-cinza-100
+  @apply border-none text-cinza-200 bg-cinza-350 w-full focus-within:text-cinza-100 text-sm
 }
 .Modal label{
   @apply text-sm font-extralight
@@ -39,16 +42,16 @@
 
 
 .RedBtn{
-  @apply bg-vermelho-100 w-28 py-1 rounded-lg text-cinza-100 
-  hover:bg-vermelho-200 transition-all 
+  @apply bg-vermelho-100 w-28 py-1 rounded-lg text-cinza-500 font-semibold
+  hover:bg-vermelho-200 hover:text-cinza-100 hover:font-normal transition-all shadow-md
 }
 .GreenBtn{
-  @apply bg-verde-100 w-28 py-1 text-cinza-100 rounded-lg 
-  hover:bg-verde-200 transition-all
+  @apply bg-verde-100 w-28 py-1 text-cinza-500 rounded-lg font-semibold
+  hover:bg-verde-200 hover:text-cinza-100 hover:font-normal transition-all shadow-md
 }
 .GrayBtn{
-  @apply bg-cinza-300 text-white w-28 py-1 rounded-lg 
-  hover:bg-gray-500 transition-all
+  @apply bg-cinza-300 text-cinza-500 w-28 py-1 rounded-lg font-semibold
+  hover:bg-gray-500 hover:font-normal hover:text-cinza-100 transition-all shadow-md
 }
 
 

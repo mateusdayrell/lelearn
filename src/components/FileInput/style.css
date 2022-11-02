@@ -1,0 +1,28 @@
+.ContentFileInput{
+    @apply flex justify-around items-center font-extralight text-xs my-1
+}
+
+.LabelInputFile{
+    @apply flex flex-col items-center gap-1 text-cinza-100 
+}
+.LabelInputFoto-Options{
+    @apply flex flex-col items-center cursor-pointer
+}
+.AlterFoto{
+    @apply flex justify-between cursor-pointer w-36 px-2 rounded-md py-1 font-semibold text-cinza-500 bg-verde-100
+    hover:text-cinza-100 shadow-md transition-all
+}
+.TextSelectFoto{
+    @apply text-sm cursor-pointer
+}
+.LabelInputFile:hover .LabelInputFoto-Options{
+    @apply text-verde-100 transition-all
+}
+.RemoveFoto{
+    @apply flex justify-between w-36 px-2 rounded-md py-1 text-sm font-semibold items-center shadow-md text-cinza-500
+    hover:text-cinza-100 transition-all
+}
+
+.FileNone{
+    @apply flex flex-col items-center text-cinza-200
+}
