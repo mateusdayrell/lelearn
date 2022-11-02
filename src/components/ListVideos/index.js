@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { ArrowUp, ArrowDown } from 'phosphor-react';
+import { ArrowCircleUp, ArrowCircleDown, MinusCircle } from 'phosphor-react';
 import { toast } from 'react-toastify';
+import './style.css';
 
-export default function ListVideos({videos, setVideos, handleRemove}) {
+export default function ListVideos({ videos, setVideos, handleRemove }) {
   const [show, setShow] = useState('')
   const [order, setOrder] = useState('')
 
@@ -14,7 +15,7 @@ export default function ListVideos({videos, setVideos, handleRemove}) {
 
   const handleShow = (index) => {
     setShow(index)
-    setOrder(index+1)
+    setOrder(index + 1)
   }
 
   const orderUp = (i) => {
@@ -22,7 +23,7 @@ export default function ListVideos({videos, setVideos, handleRemove}) {
 
     if (!array[i - 1]) return
 
-    array.splice(i-1, 2, array[i], array[i-1])
+    array.splice(i - 1, 2, array[i], array[i - 1])
 
     setVideos(array)
     handleClear()
@@ -33,7 +34,7 @@ export default function ListVideos({videos, setVideos, handleRemove}) {
 
     if (!array[i + 1]) return
 
-    array.splice(i, 2, array[i+1], array[i])
+    array.splice(i, 2, array[i + 1], array[i])
 
     setVideos(array)
     handleClear()
@@ -49,7 +50,7 @@ export default function ListVideos({videos, setVideos, handleRemove}) {
       toast.error('erro!');
     }
     const [element] = array.splice(i, 1)
-    array.splice(order-1, 0, element)
+    array.splice(order - 1, 0, element)
 
     setVideos(array)
     handleClear()
@@ -57,46 +58,37 @@ export default function ListVideos({videos, setVideos, handleRemove}) {
 
   return (
     videos.length > 0 && videos.map((video, index) => (
-        <div
-          key={video.cod_video}
-          className="text-white border my-2 p-2 rounded flex items-center gap-2"
-        >
-          <span className='flex w-[100px]'>
-            {show === index ?
-              <>
-                <input
-                  type="number"
-                  value={order}
-                  onChange={(e) => setOrder(e.target.value)}
-                />
-                <span className='flex'>
-                  <button type='button' onClick={() => orderInput(index)}>Alterar</button>
-                </span>
-              </>
+      <div key={video.cod_video} className='ContentListVideo'>
+        <span className='InfoListVideoSpan'>
+          {show === index ?
+            <>
+              <input type="number" value={order} onChange={(e) => setOrder(e.target.value)}/>
+              <span>
+                <button type='button' onClick={() => orderInput(index)} className='AlterBtnListVideo'>Alterar</button>
+              </span>
+            </>
             :
-              <>
-                <input
-                  type="number"
-                  onFocus={() => handleShow(index)}
-                  onBlur={() => handleClear()}
-                  value={index+1}
-                  onChange={(e) => setOrder(e.target.value)}
-                />
-                <span className='flex'>
-                  <button type='button' onClick={() => orderUp(index)}>
-                    <ArrowUp size={22} weight="bold" />
-                  </button>
-                  <button type='button' onClick={() => orderDown(index)}>
-                    <ArrowDown size={22} weight="bold" />
-                  </button>
-                </span>
-              </>
-            }
-          </span>
-          <span className='flex-1'>{video.titulo_video}</span>
-          <button type='button' onClick={() => handleRemove(index)}>Remover</button>
-        </div>
-      ))
+            <>
+              <input type="number" onFocus={() => handleShow(index)} onBlur={() => handleClear()} value={index + 1} onChange={(e) => setOrder(e.target.value)}/>
+              <span> 
+                <button type='button' onClick={() => orderUp(index)} className="ArrowBtn">
+                  <ArrowCircleUp size={22} weight='bold'/>
+                </button>
+                <button type='button' onClick={() => orderDown(index)} className="ArrowBtn">
+                  <ArrowCircleDown size={22} weight='bold'/>
+                </button>
+              </span>
+            </>
+          }
+        </span>
+
+        <span>{video.titulo_video}</span>
+
+        <button type='button' onClick={() => handleRemove(index)} className="RemoveBtnListVideo" title='Remover'>
+          <MinusCircle size={22}/>
+        </button>
+      </div>
+    ))
   );
 }
 

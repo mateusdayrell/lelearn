@@ -408,7 +408,7 @@ export default function Usuario() {
           <div className="ModalContent">
             <div className='FormInput'>
               <div className="InputArea">
-                <label>CPF</label>
+                <label>CPF *</label>
                 <input
                   id="cpf"
                   type="text"
@@ -424,7 +424,7 @@ export default function Usuario() {
               <div className='ModalBar'></div>
 
               <div className="InputArea">
-                <label>Telefone (Opcional)</label>
+                <label>Telefone <small>(Opcional)</small></label>
                 <InputMask
                   mask="(99) 9 9999-9999"
                   value={telefone}
@@ -437,7 +437,7 @@ export default function Usuario() {
             </div>
 
             <div className="InputArea">
-              <label>Nome</label>
+              <label>Nome *</label>
               <input
                 type="text"
                 className='ModalInput'
@@ -448,7 +448,7 @@ export default function Usuario() {
             </div>
 
             <div className="InputArea">
-              <label>Email</label>
+              <label>Email *</label>
               <input
                 type="email"
                 className='ModalInput'
@@ -460,7 +460,7 @@ export default function Usuario() {
 
             <div className='FormInput'>
               <div className="InputArea">
-                <label>Senha</label>
+                <label>Senha *</label>
                 <input
                   type="password"
                   className='ModalInput'
@@ -473,7 +473,7 @@ export default function Usuario() {
               <div className='ModalBar'></div>
 
               <div className="InputArea">
-                <label>Confirmar senha</label>
+                <label>Confirmar senha *</label>
                 <input
                   type="password"
                   className='ModalInput'
@@ -485,7 +485,7 @@ export default function Usuario() {
             </div>
 
             <div className="InputArea w-1/2">
-              <label>Tipo</label>
+              <label>Tipo *</label>
               <select
                 name="tipo"
                 id="tipo"
@@ -500,6 +500,8 @@ export default function Usuario() {
               </select>
             </div>
           </div>
+
+          <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
 
           <div className="ModalFooter">
             <button

@@ -1,0 +1,12 @@
+.ContentBtnsLists{
+    @apply flex items-center w-full h-full
+}
+.ContentListsH{
+    @apply flex items-center w-full h-full
+}
+.BarBtnsLists{
+    @apply bg-cinza-100 w-[1px] h-6 mx-3
+}
+.ContentBtnsLists button{
+    @apply bg-transparent hover:bg-transparent shadow-none text-sm p-0 text-cinza-200 hover:text-cinza-100 transition-all
+}

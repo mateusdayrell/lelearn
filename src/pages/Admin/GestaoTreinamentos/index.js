@@ -373,7 +373,25 @@ export default function GestaoTreinamentos() {
 
           {form === 0 &&
             <div className="ModalContent">
-              <div className="form-gestao-video">
+              <div className="FormInputGestao">
+                <div className='ContentBtnsLists'>
+                  <button
+                    type="button"
+                    className="buttonpassword"
+                    onClick={() => setForm(1)}>
+                    Usuários
+                  </button>
+
+                  <div className='BarBtnsLists'></div>
+
+                  <button
+                    type="button"
+                    className="buttonpassword"
+                    onClick={() => setForm(2)}>
+                    Cursos
+                  </button>
+                </div>
+
                 {isUpdating ?
                   <div className="InputArea">
                     <label>Código</label>
@@ -390,12 +408,11 @@ export default function GestaoTreinamentos() {
                   : ''}
 
                 <div className="InputArea">
-                  <label>Nome</label>
+                  <label>Nome *</label>
                   <input
                     type="text"
                     className='ModalInput'
                     name="nome"
-                    placeholder="Nome"
                     maxLength="40"
                     value={nome}
                     onChange={(e) => setNome(e.target.value)}
@@ -403,48 +420,36 @@ export default function GestaoTreinamentos() {
                 </div>
 
                 <div className="InputArea">
-                  <label>Descrição <small>(opcional)</small></label>
+                  <label>Descrição <small>(Opcional)</small></label>
                   <textarea
                     name="descricao"
-                    placeholder="Descrição"
                     value={descricao}
                     onChange={(e) => setDescricao(e.target.value)}
                   />
                 </div>
 
-                <button
-                  type="button"
-                  className="buttonpassword"
-                  onClick={() => setForm(1)}>
-                  Usuários
-                </button>
-
-                <button
-                  type="button"
-                  className="buttonpassword"
-                  onClick={() => setForm(2)}>
-                  Cursos
-                </button>
-
+                <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
               </div>
             </div>
           }
 
           {form === 1 &&
             <div className="ModalContent">
-              <div className='flex items-center pb-2 mb-2 mx-6 rounded-t-md gap-2'>
+              <div className='ContentListsH'>
                 <button
                   type='button'
-                  className='text-verde-100 hover:text-verde-200'
+                  className='text-verde-100 hover:text-cinza-100 transition-all'
                   onClick={() => setForm(0)}
                   title='Voltar'>
-                  <CaretLeft size={32} weight="bold" />
+                  <CaretLeft size={22} weight="bold" />
                 </button>
                 <h2 className='text-verde-100'>Usuários</h2>
               </div>
 
+              <p className='text-sm my-4 pl-1 text-cinza-100'>Vincule os usuários que irão fazer este treinamento. A definição de prazo para os usuários é opcional.</p>
+
               <div className="InputArea">
-                <label>Vincular usuários <small>(opcional)</small></label>
+                <label>Vincular Usuários <small>(Opcional)</small></label>
                 <Multiselect
                   type="usuário"
                   listaArr={usuarios}
@@ -459,19 +464,21 @@ export default function GestaoTreinamentos() {
 
           {form === 2 &&
             <div className="ModalContent">
-              <div className='flex  items-center pb-2 mb-2 mx-6 rounded-t-md gap-2'>
+              <div className='ContentListsH'>
                 <button
                   type='button'
-                  className='text-verde-100 hover:text-verde-200'
+                  className='text-verde-100 hover:text-cinza-100 transition-all'
                   onClick={() => setForm(0)}
                   title='Voltar'>
-                  <CaretLeft size={32} weight="bold" />
+                  <CaretLeft size={22} weight="bold" />
                 </button>
                 <h2 className='text-verde-100'>Cursos</h2>
               </div>
 
+              <p className='text-sm my-4 pl-1 text-cinza-100'>Vincule os cursos que estarão disponíveis no treinamento.</p>
+
               <div className="InputArea">
-                <label>Vincular cursos <small>(opcional)</small></label>
+                <label>Vincular Cursos <small>(Opcional)</small></label>
                 <Multiselect
                   type="curso"
                   listaArr={cursos}
@@ -489,7 +496,7 @@ export default function GestaoTreinamentos() {
               Limpar
             </button>
             <button className="GreenBtn" type="button" onClick={handleSubmit}>
-              {isUpdating ? 'Atualizar' : 'Salvar'}
+              {isUpdating ? 'Atualizar' : 'Cadastrar'}
             </button>
           </div>
         </Modal>
@@ -504,7 +511,7 @@ export default function GestaoTreinamentos() {
           <div className="ModalHeader">
             <span>Excluir Treinamento</span>
             <button className="CloseModal" type="button" onClick={handleClose}>
-              <X size={24}/>
+              <X size={24} />
             </button>
           </div>
           <div className="ModalContent">

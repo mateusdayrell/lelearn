@@ -356,7 +356,7 @@ export default function GestaoCursos() {
             </button>
           </div>
           <div className="ModalContent">
-            <div className="form-gestao-video">
+            <div className="FormInputGestao">
               {isUpdating ? (
                 <div className="InputArea">
                   <label>Código</label>
@@ -374,7 +374,7 @@ export default function GestaoCursos() {
               )}
 
               <div className="InputArea">
-                <label>Nome</label>
+                <label>Nome *</label>
                 <input
                   type="text"
                   className='ModalInput'
@@ -412,12 +412,15 @@ export default function GestaoCursos() {
               </div>
             </div>
           </div>
+
+          <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
+
           <div className="ModalFooter">
             <button className="RedBtn" type="button" onClick={() => clearModal("limpar")}>
               Limpar
             </button>
             <button className="GreenBtn" type="button" onClick={handleSubmit}>
-              {isUpdating ? 'Atualizar' : 'Salvar'}
+              {isUpdating ? 'Atualizar' : 'Cadastrar'}
             </button>
           </div>
         </Modal>
@@ -446,6 +449,7 @@ export default function GestaoCursos() {
               </p>
             </div>
           </div>
+
           <div className="ModalFooter">
             <button
               className="GrayBtn"

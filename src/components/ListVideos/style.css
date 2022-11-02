@@ -1,0 +1,23 @@
+.ContentListVideo{
+    @apply flex items-center justify-between pl-3 my-1 text-sm text-cinza-200
+}
+
+
+.InfoListVideoSpan{
+    @apply flex items-center
+}
+.InfoListVideoSpan input{
+    @apply w-12 bg-transparent pl-2 border-none text-verde-100 font-bold text-base
+}
+.InfoListVideoSpan span{
+    @apply flex items-center gap-1
+}
+
+
+.RemoveBtnListVideo{
+    @apply flex text-sm text-cinza-200 
+    hover:text-vermelho-100 transition-all
+}
+.ArrowBtn{
+    @apply hover:text-verde-100 transition-all
+}
