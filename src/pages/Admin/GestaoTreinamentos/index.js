@@ -199,15 +199,22 @@ export default function GestaoTreinamentos() {
     clearModal();
   };
 
-  const clearModal = (parameter) => {
-    if (!parameter) setCodTreinamento('');
+  const clearModal = () => {
+    setCodTreinamento('');
+    setNome('');
+    setDescricao('');
+    setTreinUsuarios([]);
+    setTreinCursos([]);
+  };
+
+  const clearFormModal = () => {
     if (form === 0) {
       setNome('');
       setDescricao('');
     }
     if (form === 1) setTreinUsuarios([]);
     if (form === 2) setTreinCursos([]);
-  };
+  }
 
   const handleNewPage = (novoInicio, novoFim) => {
     setInicio(novoInicio)
@@ -406,7 +413,7 @@ export default function GestaoTreinamentos() {
                     Usuários
                   </button>
 
-                  <div className='BarBtnsLists'></div>
+                  <div className='BarBtnsLists' />
 
                   <button
                     type="button"
@@ -496,7 +503,7 @@ export default function GestaoTreinamentos() {
           }
 
           <div className="ModalFooter">
-            <button className="RedBtn" type="button" onClick={() => clearModal("limpar")}>
+            <button className="RedBtn" type="button" onClick={() => clearFormModal()}>
               Limpar
             </button>
             <button className="GreenBtn" type="button" onClick={handleSubmit}>
