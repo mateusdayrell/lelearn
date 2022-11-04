@@ -9,10 +9,8 @@ import axios from '../../../services/axios';
 function* loginRequest({ payload }) {
   try {
     const { data } = yield call(axios.post, '/tokens/', payload);
-    console.log(data);
-    yield put(actions.loginSuccess(data));
 
-    toast.success('Login realizado com sucesso');
+    yield put(actions.loginSuccess(data));
 
     axios.defaults.headers.Authorization = `Bearer ${data.token}`;
 
