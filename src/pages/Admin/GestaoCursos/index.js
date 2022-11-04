@@ -304,7 +304,7 @@ export default function GestaoCursos() {
               className="list"
             >
               <div className='container-information-list'>
-                <span className='cod-container-list'>{curso.cod_curso}</span>
+                {/*<span className='cod-container-list'>{curso.cod_curso}</span>*/}
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{curso.nome_curso}</span>
@@ -357,7 +357,7 @@ export default function GestaoCursos() {
           </div>
           <div className="ModalContent">
             <div className="FormInputGestao">
-              {isUpdating ? (
+              {/*{isUpdating ? (
                 <div className="InputArea">
                   <label>Código</label>
                   <input
@@ -371,7 +371,7 @@ export default function GestaoCursos() {
                 </div>
               ) : (
                 ''
-              )}
+              )}*/}
 
               <div className="InputArea">
                 <label>Nome *</label>
@@ -386,12 +386,12 @@ export default function GestaoCursos() {
               </div>
 
               <div className="InputArea">
-                <label>Foto <small>(Opcional)</small></label>
+                <label>Foto </label>
                 <FileInput handleShowFile={handleShowFoto} foto={showFoto} removeFoto={handleRemoveFoto} />
               </div>
 
               <div className="InputArea">
-                <label>Descrição <small>(Opcional)</small></label>
+                <label>Descrição </label>
                 <textarea
                   name="descricao"
                   value={descricao}
@@ -400,7 +400,7 @@ export default function GestaoCursos() {
               </div>
 
               <div className="InputArea">
-                <label>Vincular Vídeos <small>(Opcional)</small></label>
+                <label>Vincular Vídeos </label>
                 <Multiselect
                   type="vídeo"
                   listaArr={videos}

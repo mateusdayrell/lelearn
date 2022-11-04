@@ -1,5 +1,5 @@
 .ContentListUser{
-    @apply flex justify-between pl-3 my-1 items-center text-sm text-cinza-200
+    @apply flex justify-between pl-3 my-1 items-center text-sm text-cinza-100
 }
 .ListUserOptions{
     @apply flex gap-2 items-center
@@ -8,15 +8,15 @@
     @apply bg-transparent text-cinza-100 border-none h-5
 }
 .ListUserName{
-    @apply font-semibold
+    @apply font-medium
 }
 
 
 .RemoveBtnListUser{
-    @apply text-cinza-200 
+    @apply text-cinza-100 
     hover:text-vermelho-100 transition-all
 }
 .DateBtnListUser{
-    @apply text-cinza-200 
+    @apply text-cinza-100 
     hover:text-azul-100 transition-all
 }

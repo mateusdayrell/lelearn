@@ -424,7 +424,7 @@ export default function Usuario() {
               <div className='ModalBar'></div>
 
               <div className="InputArea">
-                <label>Telefone <small>(Opcional)</small></label>
+                <label>Telefone </label>
                 <InputMask
                   mask="(99) 9 9999-9999"
                   value={telefone}

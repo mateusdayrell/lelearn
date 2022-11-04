@@ -297,7 +297,7 @@ export default function GestaoVideos() {
               className="list"
             >
               <div className='container-information-list'>
-                <span className='cod-container-list'>{video.cod_video}</span>
+                {/*<span className='cod-container-list'>{video.cod_video}</span>*/}
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{video.titulo_video}</span>
@@ -353,7 +353,7 @@ export default function GestaoVideos() {
           </div>
           <div className="ModalContent">
             <div className="FormInputGestao">
-              {isUpdating ?
+              {/*{isUpdating ?
                 <div className="InputArea">
                   <label>Código</label>
                   <input
@@ -366,7 +366,7 @@ export default function GestaoVideos() {
                     onChange={(e) => setCodVideo(e.target.value)}
                   />
                 </div>
-                : ''}
+              : ''}*/}
 
               <div className="InputArea">
                 <label>Título *</label>
@@ -392,7 +392,7 @@ export default function GestaoVideos() {
                 />
               </div>
               <div className="InputArea">
-                <label>Descrição <small>(Opcional)</small></label>
+                <label>Descrição </label>
                 <textarea
                   name="descricao"
                   value={descricao}

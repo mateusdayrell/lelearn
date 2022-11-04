@@ -1,8 +1,8 @@
 .ContentListCurso{
-    @apply flex justify-between pl-3 my-1 items-center text-sm text-cinza-200
+    @apply flex justify-between pl-3 my-1 items-center text-sm text-cinza-100
 }
 
 .RemoveBtnListCurso{
-    @apply text-cinza-200 
+    @apply text-cinza-100 
     hover:text-vermelho-100 transition-all
 }

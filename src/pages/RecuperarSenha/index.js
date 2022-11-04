@@ -166,6 +166,9 @@ export default function RecuperarSenha() {
       <div className='container-body-password'>
         <div className="password-container">
           <div className='header-password'>
+            <div style={
+                currentForm !== 'form4' ? { display: 'flex' } : { display: 'none' }
+              }></div>
             <h1 className='title-password'>Recuperar Senha</h1>
             <Link
               to="/login"
@@ -319,7 +322,7 @@ export default function RecuperarSenha() {
             </div>
           </div>
         </div>
-        <div>
+        {/*<div>
           <h2>Teste</h2>
           <button
             type="button"
@@ -349,7 +352,7 @@ export default function RecuperarSenha() {
           >
             form4
           </button>
-        </div>
+            </div>*/}
       </div>
     </>
   );

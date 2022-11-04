@@ -35,6 +35,7 @@ export default function GestaoTreinamentos() {
   const [isUpdating, setIsUpdating] = useState(false);
 
   const [form, setForm] = useState(0)
+  const selected = 'bg-transparent hover:bg-transparent shadow-none text-sm p-0 text-verde-100 hover:text-verde-200 transition-all'
 
   const itemsPerPage = 10
   const [inicio, setInicio] = useState(0)
@@ -221,6 +222,10 @@ export default function GestaoTreinamentos() {
     setFim(novoFim)
   }
 
+  const handleCurrentMenu = (form) => {
+    
+  }
+
   const handleOrderChange = (array, ordem) => {
     setTreinamentos(array)
     setSearchOrdem(ordem)
@@ -326,7 +331,7 @@ export default function GestaoTreinamentos() {
               className="list"
             >
               <div className='container-information-list'>
-                <span className='cod-container-list'>{treinamento.cod_treinamento}</span>
+                {/*<span className='cod-container-list'>{treinamento.cod_treinamento}</span>*/}
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{treinamento.nome_treinamento}</span>
@@ -372,58 +377,44 @@ export default function GestaoTreinamentos() {
           ariaHideApp={false}>
 
           <div className="ModalHeader">
-            {form === 0 && <span>{isUpdating ? 'Editar' : 'Cadastrar'} treinamento</span>}
-            {form === 1 &&
-              <div className='ContentListsH'>
-                <button
-                  type='button'
-                  className='text-cinza-100 hover:text-verde-100 transition-all'
-                  onClick={() => setForm(0)}
-                  title='Voltar'>
-                  <CaretLeft size={22}/>
-                </button>
-                <h2 className='text-cinza-100'>Usuários do Treinamento</h2>
-              </div>
-            }
-            {form === 2 &&
-              <div className='ContentListsH'>
-                <button
-                  type='button'
-                  className='text-cinza-100 hover:text-verde-100 transition-all'
-                  onClick={() => setForm(0)}
-                  title='Voltar'>
-                  <CaretLeft size={22}/>
-                </button>
-                <h2 className='text-cinza-100'>Cursos do Treinamento</h2>
-              </div>
-            }
+            <span>{isUpdating ? 'Editar' : 'Cadastrar'} treinamento - <i>{nome}</i></span>
             <button className="CloseModal" type="button" onClick={handleClose}>
               <X size={24} />
+            </button>
+          </div>
+
+          <div className='ContentBtnsLists'>
+            <button
+              type='button'
+              className={handleCurrentMenu(form) ? `${selected}` : ""}
+              onClick={() => setForm(0)}>
+              Treinamento
+            </button>
+
+            <div className='BarBtnsLists' />
+
+            <button
+              type="button"
+              className={handleCurrentMenu(form) ? `${selected}` : ""}
+              onClick={() => setForm(1)}>
+              Usuários
+            </button>
+
+            <div className='BarBtnsLists' />
+
+            <button
+              type="button"
+              className={handleCurrentMenu(form) ? `${selected}` : ""}
+              onClick={() => setForm(2)}>
+              Cursos
             </button>
           </div>
 
           {form === 0 &&
             <div className="ModalContent">
               <div className="FormInputGestao">
-                <div className='ContentBtnsLists'>
-                  <button
-                    type="button"
-                    className="buttonpassword"
-                    onClick={() => setForm(1)}>
-                    Usuários
-                  </button>
 
-                  <div className='BarBtnsLists' />
-
-                  <button
-                    type="button"
-                    className="buttonpassword"
-                    onClick={() => setForm(2)}>
-                    Cursos
-                  </button>
-                </div>
-
-                {isUpdating ?
+                {/*{isUpdating ?
                   <div className="InputArea">
                     <label>Código</label>
                     <input
@@ -436,7 +427,7 @@ export default function GestaoTreinamentos() {
                       onChange={(e) => setCodTreinamento(e.target.value)}
                     />
                   </div>
-                  : ''}
+                : ''}*/}
 
                 <div className="InputArea">
                   <label>Nome *</label>
@@ -451,7 +442,7 @@ export default function GestaoTreinamentos() {
                 </div>
 
                 <div className="InputArea">
-                  <label>Descrição <small>(Opcional)</small></label>
+                  <label>Descrição</label>
                   <textarea
                     name="descricao"
                     value={descricao}
@@ -467,10 +458,10 @@ export default function GestaoTreinamentos() {
           {form === 1 &&
             <div className="ModalContent">
 
-              <p className='text-sm my-2 pl-1 text-cinza-200'>Vincule os usuários que irão fazer este treinamento. A definição de prazo para os usuários é opcional.</p>
+              <p className='text-sm my-4 pl-1 text-cinza-100'>Vincule os usuários que irão fazer este treinamento. A definição de prazo para os usuários é opcional.</p>
 
               <div className="InputArea">
-                <label>Vincular Usuários <small>(Opcional)</small></label>
+                <label>Vincular Usuários</label>
                 <Multiselect
                   type="usuário"
                   listaArr={usuarios}
@@ -486,10 +477,10 @@ export default function GestaoTreinamentos() {
           {form === 2 &&
             <div className="ModalContent">
 
-              <p className='text-sm my-2 pl-1 text-cinza-200'>Vincule os cursos que estarão disponíveis no treinamento.</p>
+              <p className='text-sm my-4 pl-1 text-cinza-100'>Vincule os cursos que estarão disponíveis no treinamento.</p>
 
               <div className="InputArea">
-                <label>Vincular Cursos <small>(Opcional)</small></label>
+                <label>Vincular Cursos</label>
                 <Multiselect
                   type="curso"
                   listaArr={cursos}

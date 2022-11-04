@@ -37,7 +37,7 @@
   @apply w-full
 }
 .Modal .InputArea{
-  @apply bg-cinza-350 my-2 px-1 rounded-md text-verde-100 border-b-2 border-verde-100 w-full
+  @apply bg-cinza-350 my-2 pt-1 px-3 rounded-md text-verde-100 border-b-2 border-verde-100 w-full
   focus-within:border-verde-200 transition-all select-none
 }
 .Modal .InputArea .ModalInput, .Modal .InputArea select, .Modal .InputArea textarea {
