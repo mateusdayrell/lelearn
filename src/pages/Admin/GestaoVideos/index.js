@@ -10,6 +10,7 @@ import Navbar from '../../../components/Navbar';
 import OrderSelect from '../../../components/OrderSelect';
 import Pagination from '../../../components/Pagination';
 import axios from '../../../services/axios';
+import DeleteModal from '../../../components/DeleteModal';
 
 const ITEMS_PER_PAGE = 10
 
@@ -297,7 +298,7 @@ export default function GestaoVideos() {
               className="list"
             >
               <div className='container-information-list'>
-                {/*<span className='cod-container-list'>{video.cod_video}</span>*/}
+                {/* <span className='cod-container-list'>{video.cod_video}</span> */}
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{video.titulo_video}</span>
@@ -353,7 +354,7 @@ export default function GestaoVideos() {
           </div>
           <div className="ModalContent">
             <div className="FormInputGestao">
-              {/*{isUpdating ?
+              {/* {isUpdating ?
                 <div className="InputArea">
                   <label>Código</label>
                   <input
@@ -366,7 +367,7 @@ export default function GestaoVideos() {
                     onChange={(e) => setCodVideo(e.target.value)}
                   />
                 </div>
-              : ''}*/}
+              : ''} */}
 
               <div className="InputArea">
                 <label>Título *</label>
@@ -409,7 +410,7 @@ export default function GestaoVideos() {
             </div>
 
             <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
-            
+
           </div>
           <div className="ModalFooter">
             <button
@@ -427,7 +428,7 @@ export default function GestaoVideos() {
           </div>
         </Modal>
 
-        <Modal
+        {/* <Modal
           isOpen={showDeleteModal}
           onRequestClose={handleClose}
           className="Modal"
@@ -469,7 +470,12 @@ export default function GestaoVideos() {
               Excluir
             </button>
           </div>
-        </Modal>
+        </Modal> */}
+
+        <DeleteModal
+          showDeleteModal={showDeleteModal} handleClose={handleClose}
+          type="vídeo" name={titulo} handleDelete={handleDelete} code={codVideo}
+        />
       </div>
     </>
   );

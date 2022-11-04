@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
-import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple, CloudArrowUp } from 'phosphor-react';
+import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple } from 'phosphor-react';
 import Modal from 'react-modal';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import { isEmail, isMobilePhone } from 'validator';
@@ -13,6 +13,7 @@ import Navbar from '../../../components/Navbar';
 import OrderSelect from '../../../components/OrderSelect';
 import Pagination from '../../../components/Pagination';
 import './style.css';
+import DeleteModal from '../../../components/DeleteModal';
 
 export default function Usuario() {
   const [usuarios, setUsuarios] = useState([]);
@@ -421,7 +422,7 @@ export default function Usuario() {
                 />
               </div>
 
-              <div className='ModalBar'></div>
+              <div className='ModalBar'/>
 
               <div className="InputArea">
                 <label>Telefone </label>
@@ -470,7 +471,7 @@ export default function Usuario() {
                 />
               </div>
 
-              <div className='ModalBar'></div>
+              <div className='ModalBar'/>
 
               <div className="InputArea">
                 <label>Confirmar senha *</label>
@@ -519,50 +520,10 @@ export default function Usuario() {
           </div>
         </Modal>
 
-        <Modal
-          isOpen={showDeleteModal}
-          onRequestClose={handleClose}
-          className="Modal"
-          overlayClassName="Overlay"
-          ariaHideApp={false}
-        >
-          <div className="ModalHeader">
-            <span>Excluir usuário</span>
-            <button
-              className="CloseModal"
-              title="Fechar modal"
-              type="button"
-              onClick={handleClose}>
-              <X size={24} />
-            </button>
-          </div>
-          <div className="ModalContent">
-            <div className="FormDelete">
-              <p>
-                Caso prossiga com a exclusão do item, o mesmo não será mais
-                recuperado.
-              </p>
-              <p>
-                Deseja realmente excluir o usuário <i>{nome}</i> ?
-              </p>
-            </div>
-          </div>
-          <div className="ModalFooter">
-            <button
-              className="GrayBtn"
-              type="button"
-              onClick={handleClose} >
-              Cancelar
-            </button>
-            <button
-              className="RedBtn"
-              type="button"
-              onClick={() => handleDelete(cpf)}
-            >
-              Excluir
-            </button>
-          </div>
-        </Modal>
+        <DeleteModal
+          showDeleteModal={showDeleteModal} handleClose={handleClose}
+          type="usuário" name={nome} handleDelete={handleDelete} code={cpf}
+        />
       </div>
     </>
   );

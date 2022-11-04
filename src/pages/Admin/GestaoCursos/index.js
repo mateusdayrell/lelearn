@@ -14,6 +14,7 @@ import Pagination from '../../../components/Pagination';
 import FileInput from '../../../components/FileInput';
 import Multiselect from '../../../components/Multiselect';
 import { orderVideos } from '../../../helpers/orderVideos';
+import DeleteModal from '../../../components/DeleteModal';
 
 const ITEMS_PER_PAGE = 10
 
@@ -304,7 +305,7 @@ export default function GestaoCursos() {
               className="list"
             >
               <div className='container-information-list'>
-                {/*<span className='cod-container-list'>{curso.cod_curso}</span>*/}
+                {/* <span className='cod-container-list'>{curso.cod_curso}</span> */}
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{curso.nome_curso}</span>
@@ -357,7 +358,7 @@ export default function GestaoCursos() {
           </div>
           <div className="ModalContent">
             <div className="FormInputGestao">
-              {/*{isUpdating ? (
+              {/* {isUpdating ? (
                 <div className="InputArea">
                   <label>Código</label>
                   <input
@@ -371,7 +372,7 @@ export default function GestaoCursos() {
                 </div>
               ) : (
                 ''
-              )}*/}
+              )} */}
 
               <div className="InputArea">
                 <label>Nome *</label>
@@ -425,47 +426,10 @@ export default function GestaoCursos() {
           </div>
         </Modal>
 
-        <Modal
-          isOpen={showDeleteModal}
-          onRequestClose={handleClose}
-          className="Modal"
-          overlayClassName="Overlay"
-          ariaHideApp={false}
-        >
-          <div className="ModalHeader">
-            <span>Excluir curso</span>
-            <button className="CloseModal" type="button" onClick={handleClose}>
-              <X size={24} />
-            </button>
-          </div>
-          <div className="ModalContent">
-            <div className="FormDelete">
-              <p>
-                Caso prossiga com a exclusão do item, o mesmo não será mais
-                recuperado.
-              </p>
-              <p>
-                Deseja realmente excluir o curso <i>{nome}</i> ?
-              </p>
-            </div>
-          </div>
-
-          <div className="ModalFooter">
-            <button
-              className="GrayBtn"
-              type="button"
-              onClick={handleClose}>
-              Cancelar
-            </button>
-            <button
-              className="RedBtn"
-              type="button"
-              onClick={() => handleDelete(codCurso)}
-            >
-              Excluir
-            </button>
-          </div>
-        </Modal>
+        <DeleteModal
+          showDeleteModal={showDeleteModal} handleClose={handleClose}
+          type="curso" name={nome} handleDelete={handleDelete} code={codCurso}
+        />
       </div>
     </>
   );

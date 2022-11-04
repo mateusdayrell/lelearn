@@ -223,7 +223,7 @@ export default function GestaoTreinamentos() {
   }
 
   const handleCurrentMenu = (form) => {
-    
+
   }
 
   const handleOrderChange = (array, ordem) => {
@@ -331,7 +331,7 @@ export default function GestaoTreinamentos() {
               className="list"
             >
               <div className='container-information-list'>
-                {/*<span className='cod-container-list'>{treinamento.cod_treinamento}</span>*/}
+                {/* <span className='cod-container-list'>{treinamento.cod_treinamento}</span> */}
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{treinamento.nome_treinamento}</span>
@@ -414,7 +414,7 @@ export default function GestaoTreinamentos() {
             <div className="ModalContent">
               <div className="FormInputGestao">
 
-                {/*{isUpdating ?
+                {/* {isUpdating ?
                   <div className="InputArea">
                     <label>Código</label>
                     <input
@@ -427,7 +427,7 @@ export default function GestaoTreinamentos() {
                       onChange={(e) => setCodTreinamento(e.target.value)}
                     />
                   </div>
-                : ''}*/}
+                : ''} */}
 
                 <div className="InputArea">
                   <label>Nome *</label>
