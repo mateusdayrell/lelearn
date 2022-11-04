@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import moment from 'moment';
-// import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import { isEmail } from 'validator';
-import { X, IdentificationCard, At, PaperPlaneRight, EnvelopeSimpleOpen, Key } from 'phosphor-react';
+import { IdentificationCard, At, PaperPlaneRight, EnvelopeSimpleOpen, Key } from 'phosphor-react';
 
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
@@ -166,18 +165,7 @@ export default function RecuperarSenha() {
       <div className='container-body-password'>
         <div className="password-container">
           <div className='header-password'>
-            <div style={
-                currentForm !== 'form4' ? { display: 'flex' } : { display: 'none' }
-              }></div>
             <h1 className='title-password'>Recuperar Senha</h1>
-            <Link
-              to="/login"
-              className='close-btn'
-              style={
-                currentForm !== 'form4' ? { display: 'flex' } : { display: 'none' }
-              }>
-              <X size={24} />
-            </Link>
           </div>
           <div className='forms'>
             <div
@@ -185,7 +173,7 @@ export default function RecuperarSenha() {
               style={
                 currentForm === 'form1' ? { display: 'flex' } : { display: 'none' }
               }>
-              <p>Para que prossigamos com a redefinição de sua senha, preenche os campos abaixo com as suas informações conforme solicitado.</p>
+              <p>Para prosseguir com a redefinição da sua senha, preencha os campos abaixo com as suas informações conforme solicitado.</p>
               <div className='input-password'>
                 <span>CPF</span>
                 <input
@@ -214,8 +202,14 @@ export default function RecuperarSenha() {
                 </span>
               </div>
               <div className='content-button-password'>
-                <button className="buttonpassword bg-verde-100" type="button" onClick={handleSendCode}>
-                  Enviar código
+                <Link  to="/login" className='justify-center'>
+                  <button type='button' className='buttonpassword bg-verde-100'>Voltar</button>
+                </Link>
+                <button
+                  className="buttonpassword bg-verde-100"
+                  type="button"
+                  onClick={handleSendCode}>
+                    Enviar código
                   <PaperPlaneRight size={22} />
                 </button>
               </div>
@@ -228,6 +222,7 @@ export default function RecuperarSenha() {
               }
             >
               <label htmlFor="">Confirme sua identidade</label>
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
               <p>Foi enviado para o email <i>"{email}"</i> um código para a redefinição de senha. Por favor, informe o código no campo abaixo.</p>
               <div className='input-password'>
                 <span>Código</span>
@@ -308,21 +303,21 @@ export default function RecuperarSenha() {
             </div>
 
             <div
-              className="form-4"
+              className="form-4 items-center gap-4"
               style={
                 currentForm === 'form4' ? { display: 'flex' } : { display: 'none' }
               }
             >
-              <label>Sua senha foi redefinida com sucesso.</label>
-              <div className='content-button-password'>
-                <Link className="buttonpassword bg-verde-100" to="/login">
+              <label>A sua senha foi redefinida com sucesso.</label>
+              <div className=''>
+                <Link className="buttonpassword px-10 bg-verde-100" to="/login">
                   Fazer login
                 </Link>
               </div>
             </div>
           </div>
         </div>
-        {/*<div>
+        <div>
           <h2>Teste</h2>
           <button
             type="button"
@@ -352,7 +347,7 @@ export default function RecuperarSenha() {
           >
             form4
           </button>
-            </div>*/}
+        </div>
       </div>
     </>
   );

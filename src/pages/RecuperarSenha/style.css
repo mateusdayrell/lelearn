@@ -1,22 +1,22 @@
 /* BODY - PAGINA */
 .container-body-password{
-  @apply min-w-[670px] min-h-[90%] w-[100%]  
+  @apply min-w-[670px] min-h-[90%] w-[100%]
 }
 /* BODY - PAGINA */
 
 /* BODY - CONTAINER RECUPERAR SENHA */
 .password-container{
-  @apply bg-cinza-400 rounded-lg shadow-md max-w-xl p-4 m-auto  mt-[120px] h-[400px] 
+  @apply bg-cinza-400 rounded-lg shadow-md max-w-2xl p-4 m-auto  mt-[120px] h-[450px]  justify-center
 
   /* TODOS OS ITEMS (FORMS, TITULOS) NO MEIO DO CONTAINER */
   flex items-center flex-col
 }
 /* CABEÇALHO */
 .header-password{
-  @apply w-full flex items-center justify-center gap-10 px-5 text-cinza-100 my-5
+  @apply w-full flex items-center justify-center gap-10 text-cinza-100
 }
 .title-password{
-  @apply text-3xl text-verde-100 font-medium select-none
+  @apply text-3xl my-6 text-verde-100 font-medium select-none
 }
 .close-btn{
   @apply hover:text-cinza-300 duration-200
@@ -24,10 +24,10 @@
 /* CABEÇALHO */
 /* FORMULARIOS */
 .forms{
-  @apply w-2/3 text-cinza-100 flex justify-center items-center h-full
+  @apply w-2/3 h-[280px] flex items-center justify-center text-cinza-100
 }
 .forms .form-1, .form-2, .form-3, .form-4{
-  @apply flex flex-col  
+  @apply flex flex-col
 }
 .forms p{
   @apply text-sm
@@ -42,7 +42,7 @@
   @apply absolute inset-y-0 left-0 top-6 flex items-center pl-2
 }
 .content-button-password{
-  @apply w-full flex flex-row-reverse my-4
+  @apply w-full flex justify-end my-4
 }
 .buttonpassword{
   @apply  hover:bg-verde-200 text-cinza-100 font-medium py-2 px-4 rounded-xl shadow m-1 duration-200 flex items-center gap-2
