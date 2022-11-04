@@ -32,7 +32,7 @@ export default function Navbar() {
 
 
   const menus = [
-    { name: "Página Inicial", link: "/home", icon: House, users: [0, 1] },
+    { name: "Página Inicial", link: "/", icon: House, users: [0, 1] },
     { name: "Cursos", link: "/cursos", icon: BookBookmark, users: [0, 1] },
     { name: "Treinamentos", link: "/treinamentos", icon: Bookmarks, users: [0, 1] },
     { name: "Gestão de Usuários", link: "/usuarios", icon: Users, users: [0], margin: true },
@@ -63,7 +63,8 @@ export default function Navbar() {
   }
 
   const handleCurrentMenu = (link) => {
-    if (window.location.href.includes(link)) return true
+    const url = process.env.REACT_APP_BASE_URL + link
+    if (window.location.href === url) return true
     return false
   }
 
@@ -144,7 +145,7 @@ export default function Navbar() {
 
 
         <div className='userinfo'>
-          <span className='avatar' onClick={() => setOpenmn(!setopen)}>
+          <span className='avatar' aria-hidden="true" onClick={() => setOpenmn(!setopen)}>
             {word1}{word2}
           </span>
           <span className={`${open && "hidden"} name`}>

@@ -28,7 +28,7 @@ export default function Routes() {
           <MyRoute exact path="/gestao-cursos" component={GestaoCursos} isClosed />
           <MyRoute exact path="/gestao-treinamentos" component={GestaoTreinamentos} isClosed />
 
-          <MyRoute exact path="/home" component={Home} />
+          <MyRoute exact path="/" component={Home} />
           <MyRoute exact path="/login" component={Login} />
           <MyRoute exat path="/recuperar-senha" component={RecuperarSenha} />
           <MyRoute exact path="/treinamentos" component={Treinamento} isClosed />
@@ -41,7 +41,7 @@ export default function Routes() {
 
       {tipoUsuario === 1 && // USUARIO COMUM
         <Switch>
-          <MyRoute exact path="/home" component={Home} />
+          <MyRoute exact path="/" component={Home} />
           <MyRoute exact path="/login" component={Login} />
           <MyRoute exat path="/recuperar-senha" component={RecuperarSenha} />
           <MyRoute exact path="/treinamentos" component={Treinamento} isClosed />
