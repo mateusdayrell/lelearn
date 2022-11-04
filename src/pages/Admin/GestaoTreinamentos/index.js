@@ -377,7 +377,7 @@ export default function GestaoTreinamentos() {
           ariaHideApp={false}>
 
           <div className="ModalHeader">
-            <span>{isUpdating ? 'Editar' : 'Cadastrar'} treinamento - <i>{nome}</i></span>
+            <span>{isUpdating ? 'Editar' : 'Cadastrar'} treinamento <i>{nome}</i></span>
             <button className="CloseModal" type="button" onClick={handleClose}>
               <X size={24} />
             </button>
