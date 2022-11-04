@@ -125,7 +125,7 @@ export default function RecuperarSenha() {
     if (diffDatas <= 0) {
       toast.error('Código expirado!');
       toast.info(
-        'Renvie um email de recuperação de senha para obter um novo código'
+        'Reenvie um email de recuperação de senha para obter um novo código'
       );
       return false;
     }
