@@ -82,7 +82,6 @@ export default function RecuperarSenha() {
       await axios.put(`/usuarios/${cpf}`, regTemp);
       setIsLoading(false);
 
-      toast.success('Senha atualizada com sucesso');
       setCurrentForm('form4');
     } catch (error) {
       setIsLoading(false);
@@ -125,7 +124,7 @@ export default function RecuperarSenha() {
     if (diffDatas <= 0) {
       toast.error('Código expirado!');
       toast.info(
-        'Reenvie um email de recuperação de senha para obter um novo código'
+        'Reenvie um email de recuperação de senha para obter um novo código.'
       );
       return false;
     }
@@ -148,10 +147,10 @@ export default function RecuperarSenha() {
       toast.error('As senhas devem ser idênticas!');
       validate = false;
     } else if (confirmPassword.length < 8) {
-      toast.error('A senha deve ter no mínimo 8 caracteres');
+      toast.error('A senha deve ter no mínimo 8 caracteres!');
       validate = false;
     } else if (confirmPassword.length > 20) {
-      toast.error('A senha deve ter no máximo 20 caracteres');
+      toast.error('A senha deve ter no máximo 20 caracteres!');
       validate = false;
     }
 
@@ -173,7 +172,7 @@ export default function RecuperarSenha() {
               style={
                 currentForm === 'form1' ? { display: 'flex' } : { display: 'none' }
               }>
-              <p>Para prosseguir com a redefinição da sua senha, preencha os campos abaixo com as suas informações conforme solicitado.</p>
+              <p>Para prosseguir com a redefinição da sua senha, preencha os campos abaixo com suas informações conforme solicitado.</p>
               <div className='input-password'>
                 <span>CPF</span>
                 <input
@@ -223,7 +222,7 @@ export default function RecuperarSenha() {
             >
               <label htmlFor="">Confirme sua identidade</label>
               {/* eslint-disable-next-line react/no-unescaped-entities */}
-              <p>Foi enviado para o email <i>"{email}"</i> um código para a redefinição de senha. Por favor, informe o código no campo abaixo.</p>
+              <p>Um código foi enviado para o email <i>"{email}"</i>. Por favor, informe o código no campo abaixo.</p>
               <div className='input-password'>
                 <span>Código</span>
                 <input
@@ -308,7 +307,7 @@ export default function RecuperarSenha() {
                 currentForm === 'form4' ? { display: 'flex' } : { display: 'none' }
               }
             >
-              <label>A sua senha foi redefinida com sucesso.</label>
+              <label>A sua senha foi redefinida com sucesso!</label>
               <div className=''>
                 <Link className="buttonpassword px-10 bg-verde-100" to="/login">
                   Fazer login
