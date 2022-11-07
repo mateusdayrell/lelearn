@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { MagnifyingGlass, CaretLeft, X, PaintBrushHousehold, Plus, PencilSimple, TrashSimple } from 'phosphor-react';
+import { MagnifyingGlass, X, PaintBrushHousehold, Plus, PencilSimple, TrashSimple } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
 // import ModalTreinamento from '../../../components/ModalTreinamento';
@@ -222,10 +222,6 @@ export default function GestaoTreinamentos() {
     setFim(novoFim)
   }
 
-  const handleCurrentMenu = (form) => {
-
-  }
-
   const handleOrderChange = (array, ordem) => {
     setTreinamentos(array)
     setSearchOrdem(ordem)
@@ -386,7 +382,7 @@ export default function GestaoTreinamentos() {
           <div className='ContentBtnsLists'>
             <button
               type='button'
-              className={handleCurrentMenu(form) ? `${selected}` : ""}
+              className={(form === 0) ? `${selected}` : ""}
               onClick={() => setForm(0)}>
               Treinamento
             </button>
@@ -395,18 +391,18 @@ export default function GestaoTreinamentos() {
 
             <button
               type="button"
-              className={handleCurrentMenu(form) ? `${selected}` : ""}
-              onClick={() => setForm(1)}>
-              Usuários
+              className={form === 2 ? `${selected}` : ""}
+              onClick={() => setForm(2)}>
+              Cursos
             </button>
 
             <div className='BarBtnsLists' />
 
             <button
               type="button"
-              className={handleCurrentMenu(form) ? `${selected}` : ""}
-              onClick={() => setForm(2)}>
-              Cursos
+              className={form === 1 ? `${selected}` : ""}
+              onClick={() => setForm(1)}>
+              Usuários
             </button>
           </div>
 
