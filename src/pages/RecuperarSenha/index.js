@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
-import { isEmail } from 'validator';
 import { IdentificationCard, At, PaperPlaneRight, EnvelopeSimpleOpen, Key } from 'phosphor-react';
 
 import Loading from '../../components/Loading';
@@ -17,7 +16,7 @@ export default function RecuperarSenha() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [currentForm, setCurrentForm] = useState('form1');
+  const [currentForm, setCurrentForm] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSendCode = async () => {
@@ -32,7 +31,7 @@ export default function RecuperarSenha() {
       await axios.post(`/send-reset-password/${cpf}`, regTemp);
       setIsLoading(false);
 
-      setCurrentForm('form2');
+      setCurrentForm(2);
       toast.success('Código enviado com sucesso!');
       return;
     } catch (error) {
@@ -61,7 +60,7 @@ export default function RecuperarSenha() {
       if (!validate) return;
 
       toast.success('Código validado com sucesso');
-      setCurrentForm('form3');
+      setCurrentForm(3);
       return;
     } catch (error) {
       setIsLoading(false);
@@ -82,7 +81,7 @@ export default function RecuperarSenha() {
       await axios.put(`/usuarios/${cpf}`, regTemp);
       setIsLoading(false);
 
-      setCurrentForm('form4');
+      setCurrentForm(4);
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
@@ -103,9 +102,6 @@ export default function RecuperarSenha() {
     if (!email) {
       toast.info('Digite um e-mail');
       validate = false;
-    } else if (!isEmail(email)) {
-      toast.error('Email inválido!');
-      validate = false;
     }
 
     return validate;
@@ -123,8 +119,10 @@ export default function RecuperarSenha() {
 
     if (diffDatas <= 0) {
       toast.error('Código expirado!');
+      setCurrentForm(1)
+      setToken('')
       toast.info(
-        'Reenvie um email de recuperação de senha para obter um novo código.'
+        'Siga os passos abaixo para obter um novo código.'
       );
       return false;
     }
@@ -170,7 +168,7 @@ export default function RecuperarSenha() {
             <div
               className="form-1"
               style={
-                currentForm === 'form1' ? { display: 'flex' } : { display: 'none' }
+                currentForm === 1 ? { display: 'flex' } : { display: 'none' }
               }>
               <p>Para prosseguir com a redefinição da sua senha, preencha os campos abaixo com suas informações conforme solicitado.</p>
               <div className='input-password'>
@@ -190,7 +188,7 @@ export default function RecuperarSenha() {
               <div className='input-password'>
                 <span>E-mail</span>
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   className='input-animation'
                   value={email}
@@ -217,7 +215,7 @@ export default function RecuperarSenha() {
             <div
               className="form-2"
               style={
-                currentForm === 'form2' ? { display: 'flex' } : { display: 'none' }
+                currentForm === 2 ? { display: 'flex' } : { display: 'none' }
               }
             >
               <label htmlFor="">Confirme sua identidade</label>
@@ -240,7 +238,7 @@ export default function RecuperarSenha() {
                 <button
                   className="buttonpassword bg-verde-100"
                   type="button"
-                  onClick={() => setCurrentForm('form1')}
+                  onClick={() => setCurrentForm(1)}
                 >
                   Voltar
                 </button>
@@ -253,7 +251,7 @@ export default function RecuperarSenha() {
             <div
               className="form-3"
               style={
-                currentForm === 'form3' ? { display: 'flex' } : { display: 'none' }
+                currentForm === 3 ? { display: 'flex' } : { display: 'none' }
               }
             >
               <label>Crie uma nova senha</label>
@@ -287,7 +285,7 @@ export default function RecuperarSenha() {
                 <button
                   className="buttonpassword bg-verde-100"
                   type="button"
-                  onClick={() => setCurrentForm('form2')}
+                  onClick={() => setCurrentForm(2)}
                 >
                   Voltar
                 </button>
@@ -304,7 +302,7 @@ export default function RecuperarSenha() {
             <div
               className="form-4 items-center gap-4"
               style={
-                currentForm === 'form4' ? { display: 'flex' } : { display: 'none' }
+                currentForm === 4 ? { display: 'flex' } : { display: 'none' }
               }
             >
               <label>A sua senha foi redefinida com sucesso!</label>
@@ -321,28 +319,28 @@ export default function RecuperarSenha() {
           <button
             type="button"
             className="btn"
-            onClick={() => setCurrentForm('form1')}
+            onClick={() => setCurrentForm(1)}
           >
             form1
           </button>
           <button
             type="button"
             className="btn"
-            onClick={() => setCurrentForm('form2')}
+            onClick={() => setCurrentForm(2)}
           >
             form2
           </button>
           <button
             type="button"
             className="btn"
-            onClick={() => setCurrentForm('form3')}
+            onClick={() => setCurrentForm(3)}
           >
             form3
           </button>
           <button
             type="button"
             className="btn"
-            onClick={() => setCurrentForm('form4')}
+            onClick={() => setCurrentForm(4)}
           >
             form4
           </button>

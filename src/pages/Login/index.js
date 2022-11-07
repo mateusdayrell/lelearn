@@ -51,7 +51,7 @@ export default function Login(props) {
                 E-mail
               </span>
               <input
-                type="text"
+                type="email"
                 name="email"
                 className="input-animation"
                 value={email}
