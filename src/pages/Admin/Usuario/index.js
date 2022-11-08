@@ -9,7 +9,6 @@ import InputMask from 'react-input-mask';
 
 import axios from '../../../services/axios';
 import Loading from '../../../components/Loading';
-import Navbar from '../../../components/Navbar';
 import OrderSelect from '../../../components/OrderSelect';
 import Pagination from '../../../components/Pagination';
 import './style.css';
@@ -255,7 +254,6 @@ export default function Usuario() {
 
   return (
     <>
-      <Navbar />
       <Loading isLoading={isLoading} />
 
       <div className="container-body">

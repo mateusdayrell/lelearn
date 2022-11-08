@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import './style.css';
-import Navbar from '../../components/Navbar';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import { orderVideos } from '../../helpers/orderVideos';
@@ -42,7 +41,6 @@ export default function Cursos() {
 
   return (
     <>
-      <Navbar />
       <Loading isLoading={isLoading} />
       <div className="container-body text-gray-50">
       <h1>Cursos</h1>

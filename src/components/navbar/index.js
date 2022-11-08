@@ -43,7 +43,7 @@ export default function Navbar() {
 
   useEffect(() => {
     getNome();
-  }, []);
+  }, [window.location.href]);
 
   const getNome = () => {
     setNomeUsuario(nome);
@@ -51,6 +51,7 @@ export default function Navbar() {
   }
 
   const handleWords = (name) => {
+    if(!name) return
     const nomes = name.toUpperCase().split(' ')
 
     if (nomes.length === 1) {
@@ -75,6 +76,9 @@ export default function Navbar() {
   };
 
   return (
+    window.location.href === `${process.env.REACT_APP_BASE_URL}/login` || window.location.href === `${process.env.REACT_APP_BASE_URL}/recuperar-senha`
+    ? ''
+    :
     <div className={` ${open ? "navbar-closed" : "navbar-open"} navbar`}>
 
       {/* LOGO */}

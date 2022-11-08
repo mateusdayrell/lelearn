@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import axios from '../../services/axios';
 import Loading from '../../components/Loading';
-import Navbar from '../../components/Navbar';
 // import './style.css';
 
 export default function Treinamento() {
@@ -22,7 +21,6 @@ export default function Treinamento() {
 
   return (
     <>
-      <Navbar />
       <Loading isLoading={isLoading} />
       <h1>Treinamentos</h1>
       <button>Olá</button>

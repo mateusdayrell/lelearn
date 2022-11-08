@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 
 import './style.css';
 // import '@vime/core/themes/default.css';
-import Navbar from '../../components/Navbar';
 import Loading from '../../components/Loading';
 import Checkbox from '../../components/Checkbox';
 import axios from '../../services/axios';
@@ -25,15 +24,15 @@ export default function Cursos() {
   const [curso, setCurso] = useState({});
   const [comentarios, setComentarios] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [ready, setReady] = useState(false);
+  // const [ready, setReady] = useState(false);
 
   useEffect(() => {
     loadRegisters(params.cod_video);
   }, []);
 
-  useEffect(() => {
-    setReady(true);
-  }, [video]);
+  // useEffect(() => {
+  //   setReady(true);
+  // }, [video]);
 
   const loadRegisters = async (codVideo) => {
     const { cod_curso } = params
@@ -81,7 +80,6 @@ export default function Cursos() {
 
   return (
     <>
-      <Navbar />
       <Loading isLoading={isLoading} />
       <div className="ml-16 flex">
         <div className="video-container">

@@ -4,7 +4,6 @@ import { get } from 'lodash';
 import { FaFileImage } from 'react-icons/fa';
 
 import './style.css';
-import Navbar from '../../components/Navbar';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 
@@ -30,7 +29,6 @@ export default function Cursos() {
 
   return (
     <>
-      <Navbar />
       <Loading isLoading={isLoading} />
       <div className="container-body">
         <h1>Cursos</h1>

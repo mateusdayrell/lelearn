@@ -7,7 +7,6 @@ import { get } from 'lodash';
 
 import './style.css';
 import Loading from '../../../components/Loading';
-import Navbar from '../../../components/Navbar';
 import axios from '../../../services/axios';
 import Pagination from '../../../components/Pagination';
 import OrderSelect from '../../../components/OrderSelect';
@@ -229,7 +228,6 @@ export default function GestaoTreinamentos() {
 
   return (
     <>
-      <Navbar />
       <Loading isLoading={isLoading} />
       <div className="container-body">
         <h1 className="title">Gestão de Treinamentos</h1>

@@ -8,7 +8,6 @@ import OrderSelect from '../../../components/OrderSelect';
 import './style.css';
 
 import axios from '../../../services/axios';
-import Navbar from '../../../components/Navbar';
 import Loading from '../../../components/Loading';
 import Pagination from '../../../components/Pagination';
 import FileInput from '../../../components/FileInput';
@@ -224,7 +223,6 @@ export default function GestaoCursos() {
 
   return (
     <>
-      <Navbar />
       <Loading isLoading={isLoading} />
       <div className="container-body g-curso-container">
         <h1 className="title">Gestão de Cursos</h1>

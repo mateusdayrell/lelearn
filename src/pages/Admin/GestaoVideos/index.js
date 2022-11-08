@@ -6,7 +6,6 @@ import { get } from 'lodash';
 
 import './style.css';
 import Loading from '../../../components/Loading';
-import Navbar from '../../../components/Navbar';
 import OrderSelect from '../../../components/OrderSelect';
 import Pagination from '../../../components/Pagination';
 import axios from '../../../services/axios';
@@ -215,7 +214,6 @@ export default function GestaoVideos() {
 
   return (
     <>
-      <Navbar />
       <Loading isLoading={isLoading} />
       <div className="container-body container-video">
         <h1 className="title">Gestão de Vídeos</h1>
@@ -427,50 +425,6 @@ export default function GestaoVideos() {
             </button>
           </div>
         </Modal>
-
-        {/* <Modal
-          isOpen={showDeleteModal}
-          onRequestClose={handleClose}
-          className="Modal"
-          overlayClassName="Overlay"
-          ariaHideApp={false}
-        >
-          <div className="ModalHeader">
-            <span>Excluir vídeo</span>
-            <button
-              className="CloseModal"
-              type="button"
-              onClick={handleClose}>
-              <X size={24} />
-            </button>
-          </div>
-          <div className="ModalContent">
-            <div className="FormDelete">
-              <p>
-                Caso prossiga com a exclusão do item, o mesmo não será mais
-                recuperado.
-              </p>
-              <p>
-                Deseja realmente excluir o vídeo <i>{titulo}</i> ?
-              </p>
-            </div>
-          </div>
-          <div className="ModalFooter">
-            <button
-              className="GrayBtn"
-              type="button"
-              onClick={handleClose} >
-              Cancelar
-            </button>
-            <button
-              className="RedBtn"
-              type="button"
-              onClick={() => handleDelete(codVideo)}
-            >
-              Excluir
-            </button>
-          </div>
-        </Modal> */}
 
         <DeleteModal
           showDeleteModal={showDeleteModal} handleClose={handleClose}
