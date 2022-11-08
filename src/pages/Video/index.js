@@ -41,7 +41,7 @@ export default function Cursos() {
     try {
       const { data } = await axios.get(`/curso-video/${cod_curso}/${cod_video}`);
       // const cursoResponse = await axios.get(`/cursos/${cod_curso}`)
-      const usuarioVideosResponde = await axios.get(`usuarios-videos/${cpf}`)
+      const usuarioVideosResponde = await axios.get(`usuarios-videos/${cpf}/${data.curso.cod_curso}`)
 
       setVideo(data.video);
       setCurso(data.curso);
@@ -59,7 +59,7 @@ export default function Cursos() {
   const handleCheckbox = async (codVideo) => {
     try {
       setIsLoading(true)
-      const { data } = await axios.put(`/usuarios-videos/${cpf}/${codVideo}`)
+      const { data } = await axios.put(`/usuarios-videos/${cpf}/${curso.cod_curso}/${codVideo}`)
       setIsLoading(false);
 
       setVideosUsuario(data)
