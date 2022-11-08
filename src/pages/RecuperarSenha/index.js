@@ -314,37 +314,6 @@ export default function RecuperarSenha() {
             </div>
           </div>
         </div>
-        <div>
-          <h2>Teste</h2>
-          <button
-            type="button"
-            className="btn"
-            onClick={() => setCurrentForm(1)}
-          >
-            form1
-          </button>
-          <button
-            type="button"
-            className="btn"
-            onClick={() => setCurrentForm(2)}
-          >
-            form2
-          </button>
-          <button
-            type="button"
-            className="btn"
-            onClick={() => setCurrentForm(3)}
-          >
-            form3
-          </button>
-          <button
-            type="button"
-            className="btn"
-            onClick={() => setCurrentForm(4)}
-          >
-            form4
-          </button>
-        </div>
       </div>
     </>
   );
