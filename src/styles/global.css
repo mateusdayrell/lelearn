@@ -10,15 +10,15 @@
 }
 
 body {
-  @apply min-h-screen;
+  @apply min-h-screen h-full bg-cinza-500 flex flex-col;
   font-family: 'Montserrat', sans-serif;
   font-family: 'Roboto', sans-serif;
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-html, body, #root {
-  @apply h-full bg-cinza-500;
+footer {
+  @apply mt-auto text-center bg-transparent z-0 opacity-80 h-12 pt-4 pb-8 border-t w-full border-cinza-300 text-gray-50 text-sm
 }
 
 a {
