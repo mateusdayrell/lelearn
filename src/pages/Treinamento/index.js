@@ -22,14 +22,16 @@ export default function Treinamento() {
   return (
     <>
       <Loading isLoading={isLoading} />
-      <h1>Treinamentos</h1>
-      <button>Olá</button>
-      <div className="container">
-        {treinamentos.map((treinamento) => (
-          <div key={treinamento.cod_treinamento}>
-            <div>{treinamento.nome_treinamento}</div>
-          </div>
-        ))}
+      <div className='container-body'>
+        <h1 className='title'>Treinamentos</h1>
+        <button>Olá</button>
+        <div className="container">
+          {treinamentos.map((treinamento) => (
+            <div key={treinamento.cod_treinamento}>
+              <div>{treinamento.nome_treinamento}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

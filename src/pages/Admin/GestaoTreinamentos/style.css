@@ -7,6 +7,6 @@
 .BarBtnsLists{
     @apply bg-cinza-200 w-[1px] h-6 mx-3 mt-3
 }
-.ContentBtnsLists button{
-    @apply bg-transparent hover:bg-transparent shadow-none text-sm p-0 mt-3 text-cinza-200 hover:text-cinza-100 transition-all
+.BtnModal{
+    @apply bg-transparent hover:bg-transparent shadow-none text-sm p-0 mt-3 text-cinza-300 hover:text-cinza-100 transition-all
 }

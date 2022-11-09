@@ -34,7 +34,7 @@ export default function GestaoTreinamentos() {
   const [isUpdating, setIsUpdating] = useState(false);
 
   const [form, setForm] = useState(0)
-  const selected = 'bg-transparent hover:bg-transparent shadow-none text-sm p-0 text-verde-100 hover:text-verde-200 transition-all'
+  const selected = 'bg-transparent hover:bg-transparent shadow-none text-sm p-0 mt-3 text-cinza-100 hover:text-cinza-300 transition-all'
 
   const itemsPerPage = 10
   const [inicio, setInicio] = useState(0)
@@ -380,7 +380,7 @@ export default function GestaoTreinamentos() {
           <div className='ContentBtnsLists'>
             <button
               type='button'
-              className={(form === 0) ? `${selected}` : ""}
+              className={(form === 0) ? `${selected}` : "BtnModal"}
               onClick={() => setForm(0)}>
               Treinamento
             </button>
@@ -389,7 +389,7 @@ export default function GestaoTreinamentos() {
 
             <button
               type="button"
-              className={form === 2 ? `${selected}` : ""}
+              className={form === 2 ? `${selected}` : "BtnModal"}
               onClick={() => setForm(2)}>
               Cursos
             </button>
@@ -398,7 +398,7 @@ export default function GestaoTreinamentos() {
 
             <button
               type="button"
-              className={form === 1 ? `${selected}` : ""}
+              className={form === 1 ? `${selected}` : "BtnModal"}
               onClick={() => setForm(1)}>
               Usuários
             </button>
