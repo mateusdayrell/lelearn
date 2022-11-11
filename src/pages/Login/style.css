@@ -1,5 +1,5 @@
 .container-body-login{
-  @apply flex items-center justify-around min-h-full
+  @apply flex items-center justify-around h-[80vh]
 }
 
 .container-login{
