@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { get } from 'lodash';
 import { FaFileImage } from 'react-icons/fa';
+import { useSelector, useDispatch } from 'react-redux';
 
 import './style.css';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 
+
 export default function Cursos() {
+  const dispatch = useDispatch();
+  const { cpf } = useSelector((state) => state.auth.usuario);
   const [cursos, setCursos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
@@ -18,7 +22,7 @@ export default function Cursos() {
 
   const getCursos = async () => {
     setIsLoading(true);
-    const { data } = await axios.get('/cursos');
+    const { data } = await axios.get(`/cursos/get-by-user/${cpf}`);
     setCursos(data);
     setIsLoading(false);
   };
@@ -31,15 +35,19 @@ export default function Cursos() {
     <>
       <Loading isLoading={isLoading} />
       <div className="container-body">
-        <h1>Cursos</h1>
+        <h1 className='title'>Cursos</h1>
         {cursos.map((curso) => (
-          <div key={curso.cod_curso} className="border p-2 text-white">
-              {get(curso, 'arquivo_url', false) ?
-                <img className='h-80 w-96' src={curso.arquivo_url} alt="Imagem do curso" />
+          <div className='flex justify-between items-center border  text-white w-full  mb-3 pr-3 '>
+          <div key={curso.cod_curso} className="flex items-center gap-3  ">
+              {get(curso, 'nome_arquivo', false) ?
+                <img className='h-[110px] w-[150px]' src={curso.nome_arquivo} alt="Imagem do curso" />
                 : <FaFileImage size={36}/>
               }
-              <h2 className='text-xl'>{curso.nome_curso}</h2>
-              <p>{curso.desc_curso}</p>
+              <div className='Cursos-info'>
+              <h2 className=''>{curso.nome_curso}</h2>
+              <p className='text-xs'>{curso.desc_curso}</p>
+              </div>
+              </div>
               <button
                 type='button'
                 className='btn'
