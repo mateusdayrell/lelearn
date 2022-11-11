@@ -41,10 +41,17 @@
   @apply flex my-2 items-center 
 }
 .list-content-open a span{
-  @apply hover:text-verde-100 ml-1
+  @apply ml-1 transition-all
 }
 .list-content-open a .icons{
-  @apply w-8 h-8 hover:bg-verde-100 flex items-center justify-center rounded-md hover:text-cinza-500
+  @apply w-8 h-8 flex items-center justify-center rounded-md transition-all
+}
+
+.list-content-open a:hover .icons{
+  @apply bg-verde-100 text-cinza-500
+}
+.list-content-open a:hover span{
+  @apply text-verde-100
 }
 /* CONTEINER DO MEIO - LINKS */
 
@@ -64,10 +71,4 @@
   select-none shadow-md
 }
 
-.optionsmenu{
-  @apply w-10 flex flex-col duration-500 pl-2 my-2
-}
-.optionsmenu .link{
-  @apply w-10 flex text-sm hover:text-verde-100 duration-150 gap-2
-}
 /* CONTEINER INFERIOR - INFORMAÇÕES DO USUÁRIO */
