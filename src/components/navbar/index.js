@@ -24,11 +24,13 @@ export default function Navbar() {
   const { nome, tipo } = useSelector((state) => state.auth.usuario); // TIPO -> 0 === ADMINISTRADOR, TIPO -> 1 === USUARIO COMUM
 
   const selected = "w-8 h-8 bg-verde-100 hover:bg-verde-200 flex items-center justify-center rounded-md text-cinza-500 shadow-md"
+  const selectedtitle = "text-verde-100";
   const [nomeUsuario, setNomeUsuario] = useState('Não logado');
   const [open, setOpen] = useState(true);
   const [setopen, setOpenmn] = useState(true);
   const [word1, setWord1] = useState('')
   const [word2, setWord2] = useState('')
+  const [menuLink, setMenuLink] = useState('/')
 
 
   const menus = [
@@ -63,10 +65,12 @@ export default function Navbar() {
     }
   }
 
-  const handleCurrentMenu = (link) => {
-    const url = process.env.REACT_APP_BASE_URL + link
-    if (window.location.href === url) return true
-    return false
+  const handleCurrentMenu = () => {
+    menus.forEach(el => {
+      const url = process.env.REACT_APP_BASE_URL + el.link
+      if (window.location.href === url) setMenuLink(el.link)
+    });
+    return true
   }
 
   const handleLogout = (e) => {
@@ -110,16 +114,19 @@ export default function Navbar() {
 
       {/* ICONES */}
       <div
+        onClick={handleCurrentMenu}
+        aria-hidden="true"
         className={`${open ? "list-content-closed" : "list-content-open"} list-content`}
       >
         {menus?.map((menu, i) => (
           menu.users.includes(tipo) ? // Verificar tipo do usuário
             <Link to={menu?.link} key={menu.link} className="group">
               <div
-                className={handleCurrentMenu(menu.link) ? `${selected}` : "icons"}> {React.createElement(menu?.icon, { size: "24" })} </div>
+                className={menuLink === menu.link ? `${selected}` : "icons"}> {React.createElement(menu?.icon, { size: "24" })} </div>
               <span
                 style={{ transitionDelay: `${i + 4}0ms`, }}
-                className={`whitespace-pre duration-500 ${open && "hidden"} `}
+                className={menuLink === menu.link && !open ? `${selectedtitle} whitespace-pre duration-500` : `${open  && "hidden"}`}
+                // className={`whitespace-pre duration-500 ${open && "hidden"} `}
               >
                 {menu?.name}
               </span>
