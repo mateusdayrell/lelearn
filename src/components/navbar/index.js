@@ -143,7 +143,6 @@ export default function Navbar() {
         {/* USUARIO */}
         <div className={` ${open ? "profile-content-closed" : "profile-content-open"} profile-content`}>
 
-          {/* <div className={open && setopen ? `${setopen && "hidden"}` : ``}>    */}
           <div className={`${setopen ? "hidden" : ""}  w-10 flex flex-col duration-500 pl-2 my-2`}>
             <Link onClick={handleLogout} className={`${setopen && "hidden"} w-10 flex text-sm hover:text-verde-100 duration-150 gap-2`} to="/login">
               <div><SignOut size={20} /></div>

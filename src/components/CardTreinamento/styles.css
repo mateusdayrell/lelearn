@@ -1,0 +1,12 @@
+.CardContainer{
+    @apply w-52 h-52 border border-cinza-100 shadow-md transition-all
+}
+.TopCard{
+    @apply w-full h-20 flex items-center justify-center bg-roxo-100 text-laranja-100
+}
+
+
+.BtnCardTreinamento{
+    @apply flex items-center justify-center gap-1 w-24 h-8 border border-azul-100 text-azul-100 rounded-sm 
+    hover:bg-azul-100 hover:text-cinza-500 transition-all shadow-md
+}
