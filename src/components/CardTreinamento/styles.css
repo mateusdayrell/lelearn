@@ -1,25 +1,18 @@
 .CardContainer{
-    @apply w-52 h-52 border border-cinza-100 shadow-md transition-all
+    @apply w-60 h-52 bg-cinza-400 border border-cinza-400 rounded-lg shadow-md transition-all
 }
 .TopCard{
-    @apply w-full h-10 flex justify-end bg-cinza-100 transition-all
+    @apply w-full h-2 flex justify-end bg-roxo-100 transition-all rounded-t-lg
 }
-.CardContainer:hover .TopCard{
-    @apply h-12 bg-azul-100
-}
-.CardContainer:hover .NomeTreinamento{
-    @apply text-azul-100
-}
+
 .CardContainer:hover{
-    @apply border-azul-200
+    @apply border border-roxo-100
 }
 
 
 .NomeTreinamento{
-    @apply text-cinza-100 text-lg
+    @apply text-laranja-100 text-lg
 }
-
-
 .BtnCardTreinamento{
     @apply flex items-center justify-center gap-1 w-24 h-8 border border-azul-100 text-azul-100 rounded-sm 
     hover:bg-azul-100 hover:text-cinza-500 transition-all shadow-md
