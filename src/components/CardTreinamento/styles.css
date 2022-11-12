@@ -2,7 +2,21 @@
     @apply w-52 h-52 border border-cinza-100 shadow-md transition-all
 }
 .TopCard{
-    @apply w-full h-20 flex items-center justify-center bg-roxo-100 text-laranja-100
+    @apply w-full h-10 flex justify-end bg-cinza-100 transition-all
+}
+.CardContainer:hover .TopCard{
+    @apply h-12 bg-azul-100
+}
+.CardContainer:hover .NomeTreinamento{
+    @apply text-azul-100
+}
+.CardContainer:hover{
+    @apply border-azul-200
+}
+
+
+.NomeTreinamento{
+    @apply text-cinza-100 text-lg
 }
 
 
