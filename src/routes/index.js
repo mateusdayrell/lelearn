@@ -10,7 +10,7 @@ import Home from '../pages/Home';
 import Video from '../pages/Video';
 import Cursos from '../pages/Cursos';
 import Curso from '../pages/Curso';
-import Treinamento from '../pages/Treinamento';
+import Treinamento from '../pages/Treinamentos';
 import Error from '../pages/Error';
 import Usuario from '../pages/Admin/Usuario';
 import GestaoVideos from '../pages/Admin/GestaoVideos';
