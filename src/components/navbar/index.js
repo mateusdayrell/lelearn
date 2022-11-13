@@ -27,7 +27,7 @@ export default function Navbar() {
   const selectedtitle = "text-verde-100";
   const [nomeUsuario, setNomeUsuario] = useState('Não logado');
   const [open, setOpen] = useState(true);
-  const [setopen, setOpenmn] = useState(true);
+  const [setopen, setOpenmn] = useState(false);
   const [word1, setWord1] = useState('')
   const [word2, setWord2] = useState('')
   const [menuLink, setMenuLink] = useState('/')
@@ -143,13 +143,13 @@ export default function Navbar() {
         {/* USUARIO */}
         <div className={` ${open ? "profile-content-closed" : "profile-content-open"} profile-content`}>
 
-          <div className={open === true && setopen === true ? `${setopen ? "" : ""}absolute p-3 w-40 rounded-md bg-cinza-350 bottom-4 -right-44 shadow-md` : `${setopen ? "" : "hidden"}  w-10 flex flex-col duration-500 pl-2 my-2`}>
-            <Link onClick={handleLogout} className="w-10 flex text-sm hover:text-verde-100 duration-150 gap-2" to="/login">
+          <div className={open === true && setopen === true ? `${setopen ? "" : ""}absolute p-2 w-40 rounded-md bg-cinza-350 bottom-4 -right-44 shadow-md` : `${setopen ? "" : "hidden"}  w-10 flex flex-col duration-500 pl-2 my-2`}>
+            <Link onClick={handleLogout} className="flex mr-6 text-sm hover:text-vermelho-100 duration-150 gap-2" to="/login">
               <div><SignOut size={20} /></div>
               Sair
             </Link>
             {/* className={`${setopen && "hidden"} w-10 flex text-sm hover:text-verde-100 duration-150 gap-2`} */}
-            <span className={`${!open && "hidden"} text-center flex justify-center mt-2 text-azul-100`}>
+            <span className={`${!open && "hidden"} text-center flex justify-center select-none mt-3`}>
               {nomeUsuario}
             </span>
           </div>
