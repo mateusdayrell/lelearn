@@ -45,6 +45,7 @@ export default function Navbar() {
 
   useEffect(() => {
     getNome();
+    handleCurrentMenu();
   }, [window.location.href]);
 
   const getNome = () => {
