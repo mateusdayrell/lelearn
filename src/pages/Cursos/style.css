@@ -1,8 +1,16 @@
-.curso{
-  border: 1px solid #000;
-  padding: 5px;
-  margin: 0 5px;
+
+.search-containers{
+  @apply  bg-cinza-400 w-[50%] min-w-[50%] pl-3 pr-3 rounded-xl shadow-md   mb-4
 }
-.Cursos-info{
-@apply flex-col flex w-1/2
+.Cursos-info {
+  @apply flex-col flex w-1/2 
+}
+.list-cursos {
+  @apply flex justify-between items-center bg-cinza-400 border border-cinza-400 shadow-md transition-all text-white w-full mb-3 pr-3
+}
+.list-cursos:hover {
+  @apply border border-green-500
+}
+.acessar-button {
+  @apply hover:bg-verde-200 text-white font-semibold py-2 px-4 rounded-xl shadow-md m-1 duration-200 h-[60px] w-[60px] flex justify-center
 }
