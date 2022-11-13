@@ -4,6 +4,7 @@ import { Lightning } from 'phosphor-react';
 import './styles.css';
 
 export default function CardTreinamento({ treinamento }) {
+    console.log(treinamento);
     return (
         <div className='CardContainer'>
             <div className='TopCard'></div>
@@ -11,7 +12,7 @@ export default function CardTreinamento({ treinamento }) {
                 <div className='flex flex-col'>
                     <span className='text-xs text-cinza-200'>Prazo do Usuário</span>
                     <span className='NomeTreinamento'>{treinamento.nome_treinamento}</span>
-                    {/* <small>{treinamento.desc_treinamento}</small> */}
+                    <small className='DescTreinamento'>{treinamento.desc_treinamento}</small>
                 </div>
             </div>
             <div className='w-full flex items-center justify-center'>
