@@ -229,7 +229,6 @@ export default function GestaoCursos() {
 
         <div className="top-forms-container">
           <div className="search-container">
-
             <div className="search-form">
               <div className='search-container-inputs'>
                 <input

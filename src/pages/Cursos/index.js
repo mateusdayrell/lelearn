@@ -1,19 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { get } from 'lodash';
-import { FaFileImage } from 'react-icons/fa';
+import { FaCaretRight, FaFileImage } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
+import { MagnifyingGlass, PaintBrushHousehold } from 'phosphor-react';
 
 import './style.css';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 
-
 export default function Cursos() {
   const { cpf } = useSelector((state) => state.auth.usuario);
   const [cursos, setCursos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchNome, setSearchNome] = useState('');
   const history = useHistory();
+  useEffect(() => {
+    loadRegisters();
+  }, []);
+  
+  const loadRegisters = async () => {
+    setIsLoading(true);
+    try {
+      const cursosResponse = await axios.get('/cursos/');
+      const videosReponse = await axios.get('/videos/');
+      setIsLoading(false);
+      setCursos(cursosResponse.data);
+      setVideos(videosReponse.data)
+    } catch (error) {
+      setIsLoading(false);
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
+  };
 
   useEffect(() => {
     getCursos();
@@ -25,6 +44,28 @@ export default function Cursos() {
     setCursos(data);
     setIsLoading(false);
   };
+  const clearSearch = () => {
+    setSearchNome('');
+    loadRegisters();
+  };
+
+  const handleSearch = async () => {
+    const querys = new URLSearchParams({
+      nome_curso: searchNome
+    }).toString();
+
+    setIsLoading(true);
+    try {
+      const { data } = await axios.get(`/cursos/search/${querys}`);
+
+      setIsLoading(false);
+      setCursos(data);
+    } catch (error) {
+      setIsLoading(false);
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
+  };
 
   const handleRedirect = (cod_curso) => {
     history.push(`/cursos/${cod_curso}`);
@@ -33,27 +74,71 @@ export default function Cursos() {
   return (
     <>
       <Loading isLoading={isLoading} />
+
       <div className="container-body">
         <h1 className='title'>Cursos</h1>
+
+        
+        <div className='top-forms-container'>
+          <div className="search-containers">
+            <div className="search-form">
+              <div className='search-container-inputs'>
+                <input
+
+                  className='search-input'
+                  type="text"
+                  name="titulo"
+                  placeholder="Nome do curso"
+                  value={searchNome}
+                  onChange={(e) => setSearchNome(e.target.value)}
+                />
+                </div>
+                <div className="search-container-buttons">
+                  <button
+                    title="Pesquisar"
+                    className="green-btn mt-3 mb-3 h-10 w-10"
+                    type="button"
+                    onClick={handleSearch}
+                  >
+                    <MagnifyingGlass
+                      size={24} />
+                  </button>
+
+                  <button
+                    title="Limpar campos"
+                    className="red-btn mt-3 mb-3 h-10 w-10"
+                    type="button"
+                    onClick={clearSearch}>
+                    <PaintBrushHousehold size={24} />
+                  </button>
+                </div>
+              </div>
+            
+          </div>
+        </div>
+
         {cursos.map((curso) => (
-          <div className='flex justify-between items-center border  text-white w-full  mb-3 pr-3 '>
-          <div key={curso.cod_curso} className="flex items-center gap-3  ">
+          <div className='list-cursos'>
+            <div key={curso.cod_curso} className="flex items-center gap-3  ">
               {get(curso, 'nome_arquivo', false) ?
                 <img className='h-[110px] w-[150px]' src={`${process.env.REACT_APP_BACKEND_URL}/images/${curso.nome_arquivo}`} alt="Imagem do curso" />
-                : <FaFileImage size={36}/>
+                : <FaFileImage size={36} />
               }
+
               <div className='Cursos-info'>
-              <h2 className=''>{`${process.env.REACT_APP_BACKEND_URL}/${curso.nome_arquivo}`}</h2>
-              <p className='text-xs'>{curso.desc_curso}</p>
+                <h2 className=''>{`${curso.nome_curso}`}</h2>
+                <p className='text-xs'>{curso.desc_curso}</p>
               </div>
-              </div>
-              <button
-                type='button'
-                className='btn'
-                onClick={() => handleRedirect(curso.cod_curso)}
-              >
-                Acessar
-              </button>
+            </div>
+            <button
+              type='button'
+              className='acessar-button  bg-cinza-500 shadow-md'
+              onClick={() => handleRedirect(curso.cod_curso)}
+            >
+              <FaCaretRight
+                className='items-center m-auto p-auto'
+                size={37} />
+            </button>
           </div>
         ))}
       </div>
