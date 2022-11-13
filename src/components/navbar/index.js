@@ -143,7 +143,18 @@ export default function Navbar() {
         {/* USUARIO */}
         <div className={` ${open ? "profile-content-closed" : "profile-content-open"} profile-content`}>
 
-          <div className={`${setopen ? "hidden" : ""}  w-10 flex flex-col duration-500 pl-2 my-2`}>
+          <div className={open === true && setopen === true ? `${setopen ? "" : ""}absolute p-3 w-40 rounded-md bg-cinza-350 bottom-4 -right-44 shadow-md` : `${setopen ? "" : "hidden"}  w-10 flex flex-col duration-500 pl-2 my-2`}>
+            <Link onClick={handleLogout} className="w-10 flex text-sm hover:text-verde-100 duration-150 gap-2" to="/login">
+              <div><SignOut size={20} /></div>
+              Sair
+            </Link>
+            {/* className={`${setopen && "hidden"} w-10 flex text-sm hover:text-verde-100 duration-150 gap-2`} */}
+            <span className={`${!open && "hidden"} text-center flex justify-center mt-2 text-azul-100`}>
+              {nomeUsuario}
+            </span>
+          </div>
+
+          {/* <div className={`${setopen ? "hidden" : ""}  w-10 flex flex-col duration-500 pl-2 my-2`}>
             <Link onClick={handleLogout} className={`${setopen && "hidden"} w-10 flex text-sm hover:text-verde-100 duration-150 gap-2`} to="/login">
               <div><SignOut size={20} /></div>
               Sair
@@ -151,7 +162,7 @@ export default function Navbar() {
             <span className={`${!open && "hidden"}`}>
               {nomeUsuario}
             </span>
-          </div>
+          </div> */}
 
           <div className='userinfo'>
             <span className='avatar' aria-hidden="true" onClick={() => setOpenmn(!setopen)}>

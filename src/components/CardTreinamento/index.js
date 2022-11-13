@@ -11,7 +11,7 @@ export default function CardTreinamento({ treinamento }) {
                 <div className='flex flex-col'>
                     <span className='text-xs text-cinza-200'>Prazo do Usuário</span>
                     <span className='NomeTreinamento'>{treinamento.nome_treinamento}</span>
-                    <small>{treinamento.desc_treinamento}</small>
+                    {/* <small>{treinamento.desc_treinamento}</small> */}
                 </div>
             </div>
             <div className='w-full flex items-center justify-center'>
