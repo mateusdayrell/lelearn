@@ -27,6 +27,7 @@ export default function GestaoTreinamentos() {
   const [searchUsuario, setSearchUsuario] = useState('');
   const [searchCurso, setSearchCurso] = useState('');
   const [searchOrdem, setSearchOrdem] = useState('nome_treinamento asc')
+  const [query, setQuery] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
   const [shwoFormModal, setShowFormModal] = useState(false);
@@ -47,7 +48,9 @@ export default function GestaoTreinamentos() {
   const loadRegisters = async () => {
     setIsLoading(true);
     try {
-      const treinamentosResponse = await axios.get('/treinamentos/');
+      const treinamentosResponse = query.length > 0
+        ? await axios.get(`/treinamentos/search/${query}`)
+        : await axios.get('/treinamentos/');
       const usuariosResponse = await axios.get('/usuarios/');
       const cursosResponse = await axios.get('/cursos/');
       setIsLoading(false);
@@ -68,6 +71,8 @@ export default function GestaoTreinamentos() {
       cpf: searchUsuario,
       cod_curso: searchCurso,
     }).toString();
+
+    setQuery(querys);
 
     setIsLoading(true);
     try {
@@ -143,10 +148,10 @@ export default function GestaoTreinamentos() {
       toast.error('O campo Nome deve ter entre 3 e 30 caracteres');
     }
 
-    if (descricao.length > 0 && descricao.length < 3) {
+    if (descricao && descricao.length > 0 && descricao.length < 3) {
       controle = false;
       toast.error('O campo Descrição deve ter no mínimo 3 caracteres!');
-    } else if (descricao.length > 150) {
+    } else if (descricao && descricao.length > 150) {
       controle = false;
       toast.error('O campo Descrição deve ter no máximo 150 caracteres!');
     }
