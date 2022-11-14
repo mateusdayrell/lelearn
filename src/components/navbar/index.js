@@ -10,6 +10,7 @@ import {
   CaretDoubleRight,
   House,
   CaretUp,
+  X,
 } from 'phosphor-react';
 
 import { Link } from 'react-router-dom';
@@ -146,6 +147,7 @@ export default function Navbar() {
         <div className={` ${open ? "profile-content-closed" : "profile-content-open"} profile-content`}>
 
           <div className={open === true && setopen === true ? `${setopen ? "" : ""}absolute p-2 w-40 rounded-md bg-cinza-350 bottom-4 -right-44 shadow-md` : `${setopen ? "" : "hidden"}  w-10 flex flex-col duration-500 pl-2 my-2`}>
+            {/* <X size={20} className={`${!open && "hidden"} absolute left-32`} onClick={() => setOpenmn(!setopen)}/> */}
             <Link onClick={handleLogout} className="flex mr-6 text-sm hover:text-vermelho-100 duration-150 gap-2" to="/login">
               <div><SignOut size={20} /></div>
               Sair
@@ -155,16 +157,6 @@ export default function Navbar() {
               {nomeUsuario}
             </span>
           </div>
-
-          {/* <div className={`${setopen ? "hidden" : ""}  w-10 flex flex-col duration-500 pl-2 my-2`}>
-            <Link onClick={handleLogout} className={`${setopen && "hidden"} w-10 flex text-sm hover:text-verde-100 duration-150 gap-2`} to="/login">
-              <div><SignOut size={20} /></div>
-              Sair
-            </Link>
-            <span className={`${!open && "hidden"}`}>
-              {nomeUsuario}
-            </span>
-          </div> */}
 
           <div className='userinfo'>
             <span className='avatar' aria-hidden="true" onClick={() => setOpenmn(!setopen)}>
