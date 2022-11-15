@@ -14,3 +14,13 @@
 .acessar-button {
   @apply hover:bg-verde-200 text-white font-semibold py-2 px-4 rounded-xl shadow-md m-1 duration-200 h-[60px] w-[60px] flex justify-center
 }
+.play-button{
+  @apply items-center m-[auto] p-[auto] 
+}
+
+.msg-button{
+  @apply hidden  mb-2 pb-2
+}
+.acessar-button:hover .msg-button{
+  @apply flex text-[11px]  text-green-500 
+}

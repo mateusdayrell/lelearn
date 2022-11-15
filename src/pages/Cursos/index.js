@@ -130,15 +130,19 @@ export default function Cursos() {
                 <p className='text-xs'>{curso.desc_curso}</p>
               </div>
             </div>
+
+            <div className='acessar-button  bg-cinza-500 shadow-md '>
             <button
               type='button'
-              className='acessar-button  bg-cinza-500 shadow-md'
+              className=''
               onClick={() => handleRedirect(curso.cod_curso)}
             >
               <FaCaretRight
-                className='items-center m-auto p-auto'
+                className='play-button'
                 size={37} />
+                <p className='msg-button'>Acessar</p>
             </button>
+          </div>
           </div>
         ))}
       </div>
