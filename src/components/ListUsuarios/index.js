@@ -11,9 +11,8 @@ export default function ListUsuarios({ treinUsuarios, setTreinUsuarios, handleRe
   const handleData = (date, index) => {
     const arr = [...treinUsuarios]
 
-    const dateFormat = moment(date, 'YYYY-MM-DD').format("YYYY-MM-DD")
-    arr[index].treinamentos_usuarios.prazo = dateFormat
-
+    const dateFormated = moment(date, 'YYYY-MM-DD').format("YYYY-MM-DD")
+    arr[index].treinamentos_usuarios.prazo = dateFormated
     setTreinUsuarios(arr)
   }
 
@@ -32,7 +31,7 @@ export default function ListUsuarios({ treinUsuarios, setTreinUsuarios, handleRe
         <div className='ListUserOptions'>
           {usuario.treinamentos_usuarios.prazo || showInput === usuario.cpf ?
             <>
-              <input type="date" value={moment(usuario.treinamentos_usuarios.prazo).format('YYYY-MM-DD')} onChange={e => handleData(e.target.value, i)} />
+              <input type="date" value={moment(usuario.treinamentos_usuarios.prazo, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')} onChange={e => handleData(e.target.value, i)} />
               <button
                 type='button'
                 onClick={() => clearData(i)}
