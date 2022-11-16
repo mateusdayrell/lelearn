@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
-import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple } from 'phosphor-react';
+import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple, Eye, MinusCircle } from 'phosphor-react';
 import Modal from 'react-modal';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import { isEmail, isMobilePhone } from 'validator';
@@ -28,6 +28,7 @@ export default function Usuario() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [tipo, setTipo] = useState('');
+  const [deleted, setDeleted] = useState(false)
 
   const [searchNome, setSearchNome] = useState('');
   const [searchCpf, setSearchCpf] = useState('');
@@ -145,6 +146,7 @@ export default function Usuario() {
     setPassword('');
     setConfirmPassword('');
     setTipo(usuario.tipo);
+    setDeleted(!!usuario.deleted_at)
     setShowFromModal(true);
     setIsUpdating(true);
   };
@@ -152,6 +154,7 @@ export default function Usuario() {
   const handleIsDeleting = (usuario) => {
     setCpf(usuario.cpf);
     setNome(usuario.nome)
+    setDeleted(!!usuario.deleted_at)
     setShowDeleteModal(true);
   };
 
@@ -228,6 +231,7 @@ export default function Usuario() {
     setPassword('');
     setConfirmPassword('');
     setTipo('');
+    setDeleted(false)
   };
 
   const clearSearch = () => {
@@ -375,19 +379,25 @@ export default function Usuario() {
               <span className='buttons-container-list'>
                 <button
                   type="button"
-                  title="Editar"
+                  title={usuario.deleted_at ? "Visualizar" : "Editar"}
                   className='round-green-btn'
                   onClick={() => handleIsUpdating(usuario)}
                 >
-                  <PencilSimple size={20} />
+                  {usuario.deleted_at
+                    ? <Eye size={20} />
+                    : <PencilSimple size={20} />
+                  }
                 </button>
                 <button
                   type="button"
-                  title="Excluir"
+                  title={usuario.deleted_at ? "Excluir" : "Desativar"}
                   className='red-btn'
                   onClick={() => handleIsDeleting(usuario)}
                 >
-                  <TrashSimple size={20} />
+                  {usuario.deleted_at
+                    ? <TrashSimple size={20} />
+                    : <MinusCircle size={20} />
+                  }
                 </button>
               </span>
             </div>
@@ -412,7 +422,8 @@ export default function Usuario() {
           ariaHideApp={false}
         >
           <div className="ModalHeader">
-            <span>{isUpdating ? 'Editar' : 'Cadastrar'} usuário</span>
+            {/* eslint-disable-next-line no-nested-ternary */}
+            <span>{isUpdating ? deleted ? 'Visualizar' : 'Editar' : 'Cadastrar'} usuário</span>
             <button
               className="CloseModal"
               type="button"
@@ -445,6 +456,7 @@ export default function Usuario() {
                 <InputMask
                   mask="(99) 9 9999-9999"
                   value={telefone}
+                  disabled={deleted}
                   type="text"
                   className='ModalInput'
                   name="telefone"
@@ -458,6 +470,7 @@ export default function Usuario() {
               <input
                 type="text"
                 className='ModalInput'
+                disabled={deleted}
                 name="nome"
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
@@ -469,6 +482,7 @@ export default function Usuario() {
               <input
                 type="email"
                 className='ModalInput'
+                disabled={deleted}
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -481,6 +495,7 @@ export default function Usuario() {
                 <input
                   type="password"
                   className='ModalInput'
+                  disabled={deleted}
                   name="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -494,6 +509,7 @@ export default function Usuario() {
                 <input
                   type="password"
                   className='ModalInput'
+                  disabled={deleted}
                   name="confirmPassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -506,6 +522,7 @@ export default function Usuario() {
               <select
                 name="tipo"
                 id="tipo"
+                disabled={deleted}
                 value={tipo}
                 onChange={(e) => setTipo(e.target.value)}
               >
@@ -518,26 +535,39 @@ export default function Usuario() {
             </div>
           </div>
 
-          <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
+          {!deleted ?
+            <>
+            <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
 
-          <div className="ModalFooter">
-            <button
-              className="RedBtn"
-              type="button"
-              onClick={() => clearModal("limpar")}>
-              Limpar
-            </button>
-            <button
-              className="GreenBtn"
-              type="submit"
-              onClick={handleSubmit}>
-              {isUpdating ? 'Atualizar' : 'Cadastrar'}
-            </button>
-          </div>
+            <div className="ModalFooter">
+              <button
+                className="RedBtn"
+                type="button"
+                onClick={() => clearModal("limpar")}>
+                Limpar
+              </button>
+              <button
+                className="GreenBtn"
+                type="submit"
+                onClick={handleSubmit}>
+                {isUpdating ? 'Atualizar' : 'Cadastrar'}
+              </button>
+            </div>
+            </>
+          :
+            <div className="ModalFooter">
+              <button
+                className="GrayBtn"
+                type="button"
+                onClick={handleClose}>
+                Fechar
+              </button>
+            </div>
+          }
         </Modal>
 
         <DeleteModal
-          showDeleteModal={showDeleteModal} handleClose={handleClose}
+          showDeleteModal={showDeleteModal} handleClose={handleClose} deleted={deleted}
           type="usuário" name={nome} handleDelete={handleDelete} code={cpf}
         />
       </div>
