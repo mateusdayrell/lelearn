@@ -32,7 +32,8 @@ export default function Usuario() {
   const [searchNome, setSearchNome] = useState('');
   const [searchCpf, setSearchCpf] = useState('');
   const [searchTipo, setSearchTipo] = useState('');
-  const [searchOrdem, setSearchOrdem] = useState('')
+  const [searchOrdem, setSearchOrdem] = useState('');
+  const [searchStatus, setSearchStatus] = useState('ativo');
 
   const itemsPerPage = 10
   const [inicio, setInicio] = useState(0)
@@ -61,13 +62,14 @@ export default function Usuario() {
       cpf: searchCpf,
       nome: searchNome,
       tipo: searchTipo,
+      status: searchStatus
     }).toString();
 
     setIsLoading(true);
     try {
       let response = null;
 
-      if (searchCpf || searchNome || searchTipo) {
+      if (searchCpf || searchNome || searchTipo || searchStatus) {
         response = await axios.get(`/usuarios/search/${querys}`);
       } else {
         response = await axios.get('/usuarios/');
@@ -232,6 +234,7 @@ export default function Usuario() {
     setSearchCpf('');
     setSearchNome('');
     setSearchTipo('');
+    setSearchStatus('ativo')
     loadRegisters();
   };
 
@@ -295,6 +298,21 @@ export default function Usuario() {
                   </option>
                   <option value="0">Administrador</option>
                   <option value="1">Usuário comum</option>
+                </select>
+
+                <select
+                  className="search-input"
+                  name="status"
+                  id="status"
+                  value={searchStatus}
+                  onChange={(e) => setSearchStatus(e.target.value)}
+                >
+                  <option value="" disabled>
+                    Selecione um status
+                  </option>
+                  <option value="ativo">Ativo</option>
+                  <option value="inativo">Inativo</option>
+                  <option value="ambos">Ambos</option>
                 </select>
               </div>
 
