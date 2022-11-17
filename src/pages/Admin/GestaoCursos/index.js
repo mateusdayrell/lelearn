@@ -1,8 +1,9 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Modal from 'react-modal';
 import { get } from 'lodash';
-import { MagnifyingGlass, PaintBrushHousehold, PencilSimple, Plus, TrashSimple, X } from 'phosphor-react';
+import { MagnifyingGlass, PaintBrushHousehold, PencilSimple, Plus, TrashSimple, X, Eye, MinusCircle } from 'phosphor-react';
 import OrderSelect from '../../../components/OrderSelect';
 
 import './style.css';
@@ -27,10 +28,12 @@ export default function GestaoCursos() {
   const [cursoVideos, setCursoVideos] = useState([])
   const [foto, setFoto] = useState(null)
   const [showFoto, setShowFoto] = useState('')
+  const [deleted, setDeleted] = useState(false)
 
   const [searchNome, setSearchNome] = useState('');
   const [searchVideo, setSearchVideo] = useState('')
   const [searchOrdem, setSearchOrdem] = useState('');
+  const [searchStatus, setSearchStatus] = useState('ativo');
 
   const [isLoading, setIsLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -67,15 +70,21 @@ export default function GestaoCursos() {
   const handleSearch = async () => {
     const querys = new URLSearchParams({
       nome_curso: searchNome,
-      cod_video: searchVideo
+      cod_video: searchVideo,
+      status: searchStatus,
     }).toString();
-
-    setIsLoading(true);
     try {
-      const { data } = await axios.get(`/cursos/search/${querys}`);
+      let response = null;
+
+      setIsLoading(true);
+      if (querys.length > 0) {
+        response = await axios.get(`/cursos/search/${querys}`);
+      } else {
+        response = await axios.get(`/cursos`);
+      }
 
       setIsLoading(false);
-      setCursos(data);
+      setCursos(response.data);
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
@@ -167,6 +176,7 @@ export default function GestaoCursos() {
       setNome(curso.nome_curso);
       setDescricao(curso.desc_curso);
       if (curso.arquivo_url) setShowFoto(curso.arquivo_url)
+      setDeleted(!!curso.deleted_at)
 
       setIsUpdating(true);
       setShowFormModal(true);
@@ -180,6 +190,7 @@ export default function GestaoCursos() {
   const handleIsDeleting = (curso) => {
     setCodCurso(curso.cod_curso);
     setNome(curso.nome_curso);
+    setDeleted(!!curso.deleted_at)
     setShowDeleteModal(true);
   };
 
@@ -192,6 +203,7 @@ export default function GestaoCursos() {
 
   const clearSearch = () => {
     setSearchNome('');
+    setSearchStatus('ativo')
     loadRegisters();
   };
 
@@ -201,6 +213,7 @@ export default function GestaoCursos() {
     setDescricao('');
     setFoto(null);
     setShowFoto('')
+    setDeleted(false)
     setCursoVideos([]);
   };
 
@@ -221,6 +234,21 @@ export default function GestaoCursos() {
     setFim(novoFim)
   }
 
+  const handleActivate = async (cod) => {
+    try {
+      setIsLoading(true);
+      await axios.put(`/cursos/activate/${cod}`);
+      setIsLoading(false);
+      toast.success('Curso ativado com sucesso.');
+      handleClose();
+      handleSearch();
+    } catch (error) {
+      setIsLoading(false)
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
+  }
+
   return (
     <>
       <Loading isLoading={isLoading} />
@@ -237,8 +265,8 @@ export default function GestaoCursos() {
                   name="titulo"
                   placeholder="Nome do curso"
                   value={searchNome}
-                  onChange={(e) => setSearchNome(e.target.value)}
-                />
+                  onChange={(e) => setSearchNome(e.target.value)} />
+
                 <select
                   name="video"
                   className="search-input"
@@ -254,6 +282,21 @@ export default function GestaoCursos() {
                     ))
                     : ''}
                 </select>
+
+                <select
+                  className="search-input"
+                  name="status"
+                  id="status"
+                  value={searchStatus}
+                  onChange={(e) => setSearchStatus(e.target.value)} >
+                    <option value="" disabled>
+                      Selecione um status
+                    </option>
+                    <option value="ativo">Ativo</option>
+                    <option value="inativo">Inativo</option>
+                    <option value="ambos">Ambos</option>
+                </select>
+
               </div>
               <div className="search-container-buttons">
                 <button
@@ -312,11 +355,14 @@ export default function GestaoCursos() {
               <span className='buttons-container-list'>
                 <button
                   type="button"
-                  title="Editar"
+                  title={curso.deleted_at ? "Visualizar" : "Editar"}
                   className='round-green-btn'
                   onClick={() => handleIsUpdating(curso)}
                 >
-                  <PencilSimple size={20} />
+                  {curso.deleted_at
+                    ? <Eye size={20} />
+                    : <PencilSimple size={20} />
+                  }
                 </button>
                 <button
                   type="button"
@@ -324,7 +370,10 @@ export default function GestaoCursos() {
                   className='red-btn'
                   onClick={() => handleIsDeleting(curso)}
                 >
-                  <TrashSimple size={20} />
+                  {curso.deleted_at
+                    ? <TrashSimple size={20} />
+                    : <MinusCircle size={20} />
+                  }
                 </button>
               </span>
             </div>
@@ -348,7 +397,7 @@ export default function GestaoCursos() {
           ariaHideApp={false}
         >
           <div className="ModalHeader">
-            <span>{isUpdating ? 'Editar' : 'Cadastrar'} curso</span>
+            <span>{isUpdating ? deleted ? 'Visualizar' : 'Editar' : 'Cadastrar'} curso</span>
             <button className="CloseModal" type="button" onClick={handleClose}>
               <X size={24} />
             </button>
@@ -378,6 +427,7 @@ export default function GestaoCursos() {
                   className='ModalInput'
                   name="nome"
                   maxLength="40"
+                  disabled={deleted}
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                 />
@@ -385,20 +435,21 @@ export default function GestaoCursos() {
 
               <div className="InputArea">
                 <label>Foto </label>
-                <FileInput handleShowFile={handleShowFoto} foto={showFoto} removeFoto={handleRemoveFoto} />
+                <FileInput handleShowFile={handleShowFoto} foto={showFoto} removeFoto={handleRemoveFoto} deleted={deleted} />
               </div>
 
               <div className="InputArea">
                 <label>Descrição </label>
                 <textarea
                   name="descricao"
+                  disabled={deleted}
                   value={descricao}
                   onChange={(e) => setDescricao(e.target.value)}
                 />
               </div>
 
               <div className="InputArea">
-                <label>Vincular Vídeos </label>
+                <label>{deleted ? 'Vídeos' : 'Vincular vídeos' }</label>
                 <Multiselect
                   type="vídeo"
                   listaArr={videos}
@@ -406,21 +457,42 @@ export default function GestaoCursos() {
                   setArray={setCursoVideos}
                   value="cod_video"
                   label="titulo_video"
+                  deleted={deleted}
                 />
               </div>
             </div>
           </div>
 
-          <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
+          {deleted
+            ?
+              <div className="ModalFooter">
+                <button
+                  className="GrayBtn"
+                  type="button"
+                  onClick={handleClose}>
+                  Fechar
+                </button>
+                <button
+                  className="GreenBtn"
+                  type="button"
+                  onClick={() => handleActivate(codCurso)}>
+                  Ativar
+                </button>
+              </div>
+            :
+              <>
+                <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
 
-          <div className="ModalFooter">
-            <button className="RedBtn" type="button" onClick={() => clearModal("limpar")}>
-              Limpar
-            </button>
-            <button className="GreenBtn" type="button" onClick={handleSubmit}>
-              {isUpdating ? 'Atualizar' : 'Cadastrar'}
-            </button>
-          </div>
+                <div className="ModalFooter">
+                  <button className="RedBtn" type="button" onClick={() => clearModal("limpar")}>
+                    Limpar
+                  </button>
+                  <button className="GreenBtn" type="button" onClick={handleSubmit}>
+                    {isUpdating ? 'Atualizar' : 'Cadastrar'}
+                  </button>
+                </div>
+              </>
+          }
         </Modal>
 
         <DeleteModal

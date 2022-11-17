@@ -15,7 +15,7 @@
 
 
 .RemoveBtnListVideo{
-    @apply flex text-sm text-cinza-100 
+    @apply flex text-sm text-cinza-100
     hover:text-vermelho-100 transition-all
 }
 .ArrowBtn{
