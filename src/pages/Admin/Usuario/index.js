@@ -259,6 +259,22 @@ export default function Usuario() {
     setFim(novoFim)
   }
 
+  const handleActivate = async (cod) => {
+    try {
+      setIsLoading(true);
+      await axios.put(`/usuarios/activate/${cod}`);
+      setIsLoading(false);
+      toast.success('Usuário ativado com sucesso.');
+      handleClose();
+      handleSearch();
+    } catch (error) {
+      setIsLoading(false)
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
+  }
+
+
   return (
     <>
       <Loading isLoading={isLoading} />
@@ -561,6 +577,12 @@ export default function Usuario() {
                 type="button"
                 onClick={handleClose}>
                 Fechar
+              </button>
+              <button
+                className="GreenBtn"
+                type="button"
+                onClick={() => handleActivate(cpf)}>
+                Ativar
               </button>
             </div>
           }
