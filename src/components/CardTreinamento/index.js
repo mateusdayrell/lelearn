@@ -5,7 +5,6 @@ import moment from 'moment/moment';
 import './styles.css';
 
 export default function CardTreinamento({ treinamento }) {
-    console.log(treinamento);
     return (
         <div className='CardContainer'>
             <div className='ContainerLeftCard'>
@@ -31,5 +30,5 @@ CardTreinamento.defaultProps = {
 };
 
 CardTreinamento.propTypes = {
-    type: PropTypes.object,
+    treinamento: PropTypes.object,
 };
