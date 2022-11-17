@@ -15,7 +15,7 @@ export default function CardTreinamento({ treinamento }) {
                         <small className='DescTreinamento'>{treinamento.desc_treinamento}</small>
                     </div>
                 </div>
-                <div className='w-full pl-3'>
+                <div className='w-full pl-3 text-black'>
                     <button className='BtnCardTreinamento'><Lightning size={20} />Acessar</button>
                 </div>
             </div>
