@@ -496,7 +496,7 @@ export default function GestaoCursos() {
         </Modal>
 
         <DeleteModal
-          showDeleteModal={showDeleteModal} handleClose={handleClose}
+          showDeleteModal={showDeleteModal} handleClose={handleClose} deleted={deleted}
           type="curso" name={nome} handleDelete={handleDelete} code={codCurso}
         />
       </div>

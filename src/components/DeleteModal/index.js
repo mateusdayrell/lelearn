@@ -48,7 +48,7 @@ export default function DeleteModal({showDeleteModal, handleClose, type, deleted
               type="button"
               onClick={() => handleDelete(code)}
             >
-              Excluir
+              {deleted ? 'Excluir' : 'Desativar'}
             </button>
           </div>
         </Modal>
