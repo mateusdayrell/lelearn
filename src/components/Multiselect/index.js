@@ -83,7 +83,7 @@ export default function Multiselect({ type, listaArr, array, setArray, value, la
       {value === "cpf" ?
         <ListUsuarios treinUsuarios={array} setTreinUsuarios={setArray} handleRemove={handleRemove} deleted={deleted} />
         : value === "cod_curso" ?
-          <ListCursos treinCursos={array} handleRemove={handleRemove} />
+          <ListCursos treinCursos={array} handleRemove={handleRemove} deleted={deleted} />
           : value === "cod_video" ?
             <ListVideos videos={array} setVideos={setArray} handleRemove={handleRemove} deleted={deleted} />
             : ''}

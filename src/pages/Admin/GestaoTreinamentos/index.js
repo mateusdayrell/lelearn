@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { MagnifyingGlass, X, PaintBrushHousehold, Plus, PencilSimple, TrashSimple } from 'phosphor-react';
+import { MagnifyingGlass, X, PaintBrushHousehold, Plus, PencilSimple, TrashSimple, Eye, MinusCircle } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
 // import ModalTreinamento from '../../../components/ModalTreinamento';
@@ -11,6 +11,7 @@ import axios from '../../../services/axios';
 import Pagination from '../../../components/Pagination';
 import OrderSelect from '../../../components/OrderSelect';
 import Multiselect from '../../../components/Multiselect';
+import DeleteModal from '../../../components/DeleteModal';
 
 export default function GestaoTreinamentos() {
   const [treinamentos, setTreinamentos] = useState([]);
@@ -22,11 +23,13 @@ export default function GestaoTreinamentos() {
   const [descricao, setDescricao] = useState('');
   const [treinUsuarios, setTreinUsuarios] = useState([]);
   const [treinCursos, setTreinCursos] = useState([]);
+  const [deleted, setDeleted] = useState(false)
 
   const [searchNome, setSearchNome] = useState('');
   const [searchUsuario, setSearchUsuario] = useState('');
   const [searchCurso, setSearchCurso] = useState('');
   const [searchOrdem, setSearchOrdem] = useState('nome_treinamento asc')
+  const [searchStatus, setSearchStatus] = useState('ativo');
 
   const [isLoading, setIsLoading] = useState(false);
   const [shwoFormModal, setShowFormModal] = useState(false);
@@ -67,14 +70,20 @@ export default function GestaoTreinamentos() {
       nome_treinamento: searchNome,
       cpf: searchUsuario,
       cod_curso: searchCurso,
+      status: searchStatus,
     }).toString();
 
     setIsLoading(true);
     try {
-      const { data } = await axios.get(`/treinamentos/search/${querys}`);
+      let response = null
+      if (searchNome || searchUsuario || searchCurso || searchStatus !== 'ativo') {
+        response = await axios.get(`/treinamentos/search/${querys}`);
+      } else {
+        response = await axios.get('/treinamentos/');
+      }
       setIsLoading(false);
 
-      setTreinamentos(data);
+      setTreinamentos(response.data);
       setSearchOrdem('nome_treinamento asc') // reserar valor do input ao pesquisar
     } catch (error) {
       setIsLoading(false);
@@ -122,7 +131,9 @@ export default function GestaoTreinamentos() {
       await axios.delete(`/treinamentos/${codigo}`);
       setIsLoading(false);
 
-      toast.success('Treinamento excluído com sucesso!');
+      if (deleted) toast.success('Treinamento excluído com sucesso!');
+      else toast.success('Treinamento desativado com sucesso!');
+
       await loadRegisters();
     } catch (error) {
       setIsLoading(false);
@@ -165,6 +176,7 @@ export default function GestaoTreinamentos() {
       setCodTreinamento(treinamento.cod_treinamento);
       setNome(treinamento.nome_treinamento);
       setDescricao(treinamento.desc_treinamento);
+      setDeleted(!!treinamento.deleted_at);
 
       setIsUpdating(true);
       setShowFormModal(true);
@@ -179,7 +191,8 @@ export default function GestaoTreinamentos() {
 
   const handleIsDeleting = (treinamento) => {
     setCodTreinamento(treinamento.cod_treinamento);
-    setNome(treinamento.nome_treinamento)
+    setNome(treinamento.nome_treinamento);
+    setDeleted(!!treinamento.deleted_at);
     setShowDeleteModal(true);
     setShowFormModal(false);
   };
@@ -188,6 +201,7 @@ export default function GestaoTreinamentos() {
     setSearchNome('');
     setSearchUsuario('');
     setSearchCurso('');
+    setSearchStatus('ativo')
     loadRegisters();
   };
 
@@ -205,6 +219,7 @@ export default function GestaoTreinamentos() {
     setDescricao('');
     setTreinUsuarios([]);
     setTreinCursos([]);
+    setDeleted(false);
   };
 
   const clearFormModal = () => {
@@ -224,6 +239,23 @@ export default function GestaoTreinamentos() {
   const handleOrderChange = (array, ordem) => {
     setTreinamentos(array)
     setSearchOrdem(ordem)
+  }
+
+  const handleActivate = async (cod) => {
+    try {
+      setIsLoading(true);
+      await axios.put(`/treinamentos/activate/${cod}`);
+
+      setIsLoading(false);
+      toast.success('Treinamento ativado com sucesso.');
+
+      handleClose();
+      handleSearch();
+    } catch (error) {
+      setIsLoading(false)
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
   }
 
   return (
@@ -280,10 +312,25 @@ export default function GestaoTreinamentos() {
                     ))
                     : ''}
                 </select>
+
+                <select
+                  className="search-input"
+                  name="status"
+                  id="status"
+                  value={searchStatus}
+                  onChange={(e) => setSearchStatus(e.target.value)} >
+                    <option value="" disabled>
+                      Selecione um status
+                    </option>
+                    <option value="ativo">Ativo</option>
+                    <option value="inativo">Inativo</option>
+                    <option value="ambos">Ambos</option>
+                </select>
               </div>
 
               <div className='search-container-buttons'>
                 <button
+                  title='Pesquisar'
                   className="green-btn"
                   type="button"
                   onClick={handleSearch}
@@ -291,6 +338,7 @@ export default function GestaoTreinamentos() {
                   <MagnifyingGlass size={24} />
                 </button>
                 <button
+                  title='Limpar campos'
                   className="red-btn"
                   type="button"
                   onClick={clearSearch}>
@@ -301,6 +349,7 @@ export default function GestaoTreinamentos() {
           </div>
           <span className='search-container-cadastrar'>
             <button
+              title='Cadastrar treinamento'
               className="green-btn"
               type="button"
               onClick={() => setShowFormModal(true)}
@@ -335,19 +384,25 @@ export default function GestaoTreinamentos() {
               <span className='buttons-container-list'>
                 <button
                   type="button"
-                  title="Editar"
+                  title={treinamento.deleted_at ? "Visualizar" : "Editar"}
                   className='round-green-btn'
                   onClick={() => handleIsUpdating(treinamento)}
                 >
-                  <PencilSimple size={20} />
+                  {treinamento.deleted_at
+                    ? <Eye size={20} />
+                    : <PencilSimple size={20} />
+                  }
                 </button>
                 <button
                   type="button"
-                  title="Excluir"
+                  title={treinamento.deleted_at ? "Excluir" : "Desativar"}
                   className='red-btn'
                   onClick={() => handleIsDeleting(treinamento)}
                 >
-                  <TrashSimple size={20} />
+                  {treinamento.deleted_at
+                    ? <TrashSimple size={20} />
+                    : <MinusCircle size={20} />
+                  }
                 </button>
               </span>
             </div>
@@ -371,8 +426,9 @@ export default function GestaoTreinamentos() {
           ariaHideApp={false}>
 
           <div className="ModalHeader">
-            <span>{isUpdating ? 'Editar' : 'Cadastrar'} treinamento <i>{nome}</i></span>
-            <button className="CloseModal" type="button" onClick={handleClose}>
+            {/* eslint-disable-next-line no-nested-ternary */}
+            <span>{isUpdating ? deleted ? 'Visualizar' : 'Editar' : 'Cadastrar'} treinamento <i>{nome}</i></span>
+            <button className="CloseModal" title='Fechar' type="button" onClick={handleClose}>
               <X size={24} />
             </button>
           </div>
@@ -430,6 +486,7 @@ export default function GestaoTreinamentos() {
                     className='ModalInput'
                     name="nome"
                     maxLength="40"
+                    disabled={deleted}
                     value={nome}
                     onChange={(e) => setNome(e.target.value)}
                   />
@@ -439,12 +496,13 @@ export default function GestaoTreinamentos() {
                   <label>Descrição</label>
                   <textarea
                     name="descricao"
+                    disabled={deleted}
                     value={descricao}
                     onChange={(e) => setDescricao(e.target.value)}
                   />
                 </div>
 
-                <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
+                {!deleted && <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>}
               </div>
             </div>
           }
@@ -452,10 +510,10 @@ export default function GestaoTreinamentos() {
           {form === 1 &&
             <div className="ModalContent">
 
-              <p className='text-sm my-4 pl-1 text-cinza-100'>Vincule os usuários que irão fazer este treinamento. A definição de prazo para os usuários é opcional.</p>
+              {!deleted && <p className='text-sm my-4 pl-1 text-cinza-100'>Vincule os usuários que irão fazer este treinamento. A definição de prazo para os usuários é opcional.</p>}
 
               <div className="InputArea">
-                <label>Vincular Usuários</label>
+                <label>{deleted ? 'Usuários' : 'Vincular usuários' }</label>
                 <Multiselect
                   type="usuário"
                   listaArr={usuarios}
@@ -463,6 +521,7 @@ export default function GestaoTreinamentos() {
                   setArray={setTreinUsuarios}
                   value="cpf"
                   label="nome"
+                  deleted={deleted}
                 />
               </div>
             </div>
@@ -471,10 +530,10 @@ export default function GestaoTreinamentos() {
           {form === 2 &&
             <div className="ModalContent">
 
-              <p className='text-sm my-4 pl-1 text-cinza-100'>Vincule os cursos que estarão disponíveis no treinamento.</p>
+              {!deleted && <p className='text-sm my-4 pl-1 text-cinza-100'>Vincule os cursos que estarão disponíveis no treinamento.</p>}
 
               <div className="InputArea">
-                <label>Vincular Cursos</label>
+                <label>{deleted ? 'Cursos' : 'Vincular cursos' }</label>
                 <Multiselect
                   type="curso"
                   listaArr={cursos}
@@ -482,61 +541,44 @@ export default function GestaoTreinamentos() {
                   setArray={setTreinCursos}
                   value="cod_curso"
                   label="nome_curso"
+                  deleted={deleted}
                 />
               </div>
             </div>
           }
 
-          <div className="ModalFooter">
-            <button className="RedBtn" type="button" onClick={() => clearFormModal()}>
-              Limpar
-            </button>
-            <button className="GreenBtn" type="button" onClick={handleSubmit}>
-              {isUpdating ? 'Atualizar' : 'Cadastrar'}
-            </button>
-          </div>
+          {deleted
+            ?
+              <div className="ModalFooter">
+                <button
+                  className="GrayBtn"
+                  type="button"
+                  onClick={handleClose}>
+                  Fechar
+                </button>
+                <button
+                  className="GreenBtn"
+                  type="button"
+                  onClick={() => handleActivate(codTreinamento)}>
+                  Ativar
+                </button>
+              </div>
+            :
+              <div className="ModalFooter">
+                <button className="RedBtn" type="button" onClick={() => clearFormModal()}>
+                  Limpar
+                </button>
+                <button className="GreenBtn" type="button" onClick={handleSubmit}>
+                  {isUpdating ? 'Atualizar' : 'Cadastrar'}
+                </button>
+              </div>
+          }
         </Modal>
 
-        <Modal
-          isOpen={showDeleteModal}
-          onRequestClose={handleClose}
-          className="Modal"
-          overlayClassName="Overlay"
-          ariaHideApp={false}
-        >
-          <div className="ModalHeader">
-            <span>Excluir Treinamento</span>
-            <button className="CloseModal" type="button" onClick={handleClose}>
-              <X size={24} />
-            </button>
-          </div>
-          <div className="ModalContent">
-            <div className="FormDelete">
-              <p>
-                Caso prossiga com a exclusão do item, o mesmo não será mais
-                recuperado.
-              </p>
-              <p>
-                Deseja realmente excluir o treinamento <i>{nome}</i> ?
-              </p>
-            </div>
-          </div>
-          <div className="ModalFooter">
-            <button
-              className="GrayBtn"
-              type="button"
-              onClick={handleClose}>
-              Cancelar
-            </button>
-            <button
-              className="RedBtn"
-              type="button"
-              onClick={() => handleDelete(codTreinamento)}
-            >
-              Excluir
-            </button>
-          </div>
-        </Modal>
+        <DeleteModal
+          showDeleteModal={showDeleteModal} handleClose={handleClose} deleted={deleted}
+          type="treinamento" name={nome} handleDelete={handleDelete} code={codTreinamento}
+        />
       </div>
     </>
   );
