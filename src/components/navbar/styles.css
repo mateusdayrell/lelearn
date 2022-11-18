@@ -19,6 +19,12 @@
   @apply w-60 flex items-center
 }
 
+.logoicon:hover .PrimeiroL{
+  @apply duration-700 transition-all fill-cinza-100
+}
+.logoicon:hover .SegundoL{
+  @apply translate-y-2 duration-700 transition-all fill-cinza-100
+}
 /* CONTEINER SUPERIOR - LOGO */
 
 /* CONTEINER DO MEIO - LINKS */
