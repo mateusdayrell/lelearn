@@ -399,7 +399,7 @@ export default function GestaoCursos() {
         >
           <div className="ModalHeader">
             <span>{isUpdating ? deleted ? 'Visualizar' : 'Editar' : 'Cadastrar'} curso</span>
-            <button className="CloseModal" type="button" onClick={handleClose}>
+            <button className="CloseModal" title='Fechar' type="button" onClick={handleClose}>
               <X size={24} />
             </button>
           </div>
