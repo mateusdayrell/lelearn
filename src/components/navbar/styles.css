@@ -19,6 +19,9 @@
   @apply w-60 flex items-center
 }
 
+.logoicon:hover .SegundoL{
+  @apply translate-y-2 duration-500 transition-all
+}
 /* CONTEINER SUPERIOR - LOGO */
 
 /* CONTEINER DO MEIO - LINKS */
