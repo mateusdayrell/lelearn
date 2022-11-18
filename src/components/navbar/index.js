@@ -92,9 +92,9 @@ export default function Navbar() {
         <div className={` ${open ? 'logo-content-closed' : 'logo-content-open'} logo-content`}>
           <div className='logoicon'>
             <svg
-              width="40"
-              height="40"
-              viewBox="0 0 35 45"
+              width="35"
+              height="35"
+              viewBox="0 0 38 45"
               className={`${!open && 'hidden'}`}
               to="/"
             >
