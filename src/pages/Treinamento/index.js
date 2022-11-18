@@ -1,42 +1,61 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 import axios from '../../services/axios';
 import Loading from '../../components/Loading';
-import { useSelector, useDispatch } from 'react-redux';
-import CardTreinamento from '../../components/CardTreinamento';
-// import './style.css';
+import './style.css';
 
 export default function Treinamento() {
-  // const dispatch = useDispatch();
+  const history = useHistory();
+  const params = useParams();
+  const { cpf } = useSelector((state) => state.auth.usuario);
 
-  // const { cpf } = useSelector((state) => state.auth.usuario);
-  // const [treinamentos, setTreinamentos] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
+  const [cursos, setCursos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // useEffect(() => {
-  //   getTreinamentos();
-  // }, []);
+  useEffect(() => {
+    loadRegisters();
+  }, []);
 
-  // const getTreinamentos = async () => {
-  //   setIsLoading(true);
-  //   const { data } = await axios.get(`/treinamentos/get-by-usuario/${cpf}`);
-  //   setTreinamentos(data);
-  //   setIsLoading(false);
-  // };
+  const loadRegisters = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.get(`/treinamentos/get-cursos-usuario/${params.cod_treinamento}/${cpf}`);
+
+      setCursos(data);
+      setIsLoading(false);
+
+    } catch (error) {
+      setIsLoading(false);
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
+  };
+
+  const handleRedirect = (cod_curso) => {
+    history.push(`/cursos/${cod_curso}`);
+  };
 
   return (
     <>
       <Loading isLoading={isLoading} />
       <div className='container-body'>
-        {/* <h1 className='title'>Treinamentos</h1>
-        <button>Olá</button>
+        <h1 className='title'>Cursos do Treinamento</h1>
         <div className="container">
-          {treinamentos.map((treinamento) => (
-            <CardTreinamento
-            key={treinamento}
-            treinamento = {treinamento}/>
+          {cursos.map((curso) => (
+            <div key={curso.cod_curso}>
+              <span>{curso.cod_curso} - {curso.nome_curso}</span>
+              <button
+                type='button'
+                className='btn'
+                onClick={() => handleRedirect(curso.cod_curso)}>
+                  Acessar
+              </button>
+            </div>
           ))}
-        </div> */}
+        </div>
       </div>
     </>
   );

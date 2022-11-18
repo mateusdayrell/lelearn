@@ -10,12 +10,13 @@ import Home from '../pages/Home';
 import Video from '../pages/Video';
 import Cursos from '../pages/Cursos';
 import Curso from '../pages/Curso';
-import Treinamento from '../pages/Treinamentos';
+import Treinamento from '../pages/Treinamento';
 import Error from '../pages/Error';
 import Usuario from '../pages/Admin/Usuario';
 import GestaoVideos from '../pages/Admin/GestaoVideos';
 import GestaoCursos from '../pages/Admin/GestaoCursos';
 import GestaoTreinamentos from '../pages/Admin/GestaoTreinamentos';
+import Treinamentos from '../pages/Treinamentos';
 
 export default function Routes() {
   const tipoUsuario = useSelector((state) => state.auth.usuario.tipo); // TIPO -> 0 === ADMINISTRADOR, TIPO -> 1 === USUARIO COMUM
@@ -31,7 +32,8 @@ export default function Routes() {
           <MyRoute exact path="/" component={Home} isClosed/>
           <MyRoute exact path="/login" component={Login} />
           <MyRoute exat path="/recuperar-senha" component={RecuperarSenha} />
-          <MyRoute exact path="/treinamentos" component={Treinamento} isClosed />
+          <MyRoute exact path="/treinamentos" component={Treinamentos} isClosed />
+          <MyRoute exact path="/treinamentos/:cod_treinamento" component={Treinamento} isClosed />
           <MyRoute exact path="/cursos/:cod_curso" component={Curso} isClosed />
           <MyRoute exact path="/cursos" component={Cursos} isClosed />
           <MyRoute exact path="/videos/:cod_curso/:cod_video" component={Video} isClosed />
