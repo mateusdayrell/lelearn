@@ -137,7 +137,8 @@ export default function GestaoCursos() {
       await axios.delete(`/cursos/${codigo}`);
 
       setIsLoading(false);
-      toast.success('Curso excluído com sucesso!');
+      if (deleted) toast.success('Curso excluído com sucesso!')
+      else toast.success('Curso desativado com sucesso!')
       await loadRegisters();
     } catch (error) {
       setIsLoading(false);
@@ -168,7 +169,7 @@ export default function GestaoCursos() {
   const handleIsUpdating = async (curso) => {
     try {
       setIsLoading(true);
-      const { data } = await axios.get(`/videos/get-by-curso/${curso.cod_curso}`);
+      const { data } = await axios.get(`/cursos/get-videos/${curso.cod_curso}`);
       setIsLoading(false);
 
       setCursoVideos(orderVideos(data));
@@ -366,7 +367,7 @@ export default function GestaoCursos() {
                 </button>
                 <button
                   type="button"
-                  title="Excluir"
+                  title={curso.deleted_at ? "Excluir" : "Desativar"}
                   className='red-btn'
                   onClick={() => handleIsDeleting(curso)}
                 >
