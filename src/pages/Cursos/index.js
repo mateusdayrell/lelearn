@@ -119,30 +119,30 @@ export default function Cursos() {
 
         {cursos.map((curso) => (
           <div className='list-cursos'>
-            <div key={curso.cod_curso} className="flex items-center gap-3  ">
+            <div key={curso.cod_curso} className="flex items-center gap-3">
               {get(curso, 'nome_arquivo', false) ?
-                <img className='h-[110px] w-[150px]' src={`${process.env.REACT_APP_BACKEND_URL}/images/${curso.nome_arquivo}`} alt="Imagem do curso" />
+                <img className='h-[110px] w-[150px] min-h-[110px] min-w-[150px]' src={`${process.env.REACT_APP_BACKEND_URL}/images/${curso.nome_arquivo}`} alt="Imagem do curso" />
                 : <FaFileImage size={36} />
               }
 
               <div className='Cursos-info'>
-                <h2 className=''>{`${curso.nome_curso}`}</h2>
-                <p className='text-xs'>{curso.desc_curso}</p>
+                <h2 className='title-curso'>{`${curso.nome_curso}`}</h2>
+                <p className='desc-curso '>{curso.desc_curso}</p>
               </div>
             </div>
-
-            <div className='acessar-button  bg-cinza-500 shadow-md '>
+            <div className='acessar-button'>
             <button
               type='button'
-              className=''
+              className='block'
               onClick={() => handleRedirect(curso.cod_curso)}
             >
               <FaCaretRight
                 className='play-button'
-                size={37} />
+                size={37} 
+                />
                 <p className='msg-button'>Acessar</p>
             </button>
-          </div>
+            </div>
           </div>
         ))}
       </div>
