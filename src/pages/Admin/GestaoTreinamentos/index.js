@@ -319,12 +319,12 @@ export default function GestaoTreinamentos() {
                   id="status"
                   value={searchStatus}
                   onChange={(e) => setSearchStatus(e.target.value)} >
-                    <option value="" disabled>
-                      Selecione um status
-                    </option>
-                    <option value="ativo">Ativo</option>
-                    <option value="inativo">Inativo</option>
-                    <option value="ambos">Ambos</option>
+                  <option value="" disabled>
+                    Selecione um status
+                  </option>
+                  <option value="ativo">Ativo</option>
+                  <option value="inativo">Inativo</option>
+                  <option value="ambos">Ambos</option>
                 </select>
               </div>
 
@@ -378,6 +378,9 @@ export default function GestaoTreinamentos() {
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{treinamento.nome_treinamento}</span>
+                  <span className={treinamento.deleted_at ? 'subname-container-list-red' : 'hidden'}>
+                    <small>{treinamento.deleted_at ? 'Treinamento desativado' : ''}</small>
+                  </span>
                 </span>
               </div>
 
@@ -513,7 +516,7 @@ export default function GestaoTreinamentos() {
               {!deleted && <p className='text-sm my-4 pl-1 text-cinza-100'>Vincule os usuários que irão fazer este treinamento. A definição de prazo para os usuários é opcional.</p>}
 
               <div className="InputArea">
-                <label>{deleted ? 'Usuários' : 'Vincular usuários' }</label>
+                <label>{deleted ? 'Usuários' : 'Vincular usuários'}</label>
                 <Multiselect
                   type="usuário"
                   listaArr={usuarios}
@@ -533,7 +536,7 @@ export default function GestaoTreinamentos() {
               {!deleted && <p className='text-sm my-4 pl-1 text-cinza-100'>Vincule os cursos que estarão disponíveis no treinamento.</p>}
 
               <div className="InputArea">
-                <label>{deleted ? 'Cursos' : 'Vincular cursos' }</label>
+                <label>{deleted ? 'Cursos' : 'Vincular cursos'}</label>
                 <Multiselect
                   type="curso"
                   listaArr={cursos}
@@ -549,29 +552,29 @@ export default function GestaoTreinamentos() {
 
           {deleted
             ?
-              <div className="ModalFooter">
-                <button
-                  className="GrayBtn"
-                  type="button"
-                  onClick={handleClose}>
-                  Fechar
-                </button>
-                <button
-                  className="GreenBtn"
-                  type="button"
-                  onClick={() => handleActivate(codTreinamento)}>
-                  Ativar
-                </button>
-              </div>
+            <div className="ModalFooter">
+              <button
+                className="GrayBtn"
+                type="button"
+                onClick={handleClose}>
+                Fechar
+              </button>
+              <button
+                className="GreenBtn"
+                type="button"
+                onClick={() => handleActivate(codTreinamento)}>
+                Ativar
+              </button>
+            </div>
             :
-              <div className="ModalFooter">
-                <button className="RedBtn" type="button" onClick={() => clearFormModal()}>
-                  Limpar
-                </button>
-                <button className="GreenBtn" type="button" onClick={handleSubmit}>
-                  {isUpdating ? 'Atualizar' : 'Cadastrar'}
-                </button>
-              </div>
+            <div className="ModalFooter">
+              <button className="RedBtn" type="button" onClick={() => clearFormModal()}>
+                Limpar
+              </button>
+              <button className="GreenBtn" type="button" onClick={handleSubmit}>
+                {isUpdating ? 'Atualizar' : 'Cadastrar'}
+              </button>
+            </div>
           }
         </Modal>
 

@@ -283,12 +283,12 @@ export default function GestaoVideos() {
                   id="status"
                   value={searchStatus}
                   onChange={(e) => setSearchStatus(e.target.value)} >
-                    <option value="" disabled>
-                      Selecione um status
-                    </option>
-                    <option value="ativo">Ativo</option>
-                    <option value="inativo">Inativo</option>
-                    <option value="ambos">Ambos</option>
+                  <option value="" disabled>
+                    Selecione um status
+                  </option>
+                  <option value="ativo">Ativo</option>
+                  <option value="inativo">Inativo</option>
+                  <option value="ambos">Ambos</option>
                 </select>
               </div>
 
@@ -342,6 +342,9 @@ export default function GestaoVideos() {
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{video.titulo_video}</span>
+                  <span className={video.deleted_at ? 'subname-container-list-red' : 'hidden'}>
+                    <small>{video.deleted_at ? 'Video desativado' : ''}</small>
+                  </span>
                 </span>
               </div>
 
@@ -462,33 +465,33 @@ export default function GestaoVideos() {
 
           {deleted
             ?
+            <div className="ModalFooter">
+              <button
+                className="GrayBtn"
+                type="button"
+                onClick={handleClose}>
+                Fechar
+              </button>
+              <button
+                className="GreenBtn"
+                type="button"
+                onClick={() => handleActivate(codVideo)}>
+                Ativar
+              </button>
+            </div>
+            :
+            <>
+              <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
+
               <div className="ModalFooter">
-                <button
-                  className="GrayBtn"
-                  type="button"
-                  onClick={handleClose}>
-                  Fechar
+                <button className="RedBtn" type="button" onClick={() => clearModal("limpar")}>
+                  Limpar
                 </button>
-                <button
-                  className="GreenBtn"
-                  type="button"
-                  onClick={() => handleActivate(codVideo)}>
-                  Ativar
+                <button className="GreenBtn" type="button" onClick={handleSubmit}>
+                  {isUpdating ? 'Atualizar' : 'Cadastrar'}
                 </button>
               </div>
-            :
-              <>
-                <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
-
-                <div className="ModalFooter">
-                  <button className="RedBtn" type="button" onClick={() => clearModal("limpar")}>
-                    Limpar
-                  </button>
-                  <button className="GreenBtn" type="button" onClick={handleSubmit}>
-                    {isUpdating ? 'Atualizar' : 'Cadastrar'}
-                  </button>
-                </div>
-              </>
+            </>
           }
         </Modal>
 

@@ -364,6 +364,9 @@ export default function GestaoCursos() {
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{curso.nome_curso}</span>
+                  <span className={curso.deleted_at ? 'subname-container-list-red' : 'hidden'}>
+                    <small>{curso.deleted_at ? 'Curso desativado' : ''}</small>
+                  </span>
                 </span>
               </div>
 
