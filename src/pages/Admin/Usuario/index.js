@@ -390,6 +390,9 @@ export default function Usuario() {
                   <span className={usuario.tipo === 0 ? 'subname-container-list-blue' : 'text-sm text-laranja-100 rounded-xl px-1 pb-[2px] ml-3 bg-[#6d4b24]'}>
                     <small>{usuario.tipo === 0 ? 'Administrador' : 'Comum'}</small>
                   </span>
+                  <span className={usuario.deleted_at ? 'subname-container-list-red' : 'hidden'}>
+                    <small>{usuario.deleted_at ? 'Usuário desativado':''}</small>
+                  </span>
                 </span>
               </div>
 
