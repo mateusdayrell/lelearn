@@ -53,7 +53,7 @@ export default function Login(props) {
               <input
                 type="email"
                 name="email"
-                className="input-animation rounded pl-2"
+                className="input-animation rounded pl-2 pb-0"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)} />
                 <div className='underline'/>
@@ -65,7 +65,7 @@ export default function Login(props) {
               <input
                 type="password"
                 name="senha"
-                className="input-animation rounded pl-2"
+                className="input-animation rounded pl-2 pb-0"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)} />
               <div className='underline'/>
