@@ -14,7 +14,7 @@ export default function DeleteModal({showDeleteModal, handleClose, type, deleted
         >
           <div className="ModalHeader">
             <span>{deleted ? 'Excluir' : 'Desativar'} {type}</span>
-            <button className="CloseModal" type="button" onClick={handleClose}>
+            <button className="CloseModal" title='Fechar' type="button" onClick={handleClose}>
               <X size={24} />
             </button>
           </div>
