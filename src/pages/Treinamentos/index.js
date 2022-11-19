@@ -19,7 +19,7 @@ export default function Treinamentos() {
     const getTreinamentos = async () => {
       try {
         setIsLoading(true);
-        const { data } = await axios.get(`/treinamentos/get-by-usuario/${cpf}`);
+        const { data } = await axios.get(`/usuarios/get-treinamentos/${cpf}`);
         setTreinamentos(data);
         setIsLoading(false);
       } catch (error) {
