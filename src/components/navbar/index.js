@@ -90,13 +90,12 @@ export default function Navbar() {
 
         {/* LOGO */}
         <div className={` ${open ? 'logo-content-closed' : 'logo-content-open'} logo-content`}>
-          <div className='logoicon'>
+          <div className='logoicon' onClick={() => setOpen(!open)}>
             <svg
               width="35"
               height="35"
               viewBox="0 0 38 45"
               className={`${!open && 'hidden'}`}
-              to="/"
             >
               <path className='PrimeiroL' d="M6.36963 31.2345H19.5V36H0V0H6.36963V31.2345Z" fill="#00B37E" />
               <path className='SegundoL' d="M25.8696 31.2345H39V36H19.5V0H25.8696V31.2345Z" fill="#00B37E" />

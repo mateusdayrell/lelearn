@@ -13,7 +13,7 @@
 
 /* CONTEINER SUPERIOR - LOGO */
 .logo-content{
-  @apply w-14 justify-center flex 
+  @apply w-14 justify-center flex cursor-pointer
 }
 .logo-content-open{
   @apply w-60 flex items-center
