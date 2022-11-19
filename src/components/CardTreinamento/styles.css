@@ -1,5 +1,5 @@
 .CardContainer{
-    @apply w-72 h-44 rounded shadow-lg transition-all flex duration-500 bg-cinza-400 hover:bg-cinza-100
+    @apply w-72 h-44 rounded shadow-lg transition-all flex duration-500 bg-cinza-100 hover:bg-cinza-100
 } 
 
 /* ANIMATIONS */
@@ -23,7 +23,7 @@
     @apply text-cinza-200 transition-all duration-700 translate-y-5
 }
 .NomeTreinamento{
-    @apply text-cinza-100 text-xl translate-y-5 duration-500
+    @apply text-cinza-500 text-xl translate-y-5 duration-500
 }
 
 /* BUTTON */
