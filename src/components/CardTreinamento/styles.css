@@ -1,16 +1,19 @@
 .CardContainer{
-    @apply w-72 h-44 rounded shadow-lg transition-all flex duration-500 bg-cinza-100 hover:bg-cinza-100
+    @apply w-72 h-44 rounded shadow-lg transition-all flex duration-500 bg-cinza-400 hover:bg-cinza-100
 } 
 
 /* ANIMATIONS */
 .CardContainer:hover .NomeTreinamento{
-    @apply text-cinza-500 translate-y-0
+    @apply text-vermelho-100 translate-y-0
+}
+.CardContainer:hover .NomeTreinamentoComplete{
+    @apply text-verde-100 translate-y-0
 }
 .CardContainer:hover .PrazoListAmarelo, .CardContainer:hover .PrazoListAzul{
     @apply translate-y-0
 }
 .CardContainer:hover .DescTreinamento{
-    @apply text-cinza-300
+    @apply text-cinza-400 flex
 }
 /* ANIMATIONS */
 
@@ -20,10 +23,13 @@
 }
 /* INFO TREINAMENTO */
 .DescTreinamento{
-    @apply text-cinza-200 transition-all duration-700 translate-y-5
+    @apply text-cinza-200 transition-all duration-700 translate-y-0 hidden
 }
 .NomeTreinamento{
-    @apply text-cinza-500 text-xl translate-y-5 duration-500
+    @apply text-cinza-100 text-xl translate-y-5 duration-500
+}
+.NomeTreinamentoComplete{
+    @apply text-verde-100 text-xl translate-y-5 duration-500
 }
 
 /* BUTTON */
@@ -43,4 +49,11 @@
 }
 .PrazoListAmarelo{
     @apply text-laranja-100 translate-y-5 duration-500
+}
+
+.ProgressBar{
+    @apply bg-vermelho-100 flex h-2 text-xs font-semibold items-center px-1 rounded-r-lg rounded-t justify-end
+}
+.ProgressBarComplete{
+    @apply bg-verde-100 flex h-2 text-xs font-semibold items-center px-1 rounded-t 
 }

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { CaretRight } from 'phosphor-react';
 import moment from 'moment/moment';
@@ -11,7 +11,7 @@ export default function CardTreinamento({ treinamento }) {
   const [percentage, setPercentage] = useState('');
 
   useEffect(() => {
-    handlePercentage(treinamento.cursos_assistidos,treinamento.total_cursos);
+    handlePercentage(treinamento.cursos_assistidos, treinamento.total_cursos);
   }, []);
 
   const handleRedirect = (cod_treinamento) => {
@@ -27,21 +27,21 @@ export default function CardTreinamento({ treinamento }) {
   return (
     <div className='CardContainer'>
       <div className='ContainerLeftCard'>
-        <div className='w-full'>
-          <div style={{width: `${percentage}%`}} className="bg-vermelho-100">{percentage}</div>
+        <div className='w-full flex items-center'>
+          <div style={{ width: `${percentage}%` }} className={percentage === 100 ? 'ProgressBarComplete':'ProgressBar'}>
+            <small className={percentage === 0 ? 'translate-x-5 text-cinza-100 font-thin':' font-semibold text-cinza-500'}>{percentage === 100 ? 'Completo':`${percentage}%`}</small>
+          </div>
         </div>
-        <div className='h-[80%] px-3 py-1 flex flex-col'>
+        <div className='h-[75%] px-3 py-1 flex flex-col'>
           <div className='flex flex-col'>
-            <small>{treinamento.cursos_assistidos}</small>
-            <small>{treinamento.total_cursos}</small>
             <small>
               {treinamento.prazo === null
                 ? <p className='PrazoListAzul'>Prazo não determinado</p>
                 : <p className='PrazoListAmarelo'>{moment(treinamento.prazo).format('LL')}</p>
               }
             </small>
-            <span className='NomeTreinamento'>{treinamento.nome_treinamento}</span>
-            {/* <small className='DescTreinamento'>{treinamento.desc_treinamento}</small> */}
+            <span className={`${percentage === 100 ? 'NomeTreinamentoComplete':'NomeTreinamento'}`}>{treinamento.nome_treinamento}</span>
+            <small className='DescTreinamento'>{treinamento.desc_treinamento}</small>
           </div>
         </div>
         <div className='w-full flex justify-end text-black px-1'>
