@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { CaretRight } from 'phosphor-react';
 import moment from 'moment/moment';
+import 'moment/locale/pt-br';
+
 import { useHistory } from 'react-router-dom';
 
 import './styles.css';
@@ -9,6 +11,8 @@ import './styles.css';
 export default function CardTreinamento({ treinamento }) {
   const history = useHistory();
   const [percentage, setPercentage] = useState('');
+
+  moment.locale('pt-br');
 
   useEffect(() => {
     handlePercentage(treinamento.cursos_assistidos, treinamento.total_cursos);
@@ -37,7 +41,7 @@ export default function CardTreinamento({ treinamento }) {
             <small>
               {treinamento.prazo === null
                 ? <p className='PrazoListAzul'>Prazo não determinado</p>
-                : <p className='PrazoListAmarelo'>{moment(treinamento.prazo).format('LL')}</p>
+                : <p className='PrazoListAmarelo'>{moment(treinamento.prazo, 'YYYY-MM-DD HH:mm:ss').format('LL')}</p>
               }
             </small>
             <span className={`${percentage === 100 ? 'NomeTreinamentoComplete':'NomeTreinamento'}`}>{treinamento.nome_treinamento}</span>
