@@ -45,7 +45,7 @@ export default function Login(props) {
         <Svg />
         <div className='container-login'>
           <h1 className='title-login'>Login </h1>
-          <div className='content-inputs'>
+          <form className='content-inputs'>
             <div className="input-login">
               <span className='InputNome'>
                 E-mail
@@ -75,11 +75,11 @@ export default function Login(props) {
             </Link>
             <button className="bg-verde-100 mt-9 mb-10 select-none hover:bg-verde-200 text-cinza-100 w-full py-1
              rounded-lg duration-150 shadow-sm hover:shadow-verde-200 shadow-verde-100"
-              type="button"
+              type="submit"
               onClick={handleSubmit}>
               Entrar
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </>
