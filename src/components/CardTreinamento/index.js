@@ -13,6 +13,10 @@ export default function CardTreinamento({ treinamento }) {
     history.push(`/treinamentos/${cod_treinamento}`);
   };
 
+  const handlePercentage = (watched,total) => {
+    const percentage = watched/total * 100;
+    return percentage
+  }
   return (
     <div className='CardContainer'>
       <div className='ContainerLeftCard'>
@@ -24,8 +28,9 @@ export default function CardTreinamento({ treinamento }) {
                 : <p className='PrazoListAmarelo'>{moment(treinamento.prazo).format('LL')}</p>
               }
             </small>
+            <small>{handlePercentage(treinamento.cursos_assistidos,treinamento.total_cursos) === 100 ? 'Concluido':'Em andamento'}</small>
             <span className='NomeTreinamento'>{treinamento.nome_treinamento}</span>
-            <small className='DescTreinamento'>{treinamento.desc_treinamento}</small>
+            {/* <small className='DescTreinamento'>{treinamento.desc_treinamento}</small> */}
           </div>
         </div>
         <div className='w-full flex justify-end text-black px-1'>

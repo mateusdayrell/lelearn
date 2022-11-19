@@ -38,7 +38,7 @@ export default function Treinamentos() {
                 <div className='flex gap-3 flex-wrap'>
                     {treinamentos.map((treinamento) => (
                         <CardTreinamento
-                            key={cod_treinamento}
+                            key={treinamento.cod_treinamento}
                             treinamento={treinamento} />
                     ))}
                 </div>
