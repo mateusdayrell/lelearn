@@ -40,7 +40,7 @@ export default function Cursos() {
 
   const getCursos = async () => {
     setIsLoading(true);
-    const { data } = await axios.get(`/cursos/get-by-user/${cpf}`);
+    const { data } = await axios.get(`/usuarios/get-cursos/${cpf}`);
     setCursos(data);
     setIsLoading(false);
   };
