@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Modal from 'react-modal';
-import { get } from 'lodash';
+import { get, set } from 'lodash';
 import { MagnifyingGlass, PaintBrushHousehold, PencilSimple, Plus, TrashSimple, X, Eye, MinusCircle } from 'phosphor-react';
 import OrderSelect from '../../../components/OrderSelect';
 
@@ -39,6 +39,9 @@ export default function GestaoCursos() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [shwoFormModal, setShowFormModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const [form, setForm] = useState(0)
+  const selected = 'bg-transparent hover:bg-transparent shadow-none text-sm p-0 mt-3 text-cinza-100 hover:text-cinza-300 transition-all'
 
   const [inicio, setInicio] = useState(0)
   const [fim, setFim] = useState(ITEMS_PER_PAGE)
@@ -200,6 +203,7 @@ export default function GestaoCursos() {
     setShowDeleteModal(false);
     setIsUpdating(false);
     clearModal();
+    setForm(0);
   };
 
   const clearSearch = () => {
@@ -217,6 +221,16 @@ export default function GestaoCursos() {
     setDeleted(false)
     setCursoVideos([]);
   };
+
+  const clearFormModal = () => {
+    if (form === 0) {
+      setNome('');
+      setDescricao('');
+      setFoto(null);
+      setShowFoto('');
+    }
+    if (form === 1) setCursoVideos([]);
+  }
 
   const handleShowFoto = (e) => {
     const file = e.target.files[0]
@@ -290,12 +304,12 @@ export default function GestaoCursos() {
                   id="status"
                   value={searchStatus}
                   onChange={(e) => setSearchStatus(e.target.value)} >
-                    <option value="" disabled>
-                      Selecione um status
-                    </option>
-                    <option value="ativo">Ativo</option>
-                    <option value="inativo">Inativo</option>
-                    <option value="ambos">Ambos</option>
+                  <option value="" disabled>
+                    Selecione um status
+                  </option>
+                  <option value="ativo">Ativo</option>
+                  <option value="inativo">Inativo</option>
+                  <option value="ambos">Ambos</option>
                 </select>
 
               </div>
@@ -403,9 +417,29 @@ export default function GestaoCursos() {
               <X size={24} />
             </button>
           </div>
-          <div className="ModalContent">
-            <div className="FormInputGestao">
-              {/* {isUpdating ? (
+
+          <div className='ContentBtnsLists'>
+            <button
+              type='button'
+              className={(form === 0) ? `${selected}` : "BtnModal"}
+              onClick={() => setForm(0)}>
+              Curso
+            </button>
+
+            <div className='BarBtnsLists' />
+
+            <button
+              type="button"
+              className={form === 1 ? `${selected}` : "BtnModal"}
+              onClick={() => setForm(1)}>
+              Vídeos
+            </button>
+          </div>
+
+          {form === 0 &&
+            <div className="ModalContent">
+              <div className="FormInputGestao">
+                {/* {isUpdating ? (
                 <div className="InputArea">
                   <label>Código</label>
                   <input
@@ -421,36 +455,41 @@ export default function GestaoCursos() {
                 ''
               )} */}
 
-              <div className="InputArea">
-                <label>Nome *</label>
-                <input
-                  type="text"
-                  className='ModalInput'
-                  name="nome"
-                  maxLength="40"
-                  disabled={deleted}
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                />
-              </div>
+                <div className="InputArea">
+                  <label>Nome *</label>
+                  <input
+                    type="text"
+                    className='ModalInput'
+                    name="nome"
+                    maxLength="40"
+                    disabled={deleted}
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                  />
+                </div>
 
-              <div className="InputArea">
-                <label>Foto </label>
-                <FileInput handleShowFile={handleShowFoto} foto={showFoto} removeFoto={handleRemoveFoto} deleted={deleted} />
-              </div>
+                <div className="InputArea">
+                  <label>Foto </label>
+                  <FileInput handleShowFile={handleShowFoto} foto={showFoto} removeFoto={handleRemoveFoto} deleted={deleted} />
+                </div>
 
-              <div className="InputArea">
-                <label>Descrição </label>
-                <textarea
-                  name="descricao"
-                  disabled={deleted}
-                  value={descricao}
-                  onChange={(e) => setDescricao(e.target.value)}
-                />
+                <div className="InputArea">
+                  <label>Descrição </label>
+                  <textarea
+                    name="descricao"
+                    disabled={deleted}
+                    value={descricao}
+                    onChange={(e) => setDescricao(e.target.value)}
+                  />
+                </div>
               </div>
+            </div>
+          }
 
+          {form === 1 &&
+            <div className='ModalContent'>
               <div className="InputArea">
-                <label>{deleted ? 'Vídeos' : 'Vincular vídeos' }</label>
+                <label>{deleted ? 'Vídeos' : 'Vincular vídeos'}</label>
                 <Multiselect
                   type="vídeo"
                   listaArr={videos}
@@ -462,10 +501,11 @@ export default function GestaoCursos() {
                 />
               </div>
             </div>
-          </div>
+          }
 
-          {deleted
-            ?
+          {
+            deleted
+              ?
               <div className="ModalFooter">
                 <button
                   className="GrayBtn"
@@ -480,12 +520,12 @@ export default function GestaoCursos() {
                   Ativar
                 </button>
               </div>
-            :
+              :
               <>
                 <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
 
                 <div className="ModalFooter">
-                  <button className="RedBtn" type="button" onClick={() => clearModal("limpar")}>
+                  <button className="RedBtn" type="button" onClick={() => clearFormModal()}>
                     Limpar
                   </button>
                   <button className="GreenBtn" type="button" onClick={handleSubmit}>
@@ -494,13 +534,13 @@ export default function GestaoCursos() {
                 </div>
               </>
           }
-        </Modal>
+        </Modal >
 
         <DeleteModal
           showDeleteModal={showDeleteModal} handleClose={handleClose} deleted={deleted}
           type="curso" name={nome} handleDelete={handleDelete} code={codCurso}
         />
-      </div>
+      </div >
     </>
   );
 }

@@ -56,7 +56,7 @@ export default function Multiselect({ type, listaArr, array, setArray, value, la
   }
 
   return (
-    <div className="my-1 flex flex-col gap rounded svelte-1l8159u">
+    <div className="my-1 flex flex-col gap rounded">
       <div className="flex-1 border-none">
         {!deleted &&
           <select
@@ -80,13 +80,15 @@ export default function Multiselect({ type, listaArr, array, setArray, value, la
         }
       </div>
 
-      {value === "cpf" ?
-        <ListUsuarios treinUsuarios={array} setTreinUsuarios={setArray} handleRemove={handleRemove} deleted={deleted} />
-        : value === "cod_curso" ?
-          <ListCursos treinCursos={array} handleRemove={handleRemove} deleted={deleted} />
-          : value === "cod_video" ?
-            <ListVideos videos={array} setVideos={setArray} handleRemove={handleRemove} deleted={deleted} />
-            : ''}
+      <div className='max-h-[20em] overflow-auto'>
+        {value === "cpf" ?
+          <ListUsuarios treinUsuarios={array} setTreinUsuarios={setArray} handleRemove={handleRemove} deleted={deleted} />
+          : value === "cod_curso" ?
+            <ListCursos treinCursos={array} handleRemove={handleRemove} deleted={deleted} />
+            : value === "cod_video" ?
+              <ListVideos videos={array} setVideos={setArray} handleRemove={handleRemove} deleted={deleted} />
+              : ''}
+      </div>
     </div>
   );
 }
