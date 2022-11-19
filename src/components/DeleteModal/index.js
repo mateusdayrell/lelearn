@@ -28,8 +28,6 @@ export default function DeleteModal({showDeleteModal, handleClose, type, deleted
                 </p>
               :
                 <p>
-                  Caso desative o {type}, o mesmo não será mais
-                  recuperado.
                   Deseja realmente desativar o {type} <i>{name}</i> ?
                 </p>
             }
