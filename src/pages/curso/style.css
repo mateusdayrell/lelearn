@@ -4,3 +4,16 @@
   margin: 5px 5px;
   cursor: pointer;
 }
+
+.search-containers{
+  @apply  bg-cinza-400 w-[50%] min-w-[50%] pl-3 pr-3 rounded-xl shadow-md   mb-4
+}
+.title-video{
+  @apply h-[110px] min-h-[110px]  min-w-[160px] w-[160px] pl-2 pr-2 pt-1  bg-verde-100 flex items-center 
+}
+.list-videos{
+  @apply flex justify-between items-center bg-cinza-400 border border-cinza-400 shadow-md transition-all text-white w-full mb-3 pr-3
+}
+.list-videos:hover {
+  @apply border shadow-md shadow-verde-200
+}

@@ -37,24 +37,30 @@ export default function Cursos() {
       <div className="container-body">
         <h1 className='title'>Cursos</h1>
         {cursos.map((curso) => (
-          <div className='flex justify-between items-center border  text-white w-full  mb-3 pr-3 '>
-          <div key={curso.cod_curso} className="flex items-center gap-3  ">
+          <div className='list-cursos'>
+            <div key={curso.cod_curso} className="flex items-center gap-3">
               {get(curso, 'nome_arquivo', false) ?
-                <img className='h-[110px] w-[150px]' src={curso.nome_arquivo} alt="Imagem do curso" />
-                : <FaFileImage size={36}/>
+                <img className='h-[110px] w-[150px] min-h-[110px] min-w-[150px]' src={`${process.env.REACT_APP_BACKEND_URL}/images/${curso.nome_arquivo}`} alt="Imagem do curso" />
+                : <FaFileImage size={36} />
               }
               <div className='Cursos-info'>
-              <h2 className=''>{curso.nome_curso}</h2>
-              <p className='text-xs'>{curso.desc_curso}</p>
+                <h2 className='title-curso'>{`${curso.nome_curso}`}</h2>
+                <p className='desc-curso '>{curso.desc_curso}</p>
               </div>
-              </div>
-              <button
-                type='button'
-                className='btn'
-                onClick={() => handleRedirect(curso.cod_curso)}
-              >
-                Acessar
-              </button>
+            </div>
+            <div className='acessar-button'>
+            <button
+              type='button'
+              className='block'
+              onClick={() => handleRedirect(curso.cod_curso)}
+            >
+              <FaCaretRight
+                className='play-button'
+                size={37} 
+                />
+                <p className='msg-button'>Acessar</p>
+            </button>
+            </div>
           </div>
         ))}
       </div>
