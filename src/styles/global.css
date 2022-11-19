@@ -115,7 +115,7 @@ select {
 }
 
 .search-container{
-  @apply bg-cinza-400 w-3/4 p-3 rounded-xl shadow-md
+  @apply bg-cinza-400 w-full p-3 rounded-xl shadow-md
 }
 
 .search-form{
