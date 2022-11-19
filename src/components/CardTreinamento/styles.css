@@ -1,7 +1,7 @@
 .CardContainer{
     @apply w-72 h-44 bg-cinza-400 rounded shadow-lg transition-all flex duration-500
     hover:bg-cinza-100 
-}
+} 
 
 /* ANIMATIONS */
 .CardContainer:hover .NomeTreinamento{
