@@ -1,0 +1,46 @@
+.CardContainer{
+    @apply w-72 h-44 rounded shadow-lg transition-all flex duration-500 bg-cinza-400 hover:bg-cinza-100
+} 
+
+/* ANIMATIONS */
+.CardContainer:hover .NomeTreinamento{
+    @apply text-cinza-500 translate-y-0
+}
+.CardContainer:hover .PrazoListAmarelo, .CardContainer:hover .PrazoListAzul{
+    @apply translate-y-0
+}
+.CardContainer:hover .DescTreinamento{
+    @apply text-cinza-300
+}
+/* ANIMATIONS */
+
+
+.ContainerLeftCard{
+    @apply w-full h-full
+}
+/* INFO TREINAMENTO */
+.DescTreinamento{
+    @apply text-cinza-200 transition-all duration-700 translate-y-5
+}
+.NomeTreinamento{
+    @apply text-cinza-100 text-xl translate-y-5 duration-500
+}
+
+/* BUTTON */
+.BtnCardTreinamento{
+    @apply flex items-center gap-2 h-7 pr-2
+    text-azul-100 rounded-2xl 
+    hover:bg-azul-100 hover:text-cinza-500
+    duration-500 transition-all
+}
+.BtnCardTreinamento span{
+    @apply bg-azul-100 h-full text-cinza-500 rounded-full flex items-center p-1
+}
+
+/* STYLE PRAZO */
+.PrazoListAzul{
+    @apply text-azul-100 translate-y-5 duration-500
+}
+.PrazoListAmarelo{
+    @apply text-laranja-100 translate-y-5 duration-500
+}

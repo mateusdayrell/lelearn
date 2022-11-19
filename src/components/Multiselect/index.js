@@ -6,7 +6,7 @@ import ListUsuarios from '../ListUsuarios';
 import ListCursos from '../ListCursos';
 import ListVideos from '../ListVideos';
 
-export default function Multiselect({ type, listaArr, array, setArray, value, label }) {
+export default function Multiselect({ type, listaArr, array, setArray, value, label, deleted }) {
   const verifyEqual = (cod) => {
     let controle = false
 
@@ -56,35 +56,39 @@ export default function Multiselect({ type, listaArr, array, setArray, value, la
   }
 
   return (
-    <div className="my-1 flex flex-col gap rounded svelte-1l8159u">
+    <div className="my-1 flex flex-col gap rounded">
       <div className="flex-1 border-none">
-        <select
-          name={type}
-          id={`select-${type}`}
-          defaultValue=""
-          onChange={e => handleAdd(e.target.value)}>
-          <option value="" disabled>Selecione um {type}</option>
-          {listaArr.length > 0
-            ? listaArr.map((el) => (
-              <option
-                key={`ms-${el[value]}${type}`}
-                value={JSON.stringify(el)}
-                className={verifyEqual(el[value]) ? "bg-verde-100 text-gray-50" : ''} disabled={verifyEqual(el.cpf)}
-              >
-                {el[label]}
-              </option>
-            ))
-            : ''}
-        </select>
+        {!deleted &&
+          <select
+            name={type}
+            id={`select-${type}`}
+            defaultValue=""
+            onChange={e => handleAdd(e.target.value)}>
+            <option value="" disabled>Selecione um {type}</option>
+            {listaArr.length > 0
+              ? listaArr.map((el) => (
+                <option
+                  key={`ms-${el[value]}${type}`}
+                  value={JSON.stringify(el)}
+                  className={verifyEqual(el[value]) ? "bg-verde-100 text-gray-50" : ''} disabled={verifyEqual(el.cpf)}
+                >
+                  {el[label]}
+                </option>
+              ))
+              : ''}
+          </select>
+        }
       </div>
 
-      {value === "cpf" ?
-        <ListUsuarios treinUsuarios={array} setTreinUsuarios={setArray} handleRemove={handleRemove} />
-        : value === "cod_curso" ?
-          <ListCursos treinCursos={array} handleRemove={handleRemove} />
-          : value === "cod_video" ?
-            <ListVideos videos={array} setVideos={setArray} handleRemove={handleRemove} />
-            : ''}
+      <div className='max-h-[20em] overflow-auto'>
+        {value === "cpf" ?
+          <ListUsuarios treinUsuarios={array} setTreinUsuarios={setArray} handleRemove={handleRemove} deleted={deleted} />
+          : value === "cod_curso" ?
+            <ListCursos treinCursos={array} handleRemove={handleRemove} deleted={deleted} />
+            : value === "cod_video" ?
+              <ListVideos videos={array} setVideos={setArray} handleRemove={handleRemove} deleted={deleted} />
+              : ''}
+      </div>
     </div>
   );
 }
@@ -96,6 +100,7 @@ Multiselect.defaultProps = {
   setArray: () => null,
   value: 'cpf',
   label: 'nome',
+  deleted: false,
 };
 
 Multiselect.propTypes = {
@@ -105,4 +110,5 @@ Multiselect.propTypes = {
   setArray: PropTypes.func,
   value: PropTypes.string,
   label: PropTypes.string,
+  deleted: PropTypes.bool,
 };

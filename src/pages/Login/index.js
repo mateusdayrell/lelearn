@@ -44,46 +44,42 @@ export default function Login(props) {
       <div className='container-body-login'>
         <Svg />
         <div className='container-login'>
-          <h1 className='title-login'>Login</h1>
-          <div className='content-inputs'>
+          <h1 className='title-login'>Login </h1>
+          <form className='content-inputs'>
             <div className="input-login">
-              <span className='text-sm'>
+              <span className='InputNome'>
                 E-mail
               </span>
               <input
                 type="email"
                 name="email"
-                className="input-animation"
+                className="input-animation rounded pl-2 pb-0"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)} />
-              <span className="absolute inset-y-0 top-6 left-0 flex items-center pl-2">
-                <At size={24} />
-              </span>
+                <div className='underline'/>
             </div>
-            <div className="input-login">
-              <span className='text-sm'>
+            <div className="input-login mt-6">
+              <span className='InputNome'>
                 Senha
               </span>
               <input
                 type="password"
                 name="senha"
-                className="input-animation"
+                className="input-animation rounded pl-2 pb-0"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)} />
-              <span className="absolute inset-y-0 top-6 left-0 flex items-center pl-2">
-                <Key size={24} />
-              </span>
+              <div className='underline'/>
             </div>
-            <Link className="text-xs text-cinza-100 hover:text-cinza-300 duration-200 pl-2 select-none" to="/recuperar-senha">
+            <Link className="text-xs text-cinza-100 hover:text-cinza-300 duration-200 pl-1 select-none" to="/recuperar-senha">
               Esqueceu a senha?
             </Link>
-            <button className="bg-verde-100 mt-8 mb-10 select-none hover:bg-verde-200 text-cinza-100 w-full py-1
+            <button className="bg-verde-100 mt-9 mb-10 select-none hover:bg-verde-200 text-cinza-100 w-full py-1
              rounded-lg duration-150 shadow-sm hover:shadow-verde-200 shadow-verde-100"
-              type="button"
+              type="submit"
               onClick={handleSubmit}>
               Entrar
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </>

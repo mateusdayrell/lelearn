@@ -1,12 +1,6 @@
 .Modal {
   @apply absolute top-[5%] bg-cinza-500 shadow-lg py-3 px-5 
-  min-w-[42.5em] max-w-min 
-
-  /* CONSERTAR APÓS UTILIZAR O FRAME PARA CURSOS-VIDEOS */
-  rounded-md
-  max-h-[35em]
-  overflow-auto
-  /* CONSERTAR APÓS UTILIZAR O FRAME PARA CURSOS-VIDEOS */
+  min-w-[42.5em] max-w-min rounded-md max-h-[38em]
 }
 
 
@@ -25,7 +19,7 @@
 
 
 .Modal .ModalContent{
-  @apply py-2 text-cinza-100 h-full w-full
+  @apply py-2 text-cinza-100 h-full w-full 
 }
 .ModalBar{
   @apply mx-2
@@ -71,7 +65,7 @@
 
 
 .Overlay {
-  @apply fixed top-0 left-0 right-0 bottom-0 bg-black/60 flex justify-center backdrop-blur-md 
+  @apply fixed top-0 left-0 right-0 bottom-0 bg-black/60 flex justify-center backdrop-blur-md
 }
 
 .Modal .InputArea input:disabled  {

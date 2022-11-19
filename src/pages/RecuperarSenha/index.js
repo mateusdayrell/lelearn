@@ -184,6 +184,7 @@ export default function RecuperarSenha() {
                 <span className='input-icon'>
                   <IdentificationCard size={24} />
                 </span>
+                <div className='underline'/>
               </div>
               <div className='input-password'>
                 <span>E-mail</span>
@@ -197,6 +198,7 @@ export default function RecuperarSenha() {
                 <span className='input-icon'>
                   <At size={24} />
                 </span>
+                <div className='underline'/>
               </div>
               <div className='content-button-password'>
                 <Link  to="/login" className='justify-center'>
@@ -267,6 +269,7 @@ export default function RecuperarSenha() {
                 <span className='input-icon'>
                   <Key size={24} />
                 </span>
+                <div className='underline'/>
               </div>
               <div className='input-password'>
                 <span>Confirme sua nova senha</span>
@@ -280,6 +283,7 @@ export default function RecuperarSenha() {
                 <span className='input-icon'>
                   <Key size={24} />
                 </span>
+                <div className='underline'/>
               </div>
               <div className='content-button-password'>
                 <button

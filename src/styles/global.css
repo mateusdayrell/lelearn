@@ -58,7 +58,7 @@ select {
   @apply bg-transparent
 }
 ::-webkit-scrollbar-thumb {
-  @apply rounded-3xl bg-zinc-700 hover:bg-zinc-500
+  @apply rounded-3xl bg-zinc-500 hover:bg-zinc-400
 }
 
 /* --CONTAINERS-- */
@@ -115,7 +115,7 @@ select {
 }
 
 .search-container{
-  @apply bg-cinza-400 w-3/4 p-3 rounded-xl shadow-md
+  @apply bg-cinza-400 w-full p-3 rounded-xl shadow-md
 }
 
 .search-form{
@@ -161,10 +161,13 @@ select {
   @apply py-2
 }
 .subname-container-list-blue{
-  @apply text-sm text-azul-100 rounded-xl px-1 pb-[2px] ml-3 bg-azul-200
+  @apply text-sm text-azul-100 rounded-xl px-1 pb-[2px] ml-3 bg-azul-200 
 }
 .subname-container-list-orange{
-  @apply text-sm text-laranja-100 rounded-xl px-1 pb-[2px] ml-3 bg-laranja-200
+  @apply text-sm text-laranja-100 rounded-xl px-1 pb-[2px] ml-3 bg-laranja-200 
+}
+.subname-container-list-red{
+  @apply text-sm text-cinza-500 rounded-xl px-1 pb-[2px] ml-3 bg-vermelho-200
 }
 .buttons-container-list{
   @apply flex gap-2

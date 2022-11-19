@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple } from 'phosphor-react';
+import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple, Eye, MinusCircle } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
 
@@ -22,10 +22,12 @@ export default function GestaoVideos() {
   const [descricao, setDescricao] = useState('');
   const [link, setLink] = useState('');
   const [videoCursos, setVideoCursos] = useState([])
+  const [deleted, setDeleted] = useState(false);
 
   const [searchTitulo, setSearchTitulo] = useState('');
   const [searchCurso, setSearchCurso] = useState('');
-  const [searchOrdem, setSearchOrdem] = useState('')
+  const [searchOrdem, setSearchOrdem] = useState('');
+  const [searchStatus, setSearchStatus] = useState('ativo');
 
   const [isLoading, setIsLoading] = useState(false);
   const [shwoFormModal, setShowFormModal] = useState(false);
@@ -59,15 +61,21 @@ export default function GestaoVideos() {
     const querys = new URLSearchParams({
       titulo_video: searchTitulo,
       cod_curso: searchCurso,
+      status: searchStatus,
     }).toString();
 
     setIsLoading(true);
 
     try {
-      const { data } = await axios.get(`/videos/search/${querys}`);
+      let response = null
+      if (searchTitulo || searchCurso || searchStatus !== 'ativo') {
+        response = await axios.get(`/videos/search/${querys}`);
+      } else {
+        response = await axios.get('/videos/');
+      }
 
       setIsLoading(false);
-      setVideos(data);
+      setVideos(response.data);
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
@@ -114,7 +122,8 @@ export default function GestaoVideos() {
       await axios.delete(`/videos/${codigo}`);
 
       setIsLoading(false);
-      toast.success('Vídeo excluído com sucesso!');
+      if (deleted) toast.success('Vídeo excluído com sucesso!')
+      else toast.success('Vídeo desativado com sucesso!')
       await loadRegisters();
     } catch (error) {
       setIsLoading(false);
@@ -156,7 +165,7 @@ export default function GestaoVideos() {
   const handleIsUpdating = async (vid) => {
     try {
       setIsLoading(true);
-      const { data } = await axios.get(`/cursos/get-by-video/${vid.cod_video}`);
+      const { data } = await axios.get(`videos/get-cursos/${vid.cod_video}`);
       setIsLoading(false);
 
       setVideoCursos(data)
@@ -164,6 +173,7 @@ export default function GestaoVideos() {
       setTitulo(vid.titulo_video);
       setLink(vid.link);
       setDescricao(vid.desc_video);
+      setDeleted(!!vid.deleted_at)
 
       setIsUpdating(true);
       setShowFormModal(true);
@@ -178,12 +188,14 @@ export default function GestaoVideos() {
   const handleIsDeleting = (vid) => {
     setCodVideo(vid.cod_video);
     setTitulo(vid.titulo_video)
+    setDeleted(!!vid.deleted_at)
     setShowDeleteModal(true);
   };
 
   const clearSearch = () => {
     setSearchTitulo('');
     setSearchCurso('');
+    setSearchStatus('ativo')
     loadRegisters();
   };
 
@@ -197,9 +209,10 @@ export default function GestaoVideos() {
   const clearModal = (parameter) => {
     if (!parameter) setCodVideo('');
     setTitulo('');
-    setVideoCursos([])
+    setVideoCursos([]);
     setLink('');
     setDescricao('');
+    setDeleted(false);
   };
 
   const handleOrderChange = (array, ordem) => {
@@ -210,6 +223,21 @@ export default function GestaoVideos() {
   const handleNewPage = (novoInicio, novoFim) => {
     setInicio(novoInicio)
     setFim(novoFim)
+  }
+
+  const handleActivate = async (cod) => {
+    try {
+      setIsLoading(true);
+      await axios.put(`/videos/activate/${cod}`);
+      setIsLoading(false);
+      toast.success('Video ativado com sucesso.');
+      handleClose();
+      handleSearch();
+    } catch (error) {
+      setIsLoading(false)
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
   }
 
   return (
@@ -247,6 +275,20 @@ export default function GestaoVideos() {
                       </option>
                     ))
                     : ''}
+                </select>
+
+                <select
+                  className="search-input"
+                  name="status"
+                  id="status"
+                  value={searchStatus}
+                  onChange={(e) => setSearchStatus(e.target.value)} >
+                  <option value="" disabled>
+                    Selecione um status
+                  </option>
+                  <option value="ativo">Ativo</option>
+                  <option value="inativo">Inativo</option>
+                  <option value="ambos">Ambos</option>
                 </select>
               </div>
 
@@ -300,25 +342,34 @@ export default function GestaoVideos() {
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
                   <span>{video.titulo_video}</span>
+                  <span className={video.deleted_at ? 'subname-container-list-red' : 'hidden'}>
+                    <small>{video.deleted_at ? 'Video desativado' : ''}</small>
+                  </span>
                 </span>
               </div>
 
               <span className='buttons-container-list'>
                 <button
                   type="button"
-                  title="Editar"
+                  title={video.deleted_at ? "Visualizar" : "Editar"}
                   className='round-green-btn'
                   onClick={() => handleIsUpdating(video)}
                 >
-                  <PencilSimple size={20} />
+                  {video.deleted_at
+                    ? <Eye size={20} />
+                    : <PencilSimple size={20} />
+                  }
                 </button>
                 <button
                   type="button"
-                  title="Excluir"
+                  title={video.deleted_at ? "Excluir" : "Desativar"}
                   className='red-btn'
                   onClick={() => handleIsDeleting(video)}
                 >
-                  <TrashSimple size={20} />
+                  {video.deleted_at
+                    ? <TrashSimple size={20} />
+                    : <MinusCircle size={20} />
+                  }
                 </button>
               </span>
             </div>
@@ -342,7 +393,8 @@ export default function GestaoVideos() {
           ariaHideApp={false}
         >
           <div className="ModalHeader">
-            <span>{isUpdating ? 'Editar' : 'Cadastrar'} vídeo</span>
+            {/* eslint-disable-next-line no-nested-ternary */}
+            <span>{isUpdating ? deleted ? 'Visualizar' : 'Editar' : 'Cadastrar'} vídeo</span>
             <button
               className="CloseModal"
               type="button"
@@ -374,6 +426,7 @@ export default function GestaoVideos() {
                   className='ModalInput'
                   name="titulo"
                   maxLength="40"
+                  disabled={deleted}
                   value={titulo}
                   onChange={(e) => setTitulo(e.target.value)}
                 />
@@ -386,6 +439,7 @@ export default function GestaoVideos() {
                   className='ModalInput'
                   name="link"
                   maxLength="150"
+                  disabled={deleted}
                   value={link}
                   onChange={(e) => setLink(e.target.value)}
                 />
@@ -394,6 +448,7 @@ export default function GestaoVideos() {
                 <label>Descrição </label>
                 <textarea
                   name="descricao"
+                  disabled={deleted}
                   value={descricao}
                   onChange={(e) => setDescricao(e.target.value)}
                 />
@@ -406,28 +461,42 @@ export default function GestaoVideos() {
                 </div>
               }
             </div>
-
-            <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
-
           </div>
-          <div className="ModalFooter">
-            <button
-              className="RedBtn"
-              type="button"
-              onClick={() => clearModal("limpar")}>
-              Limpar
-            </button>
-            <button
-              className="GreenBtn"
-              type="button"
-              onClick={handleSubmit}>
-              {isUpdating ? 'Atualizar' : 'Cadastrar'}
-            </button>
-          </div>
+
+          {deleted
+            ?
+            <div className="ModalFooter">
+              <button
+                className="GrayBtn"
+                type="button"
+                onClick={handleClose}>
+                Fechar
+              </button>
+              <button
+                className="GreenBtn"
+                type="button"
+                onClick={() => handleActivate(codVideo)}>
+                Ativar
+              </button>
+            </div>
+            :
+            <>
+              <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
+
+              <div className="ModalFooter">
+                <button className="RedBtn" type="button" onClick={() => clearModal("limpar")}>
+                  Limpar
+                </button>
+                <button className="GreenBtn" type="button" onClick={handleSubmit}>
+                  {isUpdating ? 'Atualizar' : 'Cadastrar'}
+                </button>
+              </div>
+            </>
+          }
         </Modal>
 
         <DeleteModal
-          showDeleteModal={showDeleteModal} handleClose={handleClose}
+          showDeleteModal={showDeleteModal} handleClose={handleClose} deleted={deleted}
           type="vídeo" name={titulo} handleDelete={handleDelete} code={codVideo}
         />
       </div>

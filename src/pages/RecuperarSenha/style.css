@@ -48,4 +48,24 @@
   @apply  hover:bg-verde-200 text-cinza-100 font-medium py-2 px-4 rounded-xl shadow m-1 duration-200 flex items-center gap-2
 }
 /* FORMULARIOS */
+
+
 /* BODY - CONTAINER RECUPERAR SENHA */
+.input-login{
+  @apply relative text-cinza-100 focus-within:text-verde-100 duration-100
+}
+.input-animation{
+  @apply w-full text-sm bg-transparent text-cinza-100 border-none outline-none
+}
+.underline{
+  @apply w-full h-[2px] bg-cinza-200
+}
+.input-password > :is(.input-animation:focus) ~ .underline{
+  @apply bg-verde-100 scale-95 duration-500
+}
+.input-password > :is(.input-animation:focus){
+  @apply text-cinza-100 border-verde-100 duration-500
+}
+.input-password > :is(.input-animation:focus) ~ .InputNome{
+  @apply left-5
+}
