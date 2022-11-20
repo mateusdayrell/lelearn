@@ -169,7 +169,7 @@ export default function Navbar() {
               <CaretUp
                 size={20}
                 onClick={() => setOpenmn(!setopen)}
-                className={`duration-200 ${!setopen && "rotate-180"}`} />
+                className={`duration-200${!setopen && "rotate-180"} cursor-pointer`} />
             </span>
           </div>
         </div>

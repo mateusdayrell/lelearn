@@ -1,0 +1,14 @@
+.ContainerCurso{
+    @apply w-full h-28 bg-cinza-400 shadow-md rounded mb-3 flex items-center pr-4 justify-between text-cinza-200
+    border border-roxo-100
+}
+
+.NomeCursoList{
+    @apply text-laranja-100 font-semibold
+}
+.DescCurso{
+    @apply text-xs
+}
+.BtnCursoAcesso{
+    @apply w-12 h-10 bg-roxo-100 rounded flex items-center justify-center flex-col text-cinza-100 hover:text-cinza-500
+}

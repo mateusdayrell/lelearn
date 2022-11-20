@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
+import { Play } from 'phosphor-react';
 
 import axios from '../../services/axios';
 import Loading from '../../components/Loading';
@@ -17,7 +18,7 @@ export default function Treinamento() {
 
   useEffect(() => {
     loadRegisters();
-  }, []);
+    }, []);
 
   const loadRegisters = async () => {
     try {
@@ -46,13 +47,21 @@ export default function Treinamento() {
         <div className="container">
           {cursos.map((curso) => (
             <div key={curso.cod_curso}>
-              <span>{curso.cod_curso} - {curso.nome_curso}</span>
-              <button
-                type='button'
-                className='btn'
-                onClick={() => handleRedirect(curso.cod_curso)}>
-                  Acessar
-              </button>
+              <div className='ContainerCurso'>
+                <div className='flex items-center'>
+                  {/* IMAGEM DO CURSO */}
+                  <div className='h-[110px] w-[150px] min-h-[110px] min-w-[150px] bg-roxo-100'></div>
+                  <div className='flex flex-col w-2/3 ml-6'>
+                    <span className='NomeCursoList'>{curso.nome_curso}</span>
+                    <span className='DescCurso'>{curso.desc_curso}</span>
+                  </div>
+                </div>
+                <button
+                  className='BtnCursoAcesso'
+                  onClick={() => handleRedirect(curso.cod_curso)}>
+                  <Play size={20} />
+                </button>
+              </div>
             </div>
           ))}
         </div>
