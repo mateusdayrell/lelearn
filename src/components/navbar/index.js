@@ -28,7 +28,7 @@ export default function Navbar() {
   const selectedtitle = "text-verde-100";
   const [nomeUsuario, setNomeUsuario] = useState('Não logado');
   const [open, setOpen] = useState(true);
-  const [setopen, setOpenmn] = useState(false);
+  const [openMenuUser, setOpenMenuUser] = useState(false);
   const [word1, setWord1] = useState('')
   const [word2, setWord2] = useState('')
   const [menuLink, setMenuLink] = useState('/')
@@ -47,7 +47,7 @@ export default function Navbar() {
   useEffect(() => {
     getNome();
     handleCurrentMenu();
-    setOpenmn();
+    setOpenMenuUser();
   }, [location]);
 
   const getNome = () => {
@@ -147,20 +147,20 @@ export default function Navbar() {
         {/* USUARIO */}
         <div className={` ${open ? "profile-content-closed" : "profile-content-open"} profile-content`}>
 
-          <div className={open === true && setopen === true ? `${setopen ? "" : ""}absolute p-2 w-40 rounded-md bg-cinza-350 bottom-4 -right-44 shadow-md` : `${setopen ? "" : "hidden"}  w-10 flex flex-col duration-500 pl-2 my-2`}>
-            {/* <X size={20} className={`${!open && "hidden"} absolute left-32`} onClick={() => setOpenmn(!setopen)}/> */}
+          <div className={open === true && openMenuUser === true ? `${openMenuUser ? "" : ""}absolute p-2 w-40 rounded-md bg-cinza-350 bottom-4 -right-44 shadow-md` : `${openMenuUser ? "" : "hidden"}  w-10 flex flex-col duration-500 pl-2 my-2`}>
+            {/* <X size={20} className={`${!open && "hidden"} absolute left-32`} onClick={() => setOpenMenuUser(!openMenuUser)}/> */}
             <Link onClick={handleLogout} className="flex mr-6 text-sm hover:text-vermelho-100 duration-150 gap-2" to="/login">
               <div><SignOut size={20} /></div>
               Sair
             </Link>
-            {/* className={`${setopen && "hidden"} w-10 flex text-sm hover:text-verde-100 duration-150 gap-2`} */}
+            {/* className={`${openMenuUser && "hidden"} w-10 flex text-sm hover:text-verde-100 duration-150 gap-2`} */}
             <span className={`${!open && "hidden"} text-center flex justify-center select-none mt-3`}>
               {nomeUsuario}
             </span>
           </div>
 
           <div className='userinfo'>
-            <span className='avatar' aria-hidden="true" onClick={() => setOpenmn(!setopen)}>
+            <span className='avatar' aria-hidden="true" onClick={() => setOpenMenuUser(!openMenuUser)}>
               {word1}{word2}
             </span>
             <span className={`${open && "hidden"} name`}>
@@ -169,8 +169,8 @@ export default function Navbar() {
             <span className={`${open && "hidden"}`}>
               <CaretUp
                 size={20}
-                onClick={() => setOpenmn(!setopen)}
-                className={`duration-200${!setopen && "rotate-180"} cursor-pointer`} />
+                onClick={() => setOpenMenuUser(!openMenuUser)}
+                className={`duration-200${!openMenuUser && "rotate-180"} cursor-pointer`} />
             </span>
           </div>
         </div>
