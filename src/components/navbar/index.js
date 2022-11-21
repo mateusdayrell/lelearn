@@ -27,7 +27,7 @@ export default function Navbar() {
   const selected = "w-8 h-8 bg-verde-100 hover:bg-verde-200 flex items-center justify-center rounded-md text-cinza-500 shadow-md"
   const selectedtitle = "text-verde-100";
   const [nomeUsuario, setNomeUsuario] = useState('Não logado');
-  const [open, setOpen] = useState(true);
+  const [openSidebar, setOpenSidebar] = useState(true);
   const [openMenuUser, setOpenMenuUser] = useState(false);
   const [word1, setWord1] = useState('')
   const [word2, setWord2] = useState('')
@@ -87,21 +87,21 @@ export default function Navbar() {
     location.pathname === `${process.env.REACT_APP_BASE_URL}/login` || location.pathname === `${process.env.REACT_APP_BASE_URL}/recuperar-senha`
       ? ''
       :
-      <div className={` ${open ? "navbar-closed" : "navbar-open"} navbar`}>
+      <div className={` ${openSidebar ? "navbar-closed" : "navbar-open"} navbar`}>
 
         {/* LOGO */}
-        <div className={` ${open ? 'logo-content-closed' : 'logo-content-open'} logo-content`}>
-          <div className='logoicon' aria-hidden="true" onClick={() => setOpen(!open)}>
+        <div className={` ${openSidebar ? 'logo-content-closed' : 'logo-content-open'} logo-content`}>
+          <div className='logoicon' aria-hidden="true" onClick={() => setOpenSidebar(!openSidebar)}>
             <svg
               width="35"
               height="35"
               viewBox="0 0 38 45"
-              className={`${!open && 'hidden'}`}
+              className={`${!openSidebar && 'hidden'}`}
             >
               <path className='PrimeiroL' d="M6.36963 31.2345H19.5V36H0V0H6.36963V31.2345Z" fill="#00B37E" />
               <path className='SegundoL' d="M25.8696 31.2345H39V36H19.5V0H25.8696V31.2345Z" fill="#00B37E" />
             </svg>
-            <svg width="150" height="50" viewBox="0 0 431 210" className={`${open && 'hidden'}`} to="/">
+            <svg width="150" height="50" viewBox="0 0 431 210" className={`${openSidebar && 'hidden'}`} to="/">
               <path d="M17.5336 90.452H52.7838L52.7839 196.202H87.7839V209.852H35.6515V104.252H0.433594V0.00195312H17.5336V90.452Z" fill="#00B37E" />
               <path d="M144.184 60.9026C144.184 64.0026 143.984 66.8026 143.584 69.3026H80.4338C80.9338 75.9026 83.3837 81.2026 87.7837 85.2026C92.1837 89.2026 97.5837 91.2025 103.984 91.2025C113.184 91.2025 119.684 87.3526 123.484 79.6526H141.934C139.434 87.2526 134.884 93.5025 128.284 98.4025C121.784 103.203 113.684 105.602 103.984 105.602C96.0837 105.602 88.9838 103.852 82.6838 100.352C76.4838 96.7524 71.5837 91.7526 67.9837 85.3526C64.4837 78.8526 62.7337 71.3526 62.7337 62.8526C62.7337 54.3526 64.4337 46.9026 67.8337 40.5026C71.3337 34.0026 76.1837 29.0026 82.3837 25.5026C88.6837 22.0026 95.8837 20.2526 103.984 20.2526C111.784 20.2526 118.734 21.9526 124.834 25.3526C130.934 28.7526 135.684 33.5526 139.084 39.7526C142.484 45.8526 144.184 52.9026 144.184 60.9026ZM126.334 55.5026C126.234 49.2026 123.984 44.1526 119.584 40.3526C115.184 36.5526 109.734 34.6526 103.234 34.6526C97.3337 34.6526 92.2838 36.5526 88.0838 40.3526C83.8838 44.0526 81.3838 49.1026 80.5838 55.5026H126.334Z" fill="white" />
               <path d="M179.184 165.152C179.184 168.252 178.984 171.052 178.584 173.552H115.434C115.934 180.152 118.684 185.452 123.084 189.452C127.484 193.452 132.584 195.452 138.984 195.452C148.184 195.452 154.684 191.602 158.484 183.902H176.934C174.434 191.502 169.884 197.752 163.284 202.652C156.784 207.452 148.684 209.852 138.984 209.852C131.084 209.852 123.984 208.102 117.684 204.602C111.484 201.002 106.584 196.002 102.984 189.602C99.4837 183.102 97.7337 175.602 97.7337 167.102C97.7337 158.602 99.4337 151.152 102.834 144.752C106.334 138.252 111.184 133.252 117.384 129.752C123.684 126.252 130.884 124.502 138.984 124.502C146.784 124.502 153.734 126.202 159.834 129.602C165.934 133.002 170.684 137.802 174.084 144.002C177.484 150.102 179.184 157.152 179.184 165.152ZM161.334 159.752C161.234 153.452 158.984 148.402 154.584 144.602C150.184 140.802 144.734 138.902 138.234 138.902C132.334 138.902 127.284 140.802 123.084 144.602C118.884 148.302 116.384 153.352 115.584 159.752H161.334Z" fill="white" />
@@ -112,15 +112,15 @@ export default function Navbar() {
           </div>
           <CaretDoubleRight
             size={24}
-            className={`absolute cursor-pointer -right-[1em] top-3 rounded-full text-cinza-100 bg-cinza-400 hover:text-verde-100 duration-500 ${!open && "rotate-180 text-verde-100 hover:text-cinza-100"}`}
-            onClick={() => setOpen(!open)} />
+            className={`absolute cursor-pointer -right-[1em] top-3 rounded-full text-cinza-100 bg-cinza-400 hover:text-verde-100 duration-500 ${!openSidebar && "rotate-180 text-verde-100 hover:text-cinza-100"}`}
+            onClick={() => setOpenSidebar(!openSidebar)} />
         </div>
 
         {/* ICONES */}
         <div
           onClick={handleCurrentMenu}
           aria-hidden="true"
-          className={`${open ? "list-content-closed" : "list-content-open"} list-content`}
+          className={`${openSidebar ? "list-content-closed" : "list-content-open"} list-content`}
         >
           {menus?.map((menu, i) => (
             menu.users.includes(tipo) ? // Verificar tipo do usuário
@@ -129,12 +129,12 @@ export default function Navbar() {
                   className={menuLink === menu.link ? `${selected}` : "icons"}> {React.createElement(menu?.icon, { size: "24" })} </div>
                 <span
                   style={{ transitionDelay: `${i + 4}0ms`, }}
-                  className={menuLink === menu.link && !open ? `${selectedtitle} whitespace-pre duration-500` : `${open && "hidden"}`}
-                // className={`whitespace-pre duration-500 ${open && "hidden"} `}
+                  className={menuLink === menu.link && !openSidebar ? `${selectedtitle} whitespace-pre duration-500` : `${openSidebar && "hidden"}`}
+                // className={`whitespace-pre duration-500 ${openSidebar && "hidden"} `}
                 >
                   {menu?.name}
                 </span>
-                <span className={`${!open && 'hidden'} absolute left-48 bg-verde-100 font-semibold whitespace-pre text-cinza-500 w-0 overflow-hidden
+                <span className={`${!openSidebar && 'hidden'} absolute left-48 bg-verde-100 font-semibold whitespace-pre text-cinza-500 w-0 overflow-hidden
                 rounded-md drop-shadow-lg px-0 py-0 group-hover:px-2 group-hover:h-8 group-hover:left-14 group-hover:duration-300 group-hover:w-fit
                 flex items-center`}>
                   {menu?.name}
@@ -145,16 +145,16 @@ export default function Navbar() {
         </div>
 
         {/* USUARIO */}
-        <div className={` ${open ? "profile-content-closed" : "profile-content-open"} profile-content`}>
+        <div className={` ${openSidebar ? "profile-content-closed" : "profile-content-open"} profile-content`}>
 
-          <div className={open === true && openMenuUser === true ? `${openMenuUser ? "" : ""}absolute p-2 w-40 rounded-md bg-cinza-350 bottom-4 -right-44 shadow-md` : `${openMenuUser ? "" : "hidden"}  w-10 flex flex-col duration-500 pl-2 my-2`}>
-            {/* <X size={20} className={`${!open && "hidden"} absolute left-32`} onClick={() => setOpenMenuUser(!openMenuUser)}/> */}
+          <div className={openSidebar === true && openMenuUser === true ? `${openMenuUser ? "" : ""}absolute p-2 w-40 rounded-md bg-cinza-350 bottom-4 -right-44 shadow-md` : `${openMenuUser ? "" : "hidden"}  w-10 flex flex-col duration-500 pl-2 my-2`}>
+            {/* <X size={20} className={`${!openSidebar && "hidden"} absolute left-32`} onClick={() => setOpenMenuUser(!openMenuUser)}/> */}
             <Link onClick={handleLogout} className="flex mr-6 text-sm hover:text-vermelho-100 duration-150 gap-2" to="/login">
               <div><SignOut size={20} /></div>
               Sair
             </Link>
             {/* className={`${openMenuUser && "hidden"} w-10 flex text-sm hover:text-verde-100 duration-150 gap-2`} */}
-            <span className={`${!open && "hidden"} text-center flex justify-center select-none mt-3`}>
+            <span className={`${!openSidebar && "hidden"} text-center flex justify-center select-none mt-3`}>
               {nomeUsuario}
             </span>
           </div>
@@ -163,10 +163,10 @@ export default function Navbar() {
             <span className='avatar' aria-hidden="true" onClick={() => setOpenMenuUser(!openMenuUser)}>
               {word1}{word2}
             </span>
-            <span className={`${open && "hidden"} name`}>
+            <span className={`${openSidebar && "hidden"} name`}>
               {nomeUsuario}
             </span>
-            <span className={`${open && "hidden"}`}>
+            <span className={`${openSidebar && "hidden"}`}>
               <CaretUp
                 size={20}
                 onClick={() => setOpenMenuUser(!openMenuUser)}
