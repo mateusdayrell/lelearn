@@ -10,10 +10,9 @@ import {
   CaretDoubleRight,
   House,
   CaretUp,
-  X,
 } from 'phosphor-react';
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation  } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './styles.css';
 import * as actions from '../../store/modules/auth/actions';
@@ -21,6 +20,7 @@ import history from '../../services/history';
 
 export default function Navbar() {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const { nome, tipo } = useSelector((state) => state.auth.usuario); // TIPO -> 0 === ADMINISTRADOR, TIPO -> 1 === USUARIO COMUM
 
@@ -38,6 +38,7 @@ export default function Navbar() {
     { name: "Página Inicial", link: "/", icon: House, users: [0, 1] },
     { name: "Treinamentos", link: "/treinamentos", icon: Bookmarks, users: [0, 1] },
     { name: "Cursos", link: "/cursos", icon: BookBookmark, users: [0, 1] },
+    { name: "Videos", link: "/videos", icon: BookBookmark, users: [0, 1] },
     { name: "Gestão de Treinamentos", link: "/gestao-treinamentos", icon: Bookmark, users: [0] },
     { name: "Gestão de Cursos", link: "/gestao-cursos", icon: Books, users: [0] },
     { name: "Gestão de Videos", link: "/gestao-videos", icon: YoutubeLogo, users: [0] },
@@ -48,7 +49,7 @@ export default function Navbar() {
     getNome();
     handleCurrentMenu();
     setOpenmn();
-  }, [window.location.href]);
+  }, [location]);
 
   const getNome = () => {
     setNomeUsuario(nome);
@@ -71,7 +72,7 @@ export default function Navbar() {
   const handleCurrentMenu = () => {
     menus.forEach(el => {
       const url = process.env.REACT_APP_BASE_URL + el.link
-      if (window.location.href === url) setMenuLink(el.link)
+      if (window.location.href.includes(url)) setMenuLink(el.link)
     });
     return true
   }
@@ -83,14 +84,14 @@ export default function Navbar() {
   };
 
   return (
-    window.location.href === `${process.env.REACT_APP_BASE_URL}/login` || window.location.href === `${process.env.REACT_APP_BASE_URL}/recuperar-senha`
+    location.pathname === `${process.env.REACT_APP_BASE_URL}/login` || location.pathname === `${process.env.REACT_APP_BASE_URL}/recuperar-senha`
       ? ''
       :
       <div className={` ${open ? "navbar-closed" : "navbar-open"} navbar`}>
 
         {/* LOGO */}
         <div className={` ${open ? 'logo-content-closed' : 'logo-content-open'} logo-content`}>
-          <div className='logoicon' onClick={() => setOpen(!open)}>
+          <div className='logoicon' aria-hidden="true" onClick={() => setOpen(!open)}>
             <svg
               width="35"
               height="35"
