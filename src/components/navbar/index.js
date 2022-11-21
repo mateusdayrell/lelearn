@@ -38,7 +38,6 @@ export default function Navbar() {
     { name: "Página Inicial", link: "/", icon: House, users: [0, 1] },
     { name: "Treinamentos", link: "/treinamentos", icon: Bookmarks, users: [0, 1] },
     { name: "Cursos", link: "/cursos", icon: BookBookmark, users: [0, 1] },
-    { name: "Videos", link: "/videos", icon: BookBookmark, users: [0, 1] },
     { name: "Gestão de Treinamentos", link: "/gestao-treinamentos", icon: Bookmark, users: [0] },
     { name: "Gestão de Cursos", link: "/gestao-cursos", icon: Books, users: [0] },
     { name: "Gestão de Videos", link: "/gestao-videos", icon: YoutubeLogo, users: [0] },
@@ -73,6 +72,7 @@ export default function Navbar() {
     menus.forEach(el => {
       const url = process.env.REACT_APP_BASE_URL + el.link
       if (window.location.href.includes(url)) setMenuLink(el.link)
+      else if(location.pathname.includes('/videos/')) setMenuLink('/cursos')
     });
     return true
   }
