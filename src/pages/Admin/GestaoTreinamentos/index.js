@@ -21,6 +21,7 @@ export default function GestaoTreinamentos() {
   const [codTreinamento, setCodTreinamento] = useState('');
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
+  const [color, setColor] = useState('');
   const [treinUsuarios, setTreinUsuarios] = useState([]);
   const [treinCursos, setTreinCursos] = useState([]);
   const [deleted, setDeleted] = useState(false)
@@ -173,6 +174,7 @@ export default function GestaoTreinamentos() {
 
       setTreinUsuarios(data.usuarios);
       setTreinCursos(data.cursos);
+      setColor(data.cor)
       setCodTreinamento(treinamento.cod_treinamento);
       setNome(treinamento.nome_treinamento);
       setDescricao(treinamento.desc_treinamento);
@@ -493,6 +495,23 @@ export default function GestaoTreinamentos() {
                     value={nome}
                     onChange={(e) => setNome(e.target.value)}
                   />
+                </div>
+
+                <div className="InputArea">
+                  <label>Cor do card</label>
+                  <select
+                    name="cor"
+                    value={color}
+                    onChange={(e) => setColor(e.target.value)} >
+                    <option value="" disabled>
+                      Selecione uma cor
+                    </option>
+                    <option className='text-[#81D8F7]' value="#81D8F7">#81D8F7 - Azul</option>
+                    <option className='text-[#00B37E]' value="#00B37E">#00B37E - Verde</option>
+                    <option className='text-[#F3F4F6]' value="#F3F4F6">#F3F4F6 - Cinza</option>
+                    <option className='text-[#F75A68]' value="#F75A68">#F75A68 - Vermelho</option>
+                    <option className='text-[#633BBC]' value="#633BBC">#633BBC - Roxo</option>
+                  </select>
                 </div>
 
                 <div className="InputArea">
