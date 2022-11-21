@@ -374,7 +374,7 @@ export default function GestaoCursos() {
                 <button
                   type="button"
                   title={curso.deleted_at ? "Visualizar" : "Editar"}
-                  className='round-green-btn'
+                  className={curso.deleted_at ? 'round-blue-btn':'round-green-btn'}
                   onClick={() => handleIsUpdating(curso)}
                 >
                   {curso.deleted_at

@@ -400,7 +400,7 @@ export default function Usuario() {
                 <button
                   type="button"
                   title={usuario.deleted_at ? "Visualizar" : "Editar"}
-                  className='round-green-btn'
+                  className={usuario.deleted_at ? 'round-blue-btn':'round-green-btn'}
                   onClick={() => handleIsUpdating(usuario)}
                 >
                   {usuario.deleted_at

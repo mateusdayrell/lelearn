@@ -390,7 +390,7 @@ export default function GestaoTreinamentos() {
                 <button
                   type="button"
                   title={treinamento.deleted_at ? "Visualizar" : "Editar"}
-                  className='round-green-btn'
+                  className={treinamento.deleted_at ? 'round-blue-btn':'round-green-btn'}
                   onClick={() => handleIsUpdating(treinamento)}
                 >
                   {treinamento.deleted_at
