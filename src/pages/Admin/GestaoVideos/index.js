@@ -352,7 +352,7 @@ export default function GestaoVideos() {
                 <button
                   type="button"
                   title={video.deleted_at ? "Visualizar" : "Editar"}
-                  className='round-green-btn'
+                  className={video.deleted_at ? 'round-blue-btn':'round-green-btn'}
                   onClick={() => handleIsUpdating(video)}
                 >
                   {video.deleted_at
