@@ -8,7 +8,7 @@ export default function Loading({ isLoading }) {
   if (!isLoading) return <></>;
   return (
     <div className="loading-container">
-      <div className='loader'></div>
+      <div className='loader'/>
       <span>Carregando</span>
     </div>
   );
