@@ -500,7 +500,7 @@ export default function GestaoTreinamentos() {
                 </div>
 
                 <div className="InputArea">
-                  <label>Cor do card</label>
+                  <label>Cor do card *</label>
                   <select
                     name="cor"
                     value={cor}
