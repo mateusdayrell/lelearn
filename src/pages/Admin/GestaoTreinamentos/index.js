@@ -21,7 +21,7 @@ export default function GestaoTreinamentos() {
   const [codTreinamento, setCodTreinamento] = useState('');
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
-  const [color, setColor] = useState('');
+  const [cor, setCor] = useState('');
   const [treinUsuarios, setTreinUsuarios] = useState([]);
   const [treinCursos, setTreinCursos] = useState([]);
   const [deleted, setDeleted] = useState(false)
@@ -100,6 +100,7 @@ export default function GestaoTreinamentos() {
     const regTemp = {
       nome_treinamento: nome,
       desc_treinamento: descricao,
+      cor,
       usuarios: treinUsuarios,
       cursos: treinCursos,
     };
@@ -174,7 +175,7 @@ export default function GestaoTreinamentos() {
 
       setTreinUsuarios(data.usuarios);
       setTreinCursos(data.cursos);
-      setColor(data.cor)
+      setCor(data.cor)
       setCodTreinamento(treinamento.cod_treinamento);
       setNome(treinamento.nome_treinamento);
       setDescricao(treinamento.desc_treinamento);
@@ -219,6 +220,7 @@ export default function GestaoTreinamentos() {
     setCodTreinamento('');
     setNome('');
     setDescricao('');
+    setCor('');
     setTreinUsuarios([]);
     setTreinCursos([]);
     setDeleted(false);
@@ -501,8 +503,8 @@ export default function GestaoTreinamentos() {
                   <label>Cor do card</label>
                   <select
                     name="cor"
-                    value={color}
-                    onChange={(e) => setColor(e.target.value)} >
+                    value={cor}
+                    onChange={(e) => setCor(e.target.value)} >
                     <option value="" disabled>
                       Selecione uma cor
                     </option>
