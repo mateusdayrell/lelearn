@@ -120,9 +120,9 @@ export default function Cursos() {
 
           {videos.map((video, indice) => (
             <div className="list-videos">
-              <div key={video.cod_video} className="flex items-center gap-3  ">
-                <div className='title-video' >
-                  {indice + 1} - {video.titulo_video}
+              <div key={video.cod_video} className="flex items-center gap-3 w-1/2">
+                <div className='title-video'>
+                  {video.titulo_video}
                 </div>
                 <div className='video-info'>
                   <p className='text-xs text-[12px] mr-8'>{video.desc_video}</p>

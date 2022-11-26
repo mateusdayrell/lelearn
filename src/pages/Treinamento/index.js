@@ -50,7 +50,7 @@ export default function Treinamento() {
               <div className='ContainerCurso'>
                 <div className='flex items-center'>
                   {/* IMAGEM DO CURSO */}
-                  <div className='h-[110px] w-[150px] min-h-[110px] min-w-[150px] bg-roxo-100'></div>
+                  <div className='h-[110px] w-[150px] min-h-[110px] min-w-[150px] bg-roxo-100 shadow'></div>
                   <div className='flex flex-col w-2/3 ml-6'>
                     <span className='NomeCursoList'>{curso.nome_curso}</span>
                     <span className='DescCurso'>{curso.desc_curso}</span>

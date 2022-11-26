@@ -9,11 +9,9 @@
   @apply  bg-cinza-400  min-w-[50%] pl-3 pr-3 rounded-xl shadow-md   mb-4
 }
 .title-video{
-  @apply h-[110px] min-h-[110px]  min-w-[160px] w-[160px] pl-2 pr-2 pt-1  bg-verde-100 flex items-center 
+  @apply h-[110px] w-[150px] min-h-[110px] min-w-[150px] pl-2 pr-2 pt-1  
+  bg-verde-100 flex items-center justify-center text-center text-cinza-100 font-semibold
 }
 .list-videos{
-  @apply flex justify-between items-center bg-cinza-400 border border-cinza-400 shadow-md transition-all text-white  mb-3 pr-3 
-}
-.list-videos:hover {
-  @apply border shadow-md shadow-verde-200
+  @apply w-full h-28 bg-cinza-400 shadow-md rounded mb-3 flex items-center pr-4 justify-between text-cinza-200
 }
