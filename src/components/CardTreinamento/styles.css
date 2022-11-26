@@ -60,5 +60,5 @@
     @apply bg-verde-100 flex h-1 text-xs font-semibold items-center px-1 rounded
 }
 .PrazoListConclused{
-    @apply translate-y-5 duration-500 text-sm text-verde-100
+    @apply translate-y-5 duration-500 text-sm text-cinza-200
 }
