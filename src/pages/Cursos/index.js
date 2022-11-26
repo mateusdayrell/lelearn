@@ -4,6 +4,7 @@ import { get } from 'lodash';
 import { FaCaretRight, FaFileImage } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { MagnifyingGlass, PaintBrushHousehold } from 'phosphor-react';
+import { toast } from 'react-toastify';
 
 import './style.css';
 import Loading from '../../components/Loading';
@@ -22,11 +23,9 @@ export default function Cursos() {
   const loadRegisters = async () => {
     setIsLoading(true);
     try {
-      const cursosResponse = await axios.get('/cursos/');
-      const videosReponse = await axios.get('/videos/');
+      const {data} = await axios.get('/cursos/');
       setIsLoading(false);
-      setCursos(cursosResponse.data);
-      setVideos(videosReponse.data)
+      setCursos(data);
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
