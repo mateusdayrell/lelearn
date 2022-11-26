@@ -1,59 +1,58 @@
 .CardContainer{
-    @apply w-72 h-44 rounded shadow-lg transition-all flex duration-500 bg-cinza-400 hover:bg-cinza-100
+    @apply w-72 h-44 shadow-lg transition-all flex flex-col
 } 
 
 /* ANIMATIONS */
 .CardContainer:hover .NomeTreinamento{
-    @apply text-vermelho-100 translate-y-0
+    @apply translate-y-0
 }
 .CardContainer:hover .NomeTreinamentoComplete{
-    @apply text-verde-100 translate-y-0
+    @apply translate-y-0
 }
-.CardContainer:hover .PrazoListAmarelo, .CardContainer:hover .PrazoListAzul{
+.CardContainer:hover .PrazoList{
     @apply translate-y-0
 }
 .CardContainer:hover .DescTreinamento{
-    @apply text-cinza-400 flex
+    @apply text-cinza-200 flex
 }
 /* ANIMATIONS */
 
 
-.ContainerLeftCard{
-    @apply w-full h-full
+.Card{
+    @apply w-full h-44 bg-cinza-400 rounded
 }
 /* INFO TREINAMENTO */
 .DescTreinamento{
     @apply text-cinza-200 transition-all duration-700 translate-y-0 hidden
 }
 .NomeTreinamento{
-    @apply text-cinza-100 text-xl translate-y-5 duration-500
+    @apply text-xl translate-y-5 duration-500
 }
 .NomeTreinamentoComplete{
-    @apply text-verde-100 text-xl translate-y-5 duration-500
+    @apply text-xl translate-y-5 duration-500
 }
 
 /* BUTTON */
 .BtnCardTreinamento{
-    @apply flex items-center gap-2 h-7 pr-2
-    text-azul-100 rounded-2xl 
-    hover:bg-azul-100 hover:text-cinza-500
-    duration-500 transition-all
+    @apply flex items-center h-7 rounded-2xl gap-2 pr-3 duration-500 transition-all
 }
 .BtnCardTreinamento span{
-    @apply bg-azul-100 h-full text-cinza-500 rounded-full flex items-center p-1
+    @apply h-full text-cinza-500 rounded-full flex items-center p-1 duration-500
+}
+.BtnCardTreinamento:hover{
+    @apply pr-4
+}
+.BtnCardTreinamento:hover span{
+    @apply rotate-180
 }
 
 /* STYLE PRAZO */
-.PrazoListAzul{
-    @apply text-azul-100 translate-y-5 duration-500
+.PrazoList{
+    @apply translate-y-5 duration-500
 }
-.PrazoListAmarelo{
-    @apply text-laranja-100 translate-y-5 duration-500
-}
-
 .ProgressBar{
-    @apply bg-vermelho-100 flex h-2 text-xs font-semibold items-center px-1 rounded-r-lg rounded-t justify-end
+    @apply bg-laranja-100 flex h-1 text-xs font-semibold items-center px-1 rounded-lg justify-end
 }
 .ProgressBarComplete{
-    @apply bg-verde-100 flex h-2 text-xs font-semibold items-center px-1 rounded-t 
+    @apply bg-verde-100 flex h-1 text-xs font-semibold items-center px-1 rounded
 }

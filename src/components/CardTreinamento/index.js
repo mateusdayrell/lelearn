@@ -30,21 +30,21 @@ export default function CardTreinamento({ treinamento }) {
 
   return (
     <div className='CardContainer'>
-      <div className='ContainerLeftCard'>
-        <div className='w-full flex items-center'>
-          <div style={{ width: `${percentage}%` }} className={percentage === 100 ? 'ProgressBarComplete':'ProgressBar'}>
-            <small className={percentage === 0 ? 'translate-x-5 text-cinza-100 font-thin':' font-semibold text-cinza-500'}>{percentage === 100 ? 'Completo':`${percentage}%`}</small>
-          </div>
+      <div className='w-full items-center flex'>
+        <div style={{ width: `${percentage}%` }} className={percentage === 100 ? 'ProgressBarComplete' : 'ProgressBar'}>
+          <small className={percentage === 0 ? 'translate-x-5 text-cinza-100 font-thin' : ''}>{percentage === 100 ? '' : `${percentage}%`}</small>
         </div>
+      </div>
+      <div className='Card'>
         <div className='h-[75%] px-3 py-1 flex flex-col'>
           <div className='flex flex-col'>
             <small>
               {treinamento.prazo === null
-                ? <p className='PrazoListAzul'>Prazo não determinado</p>
-                : <p className='PrazoListAmarelo'>{moment(treinamento.prazo, 'YYYY-MM-DD HH:mm:ss').format('LL')}</p>
+                ? <p style={{color:`${treinamento.cor}`}} className='PrazoList'>Prazo não determinado</p>
+                : <p style={{color:`${treinamento.cor}`}} className='PrazoList'>{moment(treinamento.prazo, 'YYYY-MM-DD HH:mm:ss').format('LL')}</p>
               }
             </small>
-            <span className={`${percentage === 100 ? 'NomeTreinamentoComplete':'NomeTreinamento'}`}>{treinamento.nome_treinamento}</span>
+            <span style={{color:`${treinamento.cor}`}} className={`${percentage === 100 ? 'NomeTreinamentoComplete' : 'NomeTreinamento'}`}>{treinamento.nome_treinamento}</span>
             <small className='DescTreinamento'>{treinamento.desc_treinamento}</small>
           </div>
         </div>
@@ -52,8 +52,9 @@ export default function CardTreinamento({ treinamento }) {
           <button
             type='button'
             className='BtnCardTreinamento'
+            style={{background:`${treinamento.cor}`}}
             onClick={() => handleRedirect(treinamento.cod_treinamento)}>
-            <span><CaretRight size={20} /></span>Acessar
+            <span style={{background:`${treinamento.cor}`}}><CaretRight size={20} /></span><p>Acessar</p>
           </button>
         </div>
       </div>

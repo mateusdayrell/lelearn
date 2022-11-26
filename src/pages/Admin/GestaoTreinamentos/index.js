@@ -508,11 +508,11 @@ export default function GestaoTreinamentos() {
                     <option value="" disabled>
                       Selecione uma cor
                     </option>
-                    <option className='text-[#81D8F7]' value="#81D8F7">#81D8F7 - Azul</option>
-                    <option className='text-[#00B37E]' value="#00B37E">#00B37E - Verde</option>
-                    <option className='text-[#F3F4F6]' value="#F3F4F6">#F3F4F6 - Cinza</option>
-                    <option className='text-[#F75A68]' value="#F75A68">#F75A68 - Vermelho</option>
-                    <option className='text-[#633BBC]' value="#633BBC">#633BBC - Roxo</option>
+                    <option className='text-azul-100' value="#81D8F7"> Azul</option>
+                    <option className='text-verde-100' value="#00B37E"> Verde</option>
+                    <option className='text-cinza-100' value="#F3F4F6"> Branco</option>
+                    <option className='text-vermelho-100' value="#F75A68">Vermelho</option>
+                    <option className='text-roxo-100' value="#633BBC"> Roxo</option>
                   </select>
                 </div>
 
