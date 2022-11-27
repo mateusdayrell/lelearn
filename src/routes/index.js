@@ -46,7 +46,7 @@ export default function Routes() {
           <MyRoute exact path="/" component={Home} />
           <MyRoute exact path="/login" component={Login} />
           <MyRoute exat path="/recuperar-senha" component={RecuperarSenha} />
-          <MyRoute exact path="/treinamentos" component={Treinamento} isClosed />
+          <MyRoute exact path="/treinamentos" component={Treinamentos} isClosed />
           <MyRoute exact path="/cursos/:cod_curso" component={Curso} isClosed />
           <MyRoute exact path="/cursos" component={Cursos} isClosed />
           <MyRoute exact path="/videos/:cod_curso/:cod_video" component={Video} isClosed />
