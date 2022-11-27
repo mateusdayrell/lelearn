@@ -14,8 +14,7 @@ export default function Cursos() {
   const params = useParams();
   const { cod_curso } = params;
 
-  const [searchNome, setSearchNome] = useState('');/*procurar */
-
+  const [searchNome, setSearchNome] = useState('');/* procurar */
   const [curso, setCurso] = useState({});
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,20 +23,17 @@ export default function Cursos() {
     loadRegisters();
   }, []);
 
-
   const loadRegisters = async () => {
-
     setIsLoading(true);
-
     try {
       const { data } = await axios.get(`/cursos/${cod_curso}`);
-
       setCurso(data);
       setVideos(orderVideos(data.videos));
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
     }
   };
 
@@ -50,7 +46,6 @@ export default function Cursos() {
     loadRegisters();
   };
 
-
   const handleSearch = async () => {
     const querys = new URLSearchParams({
       titulo_video: searchNome,
@@ -60,7 +55,6 @@ export default function Cursos() {
     setIsLoading(true);
     try {
       const { data } = await axios.get(`/videos/search/${querys}`);
-
       setIsLoading(false);
       setVideos(data);
     } catch (error) {
@@ -69,6 +63,7 @@ export default function Cursos() {
       erros.map((err) => toast.error(err));
     }
   };
+
   return (
     <>
       <Loading isLoading={isLoading} />
@@ -82,7 +77,6 @@ export default function Cursos() {
                 <div className="search-form">
                   <div className='search-container-inputs'>
                     <input
-
                       className='search-input'
                       type="text"
                       name="titulo"
@@ -96,12 +90,9 @@ export default function Cursos() {
                       title="Pesquisar"
                       className="green-btn mt-3 mb-3 h-10 w-10"
                       type="button"
-                      onClick={handleSearch}
-                    >
-                      <MagnifyingGlass
-                        size={24} />
+                      onClick={handleSearch}>
+                        <MagnifyingGlass size={24} />
                     </button>
-
                     <button
                       title="Limpar campos"
                       className="red-btn mt-3 mb-3 h-10 w-10"
@@ -111,15 +102,12 @@ export default function Cursos() {
                     </button>
                   </div>
                 </div>
-
-
               </div>
             </div>
-            
           </div>
 
-          {videos.map((video, indice) => (
-            <div className="list-videos">
+          {videos.map((video) => (
+            <div key={video.cod_video} className="list-videos">
               <div key={video.cod_video} className="flex items-center gap-3 w-1/2">
                 <div className='title-video'>
                   {video.titulo_video}

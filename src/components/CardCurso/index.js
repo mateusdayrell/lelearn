@@ -1,65 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-
 import { get } from 'lodash';
 import { FaCaretRight, FaFileImage } from 'react-icons/fa';
 
 import 'moment/locale/pt-br';
-import axios from '../../services/axios';
-
-import { useSelector } from 'react-redux';
-
-import 'moment/locale/pt-br';
 import './style.css';
-
-
 
 export default function CardCurso({ curso, assistidos, total }) {
   const [percentage, setPercentage] = useState(0);
-  const { cpf } = useSelector((state) => state.auth.usuario);
   const history = useHistory();
-  useEffect(() => {
-    loadRegisters();
-  }, []);
-  const loadRegisters = async () => {
-    setIsLoading(true);
-    try {
-      const { data } = await axios.get('/cursos/');
-      setIsLoading(false);
-      setCursos(data);
-    } catch (error) {
-      setIsLoading(false);
-      const { erros } = error.response.data;
-      erros.map((err) => toast.error(err));
-    }
-  };
-
-  useEffect(() => {
-    getCursos();
-  }, []);
-
-  const getCursos = async () => {
-    setIsLoading(true);
-    const { data } = await axios.get(`/usuarios/get-cursos/${cpf}`);
-    setCursos(data);
-    setIsLoading(false);
-  };
 
   useEffect(() => {
     handlePercentage(assistidos, total);
   }, []);
 
-  const handlePercentage = (watched, total) => {
-    const percent = total == 0 ? 0 : Math.floor(watched / total * 100);
-    // if (percent === Infinity) return setPercentage(0);
+  const handlePercentage = (watched, totalVideos) => {
+    const percent = totalVideos === 0 ? 0 : Math.floor(watched / totalVideos * 100);
     return setPercentage(percent)
   }
-  
+
   const handleRedirect = (cod_curso) => {
     history.push(`/cursos/${cod_curso}`);
   };
-  
+
   return (
     <div className=''>
       <div className='w-full items-center flex'>
@@ -91,13 +55,10 @@ export default function CardCurso({ curso, assistidos, total }) {
             />
             <p className='msg-button'>Acessar</p>
           </button>
-
         </div>
       </div>
     </div>
-
   );
-
 }
 
 CardCurso.defaultProps = {
