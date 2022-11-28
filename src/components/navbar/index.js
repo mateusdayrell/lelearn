@@ -130,7 +130,6 @@ export default function Navbar() {
                 <span
                   style={{ transitionDelay: `${i + 4}0ms`, }}
                   className={menuLink === menu.link && !openSidebar ? `${selectedtitle} whitespace-pre duration-500` : `${openSidebar && "hidden"}`}
-                // className={`whitespace-pre duration-500 ${openSidebar && "hidden"} `}
                 >
                   {menu?.name}
                 </span>
@@ -148,12 +147,10 @@ export default function Navbar() {
         <div className={` ${openSidebar ? "profile-content-closed" : "profile-content-open"} profile-content`}>
 
           <div className={openSidebar === true && openMenuUser === true ? `${openMenuUser ? "" : ""}absolute p-2 w-40 rounded-md bg-cinza-350 bottom-4 -right-44 shadow-md` : `${openMenuUser ? "" : "hidden"}  w-10 flex flex-col duration-500 pl-2 my-2`}>
-            {/* <X size={20} className={`${!openSidebar && "hidden"} absolute left-32`} onClick={() => setOpenMenuUser(!openMenuUser)}/> */}
             <Link onClick={handleLogout} className="flex mr-6 text-sm hover:text-vermelho-100 duration-150 gap-2" to="/login">
               <div><SignOut size={20} /></div>
               Sair
             </Link>
-            {/* className={`${openMenuUser && "hidden"} w-10 flex text-sm hover:text-verde-100 duration-150 gap-2`} */}
             <span className={`${!openSidebar && "hidden"} text-center flex justify-center select-none mt-3`}>
               {nomeUsuario}
             </span>
