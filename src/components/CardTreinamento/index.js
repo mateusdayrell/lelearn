@@ -32,7 +32,7 @@ export default function CardTreinamento({ treinamento }) {
     <div className='CardContainer'>
       <div className='w-full items-center flex'>
         <div style={{ width: `${percentage}%` }} className={percentage === 100 ? 'ProgressBarComplete' : 'ProgressBar'}>
-          <small className={percentage === 0 ? 'translate-x-5 text-cinza-100 font-thin' : ''}>{percentage === 100 ? '' : `${percentage}%`}</small>
+          <small className={percentage === 0 ? 'translate-x-5 text-cinza-100 font-thin' : 'translate-x-6 text-cinza-100 font-thin'}>{percentage === 100 ? '' : `${percentage}%`}</small>
         </div>
       </div>
       <div className='Card'>
