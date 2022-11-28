@@ -28,7 +28,7 @@ export default function CardCurso({ curso, assistidos, total }) {
   return (
     <div className=''>
 
-      <div className='w-full items-center flex'>
+      <div className='w-full items-center flex select-none'>
         <div style={{ width: `${percentage}%` }} className={percentage === 100 ? 'ProgressBarComplete' : 'ProgressBar'}>
           <small className={percentage === 0 ? 'translate-x-5 text-cinza-100 font-thin' : 'translate-x-6 text-cinza-100 font-thin'}>{percentage === 100 ? '' : `${percentage}%`}</small>
         </div>
