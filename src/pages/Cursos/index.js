@@ -63,38 +63,23 @@ export default function Cursos() {
       <Loading isLoading={isLoading} />
 
       <div className="container-body">
-        <h1 className='title'>Cursos</h1>
-        <div className='top-forms-container'>
-          <div className="search-containers">
-            <div className="search-form">
-              <div className='search-container-inputs'>
-                <input
-                  className='search-input'
-                  type="text"
-                  name="titulo"
-                  placeholder="Nome do curso"
-                  value={searchNome}
-                  onChange={(e) => setSearchNome(e.target.value)}
-                />
-              </div>
-              <div className="search-container-buttons">
-                <button
-                  title="Pesquisar"
-                  className="green-btn mt-3 mb-3 h-10 w-10"
-                  type="button"
-                  onClick={handleSearch}
-                >
-                  <MagnifyingGlass
-                    size={24} />
-                </button>
-                <button
-                  title="Limpar campos"
-                  className="red-btn mt-3 mb-3 h-10 w-10"
-                  type="button"
-                  onClick={clearSearch}>
-                  <PaintBrushHousehold size={24} />
-                </button>
-              </div>
+        <div className='flex justify-between'>
+          <div className='title'>Cursos</div>
+          <div className="SearchFormTitle">
+            <div className='SearchInput'>
+              <input
+                type="text"
+                name="titulo"
+                placeholder="Pesquisar curso"
+                value={searchNome}
+                onChange={(e) => setSearchNome(e.target.value)}
+              />
+              <button
+                title="Pesquisar"
+                type="button"
+                onClick={handleSearch}>
+                <MagnifyingGlass size={24} />
+              </button>
             </div>
           </div>
         </div>

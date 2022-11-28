@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { get } from 'lodash';
-import { FaCaretRight, FaFileImage } from 'react-icons/fa';
+import { FaFileImage } from 'react-icons/fa';
+import { Play } from 'phosphor-react';
 
 import 'moment/locale/pt-br';
 import './style.css';
@@ -26,12 +27,14 @@ export default function CardCurso({ curso, assistidos, total }) {
 
   return (
     <div className=''>
+
       <div className='w-full items-center flex'>
         <div style={{ width: `${percentage}%` }} className={percentage === 100 ? 'ProgressBarComplete' : 'ProgressBar'}>
           <small className={percentage === 0 ? 'translate-x-5 text-cinza-100 font-thin' : ''}>{percentage === 100 ? '' : `${percentage}%`}</small>
         </div>
       </div>
-      <div className='list-cursos'>
+
+      <div className='ContainerCardCurso'>
         <div key={curso.cod_curso} className="flex items-center gap-3">
           {get(curso, 'nome_arquivo', false) ?
             <img className='h-[110px] w-[150px] min-h-[110px] min-w-[150px]' src={`${process.env.REACT_APP_BACKEND_URL}/images/${curso.nome_arquivo}`} alt="Imagem do curso" />
@@ -39,21 +42,16 @@ export default function CardCurso({ curso, assistidos, total }) {
           }
 
           <div className='Cursos-info'>
-            <h2 className='title-curso'>{`${curso.nome_curso}`}</h2>
-            <p className='desc-curso '>{curso.desc_curso}</p>
+            <h2 className='TitleCardCurso'>{`${curso.nome_curso}`}</h2>
+            <p className='DescCurso'>{curso.desc_curso}</p>
           </div>
         </div>
-        <div className='acessar-button'>
+        <div className='BtnCurso'>
           <button
             type='button'
             className='block'
-            onClick={() => handleRedirect(curso.cod_curso)}
-          >
-            <FaCaretRight
-              className='play-button'
-              size={37}
-            />
-            <p className='msg-button'>Acessar</p>
+            onClick={() => handleRedirect(curso.cod_curso)}>
+          <Play size={20} weight="bold"/>
           </button>
         </div>
       </div>

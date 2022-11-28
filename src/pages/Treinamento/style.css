@@ -11,4 +11,5 @@
 }
 .BtnCursoAcesso{
     @apply w-12 h-10 bg-roxo-100 rounded flex items-center justify-center flex-col text-cinza-100 hover:text-cinza-500 shadow
+    cursor-pointer duration-300
 }

@@ -210,3 +210,18 @@ th {
 td {
   @apply text-gray-700 text-left whitespace-nowrap pl-1
 }
+
+
+/* SEARCH CONTAINER TITLE */
+.SearchFormTitle{
+  @apply flex items-center
+}
+.SearchInput{
+  @apply flex items-center bg-cinza-100 rounded-2xl px-2 mb-2
+}
+.SearchInput input{
+  @apply bg-transparent border-none
+}
+.SearchInput button{
+  @apply hover:text-verde-100 duration-200
+}

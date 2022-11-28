@@ -13,7 +13,7 @@
     @apply translate-y-0
 }
 .CardContainer:hover .PrazoListConclused{
-    @apply translate-y-0
+    @apply translate-y-0 text-verde-100
 }
 .CardContainer:hover .DescTreinamento{
     @apply text-cinza-200 flex

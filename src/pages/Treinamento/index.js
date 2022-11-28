@@ -47,7 +47,7 @@ export default function Treinamento() {
         <div className="container">
           {cursos.map((curso) => (
             <div key={curso.cod_curso}>
-              <div className='ContainerCurso'>
+              <div className='ContainerCardCurso'>
                 <div className='flex items-center'>
                   {/* IMAGEM DO CURSO */}
                   <div className='h-[110px] w-[150px] min-h-[110px] min-w-[150px] bg-roxo-100 shadow'></div>
@@ -57,9 +57,9 @@ export default function Treinamento() {
                   </div>
                 </div>
                 <button
-                  className='BtnCursoAcesso'
+                  className='BtnCurso'
                   onClick={() => handleRedirect(curso.cod_curso)}>
-                  <Play size={20} />
+                  <Play size={20} weight="bold" />
                 </button>
               </div>
             </div>

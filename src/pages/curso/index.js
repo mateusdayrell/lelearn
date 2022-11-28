@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { FaCaretRight } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { MagnifyingGlass, PaintBrushHousehold } from 'phosphor-react';
+import { MagnifyingGlass, Play } from 'phosphor-react';
 
 import './style.css';
 import Loading from '../../components/Loading';
@@ -67,41 +67,25 @@ export default function Cursos() {
   return (
     <>
       <Loading isLoading={isLoading} />
-      <div className="container-body text-gray-50">
+      <div className="container-body">
         <div className=''>
           <div className='flex justify-between'>
-            <div className='top-forms-container'>
-            <div className='title'>{curso.nome_curso}
-            </div>
-              <div className="search-containers">
-                <div className="search-form">
-                  <div className='search-container-inputs'>
-                    <input
-                      className='search-input'
-                      type="text"
-                      name="titulo"
-                      placeholder="Nome do vídeo"
-                      value={searchNome}
-                      onChange={(e) => setSearchNome(e.target.value)}
-                    />
-                  </div>
-                  <div className="search-container-buttons">
-                    <button
-                      title="Pesquisar"
-                      className="green-btn mt-3 mb-3 h-10 w-10"
-                      type="button"
-                      onClick={handleSearch}>
-                        <MagnifyingGlass size={24} />
-                    </button>
-                    <button
-                      title="Limpar campos"
-                      className="red-btn mt-3 mb-3 h-10 w-10"
-                      type="button"
-                      onClick={clearSearch}>
-                      <PaintBrushHousehold size={24} />
-                    </button>
-                  </div>
-                </div>
+            <div className='title'>{curso.nome_curso}</div>
+            <div className="SearchFormTitle">
+              <div className='SearchInput'>
+                <input
+                  type="text"
+                  name="titulo"
+                  placeholder="Pesquisar vídeo"
+                  value={searchNome}
+                  onChange={(e) => setSearchNome(e.target.value)}
+                />
+                <button
+                  title="Pesquisar"
+                  type="button"
+                  onClick={handleSearch}>
+                  <MagnifyingGlass size={24} />
+                </button>
               </div>
             </div>
           </div>
@@ -116,7 +100,7 @@ export default function Cursos() {
                   <p className='text-xs text-[12px] mr-8'>{video.desc_video}</p>
                 </div>
               </div>
-              <div className='acessar-button  bg-cinza-500 shadow-md '>
+              {/* <div className='acessar-button  bg-cinza-500 shadow-md '>
                 <button
                   type='button'
                   className=''
@@ -126,6 +110,14 @@ export default function Cursos() {
                     className='play-button'
                     size={37} />
                   <p className='msg-button'>Acessar</p>
+                </button>
+              </div> */}
+              <div className='BtnCurso'>
+                <button
+                  type='button'
+                  className='block'
+                  onClick={() => handleRedirect(video.cod_video)}>
+                  <Play size={20} weight="bold" />
                 </button>
               </div>
             </div>
