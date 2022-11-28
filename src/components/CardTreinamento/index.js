@@ -30,7 +30,7 @@ export default function CardTreinamento({ treinamento }) {
 
   return (
     <div className='CardContainer'>
-      <div className='w-full items-center flex'>
+      <div className='w-full items-center flex select-none'>
         <div style={{ width: `${percentage}%` }} className={percentage === 100 ? 'ProgressBarComplete' : 'ProgressBar'}>
           <small className={percentage === 0 ? 'translate-x-5 text-cinza-100 font-thin' : 'translate-x-6 text-cinza-100 font-thin'}>{percentage === 100 ? '' : `${percentage}%`}</small>
         </div>
@@ -39,7 +39,7 @@ export default function CardTreinamento({ treinamento }) {
         <div className='h-[75%] px-3 py-1 flex flex-col'>
           <div className='flex flex-col'>
             { percentage === 100 ?
-            <p className='PrazoListConclused'>Concluído</p>
+            <small><p className='PrazoList text-cinza-200'>Concluído</p></small>
             : <small>
               {treinamento.prazo === null
                 ? <p style={{color:`${treinamento.cor}`}} className='PrazoList'>Prazo não determinado</p>
@@ -51,7 +51,7 @@ export default function CardTreinamento({ treinamento }) {
             <small className='DescTreinamento'>{treinamento.desc_treinamento}</small>
           </div>
         </div>
-        <div className='w-full flex justify-end text-black px-1'>
+        <div className='w-full flex justify-end text-black px-3'>
           <button
             type='button'
             className='BtnCardTreinamento'
