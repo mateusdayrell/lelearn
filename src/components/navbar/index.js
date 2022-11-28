@@ -160,9 +160,9 @@ export default function Navbar() {
           </div>
 
           <div className='userinfo'>
-            <span className='avatar' aria-hidden="true" onClick={() => setOpenMenuUser(!openMenuUser)}>
+            <button className='avatar' aria-hidden="true" onClick={() => setOpenMenuUser(!openMenuUser)}>
               {word1}{word2}
-            </span>
+            </button>
             <span className={`${openSidebar && "hidden"} name`}>
               {nomeUsuario}
             </span>
@@ -170,7 +170,7 @@ export default function Navbar() {
               <CaretUp
                 size={20}
                 onClick={() => setOpenMenuUser(!openMenuUser)}
-                className={`duration-200${!openMenuUser && "rotate-180"} cursor-pointer`} />
+                className={`${!openMenuUser && "rotate-180"} duration-200 cursor-pointer`} />
             </span>
           </div>
         </div>

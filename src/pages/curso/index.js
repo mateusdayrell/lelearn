@@ -76,7 +76,7 @@ export default function Cursos() {
                 <input
                   type="text"
                   name="titulo"
-                  placeholder="Pesquisar vídeo"
+                  placeholder="Pesquisar"
                   value={searchNome}
                   onChange={(e) => setSearchNome(e.target.value)}
                 />

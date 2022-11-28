@@ -223,5 +223,5 @@ td {
   @apply bg-transparent border-none
 }
 .SearchInput button{
-  @apply hover:text-verde-100 duration-200
+  @apply hover:text-cinza-300 duration-200
 }

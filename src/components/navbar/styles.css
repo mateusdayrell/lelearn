@@ -71,7 +71,7 @@
 }
 .avatar{
   @apply bg-cinza-100 text-cinza-500 font-thin text-base w-10 h-10 rounded-full tracking-wide flex justify-center items-center
-  select-none shadow-md cursor-pointer transition-all 
+  select-none shadow-md cursor-pointer transition-all hover:bg-cinza-200 focus-visible:bg-cinza-200
 }
 
 /* CONTEINER INFERIOR - INFORMAÇÕES DO USUÁRIO */
