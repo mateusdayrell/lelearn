@@ -38,15 +38,12 @@ export default function CardTreinamento({ treinamento }) {
       <div className='Card'>
         <div className='h-[75%] px-3 py-1 flex flex-col'>
           <div className='flex flex-col'>
-            { percentage === 100 ?
-            <small><p className='PrazoList text-cinza-200'>Concluído</p></small>
-            : <small>
+           <small>
               {treinamento.prazo === null
                 ? <p style={{color:`${treinamento.cor}`}} className='PrazoList'>Prazo não determinado</p>
                 : <p style={{color:`${treinamento.cor}`}} className='PrazoList'>{moment(treinamento.prazo, 'YYYY-MM-DD HH:mm:ss').format('LL')}</p>
               }
             </small>
-            }
             <span style={{color:`${treinamento.cor}`}} className={`${percentage === 100 ? 'NomeTreinamentoComplete' : 'NomeTreinamento'}`}>{treinamento.nome_treinamento}</span>
             <small className='DescTreinamento'>{treinamento.desc_treinamento}</small>
           </div>
@@ -57,7 +54,7 @@ export default function CardTreinamento({ treinamento }) {
             className='BtnCardTreinamento'
             style={{background:`${treinamento.cor}`}}
             onClick={() => handleRedirect(treinamento.cod_treinamento)}>
-            <span style={{background:`${treinamento.cor}`}}><CaretRight size={20} /></span><p>Acessar</p>
+            <p>Acessar</p>
           </button>
         </div>
       </div>
