@@ -11,6 +11,7 @@ import Loading from '../../components/Loading';
 import Checkbox from '../../components/Checkbox';
 import axios from '../../services/axios';
 import { orderVideos } from '../../helpers/orderVideos';
+// import Comments from '../../components/Comments';
 import Comments from '../../components/Comments';
 
 export default function Cursos() {
@@ -23,7 +24,6 @@ export default function Cursos() {
   const [videosCurso, setVideosCurso] = useState([]);
   const [videosUsuario, setVideosUsuario] = useState([])
   const [curso, setCurso] = useState({});
-  // const [comentarios, setComentarios] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   // const [ready, setReady] = useState(false);
 
@@ -41,12 +41,10 @@ export default function Cursos() {
     setIsLoading(true);
     try {
       const { data } = await axios.get(`/videos/get-by-curso/${cod_curso}/${cod_video}`);
-      // const cursoResponse = await axios.get(`/cursos/${cod_curso}`)
       const usuarioVideosResponde = await axios.get(`usuarios-videos/${cpf}/${data.curso.cod_curso}`)
 
       setVideo(data.video);
       setCurso(data.curso);
-      // setComentarios(data.video.comentarios);
       setVideosCurso(orderVideos(data.curso.videos));
       setVideosUsuario(usuarioVideosResponde.data);
 
@@ -124,13 +122,6 @@ export default function Cursos() {
 
           <h3>Comentários</h3>
           <Comments codVideo={params.cod_video} cpf={cpf}/>
-          {/* {comentarios.map((comentario) => (
-            <div key={comentario.cod_comentario}>
-              <div>
-                {comentario.cod_comentario} - {comentario.texto}
-              </div>
-            </div>
-          ))} */}
         </div>
 
         <div className="video-list">
