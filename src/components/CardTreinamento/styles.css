@@ -1,5 +1,5 @@
 .CardContainer{
-    @apply w-72 h-44 shadow-lg transition-all flex flex-col
+    @apply w-72 h-44 shadow-lg transition-all flex flex-col bg-cinza-400
 } 
 
 /* ANIMATIONS */
@@ -22,7 +22,7 @@
 
 
 .Card{
-    @apply w-full h-44 bg-cinza-400 rounded
+    @apply w-full h-full bg-cinza-400 rounded
 }
 /* INFO TREINAMENTO */
 .DescTreinamento{
@@ -52,10 +52,13 @@
     @apply translate-y-5 duration-500
 }
 .ProgressBar{
-    @apply bg-laranja-100 flex h-1 text-xs font-semibold items-center px-1 rounded-lg justify-end
+    @apply bg-laranja-100 flex h-2 text-xs font-semibold items-center px-1 rounded-r justify-end text-cinza-100
+}
+.ProgressBar small{
+    @apply translate-x-6
 }
 .ProgressBarComplete{
-    @apply bg-verde-100 flex h-1 text-xs font-semibold items-center px-1 rounded
+    @apply bg-verde-100 flex h-2 text-xs font-semibold items-center px-2 rounded-b text-cinza-500
 }
 .PrazoListConclused{
     @apply translate-y-5 duration-500 text-cinza-200
