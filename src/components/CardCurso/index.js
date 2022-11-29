@@ -42,13 +42,14 @@ export default function CardCurso({ curso, assistidos, total }) {
           }
 
           <div className='Cursos-info'>
-            <h2 className='TitleCardCurso'>{`${curso.nome_curso}`}</h2>
+            <h2 className={percentage === 100 ? 'TitleCardCurso text-verde-100':'TitleCardCurso text-laranja-100'}>{`${curso.nome_curso}`}</h2>
             <p className='DescCurso'>{curso.desc_curso}</p>
           </div>
         </div>
         <div className='BtnCurso'>
           <button
             type='button'
+            className={percentage === 100 ? 'bg-verde-100':'bg-laranja-100'}
             onClick={() => handleRedirect(curso.cod_curso)}>
               <p>Acessar</p>
           </button>

@@ -41,7 +41,7 @@
   @apply flex flex-col w-2/3 ml-6
 }
 .TitleCardCurso{
-  @apply text-laranja-100 font-semibold
+  @apply font-semibold
 }
 
 
@@ -49,7 +49,7 @@
   @apply flex
 }
 .BtnCurso button{
-  @apply flex rounded-lg bg-verde-100 items-center gap-1 justify-center px-2 text-sm text-cinza-500 shadow duration-300 py-1
+  @apply flex rounded-lg items-center gap-1 justify-center px-2 text-sm text-cinza-500 shadow duration-300 py-1
   hover:px-3
 }
 
