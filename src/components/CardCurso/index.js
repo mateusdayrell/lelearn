@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { get } from 'lodash';
 import { FaFileImage } from 'react-icons/fa';
-import { Play } from 'phosphor-react';
+import { CaretDoubleRight } from 'phosphor-react';
 
 import 'moment/locale/pt-br';
 import './style.css';
@@ -28,9 +28,9 @@ export default function CardCurso({ curso, assistidos, total }) {
   return (
     <div className=''>
 
-      <div className='w-full items-center flex select-none'>
-        <div style={{ width: `${percentage}%` }} className={percentage === 100 ? 'ProgressBarComplete' : 'ProgressBar'}>
-          <small className={percentage === 0 ? 'translate-x-5 text-cinza-100 font-thin' : 'translate-x-6 text-cinza-100 font-thin'}>{percentage === 100 ? '' : `${percentage}%`}</small>
+      <div className={percentage === 100 ? 'w-20 flex items-center select-none' : 'flex items-center select-none'}>
+        <div style={{ width: `${percentage}%` }} className={percentage === 100 ? 'ProgressBarCompleteCurso' : 'ProgressBarCurso'}>
+          <small className='font-thin'>{percentage === 100 ? 'Concluído' : `${percentage}%`}</small>
         </div>
       </div>
 
@@ -49,9 +49,8 @@ export default function CardCurso({ curso, assistidos, total }) {
         <div className='BtnCurso'>
           <button
             type='button'
-            className='block'
             onClick={() => handleRedirect(curso.cod_curso)}>
-          <Play size={20} weight="bold"/>
+              <p>Acessar</p>
           </button>
         </div>
       </div>

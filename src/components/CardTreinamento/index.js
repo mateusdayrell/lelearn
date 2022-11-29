@@ -29,8 +29,8 @@ export default function CardTreinamento({ treinamento }) {
   }
 
   return (
-    <div style={{border:`1px solid ${treinamento.cor}`}} className='CardContainer'>
-      <div className={percentage === 100 ? 'w-16 flex items-center select-none':''}>
+    <div style={{border:`1px solid ${treinamento.cor}`,borderRadius:'3px'}} className='CardContainer'>
+      <div className={percentage === 100 ? 'w-16 flex items-center select-none':'flex items-center select-none'}>
         <div style={{ width: `${percentage}%` }} className={percentage === 100 ? 'ProgressBarComplete' : 'ProgressBar'}>
           <small className='font-thin'>{percentage === 100 ? 'Concluído' : `${percentage}%`}</small>
         </div>

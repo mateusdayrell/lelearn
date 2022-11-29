@@ -58,7 +58,7 @@
     @apply translate-x-6
 }
 .ProgressBarComplete{
-    @apply bg-verde-100 flex h-2 text-xs font-semibold items-center px-2 rounded-b text-cinza-500
+    @apply bg-verde-100 flex h-2 text-xs font-semibold items-center px-2 rounded-br text-cinza-500
 }
 .PrazoListConclused{
     @apply translate-y-5 duration-500 text-cinza-200

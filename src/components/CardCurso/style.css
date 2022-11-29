@@ -43,7 +43,23 @@
 .TitleCardCurso{
   @apply text-laranja-100 font-semibold
 }
+
+
 .BtnCurso{
-  @apply w-14 h-12 bg-verde-100 rounded flex items-center justify-center flex-col 
-  text-cinza-100 hover:text-cinza-500 shadow cursor-pointer duration-300
+  @apply flex
+}
+.BtnCurso button{
+  @apply flex rounded-lg bg-verde-100 items-center gap-1 justify-center px-2 text-sm text-cinza-500 shadow duration-300 py-1
+  hover:px-3
+}
+
+
+.ProgressBarCurso{
+  @apply bg-laranja-100 flex h-1 text-xs font-semibold items-center px-1 rounded justify-end text-cinza-100
+}
+.ProgressBarCurso small{
+  @apply translate-x-6
+}
+.ProgressBarCompleteCurso{
+  @apply bg-verde-100 flex h-2 text-xs font-semibold items-center px-2 rounded-t text-cinza-500 justify-center
 }
