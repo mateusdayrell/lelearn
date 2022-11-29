@@ -84,7 +84,7 @@ export default function Navbar() {
   };
 
   return (
-    location.pathname === `${process.env.REACT_APP_BASE_URL}/login` || location.pathname === `${process.env.REACT_APP_BASE_URL}/recuperar-senha`
+    location.pathname === `/login` || location.pathname === `/recuperar-senha`
       ? ''
       :
       <div className={` ${openSidebar ? "navbar-closed" : "navbar-open"} navbar`}>
