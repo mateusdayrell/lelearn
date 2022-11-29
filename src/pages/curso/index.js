@@ -112,10 +112,11 @@ export default function Cursos() {
                   <p className='msg-button'>Acessar</p>
                 </button>
               </div> */}
-              <div className='BtnCurso'>
+              <div className=''>
                 <button
+                  title='Acessar'
                   type='button'
-                  className='block'
+                  className='BtnCurso block'
                   onClick={() => handleRedirect(video.cod_video)}>
                   <Play size={20} weight="bold" />
                 </button>

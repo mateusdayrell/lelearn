@@ -46,10 +46,11 @@ export default function CardCurso({ curso, assistidos, total }) {
             <p className='DescCurso'>{curso.desc_curso}</p>
           </div>
         </div>
-        <div className='BtnCurso'>
+        <div className=''>
           <button
+            title='Acessar'
             type='button'
-            className='block'
+            className='BtnCurso block'
             onClick={() => handleRedirect(curso.cod_curso)}>
           <Play size={20} weight="bold"/>
           </button>

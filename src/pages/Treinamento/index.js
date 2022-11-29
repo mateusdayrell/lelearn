@@ -57,6 +57,7 @@ export default function Treinamento() {
                   </div>
                 </div>
                 <button
+                  title='Acessar'
                   className='BtnCurso'
                   onClick={() => handleRedirect(curso.cod_curso)}>
                   <Play size={20} weight="bold" />
