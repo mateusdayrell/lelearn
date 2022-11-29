@@ -61,6 +61,13 @@ select {
   @apply rounded-3xl bg-zinc-500 hover:bg-zinc-400
 }
 
+/* SUGESTÃO INPUT */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  @apply bg-transparent border-none
+}
 /* --CONTAINERS-- */
 .container-body{
   @apply flex flex-col gap-[17] pl-20 pr-10 py-3 min-w-[670px] min-h-[90%]

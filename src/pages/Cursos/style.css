@@ -94,16 +94,3 @@
   @apply rotate-180
 }
 
-/* STYLE PRAZO */
-.PrazoList{
-  @apply translate-y-5 duration-500
-}
-.ProgressBar{
-  @apply bg-laranja-100 flex h-1 text-xs font-semibold items-center px-1 rounded-lg justify-end
-}
-.ProgressBarComplete{
-  @apply bg-verde-100 flex h-1 text-xs font-semibold items-center px-1 rounded
-}
-.PrazoListConclused{
-  @apply translate-y-5 duration-500 text-sm text-cinza-200
-}

@@ -29,24 +29,21 @@ export default function CardTreinamento({ treinamento }) {
   }
 
   return (
-    <div className='CardContainer'>
-      <div className='w-full items-center flex select-none'>
+    <div style={{border:`1px solid ${treinamento.cor}`}} className='CardContainer'>
+      <div className={percentage === 100 ? 'w-16 flex items-center select-none':''}>
         <div style={{ width: `${percentage}%` }} className={percentage === 100 ? 'ProgressBarComplete' : 'ProgressBar'}>
-          <small className={percentage === 0 ? 'translate-x-5 text-cinza-100 font-thin' : 'translate-x-6 text-cinza-100 font-thin'}>{percentage === 100 ? '' : `${percentage}%`}</small>
+          <small className='font-thin'>{percentage === 100 ? 'Concluído' : `${percentage}%`}</small>
         </div>
       </div>
       <div className='Card'>
         <div className='h-[75%] px-3 py-1 flex flex-col'>
           <div className='flex flex-col'>
-            { percentage === 100 ?
-            <small><p className='PrazoList text-cinza-200'>Concluído</p></small>
-            : <small>
+           <small>
               {treinamento.prazo === null
                 ? <p style={{color:`${treinamento.cor}`}} className='PrazoList'>Prazo não determinado</p>
                 : <p style={{color:`${treinamento.cor}`}} className='PrazoList'>{moment(treinamento.prazo, 'YYYY-MM-DD HH:mm:ss').format('LL')}</p>
               }
             </small>
-            }
             <span style={{color:`${treinamento.cor}`}} className={`${percentage === 100 ? 'NomeTreinamentoComplete' : 'NomeTreinamento'}`}>{treinamento.nome_treinamento}</span>
             <small className='DescTreinamento'>{treinamento.desc_treinamento}</small>
           </div>
@@ -57,7 +54,7 @@ export default function CardTreinamento({ treinamento }) {
             className='BtnCardTreinamento'
             style={{background:`${treinamento.cor}`}}
             onClick={() => handleRedirect(treinamento.cod_treinamento)}>
-            <span style={{background:`${treinamento.cor}`}}><CaretRight size={20} /></span><p>Acessar</p>
+            <p>Acessar</p>
           </button>
         </div>
       </div>
