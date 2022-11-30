@@ -5,7 +5,7 @@ import { Check } from 'phosphor-react';
 export default function Checkbox({cId, cValue, handleCheckbox, checked}) {
 
   return (
-    <div className="flex z-10">
+    <div className="flex">
       <input
         type="checkbox"
         id={cId}
