@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple } from 'phosphor-react';
+import { MagnifyingGlass, PaintBrushHousehold, X, PencilSimple, TrashSimple } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
 
@@ -19,11 +19,14 @@ export default function GestaoComentarios() {
   const [usuarios, setUsuarios] = useState([]);
   const [videosDoCurso, setVideosDoCurso] = useState([])
 
-  const [codVideo, setCodVideo] = useState('');
-  const [titulo, setTitulo] = useState('');
-  const [descricao, setDescricao] = useState('');
-  const [link, setLink] = useState('');
-  const [videoCursos, setVideoCursos] = useState([])
+  const [codComentario, setCodComentario] = useState('');
+  const [texto, setTexto] = useState('');
+  const [usuario, setUsuario] = useState({});
+  const [video, setVideo] = useState({});
+  const [cursosComentario, setCursosComentario] = useState([]);
+  const [respostas, setRespostas] = useState([]);
+  const [respostasTotal, setRespostasTotal] = useState('');
+  const [respostasPendentes, setRespostasPendentes] = useState('');
 
   const [serachTexto, setSearchTexto] = useState('');
   const [searchCurso, setSearchCurso] = useState('');
@@ -79,7 +82,7 @@ export default function GestaoComentarios() {
       } else {
         response = await axios.get('/comentarios/');
       }
-      console.log(response.data);
+
       setIsLoading(false);
       setComentarios(response.data);
     } catch (error) {
@@ -95,15 +98,12 @@ export default function GestaoComentarios() {
 
     try {
       const regTemp = {
-        titulo_video: titulo,
-        cursos: videoCursos,
-        link,
-        desc_video: descricao,
+        texto,
       };
 
       setIsLoading(true);
       if (isUpdating) {
-        await axios.put(`/videos/${codVideo}`, regTemp);
+        await axios.put(`/videos/${codComentario}`, regTemp);
         toast.success('Vídeo atualizado com sucesso!');
       } else {
         await axios.post('/videos', regTemp);
@@ -138,60 +138,53 @@ export default function GestaoComentarios() {
   };
 
   const validateForm = () => {
-    let controle = true;
+    const controle = true;
 
-    if (!titulo) {
-      toast.error('Preencha o campo Título!');
-      controle = false;
-    } else if (titulo.length < 3 || titulo.length > 40) {
-      controle = false;
-      toast.error('O campo Título deve ter entre 3 e 40 caracteres');
-    }
+    // if (!titulo) {
+    //   toast.error('Preencha o campo Título!');
+    //   controle = false;
+    // } else if (titulo.length < 3 || titulo.length > 40) {
+    //   controle = false;
+    //   toast.error('O campo Título deve ter entre 3 e 40 caracteres');
+    // }
 
-    if (!link) {
-      controle = false;
-      toast.error('Preencha o campo Link!');
-    } else if (link.length < 3 || link.length > 150) {
-      controle = false;
-      toast.error('O campo Link deve ter entre 3 e 150 caracteres');
-    }
+    // if (!link) {
+    //   controle = false;
+    //   toast.error('Preencha o campo Link!');
+    // } else if (link.length < 3 || link.length > 150) {
+    //   controle = false;
+    //   toast.error('O campo Link deve ter entre 3 e 150 caracteres');
+    // }
 
-    if (descricao.length > 0 && descricao.length < 3) {
-      controle = false;
-      toast.error('O campo Descrição deve ter no mínimo 3 caracteres!');
-    } else if (descricao.length > 150) {
-      controle = false;
-      toast.error('O campo Descrição deve ter no máximo 150 caracteres!');
-    }
+    // if (descricao.length > 0 && descricao.length < 3) {
+    //   controle = false;
+    //   toast.error('O campo Descrição deve ter no mínimo 3 caracteres!');
+    // } else if (descricao.length > 150) {
+    //   controle = false;
+    //   toast.error('O campo Descrição deve ter no máximo 150 caracteres!');
+    // }
 
     return controle;
   };
 
-  const handleIsUpdating = async (vid) => {
-    try {
-      setIsLoading(true);
-      const { data } = await axios.get(`videos/get-cursos/${vid.cod_video}`);
-      setIsLoading(false);
-
-      setVideoCursos(data)
-      setCodVideo(vid.cod_video);
-      setTitulo(vid.titulo_video);
-      setLink(vid.link);
-      setDescricao(vid.desc_video);
+  const handleIsUpdating = (comment) => {
+      setCodComentario(comment.cod_comentario);
+      setTexto(comment.texto);
+      setUsuario(comment.usuario);
+      setRespostas(comment.respostas);
+      setVideo(comment.video);
+      setCursosComentario(comment.video.cursos);
+      setRespostasTotal(comment.respostas_total);
+      setRespostasPendentes(comment.respostas_pendentes);
 
       setIsUpdating(true);
       setShowFormModal(true);
       setShowDeleteModal(false);
-    } catch (error) {
-      setIsLoading(false);
-      const { erros } = error.response.data;
-      erros.map((err) => toast.error(err));
-    }
   };
 
   const handleIsDeleting = (vid) => {
-    setCodVideo(vid.cod_video);
-    setTitulo(vid.titulo_video)
+    setCodComentario(vid.cod_video);
+    setTexto(vid.titulo_video)
     setShowDeleteModal(true);
   };
 
@@ -211,11 +204,11 @@ export default function GestaoComentarios() {
   };
 
   const clearModal = (parameter) => {
-    if (!parameter) setCodVideo('');
-    setTitulo('');
-    setVideoCursos([]);
-    setLink('');
-    setDescricao('');
+    if (!parameter) setCodComentario('');
+    setTexto('');
+    // setVideoCursos([]);
+    // setLink('');
+    // setDescricao('');
   };
 
   const handleOrderChange = (array, ordem) => {
@@ -347,21 +340,10 @@ export default function GestaoComentarios() {
               </div>
             </div>
           </div>
-          <span className='search-container-cadastrar'>
-            <button
-              title="Cadastrar vídeo"
-              className="green-btn"
-              type="button"
-              onClick={() => setShowFormModal(true)}
-            >
-              <Plus size={24} />
-            </button>
-          </span>
         </div>
 
         <div className='container-order'>
           <OrderSelect
-            nameKey="titulo_video"
             handleOrderChange={handleOrderChange}
             searchOrdem={searchOrdem}
             array={comentarios} />
@@ -423,7 +405,7 @@ export default function GestaoComentarios() {
           ariaHideApp={false}
         >
           <div className="ModalHeader">
-            <span>{isUpdating ? 'Editar' : 'Cadastrar'} vídeo</span>
+            <span>Responder comentário</span>
             <button
               className="CloseModal"
               type="button"
@@ -442,8 +424,8 @@ export default function GestaoComentarios() {
                     name="cod_video"
                     placeholder="Código"
                     disabled
-                    value={codVideo}
-                    onChange={(e) => setCodVideo(e.target.value)}
+                    value={codComentario}
+                    onChange={(e) => setCodComentario(e.target.value)}
                   />
                 </div>
               : ''} */}
@@ -453,14 +435,14 @@ export default function GestaoComentarios() {
                 <input
                   type="text"
                   className='ModalInput'
-                  name="titulo"
+                  name="texto"
                   maxLength="40"
-                  value={titulo}
-                  onChange={(e) => setTitulo(e.target.value)}
+                  value={texto}
+                  onChange={(e) => setTexto(e.target.value)}
                 />
               </div>
 
-              <div className="InputArea">
+              {/* <div className="InputArea">
                 <label>Link *</label>
                 <input
                   type="text"
@@ -478,14 +460,14 @@ export default function GestaoComentarios() {
                   value={descricao}
                   onChange={(e) => setDescricao(e.target.value)}
                 />
-              </div>
+              </div> */}
 
-              {videoCursos.length > 0 &&
+              {/* {videoCursos.length > 0 &&
                 <div className="InputArea">
                   <label>Cursos</label>
                   {videoCursos.map(curso => <div key={curso.cod_curso}>{curso.nome_curso}</div>)}
                 </div>
-              }
+              } */}
             </div>
           </div>
           <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
@@ -502,7 +484,7 @@ export default function GestaoComentarios() {
 
         <DeleteModal
           showDeleteModal={showDeleteModal} handleClose={handleClose}
-          type="vídeo" name={titulo} handleDelete={handleDelete} code={codVideo}
+          type="comentario" name={texto} handleDelete={handleDelete} code={codComentario}
         />
       </div>
     </>
