@@ -1,14 +1,11 @@
-.video{
-  border: 1px solid #000;
-  padding: 5px;
-  margin: 5px 5px;
-  cursor: pointer;
+.CardVideo{
+  @apply w-full h-16 bg-cinza-400 shadow-md rounded my-2 flex items-center pr-4 justify-between text-cinza-200
 }
-
-.title-video{
-  @apply h-[110px] w-[150px] min-h-[110px] min-w-[150px] pl-2 pr-2 pt-1  
-  bg-verde-100 flex items-center justify-center text-center text-cinza-100 font-semibold
+.VideoTitle{
+  @apply min-w-[9em] max-w-min h-16 bg-verde-100 rounded-l
+  flex justify-center items-center text-cinza-500
 }
-.list-videos{
-  @apply w-full h-28 bg-cinza-400 shadow-md rounded mb-3 flex items-center pr-4 justify-between text-cinza-200
+.BtnVideo{
+  @apply w-10 h-10 bg-verde-100 rounded flex items-center justify-center
+  text-cinza-100 cursor-pointer hover:text-cinza-500 duration-300
 }

@@ -91,35 +91,18 @@ export default function Cursos() {
           </div>
 
           {videos.map((video) => (
-            <div key={video.cod_video} className="list-videos">
-              <div key={video.cod_video} className="flex items-center gap-3 w-1/2">
-                <div className='title-video'>
+            <div key={video.cod_video} className="CardVideo">
+              <div key={video.cod_video} className="flex items-center gap-3 w-2/3">
+                <div className='VideoTitle'>
                   {video.titulo_video}
                 </div>
-                <div className='video-info'>
-                  <p className='text-xs text-[12px] mr-8'>{video.desc_video}</p>
-                </div>
+                <p className='text-xs ml-6'>{video.desc_video}</p>
               </div>
-              <div className='acessar-button  bg-cinza-500 shadow-md '>
                 <button
-                  type='button'
-                  className=''
-                  onClick={() => handleRedirect(video.cod_video)}
-                >
-                  <FaCaretRight
-                    className='play-button'
-                    size={37} />
-                  <p className='msg-button'>Acessar</p>
-                </button>
-              </div>
-              <div className='BtnCurso'>
-                <button
-                  type='button'
-                  className='block'
+                  className='BtnVideo'
                   onClick={() => handleRedirect(video.cod_video)}>
-                  <Play size={20} weight="bold" />
+                  <Play size={20} />
                 </button>
-              </div>
             </div>
           ))}
         </div>
