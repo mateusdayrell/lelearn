@@ -1,0 +1,21 @@
+.form-gestao-video{
+  @apply flex flex-col justify-center mx-auto w-[450px] gap-1
+}
+
+.buttons{
+  @apply flex mx-auto gap-3 mt-4
+}
+
+.form-gestao-video input, .form-gestao-video select, .form-gestao-video textarea{
+  @apply w-full
+}
+
+.g-video-container tr td:nth-child(4),
+.g-video-container tr th:nth-child(4) {
+  border-radius: 0 0.625rem 0.625rem 0;
+}
+
+.g-video-container tr td:nth-child(1),
+.g-video-container tr th:nth-child(1) {
+  border-radius: 0.625rem 0 0 0.625rem;
+}

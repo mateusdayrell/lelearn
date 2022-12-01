@@ -16,6 +16,7 @@ import Usuario from '../pages/Admin/Usuario';
 import GestaoVideos from '../pages/Admin/GestaoVideos';
 import GestaoCursos from '../pages/Admin/GestaoCursos';
 import GestaoTreinamentos from '../pages/Admin/GestaoTreinamentos';
+import GestaoComentarios from '../pages/Admin/GestaoComentarios';
 import Treinamentos from '../pages/Treinamentos';
 
 export default function Routes() {
@@ -28,6 +29,7 @@ export default function Routes() {
           <MyRoute exact path="/gestao-videos" component={GestaoVideos} isClosed />
           <MyRoute exact path="/gestao-cursos" component={GestaoCursos} isClosed />
           <MyRoute exact path="/gestao-treinamentos" component={GestaoTreinamentos} isClosed />
+          <MyRoute exact path="/gestao-comentarios" component={GestaoComentarios} isClosed />
 
           <MyRoute exact path="/" component={Home} isClosed/>
           <MyRoute exact path="/login" component={Login} />

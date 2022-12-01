@@ -100,7 +100,7 @@ export default function Cursos() {
                   <p className='text-xs text-[12px] mr-8'>{video.desc_video}</p>
                 </div>
               </div>
-              {/* <div className='acessar-button  bg-cinza-500 shadow-md '>
+              <div className='acessar-button  bg-cinza-500 shadow-md '>
                 <button
                   type='button'
                   className=''
@@ -111,7 +111,7 @@ export default function Cursos() {
                     size={37} />
                   <p className='msg-button'>Acessar</p>
                 </button>
-              </div> */}
+              </div>
               <div className='BtnCurso'>
                 <button
                   type='button'

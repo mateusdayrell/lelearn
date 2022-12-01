@@ -10,6 +10,7 @@ import {
   CaretDoubleRight,
   House,
   CaretUp,
+  ChatText,
 } from 'phosphor-react';
 
 import { Link, useLocation  } from 'react-router-dom';
@@ -42,6 +43,7 @@ export default function Navbar() {
     { name: "Gestão de Cursos", link: "/gestao-cursos", icon: Books, users: [0] },
     { name: "Gestão de Videos", link: "/gestao-videos", icon: YoutubeLogo, users: [0] },
     { name: "Gestão de Usuários", link: "/usuarios", icon: Users, users: [0], margin: true },
+    { name: "Gestão de Comentários", link: "/gestao-comentarios", icon: ChatText, users: [0], margin: true },
   ];
 
   useEffect(() => {
