@@ -38,8 +38,8 @@ export default function OrderSelect({ nameKey, handleOrderChange, searchOrdem, a
           <option value="" disabled> Ordenar por </option>
           <option className=' bg-transparent' value={`${nameKey} asc`}>A-Z</option>
           <option className=' bg-transparent' value={`${nameKey} desc`}>Z-A</option>
-          <option className=' bg-transparent' value="updated_at asc">Data de inclusão (Mais antigo)</option>
-          <option className=' bg-transparent' value="updated_at desc">Data de inclusão (Mais recente)</option>
+          <option className=' bg-transparent' value="created_at asc">Data de inclusão (Mais antigo)</option>
+          <option className=' bg-transparent' value="created_at desc">Data de inclusão (Mais recente)</option>
         </select>
       </span>
     </div>
