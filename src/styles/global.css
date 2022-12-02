@@ -63,8 +63,8 @@ select {
 
 /* SUGESTÃO INPUT */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
 input:-webkit-autofill:active  {
   @apply bg-transparent border-none
 }
@@ -172,10 +172,10 @@ input:-webkit-autofill:active  {
   @apply py-2
 }
 .subname-container-list-blue{
-  @apply text-sm text-azul-100 rounded-xl px-1 pb-[2px] ml-3 bg-azul-200 
+  @apply text-sm text-azul-100 rounded-xl px-1 pb-[2px] ml-3 bg-azul-200
 }
 .subname-container-list-orange{
-  @apply text-sm text-laranja-100 rounded-xl px-1 pb-[2px] ml-3 bg-laranja-200 
+  @apply text-sm text-laranja-100 rounded-xl px-1 pb-[2px] ml-3 bg-laranja-200
 }
 .subname-container-list-red{
   @apply text-sm text-cinza-500 rounded-xl px-1 pb-[2px] ml-3 bg-vermelho-200
@@ -231,4 +231,33 @@ td {
 }
 .SearchInput button{
   @apply hover:text-cinza-300 duration-200
+}
+
+
+/* DESCRIÇÃO CURSO/TREINAMENTO NAS PAGINAS */
+.BarPage{
+  @apply w-full h-[1px] bg-cinza-200 my-2
+}
+.SubTitle{
+  @apply text-cinza-100 mb-2
+}
+.DescPage{
+  @apply text-cinza-200 text-sm
+}
+.DescPage span{
+  @apply text-cinza-100 text-xs
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  /* -webkit-text-fill-color: transparent !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset; */
+  @apply border-none transition-none
 }

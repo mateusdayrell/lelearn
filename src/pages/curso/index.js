@@ -90,6 +90,13 @@ export default function Cursos() {
             </div>
           </div>
 
+          <div className='DescPage'>
+            <p>{curso.desc_curso}</p>
+            {/* <span>Total de vídeos: <br />Total de vídeos assistidos:</span> */}
+          </div>
+          <div className='BarPage' />
+          <h1 className='SubTitle'>Vídeos</h1>
+
           {videos.map((video) => (
             <div key={video.cod_video} className="CardVideo">
               <div key={video.cod_video} className="flex items-center gap-3 w-2/3">

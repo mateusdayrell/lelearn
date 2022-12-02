@@ -43,7 +43,20 @@ export default function Treinamento() {
     <>
       <Loading isLoading={isLoading} />
       <div className='container-body'>
-        <h1 className='title'>Cursos do Treinamento</h1>
+      {cursos.length > 0 &&
+        <>
+          <h1 className='title'>{cursos[0].nome_treinamento}</h1>
+
+          <div className='DescPage'>
+          <p>{cursos[0].desc_treinamento}</p>
+          {/* <span>Total de cursos: <br /> Total de cursos concluídos: </span> */}
+      </div>
+      </>
+}
+      <div className='BarPage' />
+      <h1 className='SubTitle'>Cursos</h1>
+
+
         <div className="container">
           {cursos.map((curso) => (
             <CardCurso
