@@ -107,7 +107,7 @@ export default function GestaoVideos() {
 
       handleClose();
       setIsUpdating(false);
-      loadRegisters();
+      handleSearch();
     } catch (error) {
       setIsLoading(false);
       const erros = get(error, 'response.data.erros', []);
