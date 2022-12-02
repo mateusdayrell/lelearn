@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { MagnifyingGlass, PaintBrushHousehold, X, PencilSimple, TrashSimple } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
+import moment from 'moment/moment';
 
 import './style.css';
 import Loading from '../../../components/Loading';
@@ -19,14 +20,12 @@ export default function GestaoComentarios() {
   const [usuarios, setUsuarios] = useState([]);
   const [videosDoCurso, setVideosDoCurso] = useState([])
 
-  const [codComentario, setCodComentario] = useState('');
   const [texto, setTexto] = useState('');
+  const [comentario, setComentario] = useState({});
   const [usuario, setUsuario] = useState({});
   const [video, setVideo] = useState({});
-  const [cursosComentario, setCursosComentario] = useState([]);
   const [respostas, setRespostas] = useState([]);
-  const [respostasTotal, setRespostasTotal] = useState('');
-  const [respostasPendentes, setRespostasPendentes] = useState('');
+
 
   const [serachTexto, setSearchTexto] = useState('');
   const [searchCurso, setSearchCurso] = useState('');
@@ -168,23 +167,21 @@ export default function GestaoComentarios() {
   };
 
   const handleIsUpdating = (comment) => {
-      setCodComentario(comment.cod_comentario);
-      setTexto(comment.texto);
-      setUsuario(comment.usuario);
-      setRespostas(comment.respostas);
-      setVideo(comment.video);
-      setCursosComentario(comment.video.cursos);
-      setRespostasTotal(comment.respostas_total);
-      setRespostasPendentes(comment.respostas_pendentes);
-
-      setIsUpdating(true);
-      setShowFormModal(true);
-      setShowDeleteModal(false);
+    setRespostas(comment.respostas);
+    setUsuario(comment.usuario)
+    setVideo(comment.video)
+    delete comment.respostas
+    delete comment.respostas
+    delete comment.respostas
+    setComentario(comment);
+    console.log(comment);
+    setIsUpdating(true);
+    setShowFormModal(true);
+    setShowDeleteModal(false);
   };
 
   const handleIsDeleting = (vid) => {
-    setCodComentario(vid.cod_video);
-    setTexto(vid.titulo_video)
+    setComentario(vid)
     setShowDeleteModal(true);
   };
 
@@ -204,8 +201,8 @@ export default function GestaoComentarios() {
   };
 
   const clearModal = (parameter) => {
-    if (!parameter) setCodComentario('');
-    setTexto('');
+    // if (!parameter) setCodComentario('');
+    // setTexto('');
     // setVideoCursos([]);
     // setLink('');
     // setDescricao('');
@@ -350,19 +347,19 @@ export default function GestaoComentarios() {
         </div>
 
         <div className='container-list'>
-          {comentarios.slice(inicio, fim).map((comentario) => (
+          {comentarios.slice(inicio, fim).map((item) => (
             <div
-              key={`com${comentario.cod_comentario}`}
+              key={`com${item.cod_comentario}`}
               className="list"
             >
               <div className='container-information-list'>
-                <span className='cod-container-list'>{comentario.cod_comentario}</span>
+                <span className='cod-container-list'>{item.cod_comentatio}</span>
                 <div className='bar-container-list' />
                 <span className='name-container-list'>
-                  <span>{comentario.texto.substring(1, 40)} {comentario.texto.length > 39 && '...'}</span>
-                  <span className='text-laranja-100'>{comentario.respostas_pendentes} pendentes / {comentario.respostas_total} total</span>
-                  <span className='text-azul-100'>  {comentario.usuario.nome}</span>
-                  <span className='text-verde-100'>  {comentario.video.titulo_video}</span>
+                  <span>{item.texto.substring(1, 40)} {item.texto.length > 39 && '...'}</span>
+                  <span className='text-laranja-100'>{item.respostas_pendentes} pendentes / {item.respostas_total} total</span>
+                  <span className='text-azul-100'>  {item.usuario.nome}</span>
+                  <span className='text-verde-100'>  {item.video.titulo_video}</span>
                 </span>
               </div>
 
@@ -371,7 +368,7 @@ export default function GestaoComentarios() {
                   type="button"
                   title="Editar"
                   className='round-green-btn'
-                  onClick={() => handleIsUpdating(comentario)}
+                  onClick={() => handleIsUpdating(item)}
                 >
                   <PencilSimple size={20} />
                 </button>
@@ -379,7 +376,7 @@ export default function GestaoComentarios() {
                   type="button"
                   title="Excluir"
                   className='red-btn'
-                  onClick={() => handleIsDeleting(comentario)}
+                  onClick={() => handleIsDeleting(item)}
                 >
                   <TrashSimple size={20} />
                 </button>
@@ -414,60 +411,41 @@ export default function GestaoComentarios() {
             </button>
           </div>
           <div className="ModalContent">
-            <div className="FormInputGestao">
-              {/* {isUpdating ?
-                <div className="InputArea">
-                  <label>Código</label>
-                  <input
-                    type="text"
-                    className='ModalInput'
-                    name="cod_video"
-                    placeholder="Código"
-                    disabled
-                    value={codComentario}
-                    onChange={(e) => setCodComentario(e.target.value)}
-                  />
-                </div>
-              : ''} */}
-
-              <div className="InputArea">
-                <label>Título *</label>
-                <input
-                  type="text"
-                  className='ModalInput'
-                  name="texto"
-                  maxLength="40"
-                  value={texto}
-                  onChange={(e) => setTexto(e.target.value)}
-                />
+            <div>
+              <div className='InputArea'>
+                <label className='flex gap-5'>
+                  <span>{usuario.nome}</span>
+                  <span>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')}</span>
+                  <span>{comentario.resolvido ? "Resolvido" : `${comentario.respostas_pendentes} respostas pendentes`}</span>
+                  <span>Total respostas: {comentario.respostas_total}</span>
+                </label>
+                <textarea className='ModalInput' readOnly value={comentario.texto}/>
               </div>
-
-              {/* <div className="InputArea">
-                <label>Link *</label>
-                <input
-                  type="text"
-                  className='ModalInput'
-                  name="link"
-                  maxLength="150"
-                  value={link}
-                  onChange={(e) => setLink(e.target.value)}
-                />
+              <div>
+                <p>Vídeo: {video.titulo_video}</p>
+                <p>
+                  {video.cursos?.map(item => (<span key={item.cod_curso}>{item.nome_curso}</span>))}
+                </p>
               </div>
-              <div className="InputArea">
-                <label>Descrição </label>
-                <textarea
-                  name="descricao"
-                  value={descricao}
-                  onChange={(e) => setDescricao(e.target.value)}
-                />
-              </div> */}
-
-              {/* {videoCursos.length > 0 &&
-                <div className="InputArea">
-                  <label>Cursos</label>
-                  {videoCursos.map(curso => <div key={curso.cod_curso}>{curso.nome_curso}</div>)}
+              <div className='InputArea'>
+              <label>Postar resposta</label>
+              <textarea className='ModalInput' value={texto} onChange={(e) => setTexto(e.target.value)}/>
+              </div>
+              <div>
+                <h3>Respostas</h3>
+                <div>
+                  {respostas?.map((resposta) => (
+                    <div key={resposta.cod_comentario} className='InputArea'>
+                      <label className='flex gap-3'>
+                      <span>{resposta.usuario.nome}</span>
+                      <span>{moment(resposta.created_at, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')}</span>
+                      <span>{resposta.resolvido ? "Resolvido" : `Não resolvido`}</span>
+                      </label>
+                      <textarea className='ModalInput' readOnly value={resposta.texto}/>
+                    </div>
+                  ))}
                 </div>
-              } */}
+              </div>
             </div>
           </div>
           <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
@@ -484,7 +462,7 @@ export default function GestaoComentarios() {
 
         <DeleteModal
           showDeleteModal={showDeleteModal} handleClose={handleClose}
-          type="comentario" name={texto} handleDelete={handleDelete} code={codComentario}
+          type="comentario" name={comentario.texto} handleDelete={handleDelete} code={comentario.cod_comentatio}
         />
       </div>
     </>
