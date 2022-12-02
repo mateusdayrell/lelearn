@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-// import { Player, Youtube, DefaultUi } from '@vime/react';
-// import getYoutubeId from 'get-youtube-id'
+import { Player, Youtube, DefaultUi } from '@vime/react';
+import getYoutubeId from 'get-youtube-id'
 
 import './style.css';
-// import '@vime/core/themes/default.css';
+import '@vime/core/themes/default.css';
 import Loading from '../../components/Loading';
 import Checkbox from '../../components/Checkbox';
 import axios from '../../services/axios';
 import { orderVideos } from '../../helpers/orderVideos';
-// import Comments from '../../components/Comments';
 import Comments from '../../components/Comments';
 
 export default function Cursos() {
@@ -25,15 +24,16 @@ export default function Cursos() {
   const [videosUsuario, setVideosUsuario] = useState([])
   const [curso, setCurso] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  // const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [videoId, setVideoId] = useState('Qtz1PpY9A');
 
   useEffect(() => {
     loadRegisters(params.cod_video);
   }, []);
 
-  // useEffect(() => {
-  //   setReady(true);
-  // }, [video]);
+  useEffect(() => {
+    setReady(true);
+  }, [video]);
 
   const loadRegisters = async (codVideo) => {
     const { cod_curso } = params
@@ -43,11 +43,12 @@ export default function Cursos() {
       const { data } = await axios.get(`/videos/get-by-curso/${cod_curso}/${cod_video}`);
       const usuarioVideosResponde = await axios.get(`usuarios-videos/${cpf}/${data.curso.cod_curso}`)
 
+
+      setVideoId(getYoutubeId(data.video.link));
       setVideo(data.video);
       setCurso(data.curso);
       setVideosCurso(orderVideos(data.curso.videos));
       setVideosUsuario(usuarioVideosResponde.data);
-
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -72,6 +73,7 @@ export default function Cursos() {
   const handleWatched = codVideo => videosUsuario.flatMap(el => el.cod_video === codVideo).includes(true)
 
   const handleRedirect = (codVideo) => {
+    setReady(false)
     const { cod_curso } = params
     history.push(`/videos/${cod_curso}/${codVideo}`);
     loadRegisters(codVideo)
@@ -86,16 +88,16 @@ export default function Cursos() {
           <div className="bg-black flex justify-center">
             <div className="h-full w-full max-w-[1100px] max-h-[60vh] aspect-video">
               <div>
-                {/* {ready ? (
+                {ready ? (
                   // <iframe width="853" height="480" src={video.link} title="Como inserir vídeo do YouTube no seu site HTML (Embed)" frameBorder="0" allow="accelerometer" allowFullScreen />
 
-                  // <Player>
-                  //   <Youtube videoId={video.link} />
-                  //   <DefaultUi />
-                  // </Player>
+                  <Player>
+                    <Youtube videoId={videoId} />
+                    <DefaultUi />
+                  </Player>
                 ) : (
                   ''
-                )} */}
+                )}
               </div>
             </div>
           </div>
