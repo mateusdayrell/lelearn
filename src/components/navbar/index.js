@@ -11,9 +11,10 @@ import {
   House,
   CaretUp,
   ChatCircleDots,
+  BellSimple,
 } from 'phosphor-react';
 
-import { Link, useLocation  } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './styles.css';
 import * as actions from '../../store/modules/auth/actions';
@@ -30,6 +31,7 @@ export default function Navbar() {
   const [nomeUsuario, setNomeUsuario] = useState('Não logado');
   const [openSidebar, setOpenSidebar] = useState(true);
   const [openMenuUser, setOpenMenuUser] = useState(false);
+  const [openNotify, setOpenNotify] = useState(false);
   const [word1, setWord1] = useState('')
   const [word2, setWord2] = useState('')
   const [menuLink, setMenuLink] = useState('/')
@@ -50,6 +52,7 @@ export default function Navbar() {
     getNome();
     handleCurrentMenu();
     setOpenMenuUser();
+    setOpenNotify();
   }, [location]);
 
   const getNome = () => {
@@ -74,7 +77,7 @@ export default function Navbar() {
     menus.forEach(el => {
       const url = process.env.REACT_APP_BASE_URL + el.link
       if (window.location.href.includes(url)) setMenuLink(el.link)
-      else if(location.pathname.includes('/videos/')) setMenuLink('/cursos')
+      else if (location.pathname.includes('/videos/')) setMenuLink('/cursos')
     });
     return true
   }
@@ -146,31 +149,49 @@ export default function Navbar() {
         </div>
 
         {/* USUARIO */}
-        <div className={` ${openSidebar ? "profile-content-closed" : "profile-content-open"} profile-content`}>
 
-          <div className={openSidebar === true && openMenuUser === true ? `${openMenuUser ? "" : ""}absolute p-2 w-40 rounded-md bg-cinza-350 bottom-4 -right-44 shadow-md` : `${openMenuUser ? "" : "hidden"}  w-10 flex flex-col duration-500 pl-2 my-2`}>
-            <Link onClick={handleLogout} className="flex mr-6 text-sm hover:text-vermelho-100 duration-150 gap-2" to="/login">
-              <div><SignOut size={20} /></div>
-              Sair
-            </Link>
-            <span className={`${!openSidebar && "hidden"} text-center flex justify-center select-none mt-3`}>
-              {nomeUsuario}
-            </span>
+        {/* NOTIFICAÇÕES */}
+        <div className='flex flex-col'>
+          <div className={` ${openSidebar ? "NotifyContentClosed" : "NotifyContentOpen"} NotifyContent`}>
+            <a onClick={() => setOpenNotify(!openNotify)}>
+              <BellSimple size={24} className='icons' />
+              <span className={`${openSidebar && "hidden"} name`}>
+                Notificações
+              </span>
+            </a>
+
+            <div className={openNotify === true && openSidebar === true ? `${openNotify ? "" : ""}absolute p-2 w-60 h-2/3 rounded-md bg-cinza-350 bottom-4 -right-64 shadow-md` : `${openNotify ? "" : "hidden"}  w-10 flex flex-col duration-500 pl-2 my-2`}>
+
+            </div>
           </div>
+          {/* NOTIFICAÇÕES */}
 
-          <div className='userinfo'>
-            <button className='avatar' aria-hidden="true" onClick={() => setOpenMenuUser(!openMenuUser)}>
-              {word1}{word2}
-            </button>
-            <span className={`${openSidebar && "hidden"} name`}>
-              {nomeUsuario}
-            </span>
-            <span className={`${openSidebar && "hidden"}`}>
-              <CaretUp
-                size={20}
-                onClick={() => setOpenMenuUser(!openMenuUser)}
-                className={`${!openMenuUser && "rotate-180"} duration-200 cursor-pointer`} />
-            </span>
+
+          <div className={` ${openSidebar ? "profile-content-closed" : "profile-content-open"} profile-content`}>
+            <div className={openSidebar === true && openMenuUser === true ? `${openMenuUser ? "" : ""}absolute p-2 w-40 rounded-md bg-cinza-350 bottom-4 -right-44 shadow-md` : `${openMenuUser ? "" : "hidden"}  w-10 flex flex-col duration-500 pl-2 my-2`}>
+              <Link onClick={handleLogout} className="flex mr-6 text-sm hover:text-vermelho-100 duration-150 gap-2" to="/login">
+                <div><SignOut size={20} /></div>
+                Sair
+              </Link>
+              <span className={`${!openSidebar && "hidden"} text-center flex justify-center select-none mt-3`}>
+                {nomeUsuario}
+              </span>
+            </div>
+
+            <div className='userinfo'>
+              <button className='avatar' aria-hidden="true" onClick={() => setOpenMenuUser(!openMenuUser)}>
+                {word1}{word2}
+              </button>
+              <span className={`${openSidebar && "hidden"} name`}>
+                {nomeUsuario}
+              </span>
+              <span className={`${openSidebar && "hidden"}`}>
+                <CaretUp
+                  size={20}
+                  onClick={() => setOpenMenuUser(!openMenuUser)}
+                  className={`${!openMenuUser && "rotate-180"} duration-200 cursor-pointer`} />
+              </span>
+            </div>
           </div>
         </div>
       </div>

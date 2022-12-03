@@ -1,7 +1,7 @@
 /* NAVBAR */
 .navbar{
   @apply bg-cinza-400 flex h-full py-3 flex-col justify-between fixed
-  shadow-white shadow-sm z-10 duration-200 text-sm
+  shadow-white shadow-sm z-10 duration-200 text-sm select-none
 }
 .navbar-open{
   @apply w-64 items-start
@@ -60,6 +60,37 @@
 
 
 /* CONTEINER INFERIOR - INFORMAÇÕES DO USUÁRIO */
+/* NOTIFY CONTENT */
+.NotifyContent{
+  @apply w-14 flex my-1 text-cinza-100 
+}
+.NotifyContentClosed{
+  @apply w-14 flex items-center justify-center
+}
+.NotifyContentClosed .icons{
+  @apply w-8 flex items-center justify-center rounded-md hover:text-verde-100 transition-all cursor-pointer
+}
+.NotifyContentOpen{
+  @apply w-56 h-10 items-center pl-3
+}
+.NotifyContentOpen a{
+  @apply flex my-2 items-center cursor-pointer
+}
+.NotifyContentOpen a span{
+  @apply ml-1 transition-all
+}
+.NotifyContentOpen a .icons{
+  @apply w-8 flex items-center justify-center rounded-md transition-all
+}
+.NotifyContentOpen a:hover .icons{
+  @apply text-verde-100
+}
+.NotifyContentOpen a:hover span{
+  @apply text-verde-100
+}
+/* NOTIFY CONTENT */
+
+
 .profile-content{
   @apply w-14 py-1 ml-1 pl-1 text-cinza-100
 }
@@ -73,5 +104,4 @@
   @apply bg-cinza-100 text-cinza-500 font-thin text-base w-10 h-10 rounded-full tracking-wide flex justify-center items-center
   select-none shadow-md cursor-pointer transition-all hover:bg-cinza-200 focus:bg-cinza-200
 }
-
 /* CONTEINER INFERIOR - INFORMAÇÕES DO USUÁRIO */
