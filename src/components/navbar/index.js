@@ -160,7 +160,7 @@ export default function Navbar() {
               </span>
             </a>
 
-            <div className={openNotify === true && openSidebar === true ? `${openNotify ? "" : ""}absolute p-2 w-60 h-2/3 rounded-md bg-cinza-350 bottom-4 -right-64 shadow-md` : `${openNotify ? "" : "hidden"}  w-10 flex flex-col duration-500 pl-2 my-2`}>
+            <div className={openNotify === true && openSidebar === true ? `${openNotify ? "" : ""}absolute p-2 w-60 h-2/3 rounded-md bg-cinza-350 bottom-4 -right-64 shadow-md` : ``}>
 
             </div>
           </div>
