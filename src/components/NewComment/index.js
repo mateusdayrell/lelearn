@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import axios from '../../services/axios';
 import Loading from '../Loading';
 
-export default function Comments2({codVideo, cpf, title, comentarioPai, loadRegisters}) {
+export default function NewComment({codVideo, cpf, title, comentarioPai, loadRegisters}) {
 
   const [textoResposta, setTextoResposta] = useState('')
   const [isLoading, setIsLoading] = useState(false);
@@ -63,7 +63,7 @@ export default function Comments2({codVideo, cpf, title, comentarioPai, loadRegi
   );
 }
 
-Comments2.defaultProps = {
+NewComment.defaultProps = {
   codVideo: '',
   cpf: '',
   title: '',
@@ -71,7 +71,7 @@ Comments2.defaultProps = {
   loadRegisters: () => null,
 };
 
-Comments2.propTypes = {
+NewComment.propTypes = {
   codVideo: PropTypes.string,
   cpf: PropTypes.string,
   title: PropTypes.string,

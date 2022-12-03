@@ -7,7 +7,7 @@ import Loading from '../Loading';
 import NewComment from '../NewComment';
 import CommentList from '../CommentList';
 
-export default function Comments2({codVideo, cpf}) {
+export default function Comments({codVideo, cpf}) {
   const [comentarios, setComentarios] = useState([]);
   const [respostas, setRespostas] = useState([]);
   const [comentarioAtivo, setComentarioAtivo] = useState({})
@@ -81,12 +81,12 @@ export default function Comments2({codVideo, cpf}) {
   );
 }
 
-Comments2.defaultProps = {
+Comments.defaultProps = {
   codVideo: '',
   cpf: '',
 };
 
-Comments2.propTypes = {
+Comments.propTypes = {
   codVideo: PropTypes.string,
   cpf: PropTypes.string,
 };
