@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
-import { MagnifyingGlass, PaintBrushHousehold, X, PencilSimple, TrashSimple, MinusCircle, ChatCircleText, ChatCircle } from 'phosphor-react';
+import { MagnifyingGlass, PaintBrushHousehold, X, MinusCircle, ChatCircleText, PaperPlaneRight } from 'phosphor-react';
 import Modal from 'react-modal';
+import { useSelector } from 'react-redux';
 import { get } from 'lodash';
 import moment from 'moment/moment';
 
@@ -11,18 +12,25 @@ import OrderSelect from '../../../components/OrderSelect';
 import Pagination from '../../../components/Pagination';
 import axios from '../../../services/axios';
 import DeleteModal from '../../../components/DeleteModal';
+import CommentArea from '../../../components/CommentArea';
 
 const ITEMS_PER_PAGE = 10
 
 export default function GestaoComentarios() {
+  const cpf = useSelector((state) => state.auth.usuario.cpf);
+  const editarResposta = useRef(null);
+
   const [comentarios, setComentarios] = useState([]);
   const [cursos, setCursos] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
   const [videosDoCurso, setVideosDoCurso] = useState([])
 
   const [texto, setTexto] = useState('');
+  const [textoEditar, setTextoEditar] = useState('');
+  const [ativo, setAtivo] = useState('');
+
+
   const [comentario, setComentario] = useState({});
-  const [usuario, setUsuario] = useState({});
   const [video, setVideo] = useState({});
   const [respostas, setRespostas] = useState([]);
 
@@ -36,7 +44,6 @@ export default function GestaoComentarios() {
   const [isLoading, setIsLoading] = useState(false);
   const [shwoFormModal, setShowFormModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [isUpdating, setIsUpdating] = useState(false);
 
   const [inicio, setInicio] = useState(0)
   const [fim, setFim] = useState(ITEMS_PER_PAGE)
@@ -44,6 +51,12 @@ export default function GestaoComentarios() {
   useEffect(() => {
     loadRegisters();
   }, []);
+
+  useEffect(() => {
+    if (editarResposta.current) {
+      editarResposta.current.focus();
+    }
+  }, [ativo]);
 
   const loadRegisters = async () => {
     setIsLoading(true);
@@ -91,34 +104,105 @@ export default function GestaoComentarios() {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handlePostComment = async () => {
     if (!validateForm()) return;
 
-    try {
-      const regTemp = {
-        texto,
-      };
+    const regTemp = {
+      cpf,
+      cod_video: video.cod_video,
+      comentario_pai: comentario.cod_comentario,
+      texto
+    };
 
+    try {
       setIsLoading(true);
-      if (isUpdating) {
-        await axios.put(`/videos/${codComentario}`, regTemp);
-        toast.success('Vídeo atualizado com sucesso!');
-      } else {
-        await axios.post('/videos', regTemp);
-        toast.success('Vídeo cadastrado com sucesso!');
-      }
+      await axios.post('/comentarios', regTemp);
       setIsLoading(false);
 
-      handleClose();
-      setIsUpdating(false);
-      loadRegisters();
+      toast.success('Comentário postado com sucesso.');
+      setTexto('');
+      loadRepplyes();
+    } catch (error) {
+      setIsLoading(false);
+      const erros = get(error, 'response.data.erros', []);
+      erros.map((err) => toast.error(err));
+    }
+  }
+
+  const handleUpdateComment = async (comment) => {
+    if (!validateForm()) return;
+    const regTemp = {
+      cpf,
+      cod_video: comment.cod_video,
+      comentario_pai: comment.comentario_pai,
+      texto: textoEditar
+    };
+
+    try {
+      setIsLoading(true);
+      await axios.put(`/comentarios/${comment.cod_comentario}`, regTemp);
+      setIsLoading(false);
+
+      toast.success('Comentário atualizado com sucesso.');
+
+      setAtivo('');
+      setTextoEditar('');
+      loadRepplyes();
+    } catch (error) {
+      setIsLoading(false);
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
+  }
+
+  const validateForm = () => {
+    let controle = true;
+
+    if(ativo) {
+      if (!textoEditar) {
+        toast.error('Comentário vazio.');
+        controle = false;
+      } else if (textoEditar.length < 3 || textoEditar.length > 30) {
+        controle = false;
+        toast.error('O comentário deve ter entre 3 e 30 caracteres');
+      }
+    } else if (!texto) {
+      toast.error('Comentário vazio.');
+      controle = false;
+    } else if (texto.length < 3 || texto.length > 30) {
+      controle = false;
+      toast.error('O comentário deve ter entre 3 e 30 caracteres');
+    }
+
+    return controle;
+  };
+
+  const loadRepplyes = async () => {
+    setIsLoading(true);
+    try {
+      const { data } = await axios.get(`/comentarios/${comentario.cod_comentario}`);
+
+      setRespostas(data.respostas);
+      delete data.respostas;
+      delete data.video;
+      setComentario(data);
+      setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       const erros = get(error, 'response.data.erros', []);
       erros.map((err) => toast.error(err));
     }
   };
+
+  const handleIsUpdating = (comment) => {
+    if (comment) {
+      setAtivo(comment.cod_comentario);
+      setTextoEditar(comment.texto);
+    } else {
+      setAtivo('');
+      setTextoEditar('');
+    }
+  }
 
   const handleDelete = async (codigo) => {
     handleClose();
@@ -127,7 +211,7 @@ export default function GestaoComentarios() {
       await axios.delete(`/videos/${codigo}`);
 
       setIsLoading(false);
-      toast.success('Vídeo excluído com sucesso!')
+      toast.success('Vídeo excluído com sucesso!');
       await loadRegisters();
     } catch (error) {
       setIsLoading(false);
@@ -136,52 +220,22 @@ export default function GestaoComentarios() {
     }
   };
 
-  const validateForm = () => {
-    const controle = true;
+  const handleIsAnswering = (obj) => {
+    const comment = {...obj};
 
-    // if (!titulo) {
-    //   toast.error('Preencha o campo Título!');
-    //   controle = false;
-    // } else if (titulo.length < 3 || titulo.length > 40) {
-    //   controle = false;
-    //   toast.error('O campo Título deve ter entre 3 e 40 caracteres');
-    // }
-
-    // if (!link) {
-    //   controle = false;
-    //   toast.error('Preencha o campo Link!');
-    // } else if (link.length < 3 || link.length > 150) {
-    //   controle = false;
-    //   toast.error('O campo Link deve ter entre 3 e 150 caracteres');
-    // }
-
-    // if (descricao.length > 0 && descricao.length < 3) {
-    //   controle = false;
-    //   toast.error('O campo Descrição deve ter no mínimo 3 caracteres!');
-    // } else if (descricao.length > 150) {
-    //   controle = false;
-    //   toast.error('O campo Descrição deve ter no máximo 150 caracteres!');
-    // }
-
-    return controle;
-  };
-
-  const handleIsUpdating = (comment) => {
     setRespostas(comment.respostas);
-    setUsuario(comment.usuario)
-    setVideo(comment.video)
-    delete comment.respostas
-    delete comment.respostas
-    delete comment.respostas
+    setVideo(comment.video);
+
+    delete comment.respostas;
+    delete comment.video;
+
     setComentario(comment);
-    console.log(comment);
-    setIsUpdating(true);
     setShowFormModal(true);
     setShowDeleteModal(false);
   };
 
   const handleIsDeleting = (vid) => {
-    setComentario(vid)
+    setComentario(vid);
     setShowDeleteModal(true);
   };
 
@@ -196,11 +250,10 @@ export default function GestaoComentarios() {
   const handleClose = () => {
     setShowFormModal(false);
     setShowDeleteModal(false);
-    setIsUpdating(false);
     clearModal();
   };
 
-  const clearModal = (parameter) => {
+  const clearModal = (/* parameter */) => {
     // if (!parameter) setCodComentario('');
     // setTexto('');
     // setVideoCursos([]);
@@ -371,7 +424,7 @@ export default function GestaoComentarios() {
                     type="button"
                     title="Responder"
                     className='round-green-btn'
-                    onClick={() => handleIsUpdating(item)}
+                    onClick={() => handleIsAnswering(item)}
                   >
                     <ChatCircleText size={20} />
                   </button>
@@ -411,6 +464,7 @@ export default function GestaoComentarios() {
             <button
               className="CloseModal"
               type="button"
+              title='Fechar'
               onClick={handleClose}>
               <X size={24} />
             </button>
@@ -419,12 +473,20 @@ export default function GestaoComentarios() {
             <div>
               <div className='InputArea'>
                 <label className='flex gap-5'>
-                  <span>{usuario.nome}</span>
-                  <span>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')}</span>
-                  <span>{comentario.resolvido ? "Resolvido" : `${comentario.respostas_pendentes} respostas pendentes`}</span>
-                  <span>Total respostas: {comentario.respostas_total}</span>
+                  {comentario.usuario &&
+                    <>
+                      <span>{comentario.usuario.nome}</span>
+                      <span>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')}</span>
+                      <span>{comentario.resolvido ? "Resolvido" : `${comentario.respostas_pendentes} respostas pendentes`}</span>
+                      <span>Total respostas: {comentario.respostas_total}</span>
+                    </>
+                  }
                 </label>
-                <textarea className='ModalInput' readOnly value={comentario.texto} />
+                <div>
+                  <CommentArea ativo={ativo} comentario={comentario} editarResposta={editarResposta}
+                    textoEditar={textoEditar} setTextoEditar={setTextoEditar} cpf={cpf}
+                    handleIsUpdating={handleIsUpdating} handleUpdateComment={handleUpdateComment}/>
+                </div>
               </div>
               <div>
                 <p>Vídeo: {video.titulo_video}</p>
@@ -434,7 +496,10 @@ export default function GestaoComentarios() {
               </div>
               <div className='InputArea'>
                 <label>Postar resposta</label>
-                <textarea className='ModalInput' value={texto} onChange={(e) => setTexto(e.target.value)} />
+                <textarea className='ModalInput' value={texto} onChange={(e) => setTexto(e.target.value)} placeholder="Escreva aqui uma resposta" />
+                <button type='button' title='Postar' onClick={handlePostComment}>
+                  <PaperPlaneRight size={24} />
+                </button>
               </div>
               <div>
                 <h3>Respostas</h3>
@@ -446,22 +511,16 @@ export default function GestaoComentarios() {
                         <span>{moment(resposta.created_at, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')}</span>
                         <span>{resposta.resolvido ? "Resolvido" : `Não resolvido`}</span>
                       </label>
-                      <textarea className='ModalInput' readOnly value={resposta.texto} />
+                      <div>
+                      <CommentArea ativo={ativo} comentario={resposta} editarResposta={editarResposta}
+                        textoEditar={textoEditar} setTextoEditar={setTextoEditar} cpf={cpf}
+                        handleIsUpdating={handleIsUpdating} handleUpdateComment={handleUpdateComment}/>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-          </div>
-          <p className='InformationP'><i>Campos com ( * ) devem ser preenchidos obrigatoriamente.</i></p>
-
-          <div className="ModalFooter">
-            <button className="RedBtn" type="button" onClick={() => clearModal("limpar")}>
-              Limpar
-            </button>
-            <button className="GreenBtn" type="button" onClick={handleSubmit}>
-              {isUpdating ? 'Atualizar' : 'Cadastrar'}
-            </button>
           </div>
         </Modal>
 
