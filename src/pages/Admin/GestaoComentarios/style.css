@@ -19,3 +19,20 @@
 .g-video-container tr th:nth-child(1) {
   border-radius: 0.625rem 0 0 0.625rem;
 }
+
+.ListContainerComentario{
+  @apply flex flex-wrap gap-3 md:gap-2 sm:gap-1
+}
+.ComentarioList{
+  @apply md:w-[49.5%] sm:w-full lg:w-[49.5%]
+  h-36 bg-cinza-400 rounded-lg shadow p-2 flex 
+}
+.BarListComentario{
+  @apply w-[2px] h-full bg-verde-100 mr-1 rounded
+}
+.InformationComentario{
+  @apply w-full text-sm flex flex-col min-h-[5rem] max-h-20
+}
+.ButtonsComentario{
+  @apply flex justify-end gap-2
+}

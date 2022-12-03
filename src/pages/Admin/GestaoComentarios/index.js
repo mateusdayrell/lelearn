@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { MagnifyingGlass, PaintBrushHousehold, X, PencilSimple, TrashSimple } from 'phosphor-react';
+import { MagnifyingGlass, PaintBrushHousehold, X, PencilSimple, TrashSimple, MinusCircle, ChatCircleText, ChatCircle } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
 import moment from 'moment/moment';
@@ -218,7 +218,7 @@ export default function GestaoComentarios() {
     setFim(novoFim)
   }
 
-  const handleCursoSearch = async(value) => {
+  const handleCursoSearch = async (value) => {
     setSearchCurso(value)
 
     const querys = new URLSearchParams({
@@ -346,41 +346,46 @@ export default function GestaoComentarios() {
             array={comentarios} />
         </div>
 
-        <div className='container-list'>
+        <div className='ListContainerComentario'>
           {comentarios.slice(inicio, fim).map((item) => (
             <div
               key={`com${item.cod_comentario}`}
-              className="list"
+              className="ComentarioList"
             >
-              <div className='container-information-list'>
-                <span className='cod-container-list'>{item.cod_comentatio}</span>
-                <div className='bar-container-list' />
-                <span className='name-container-list'>
-                  <span>{item.texto.substring(1, 40)} {item.texto.length > 39 && '...'}</span>
-                  <span className='text-laranja-100'>{item.respostas_pendentes} pendentes / {item.respostas_total} total</span>
-                  <span className='text-azul-100'>  {item.usuario.nome}</span>
-                  <span className='text-verde-100'>  {item.video.titulo_video}</span>
+              <div className='BarListComentario' />
+              <div className='flex flex-col h-full w-full'>
+                <div className='InformationComentario'>
+                  {/* <span className='cod-container-list'>{item.cod_comentatio}</span> */}
+                  <span className='text-cinza-200'>{item.texto.substring(1, 150)}{item.texto.length > 149 && '...'}</span>
+                  <span className='flex flex-col text-xs gap-1'>
+                    <span className='flex gap-2 '>
+                      <span className='text-azul-100 rounded-lg bg-azul-200 px-2'>{item.usuario.nome}</span>
+                      <span className='text-verde-100 rounded-lg bg-verde-200 px-2'>Vídeo: {item.video.titulo_video}</span>
+                    </span>
+                    <span className='text-laranja-100 rounded-lg px-2'>{item.respostas_pendentes} Respostas pendentes | {item.respostas_total} Respostas total</span>
+                  </span>
+                </div>
+
+                <span className='ButtonsComentario'>
+                  <button
+                    type="button"
+                    title="Responder"
+                    className='round-green-btn'
+                    onClick={() => handleIsUpdating(item)}
+                  >
+                    <ChatCircleText size={20} />
+                  </button>
+                  <button
+                    type="button"
+                    title="Excluir"
+                    className='red-btn'
+                    onClick={() => handleIsDeleting(item)}
+                  >
+                    <MinusCircle size={20} />
+                  </button>
                 </span>
               </div>
 
-              <span className='buttons-container-list'>
-                <button
-                  type="button"
-                  title="Editar"
-                  className='round-green-btn'
-                  onClick={() => handleIsUpdating(item)}
-                >
-                  <PencilSimple size={20} />
-                </button>
-                <button
-                  type="button"
-                  title="Excluir"
-                  className='red-btn'
-                  onClick={() => handleIsDeleting(item)}
-                >
-                  <TrashSimple size={20} />
-                </button>
-              </span>
             </div>
           ))}
         </div>
@@ -419,7 +424,7 @@ export default function GestaoComentarios() {
                   <span>{comentario.resolvido ? "Resolvido" : `${comentario.respostas_pendentes} respostas pendentes`}</span>
                   <span>Total respostas: {comentario.respostas_total}</span>
                 </label>
-                <textarea className='ModalInput' readOnly value={comentario.texto}/>
+                <textarea className='ModalInput' readOnly value={comentario.texto} />
               </div>
               <div>
                 <p>Vídeo: {video.titulo_video}</p>
@@ -428,8 +433,8 @@ export default function GestaoComentarios() {
                 </p>
               </div>
               <div className='InputArea'>
-              <label>Postar resposta</label>
-              <textarea className='ModalInput' value={texto} onChange={(e) => setTexto(e.target.value)}/>
+                <label>Postar resposta</label>
+                <textarea className='ModalInput' value={texto} onChange={(e) => setTexto(e.target.value)} />
               </div>
               <div>
                 <h3>Respostas</h3>
@@ -437,11 +442,11 @@ export default function GestaoComentarios() {
                   {respostas?.map((resposta) => (
                     <div key={resposta.cod_comentario} className='InputArea'>
                       <label className='flex gap-3'>
-                      <span>{resposta.usuario.nome}</span>
-                      <span>{moment(resposta.created_at, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')}</span>
-                      <span>{resposta.resolvido ? "Resolvido" : `Não resolvido`}</span>
+                        <span>{resposta.usuario.nome}</span>
+                        <span>{moment(resposta.created_at, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')}</span>
+                        <span>{resposta.resolvido ? "Resolvido" : `Não resolvido`}</span>
                       </label>
-                      <textarea className='ModalInput' readOnly value={resposta.texto}/>
+                      <textarea className='ModalInput' readOnly value={resposta.texto} />
                     </div>
                   ))}
                 </div>
