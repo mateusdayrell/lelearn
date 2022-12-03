@@ -25,7 +25,7 @@
 }
 .ComentarioList{
   @apply md:w-[49.5%] sm:w-full lg:w-[49.5%]
-  h-36 bg-cinza-400 rounded-lg shadow p-2 flex 
+  h-36 bg-cinza-400 rounded-lg shadow py-2 px-3 flex 
 }
 .BarListComentario{
   @apply w-[2px] h-full bg-verde-100 mr-1 rounded
