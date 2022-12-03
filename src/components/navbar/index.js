@@ -12,6 +12,7 @@ import {
   CaretUp,
   ChatCircleDots,
   BellSimple,
+  X,
 } from 'phosphor-react';
 
 import { Link, useLocation } from 'react-router-dom';
@@ -160,7 +161,11 @@ export default function Navbar() {
               </span>
             </a>
 
-            <div className={openNotify === true && openSidebar === true ? `${openNotify ? "" : ""}absolute p-2 w-60 h-2/3 rounded-md bg-cinza-350 bottom-4 -right-64 shadow-md` : ``}>
+            <div className={openNotify === true && openSidebar === true ? `${openNotify ? "" : ""}absolute p-2 w-60 h-2/3 rounded-md bg-cinza-400 bottom-4 -right-64 shadow-md` : ``}>
+              <span className={`${openNotify === true && openSidebar === true ? '':'hidden'} flex justify-between`}>
+                Notificações
+                <X size={22} onClick={() => setOpenNotify(!openNotify)} className='cursor-pointer hover:text-cinza-200 transition-all'/>
+              </span>
 
             </div>
           </div>

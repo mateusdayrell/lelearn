@@ -93,6 +93,11 @@ input:-webkit-autofill:active  {
   py-2 px-2 border border-vermelho-100 hover:border-transparent rounded-full duration-200
 }
 
+.gray-btn{
+  @apply bg-cinza-200 hover:bg-cinza-300 text-cinza-100 shadow-md
+  py-2 px-2 border border-cinza-200 hover:border-transparent rounded-full duration-200
+}
+
 .yellow-btn{
   @apply bg-transparent hover:bg-laranja-100 text-laranja-100 font-semibold hover:text-white
   py-2 px-4 border border-laranja-100 hover:border-transparent rounded-xl duration-200 shadow-md
@@ -227,7 +232,7 @@ td {
   @apply flex items-center bg-cinza-100 rounded-2xl px-2 mb-2
 }
 .SearchInput input{
-  @apply bg-transparent border-none
+  @apply bg-transparent border-none text-cinza-500
 }
 .SearchInput button{
   @apply hover:text-cinza-300 duration-200

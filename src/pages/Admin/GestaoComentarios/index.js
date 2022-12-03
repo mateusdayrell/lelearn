@@ -244,7 +244,7 @@ export default function GestaoComentarios() {
     <>
       <Loading isLoading={isLoading} />
       <div className="container-body container-video">
-        <h1 className="title">Gestão de comentários</h1>
+        <h1 className="title">Gestão de Comentários</h1>
 
         <div className='top-forms-container'>
           <div className="search-container">
