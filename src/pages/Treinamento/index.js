@@ -57,7 +57,7 @@ export default function Treinamento() {
       <h1 className='SubTitle'>Cursos</h1>
 
 
-        <div className="container">
+        <div>
           {cursos.map((curso) => (
             <CardCurso
               key={curso.cod_curso} curso={curso} assistidos={curso.videos_assistidos} total={curso.total_videos} />
