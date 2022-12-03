@@ -155,7 +155,7 @@ export default function Navbar() {
         <div className='flex flex-col'>
           <div className={` ${openSidebar ? "NotifyContentClosed" : "NotifyContentOpen"} NotifyContent`}>
             <a onClick={() => setOpenNotify(!openNotify)}>
-              <BellSimple size={24} className='icons' />
+              <BellSimple size={24} className={`${openNotify === true && 'text-verde-100'} icons`}/>
               <span className={`${openSidebar && "hidden"} name`}>
                 Notificações
               </span>

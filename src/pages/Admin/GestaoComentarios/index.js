@@ -329,7 +329,7 @@ export default function GestaoComentarios() {
                 </button>
                 <button
                   title="Limpar campos"
-                  className="red-btn"
+                  className="gray-btn"
                   type="button"
                   onClick={clearSearch}>
                   <PaintBrushHousehold size={24} />
