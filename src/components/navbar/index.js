@@ -156,13 +156,14 @@ export default function Navbar() {
           <div className={` ${openSidebar ? "NotifyContentClosed" : "NotifyContentOpen"} NotifyContent`}>
             <a onClick={() => setOpenNotify(!openNotify)}>
               <BellSimple size={24} className={`${openNotify === true && 'text-verde-100'} icons`}/>
-              <span className={`${openSidebar && "hidden"} name`}>
+              <span className={`${openSidebar ? "hidden":`${openNotify === true ? 'text-verde-100':''}`} name`}>
                 Notificações
               </span>
             </a>
 
-            <div className={openNotify === true && openSidebar === true ? `${openNotify ? "" : ""}absolute p-2 w-60 h-2/3 rounded-md bg-cinza-400 bottom-4 -right-64 shadow-md` : ``}>
-              <span className={`${openNotify === true && openSidebar === true ? '':'hidden'} flex justify-between`}>
+
+            <div className={openNotify === true && openSidebar === true ? `absolute p-2 w-60 h-2/3 rounded-md bg-cinza-400 bottom-4 -right-64 shadow-md` : `${openNotify ? "absolute p-2 w-60 h-2/3 rounded-md bg-cinza-400 bottom-4 -right-64 shadow-md" : ""}`}>
+              <span className={`${openNotify === true && openSidebar === true ? '':`${openNotify ? '':'hidden'}`} flex justify-between`}>
                 Notificações
                 <X size={22} onClick={() => setOpenNotify(!openNotify)} className='cursor-pointer hover:text-cinza-200 transition-all'/>
               </span>
