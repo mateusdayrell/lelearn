@@ -108,7 +108,7 @@ export default function Cursos() {
                 <button
                   className='BtnVideo'
                   onClick={() => handleRedirect(video.cod_video)}>
-                  <Play size={20} />
+                  <Play size={20} weight='fill'/>
                 </button>
             </div>
           ))}
