@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
-import { MagnifyingGlass, PaintBrushHousehold, X, MinusCircle, ChatCircleText, PaperPlaneRight } from 'phosphor-react';
+import { MagnifyingGlass, PaintBrushHousehold, X, MinusCircle, ChatCircleText, PaperPlaneRight, ArrowBendDownRight } from 'phosphor-react';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
 import { get } from 'lodash';
@@ -426,7 +426,7 @@ export default function GestaoComentarios() {
                       <span className='text-azul-100 '>{item.usuario.nome}</span>
                       <span className='text-verde-100 '>Vídeo: {item.video.titulo_video}</span>
                     </span>
-                    <span className='text-laranja-100 '>{item.respostas_pendentes} Respostas pendentes <br/> {item.respostas_total} Respostas total</span>
+                    <span className='text-laranja-100 '>{item.respostas_pendentes} Respostas pendentes <br /> {item.respostas_total} Respostas total</span>
                   </span>
                 </div>
 
@@ -504,12 +504,14 @@ export default function GestaoComentarios() {
                     textoEditar={textoEditar} setTextoEditar={setTextoEditar} cpf={cpf} handleIsDeleting={handleIsDeleting}
                     handleIsUpdating={handleIsUpdating} handleUpdateComment={handleUpdateComment} />
                 </div>
-                <div className='w-full h-[1px] bg-cinza-200 mt-2'></div>
                 <div>
                   {/* <label className='ml-1 text-cinza-100'>Responder</label> */}
-                  <textarea className='ModalInput' value={texto} onChange={(e) => setTexto(e.target.value)} placeholder="Escreva aqui uma resposta" />
+                  <div className='flex items-start'>
+                    <ArrowBendDownRight size={20} className='mt-1'/>
+                    <textarea className='ModalInput' value={texto} onChange={(e) => setTexto(e.target.value)} placeholder="Escreva aqui uma resposta" />
+                  </div>
                   <div className='w-full flex justify-end'>
-                    <button type='button' onClick={handlePostComment} className='text-xs flex items-center gap-2 mb-1 text-cinza-100 rounded-lg hover:text-verde-100 transition-all'>
+                    <button type='button' onClick={handlePostComment} className='text-xs flex items-center gap-2 my-1 text-cinza-100 rounded-lg hover:text-verde-100 transition-all'>
                       Responder
                     </button>
                   </div>
