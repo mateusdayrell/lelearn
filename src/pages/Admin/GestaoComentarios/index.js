@@ -423,10 +423,10 @@ export default function GestaoComentarios() {
                   <span className='text-cinza-200'>{item.texto}</span>
                   <span className='flex flex-col text-xs gap-1'>
                     <span className='flex gap-2 '>
-                      <span className='text-azul-100 rounded-lg bg-azul-200 px-2'>{item.usuario.nome}</span>
-                      <span className='text-verde-100 rounded-lg bg-verde-200 px-2'>Vídeo: {item.video.titulo_video}</span>
+                      <span className='text-azul-100 '>{item.usuario.nome}</span>
+                      <span className='text-verde-100 '>Vídeo: {item.video.titulo_video}</span>
                     </span>
-                    <span className='text-laranja-100 rounded-lg px-2'>{item.respostas_pendentes} Respostas pendentes | {item.respostas_total} Respostas total</span>
+                    <span className='text-laranja-100 '>{item.respostas_pendentes} Respostas pendentes <br/> {item.respostas_total} Respostas total</span>
                   </span>
                 </div>
 
@@ -482,10 +482,10 @@ export default function GestaoComentarios() {
           </div>
           <div className="ModalContent">
             <div>
-              <div className='text-cinza-200 text-xs'>
-                <p>Vídeo: {video.titulo_video}</p>
-                <p>
-                  {video.cursos?.map(item => (<span key={item.cod_curso}>{item.nome_curso}<br/></span>))}
+              <div className='text-xs'>
+                <p className='text-verde-100'>Vídeo : {video.titulo_video}</p>
+                <p className='text-laranja-100'>
+                  Cursos : {video.cursos?.map(item => (<span key={item.cod_curso}>{item.nome_curso} - </span>))}
                 </p>
               </div>
               <div className='InputArea'>
@@ -494,8 +494,8 @@ export default function GestaoComentarios() {
                     <>
                       <span>{comentario.usuario.nome}</span>
                       <span className='text-cinza-200 text-xs'>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</span>
-                      {/* <span>{comentario.resolvido ? "Resolvido" : `${comentario.respostas_pendentes} Respostas pendentes`}</span>
-                      <span>Total respostas: {comentario.respostas_total}</span> */}
+                      <span className='text-cinza-200 text-xs'>{comentario.resolvido ? "Resolvido" : `Respostas pendentes : ${comentario.respostas_pendentes}`}</span>
+                      <span className='text-cinza-200 text-xs'>Total respostas : {comentario.respostas_total}</span>
                     </>
                   }
                 </label>
