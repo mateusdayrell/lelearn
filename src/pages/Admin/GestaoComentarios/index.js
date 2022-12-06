@@ -11,7 +11,6 @@ import Loading from '../../../components/Loading';
 import OrderSelect from '../../../components/OrderSelect';
 import Pagination from '../../../components/Pagination';
 import axios from '../../../services/axios';
-import DeleteModal from '../../../components/DeleteModal';
 import CommentArea from '../../../components/CommentArea';
 
 const ITEMS_PER_PAGE = 10
@@ -23,25 +22,25 @@ export default function GestaoComentarios() {
   const [comentarios, setComentarios] = useState([]);
   const [cursos, setCursos] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
-  const [videosDoCurso, setVideosDoCurso] = useState([])
+  const [videosDoCurso, setVideosDoCurso] = useState([]);
 
+  const [codigo, setCodigo] = useState('');
   const [texto, setTexto] = useState('');
   const [textoEditar, setTextoEditar] = useState('');
   const [ativo, setAtivo] = useState('');
-
 
   const [comentario, setComentario] = useState({});
   const [video, setVideo] = useState({});
   const [respostas, setRespostas] = useState([]);
 
-
   const [serachTexto, setSearchTexto] = useState('');
   const [searchCurso, setSearchCurso] = useState('');
   const [searchVideo, setSearchVideo] = useState('');
-  const [searchUsuario, setSearchUsuario] = useState('')
+  const [searchUsuario, setSearchUsuario] = useState('');
   const [searchOrdem, setSearchOrdem] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState('');
   const [shwoFormModal, setShowFormModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -204,15 +203,17 @@ export default function GestaoComentarios() {
     }
   }
 
-  const handleDelete = async (codigo) => {
-    handleClose();
+  const handleDelete = async (cod) => {
     setIsLoading(true);
     try {
-      await axios.delete(`/videos/${codigo}`);
+      await axios.delete(`/comentarios/${cod}`);
 
       setIsLoading(false);
-      toast.success('Vídeo excluído com sucesso!');
-      await loadRegisters();
+      toast.success('Comentário excluído com sucesso!');
+
+      if (isDeleting === 'resposta') await loadRepplyes();
+      else await loadRegisters();
+      handleClose();
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
@@ -232,10 +233,14 @@ export default function GestaoComentarios() {
     setComentario(comment);
     setShowFormModal(true);
     setShowDeleteModal(false);
+    setIsDeleting('');
   };
 
-  const handleIsDeleting = (vid) => {
-    setComentario(vid);
+  const handleIsDeleting = (comment, type) => {
+    setIsDeleting(type);
+    setAtivo('');
+    setCodigo(comment.cod_comentario);
+    setTexto(comment.texto);
     setShowDeleteModal(true);
   };
 
@@ -248,17 +253,24 @@ export default function GestaoComentarios() {
   };
 
   const handleClose = () => {
-    setShowFormModal(false);
+    if(isDeleting === 'pai') {
+      setShowFormModal(false);
+    }
     setShowDeleteModal(false);
-    clearModal();
+    clearValues();
   };
 
-  const clearModal = (/* parameter */) => {
-    // if (!parameter) setCodComentario('');
-    // setTexto('');
-    // setVideoCursos([]);
-    // setLink('');
-    // setDescricao('');
+  const clearValues = () => {
+    if(isDeleting === 'pai') {
+      setComentario({});
+      setRespostas([]);
+      setVideo({});
+    }
+    setTexto('');
+    setTextoEditar('');
+    setCodigo('');
+    setAtivo('');
+    setIsDeleting('');
   };
 
   const handleOrderChange = (array, ordem) => {
@@ -409,7 +421,7 @@ export default function GestaoComentarios() {
               <div className='flex flex-col h-full w-full'>
                 <div className='InformationComentario'>
                   {/* <span className='cod-container-list'>{item.cod_comentatio}</span> */}
-                  <span className='text-cinza-200'>{item.texto.substring(1, 150)}{item.texto.length > 149 && '...'}</span>
+                  <span className='text-cinza-200'>{item.texto}</span>
                   <span className='flex flex-col text-xs gap-1'>
                     <span className='flex gap-2 '>
                       <span className='text-azul-100 rounded-lg bg-azul-200 px-2'>{item.usuario.nome}</span>
@@ -432,7 +444,7 @@ export default function GestaoComentarios() {
                     type="button"
                     title="Excluir"
                     className='red-btn'
-                    onClick={() => handleIsDeleting(item)}
+                    onClick={() => handleIsDeleting(item, 'pai')}
                   >
                     <MinusCircle size={20} />
                   </button>
@@ -483,8 +495,8 @@ export default function GestaoComentarios() {
                   }
                 </label>
                 <div>
-                  <CommentArea ativo={ativo} comentario={comentario} editarResposta={editarResposta}
-                    textoEditar={textoEditar} setTextoEditar={setTextoEditar} cpf={cpf}
+                  <CommentArea ativo={ativo} comentario={comentario} editarResposta={editarResposta} type="pai"
+                    textoEditar={textoEditar} setTextoEditar={setTextoEditar} cpf={cpf} handleIsDeleting={handleIsDeleting}
                     handleIsUpdating={handleIsUpdating} handleUpdateComment={handleUpdateComment}/>
                 </div>
               </div>
@@ -512,8 +524,8 @@ export default function GestaoComentarios() {
                         <span>{resposta.resolvido ? "Resolvido" : `Não resolvido`}</span>
                       </label>
                       <div>
-                      <CommentArea ativo={ativo} comentario={resposta} editarResposta={editarResposta}
-                        textoEditar={textoEditar} setTextoEditar={setTextoEditar} cpf={cpf}
+                      <CommentArea ativo={ativo} comentario={resposta} editarResposta={editarResposta} type="resposta"
+                        textoEditar={textoEditar} setTextoEditar={setTextoEditar} cpf={cpf} handleIsDeleting={handleIsDeleting}
                         handleIsUpdating={handleIsUpdating} handleUpdateComment={handleUpdateComment}/>
                       </div>
                     </div>
@@ -524,10 +536,44 @@ export default function GestaoComentarios() {
           </div>
         </Modal>
 
-        <DeleteModal
-          showDeleteModal={showDeleteModal} handleClose={handleClose}
-          type="comentario" name={comentario.texto} handleDelete={handleDelete} code={comentario.cod_comentatio}
-        />
+        <Modal
+          isOpen={showDeleteModal}
+          onRequestClose={handleClose}
+          className="Modal"
+          overlayClassName="Overlay"
+          ariaHideApp={false}
+        >
+          <div className="ModalHeader">
+            <span>Excluir comentário</span>
+            <button className="CloseModal" title='Fechar' type="button" onClick={handleClose}>
+              <X size={24} />
+            </button>
+          </div>
+          <div className="ModalContent">
+            <div className="FormDelete">
+            <p>
+              Deseja realmente excluir o comentário: <span className='font-semibold'>{texto}</span><br />
+              Esta ação será irreversível.
+            </p>
+            </div>
+          </div>
+
+          <div className="ModalFooter">
+            <button
+              className="GrayBtn"
+              type="button"
+              onClick={handleClose}>
+              Cancelar
+            </button>
+            <button
+              className="RedBtn"
+              type="button"
+              onClick={() => handleDelete(codigo)}
+            >
+              Excluir
+            </button>
+          </div>
+        </Modal>
       </div>
     </>
   );

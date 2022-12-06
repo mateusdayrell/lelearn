@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { PencilSimple, TrashSimple, PaperPlaneRight } from 'phosphor-react';
 
-export default function CommentArea({ativo, comentario, cpf, editarResposta, textoEditar, setTextoEditar, handleUpdateComment, handleIsUpdating}) {
+export default function CommentArea({ativo, comentario, cpf, editarResposta, textoEditar, setTextoEditar, handleUpdateComment, handleIsUpdating, handleIsDeleting, type}) {
   return (
     ativo === comentario.cod_comentario
       ?
@@ -27,7 +27,7 @@ export default function CommentArea({ativo, comentario, cpf, editarResposta, tex
                 <PencilSimple size={24}/>
               </button>
             }
-            <button type='button' title='Excluir comentário'>
+            <button type='button' title='Excluir comentário' onClick={() => handleIsDeleting(comentario, type)}>
               <TrashSimple size={24} />
             </button>
           </div>
@@ -41,9 +41,11 @@ CommentArea.defaultProps = {
   comentario: {},
   editarResposta: {},
   textoEditar: '',
+  type: '',
   setTextoEditar: () => null,
   handleUpdateComment: () => null,
   handleIsUpdating: () => null,
+  handleIsDeleting: () => null,
 };
 
 CommentArea.propTypes = {
@@ -52,7 +54,9 @@ CommentArea.propTypes = {
   comentario: PropTypes.object,
   editarResposta: PropTypes.object,
   textoEditar: PropTypes.string,
+  type: PropTypes.string,
   setTextoEditar: PropTypes.func,
   handleUpdateComment: PropTypes.func,
   handleIsUpdating: PropTypes.func,
+  handleIsDeleting: PropTypes.func,
 };
