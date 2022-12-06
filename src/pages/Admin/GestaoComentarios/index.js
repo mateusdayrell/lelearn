@@ -252,10 +252,9 @@ export default function GestaoComentarios() {
     loadRegisters();
   };
 
-  const handleClose = () => {
-    if(isDeleting === 'pai') {
-      setShowFormModal(false);
-    }
+  const handleClose = async () => {
+    if(isDeleting !== 'resposta') setShowFormModal(false);
+    if(!isDeleting) await loadRegisters();
     setShowDeleteModal(false);
     clearValues();
   };
