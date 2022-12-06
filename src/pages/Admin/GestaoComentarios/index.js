@@ -157,7 +157,7 @@ export default function GestaoComentarios() {
   const validateForm = () => {
     let controle = true;
 
-    if(ativo) {
+    if (ativo) {
       if (!textoEditar) {
         toast.error('Comentário vazio.');
         controle = false;
@@ -222,7 +222,7 @@ export default function GestaoComentarios() {
   };
 
   const handleIsAnswering = (obj) => {
-    const comment = {...obj};
+    const comment = { ...obj };
 
     setRespostas(comment.respostas);
     setVideo(comment.video);
@@ -253,14 +253,14 @@ export default function GestaoComentarios() {
   };
 
   const handleClose = async () => {
-    if(isDeleting !== 'resposta') setShowFormModal(false);
-    if(!isDeleting) await loadRegisters();
+    if (isDeleting !== 'resposta') setShowFormModal(false);
+    if (!isDeleting) await loadRegisters();
     setShowDeleteModal(false);
     clearValues();
   };
 
   const clearValues = () => {
-    if(isDeleting === 'pai') {
+    if (isDeleting === 'pai') {
       setComentario({});
       setRespostas([]);
       setVideo({});
@@ -482,50 +482,53 @@ export default function GestaoComentarios() {
           </div>
           <div className="ModalContent">
             <div>
+              <div className='text-cinza-200 text-xs'>
+                <p>Vídeo: {video.titulo_video}</p>
+                <p>
+                  {video.cursos?.map(item => (<span key={item.cod_curso}>{item.nome_curso}<br/></span>))}
+                </p>
+              </div>
               <div className='InputArea'>
-                <label className='flex gap-5'>
+                <label className='flex items-baseline gap-2'>
                   {comentario.usuario &&
                     <>
                       <span>{comentario.usuario.nome}</span>
-                      <span>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')}</span>
-                      <span>{comentario.resolvido ? "Resolvido" : `${comentario.respostas_pendentes} respostas pendentes`}</span>
-                      <span>Total respostas: {comentario.respostas_total}</span>
+                      <span className='text-cinza-200 text-xs'>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</span>
+                      {/* <span>{comentario.resolvido ? "Resolvido" : `${comentario.respostas_pendentes} Respostas pendentes`}</span>
+                      <span>Total respostas: {comentario.respostas_total}</span> */}
                     </>
                   }
                 </label>
                 <div>
                   <CommentArea ativo={ativo} comentario={comentario} editarResposta={editarResposta} type="pai"
                     textoEditar={textoEditar} setTextoEditar={setTextoEditar} cpf={cpf} handleIsDeleting={handleIsDeleting}
-                    handleIsUpdating={handleIsUpdating} handleUpdateComment={handleUpdateComment}/>
+                    handleIsUpdating={handleIsUpdating} handleUpdateComment={handleUpdateComment} />
                 </div>
-              </div>
-              <div>
-                <p>Vídeo: {video.titulo_video}</p>
-                <p>
-                  {video.cursos?.map(item => (<span key={item.cod_curso}>{item.nome_curso}</span>))}
-                </p>
-              </div>
-              <div className='InputArea'>
-                <label>Postar resposta</label>
-                <textarea className='ModalInput' value={texto} onChange={(e) => setTexto(e.target.value)} placeholder="Escreva aqui uma resposta" />
-                <button type='button' title='Postar' onClick={handlePostComment}>
-                  <PaperPlaneRight size={24} />
-                </button>
+                <div className='w-full h-[1px] bg-cinza-200 mt-2'></div>
+                <div>
+                  {/* <label className='ml-1 text-cinza-100'>Responder</label> */}
+                  <textarea className='ModalInput' value={texto} onChange={(e) => setTexto(e.target.value)} placeholder="Escreva aqui uma resposta" />
+                  <div className='w-full flex justify-end'>
+                    <button type='button' onClick={handlePostComment} className='text-xs flex items-center gap-2 mb-1 text-cinza-100 rounded-lg hover:text-verde-100 transition-all'>
+                      Responder
+                    </button>
+                  </div>
+                </div>
               </div>
               <div>
                 <h3>Respostas</h3>
                 <div>
                   {respostas?.map((resposta) => (
-                    <div key={resposta.cod_comentario} className='InputArea'>
-                      <label className='flex gap-3'>
+                    <div key={resposta.cod_comentario} className='InputArea pb-1'>
+                      <label className='flex gap-2 items-baseline'>
                         <span>{resposta.usuario.nome}</span>
-                        <span>{moment(resposta.created_at, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')}</span>
-                        <span>{resposta.resolvido ? "Resolvido" : `Não resolvido`}</span>
+                        <span className='text-cinza-200 text-xs'>{moment(resposta.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</span>
+                        <span className='text-cinza-200 text-xs'>{resposta.resolvido ? "Resolvido" : `Não resolvido`}</span>
                       </label>
                       <div>
-                      <CommentArea ativo={ativo} comentario={resposta} editarResposta={editarResposta} type="resposta"
-                        textoEditar={textoEditar} setTextoEditar={setTextoEditar} cpf={cpf} handleIsDeleting={handleIsDeleting}
-                        handleIsUpdating={handleIsUpdating} handleUpdateComment={handleUpdateComment}/>
+                        <CommentArea ativo={ativo} comentario={resposta} editarResposta={editarResposta} type="resposta"
+                          textoEditar={textoEditar} setTextoEditar={setTextoEditar} cpf={cpf} handleIsDeleting={handleIsDeleting}
+                          handleIsUpdating={handleIsUpdating} handleUpdateComment={handleUpdateComment} />
                       </div>
                     </div>
                   ))}
@@ -550,10 +553,10 @@ export default function GestaoComentarios() {
           </div>
           <div className="ModalContent">
             <div className="FormDelete">
-            <p>
-              Deseja realmente excluir o comentário: <span className='font-semibold'>{texto}</span><br />
-              Esta ação será irreversível.
-            </p>
+              <p>
+                Deseja realmente excluir o comentário: <span className='font-semibold'>{texto}</span><br />
+                Esta ação será irreversível.
+              </p>
             </div>
           </div>
 

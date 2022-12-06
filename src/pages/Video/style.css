@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 .video-container{
-  @apply bg-zinc-900 text-zinc-100 flex-1
+  @apply bg-cinza-500 text-cinza-100
 }
 
 .video-list{
-  @apply bg-zinc-900 text-zinc-100 w-[348px] p-6 border-l border-gray-500 h-[94vh]
+  @apply bg-cinza-500 text-cinza-100 w-80 p-4 border-l border-cinza-350 h-full
 }
