@@ -494,8 +494,8 @@ export default function GestaoComentarios() {
                     <>
                       <span>{comentario.usuario.nome}</span>
                       <span className='text-cinza-200 text-xs'>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</span>
-                      <span className='text-cinza-200 text-xs'>{comentario.resolvido ? "Resolvido" : `Respostas pendentes : ${comentario.respostas_pendentes}`}</span>
-                      <span className='text-cinza-200 text-xs'>Total respostas : {comentario.respostas_total}</span>
+                      {/* <span className='text-cinza-200 text-xs'>{comentario.resolvido ? "Resolvido" : `Respostas pendentes : ${comentario.respostas_pendentes}`}</span>
+                      <span className='text-cinza-200 text-xs'>Total respostas : {comentario.respostas_total}</span> */}
                     </>
                   }
                 </label>
@@ -511,7 +511,7 @@ export default function GestaoComentarios() {
                     <textarea className='ModalInput' value={texto} onChange={(e) => setTexto(e.target.value)} placeholder="Escreva aqui uma resposta" />
                   </div>
                   <div className='w-full flex justify-end'>
-                    <button type='button' onClick={handlePostComment} className='text-xs flex items-center gap-2 my-1 text-cinza-100 rounded-lg hover:text-verde-100 transition-all'>
+                    <button type='button' onClick={handlePostComment} className='text-xs flex items-center gap-2 py-1 px-2 my-1 text-cinza-100 bg-cinza-500 rounded-lg hover:text-verde-100 hover:bg-cinza-400 transition-all'>
                       Responder
                     </button>
                   </div>
