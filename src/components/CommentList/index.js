@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
+import { DotsThreeOutlineVertical, ArrowLeft } from 'phosphor-react';
+import moment from 'moment/moment';
 
+import './style.css';
 import axios from '../../services/axios';
 import Loading from '../Loading';
 import DeleteModal from '../DeleteModal';
 
-export default function CommentList({cpf, comentarios, comentarioAtivo, loadRegisters, handlePageChange, loadRoot}) {
+export default function CommentList({ cpf, comentarios, comentarioAtivo, loadRegisters, handlePageChange, loadRoot }) {
   const [textoEditar, setTextoEditar] = useState('');
   const [isUpdating, setIsUpdating] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [openOptions, setOpenOptions] = useState(false);
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [deletingObj, setDeletingObj] = useState('')
@@ -77,8 +81,8 @@ export default function CommentList({cpf, comentarios, comentarioAtivo, loadRegi
       toast.success('Comentário excluído com sucesso!');
       handleCloseModal()
 
-      if(comentarioAtivo.cod_comentario){
-        if(comentarioAtivo.cod_comentario === codigo) await loadRoot()
+      if (comentarioAtivo.cod_comentario) {
+        if (comentarioAtivo.cod_comentario === codigo) await loadRoot()
         else loadRegisters(comentarioAtivo.cod_comentario)
       }
       else await loadRegisters();
@@ -99,11 +103,14 @@ export default function CommentList({cpf, comentarios, comentarioAtivo, loadRegi
       <Loading isLoading={isLoading} />
 
       {comentarioAtivo.usuario &&
-        <div className='border-2 border-violet-500'>
-          <button type='button' onClick={handlePageChange} className='border-2 border-violet-200 p-1 m-3'>Voltar para todos os comentários</button>
-          <div>
-            <span>{comentarioAtivo.usuario.nome}</span>
-            <span>{comentarioAtivo.created_at}</span>
+        <div>
+          <button type='button' onClick={handlePageChange}
+            className='text-sm text-cinza-200 hover:text-verde-100 transition-all gap-2 bg-cinza-400 rounded-xl py-1 px-2 flex items-center'>
+            <ArrowLeft size={15} />Voltar
+          </button>
+          <div className='gap-2 flex text-sm items-center'>
+            <span className='text-verde-100 mt-1'>{comentarioAtivo.usuario.nome}</span>
+            {/* <span>{comentarioAtivo.created_at}</span> */}
             <span>{comentarioAtivo.created_at !== comentarioAtivo.updated_at && ' (editado)'}</span>
           </div>
           <div>
@@ -113,13 +120,13 @@ export default function CommentList({cpf, comentarios, comentarioAtivo, loadRegi
                   type="text"
                   className='w-full'
                   value={textoEditar}
-                  onChange={(e) => setTextoEditar(e.target.value)}/>
+                  onChange={(e) => setTextoEditar(e.target.value)} />
                 <div>
                   <button type='button' onClick={() => handleUpdateComment(comentarioAtivo)} className='text-verde-100'>Salvar</button>
                   <button type='button' onClick={() => setIsUpdating('')} className='text-laranja-100 ml-2'>Cancelar</button>
                 </div>
               </div>
-            : <div>{comentarioAtivo.texto}</div>
+              : <div className='text-cinza-100 text-sm pl-2'>{comentarioAtivo.texto}</div>
             }
           </div>
           {comentarioAtivo.usuario.cpf === cpf && !isUpdating &&
@@ -133,58 +140,76 @@ export default function CommentList({cpf, comentarios, comentarioAtivo, loadRegi
 
       {comentarios?.map(comentario => (
         <div key={comentario.cod_comentario}>
-          <div className='border-2 my-1 p-2'>
-            <p>{comentario.cod_comentario} - {comentario.usuario.nome}</p>
-            {isUpdating === comentario.cod_comentario ?
-              <div>
-                <input
-                  type="text"
-                  className='w-full'
-                  value={textoEditar}
-                  onChange={(e) => setTextoEditar(e.target.value)}/>
-                <div>
-                  <button type='button' onClick={() => handleUpdateComment(comentario)} className='text-verde-100'>Salvar</button>
-                  <button type='button' onClick={() => setIsUpdating('')} className='text-laranja-100 ml-2'>Cancelar</button>
-                </div>
+          <div className='my-2'>
+            <div className='flex gap-3'>
+              <div className='flex gap-3 items-baseline'>
+                <p className='text-verde-100 text-sm'>{comentario.usuario.nome}</p>
+                <span className='text-cinza-300 text-xs'>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</span>
+                <span className='text-cinza-300 text-xs'>{comentario.created_at !== comentario.updated_at && ' (editado)'}</span>
               </div>
-            : <div>{comentario.texto}</div>
-            }
-            <div>
-            {!comentarioAtivo.cod_comentario &&
-              <>
-                <button
-                  type='button'
-                  className='text-verde-100'
-                  onClick={() => handlePageChange(comentario.cod_comentario)}>
-                    {`${comentario.respostas_qtd} Respostas`}
-                </button>
+              {cpf === comentario.usuario.cpf &&
+                <>
+                  <button onClick={() => setOpenOptions(!openOptions)} className={`${openOptions === true ? 'text-verde-100' : ''}text-cinza-100 rounded-full hover:text-verde-100 transition-all`}>
+                    <DotsThreeOutlineVertical size={15} weight="fill" />
+                  </button>
 
-                <button
-                  type='button'
-                  className='pl-3 text-cinza-200'
-                  onClick={() => handlePageChange(comentario.cod_comentario)}>
-                    Responder
-                </button>
-              </>
-            }
-            {cpf === comentario.usuario.cpf &&
-              <>
-                <button
-                  type='button'
-                  className='text-azul-100 pl-3'
-                  onClick={() => handleIsUpdating(comentario)}>Editar</button>
-                <button type='button' onClick={() => handleIsDeleting(comentario)}>Excluir</button>
-              </>
-            }
+                  <div className={openOptions === true ? 'absolute left-[22.5%] bg-cinza-400 text-cinza-100 w-30 rounded-md px-4 py-2 text-sm flex flex-col -translate-y-14' : 'hidden'}>
+                    <button
+                      type='button'
+                      className='hover:text-azul-100 transition-all'
+                      onClick={() => handleIsUpdating(comentario)}>Editar</button>
+                    <button
+                      type='button'
+                      className='hover:text-vermelho-100 transition-all'
+                      onClick={() => handleIsDeleting(comentario)}>Excluir</button>
+                  </div>
+                </>
+              }
+            </div>
+            <div className='pl-2'>
+              {isUpdating === comentario.cod_comentario ?
+                <div>
+                  <div className='AreaComent'>
+                    <input type="text"
+                      value={textoEditar}
+                      onChange={(e) => setTextoEditar(e.target.value)} />
+                    <div className='UnderlineComent' />
+                  </div>
+                  <div className='flex justify-end gap-2 text-xs text-cinza-200 mt-1'>
+                    <button type='button' onClick={() => handleUpdateComment(comentario)} className='bg-cinza-400 py-1 px-2 hover:text-azul-100 rounded-xl'>Salvar</button>
+                    <button type='button' onClick={() => setIsUpdating('')} className='bg-cinza-400 py-1 px-2 hover:text-laranja-100 rounded-xl'>Cancelar</button>
+                  </div>
+                </div>
+                : <div className='text-sm text-cinza-200'>{comentario.texto}</div>
+              }
+              <div>
+                {!comentarioAtivo.cod_comentario &&
+                  <>
+                    <button
+                      type='button'
+                      className='text-cinza-100 text-xs'
+                      onClick={() => handlePageChange(comentario.cod_comentario)}>
+                      {`${comentario.respostas_qtd} respostas`}
+                    </button>
+
+                    <button
+                      type='button'
+                      className='bg-cinza-400 rounded-xl py-1 px-2 text-cinza-200 text-xs hover:text-verde-100 ml-2 transition-all'
+                      onClick={() => handlePageChange(comentario.cod_comentario)}>
+                      Responder
+                    </button>
+                  </>
+                }
+              </div>
             </div>
           </div>
         </div>
       ))}
 
       <DeleteModal
-          showDeleteModal={isDeleting} handleClose={handleCloseModal} deleted
-          type="comentario" name={deletingObj.texto} handleDelete={handleDelete} code={deletingObj.cod_comentario}
-        />
+        showDeleteModal={isDeleting} handleClose={handleCloseModal} deleted
+        type="comentario" name={deletingObj.texto} handleDelete={handleDelete} code={deletingObj.cod_comentario}
+      />
     </div>
   );
 }

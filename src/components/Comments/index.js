@@ -68,7 +68,7 @@ export default function Comments({codVideo, cpf}) {
       {!codAtivo
         ?
           <>
-            <NewComment codVideo={codVideo} cpf={cpf} title="Postar um novo comentário" loadRegisters={loadRootComments} />
+            <NewComment codVideo={codVideo} cpf={cpf} title="Adicione um comentário..." loadRegisters={loadRootComments} />
             <CommentList comentarios={comentarios} handlePageChange={handleShowRespostas} loadRegisters={loadRootComments} cpf={cpf}/>
           </>
         :

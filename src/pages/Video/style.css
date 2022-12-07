@@ -1,11 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-.video-container{
-  @apply bg-cinza-500 text-cinza-100
+.ContainerCentralPageVideo{
+  @apply w-4/5 border-r-2 rounded border-cinza-350 pr-2
 }
-
-.video-list{
-  @apply bg-cinza-500 text-cinza-100 w-80 p-4 border-l border-cinza-350 h-full
+.ContainerCursoConteudo{
+  @apply pl-3
 }

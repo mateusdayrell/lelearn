@@ -4,8 +4,9 @@ import { toast } from 'react-toastify';
 
 import axios from '../../services/axios';
 import Loading from '../Loading';
+import "./style.css";
 
-export default function NewComment({codVideo, cpf, title, comentarioPai, loadRegisters}) {
+export default function NewComment({ codVideo, cpf, title, comentarioPai, loadRegisters }) {
 
   const [textoResposta, setTextoResposta] = useState('')
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +28,7 @@ export default function NewComment({codVideo, cpf, title, comentarioPai, loadReg
       toast.success('Comentário postado com sucesso.')
 
       setTextoResposta('')
-      if(comentarioPai) loadRegisters(comentarioPai)
+      if (comentarioPai) loadRegisters(comentarioPai)
       else loadRegisters()
     } catch (error) {
       setIsLoading(false);
@@ -54,10 +55,22 @@ export default function NewComment({codVideo, cpf, title, comentarioPai, loadReg
   return (
     <div>
       <Loading isLoading={isLoading} />
-      <div className='border mt-2 p-1'>
-        <label>{title}</label>
-        <input type="text" value={textoResposta} onChange={(e) => setTextoResposta(e.target.value)}/>
-        <button type='button' onClick={handlePostComment}>Responder</button>
+      <div className='flex flex-col'>
+        {/* <label>{title}</label> */}
+        <div className='AreaComent'>
+          <input type="text" 
+          value={textoResposta} 
+          placeholder='Adicione um comentário...' 
+          onChange={(e) => setTextoResposta(e.target.value)} />
+          <div className='UnderlineComent' />
+        </div>
+        <div className='w-full flex justify-end my-2'>
+          <button type='button'
+            onClick={handlePostComment}
+            className='px-2 py-1 text-sm rounded-xl text-cinza-200 bg-cinza-400 hover:text-verde-100 transition-all'>
+            Comentar
+          </button>
+        </div>
       </div>
     </div>
   );

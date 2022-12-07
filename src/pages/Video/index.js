@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Player, Youtube, DefaultUi } from '@vime/react';
 import getYoutubeId from 'get-youtube-id'
@@ -82,30 +82,26 @@ export default function Cursos() {
   return (
     <>
       <Loading isLoading={isLoading} />
-      <div className="ml-16 flex">
-        <div className="video-container">
-          <h1>Vídeos</h1>
-          <div className="bg-black flex justify-center">
-            <div className="h-full w-full max-w-[1100px] max-h-[60vh] aspect-video">
-              <div>
-                {ready ? (
-                  // <iframe width="853" height="480" src={video.link} title="Como inserir vídeo do YouTube no seu site HTML (Embed)" frameBorder="0" allow="accelerometer" allowFullScreen />
+      <div className="container-body">
+        <h1 className='title flex'><a>{curso.nome_curso}</a>/<p>{video.titulo_video}</p></h1>
+        <div className='flex'>
+          <div className="ContainerCentralPageVideo">
+            <div className='ContainerVideo'>
+              {ready ? (
+                // <iframe width="853" height="480" src={video.link} title="Como inserir vídeo do YouTube no seu site HTML (Embed)" frameBorder="0" allow="accelerometer" allowFullScreen />
 
-                  <Player>
-                    <Youtube videoId={videoId} />
-                    <DefaultUi />
-                  </Player>
-                ) : (
-                  ''
-                )}
-              </div>
+                <Player>
+                  <Youtube videoId={videoId} />
+                  <DefaultUi />
+                </Player>
+              ) : (
+                ''
+              )}
             </div>
-          </div>
-          <div className="p-8 max-w-[1100px] mx-auto">
-            <div className='w-56' />
 
-            <div className='flex justify-between'>
-              <h1 className="text-2xl font-bold">{video.titulo_video}</h1>
+            <div className='py-2 px-1'>
+              <div className='flex justify-between text-cinza-100'>
+                <h1 className="text-2xl font-bold">{video.titulo_video}</h1>
                 <span className='flex items-center gap-2'>
                   <label htmlFor="video-checkbox" className='inline'>Aula assistida</label>
                   <Checkbox
@@ -114,34 +110,37 @@ export default function Cursos() {
                     handleCheckbox={handleCheckbox}
                     checked={handleWatched(video.cod_video)}
                   />
-              </span>
-            </div>
-            <p className="mb-6 mt-2 text-zinc-400">{video.desc_video}</p>
+                </span>
+              </div>
+              <p className="text-sm text-cinza-200">{video.desc_video}</p>
+              {/* <h3>Curso: {curso.nome_curso}</h3>
+            <p>Descrição: {curso.desc_curso}</p> */}
 
-            <h3>Curso: {curso.nome_curso}</h3>
-            <p>Descrição: {curso.desc_curso}</p>
+              <div className='w-full h-[1px] bg-cinza-300 rounded my-3' />
+
+              <h3 className='text-cinza-100 font-semibold'>Comentários</h3>
+              <Comments codVideo={params.cod_video} cpf={cpf} />
+            </div>
           </div>
 
-          <h3>Comentários</h3>
-          <Comments codVideo={params.cod_video} cpf={cpf}/>
-        </div>
+          <div className="ContainerCursoConteudo">
+            <span className="font-bold text-center text-2xl block text-cinza-100">
+              Conteúdo do curso
+            </span>
+            
+            <div className='w-full h-[1px] bg-cinza-350 my-3'/>
 
-        <div className="video-list">
-          <span className="font-bold text-center text-2xl pb-4 mb-6 border-b border-zinc-700 block">
-            Conteúdo do curso
-          </span>
-
-          <div className="flex flex-col gap-6">
-            {videosCurso.map((el, i) => (
-              <div
-                key={el.cod_video}
-                className={`${el.cod_video === video.cod_video ? "bg-verde-200" : "bg-zinc-800"} rounded p-4 border border-zinc-300 cursor-pointer`}
-              >
-                  <div className="flex justify-between">
-
-                    <button type='button' onClick={() => handleRedirect(el.cod_video)}>
-                      {i + 1} - {el.titulo_video}
-                    </button>
+            <div className="flex flex-col gap-4">
+              {videosCurso.map((el, i) => (
+                <div
+                  key={el.cod_video}
+                  className={`${el.cod_video === video.cod_video ? "bg-verde-100 border-none text-cinza-500 shadow" : "bg-cinza-500"} w-full h-20 p-4 rounded-xl border border-cinza-200 cursor-pointer text-cinza-100`}
+                  onClick={() => handleRedirect(el.cod_video)}
+                >
+                  <div className="flex justify-between items-center text-base w-full h-full">
+                    <span>
+                      {el.titulo_video}
+                    </span>
                     <Checkbox
                       cId={`c-${el.cod_video}`}
                       cValue={el.cod_video}
@@ -149,8 +148,9 @@ export default function Cursos() {
                       checked={handleWatched(el.cod_video)}
                     />
                   </div>
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
