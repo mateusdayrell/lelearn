@@ -13,7 +13,6 @@ export default function CommentList({ cpf, comentarios, comentarioAtivo, loadReg
   const [textoEditar, setTextoEditar] = useState('');
   const [isUpdating, setIsUpdating] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [openOptions, setOpenOptions] = useState(false);
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [deletingObj, setDeletingObj] = useState('')
@@ -108,10 +107,16 @@ export default function CommentList({ cpf, comentarios, comentarioAtivo, loadReg
             className='text-sm text-cinza-200 hover:text-verde-100 transition-all gap-2 bg-cinza-400 rounded-xl py-1 px-2 flex items-center'>
             <ArrowLeft size={15} />Voltar
           </button>
-          <div className='gap-2 flex text-sm items-center'>
+          <div className='gap-2 flex text-sm items-baseline'>
             <span className='text-verde-100 mt-1'>{comentarioAtivo.usuario.nome}</span>
-            {/* <span>{comentarioAtivo.created_at}</span> */}
+            <span className='text-cinza-300 text-xs'>{moment(comentarioAtivo.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</span>
             <span>{comentarioAtivo.created_at !== comentarioAtivo.updated_at && ' (editado)'}</span>
+            {comentarioAtivo.usuario.cpf === cpf && !isUpdating &&
+            <div className='flex text-xs gap-1 text-cinza-200'>
+              <button type='button' onClick={() => handleIsUpdating(comentarioAtivo)} className='hover:text-azul-100 transition-all'>Editar</button>
+              <button type='button' onClick={() => handleIsDeleting(comentarioAtivo)} className='hover:text-vermelho-100 transition-all'>Excluir</button>
+            </div>
+          }
           </div>
           <div>
             {isUpdating === comentarioAtivo.cod_comentario ?
@@ -129,12 +134,6 @@ export default function CommentList({ cpf, comentarios, comentarioAtivo, loadReg
               : <div className='text-cinza-100 text-sm pl-2'>{comentarioAtivo.texto}</div>
             }
           </div>
-          {comentarioAtivo.usuario.cpf === cpf && !isUpdating &&
-            <div>
-              <button type='button' onClick={() => handleIsUpdating(comentarioAtivo)}>Editar</button>
-              <button type='button' onClick={() => handleIsDeleting(comentarioAtivo)}>Excluir</button>
-            </div>
-          }
         </div>
       }
 
@@ -146,25 +145,21 @@ export default function CommentList({ cpf, comentarios, comentarioAtivo, loadReg
                 <p className='text-verde-100 text-sm'>{comentario.usuario.nome}</p>
                 <span className='text-cinza-300 text-xs'>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</span>
                 <span className='text-cinza-300 text-xs'>{comentario.created_at !== comentario.updated_at && ' (editado)'}</span>
+                {cpf === comentario.usuario.cpf &&
+                  <>
+                    <div className='flex text-xs gap-1 text-cinza-200'>
+                      <button
+                        type='button'
+                        className='hover:text-azul-100 transition-all'
+                        onClick={() => handleIsUpdating(comentario)}>Editar</button>
+                      <button
+                        type='button'
+                        className='hover:text-vermelho-100 transition-all'
+                        onClick={() => handleIsDeleting(comentario)}>Excluir</button>
+                    </div>
+                  </>
+                }
               </div>
-              {cpf === comentario.usuario.cpf &&
-                <>
-                  <button onClick={() => setOpenOptions(!openOptions)} className={`${openOptions === true ? 'text-verde-100' : ''}text-cinza-100 rounded-full hover:text-verde-100 transition-all`}>
-                    <DotsThreeOutlineVertical size={15} weight="fill" />
-                  </button>
-
-                  <div className={openOptions === true ? 'absolute left-[22.5%] bg-cinza-400 text-cinza-100 w-30 rounded-md px-4 py-2 text-sm flex flex-col -translate-y-14' : 'hidden'}>
-                    <button
-                      type='button'
-                      className='hover:text-azul-100 transition-all'
-                      onClick={() => handleIsUpdating(comentario)}>Editar</button>
-                    <button
-                      type='button'
-                      className='hover:text-vermelho-100 transition-all'
-                      onClick={() => handleIsDeleting(comentario)}>Excluir</button>
-                  </div>
-                </>
-              }
             </div>
             <div className='pl-2'>
               {isUpdating === comentario.cod_comentario ?

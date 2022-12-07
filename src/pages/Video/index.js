@@ -82,7 +82,7 @@ export default function Cursos() {
   return (
     <>
       <Loading isLoading={isLoading} />
-      <div className="container-body">
+      <div className="ContainerBodyVideo">
         <h1 className='title flex'><a>{curso.nome_curso}</a>/<p>{video.titulo_video}</p></h1>
         <div className='flex'>
           <div className="ContainerCentralPageVideo">
@@ -134,7 +134,7 @@ export default function Cursos() {
               {videosCurso.map((el, i) => (
                 <div
                   key={el.cod_video}
-                  className={`${el.cod_video === video.cod_video ? "bg-verde-100 border-none text-cinza-500 shadow" : "bg-cinza-500"} w-full h-20 p-4 rounded-xl border border-cinza-200 cursor-pointer text-cinza-100`}
+                  className={`${el.cod_video === video.cod_video ? "bg-verde-100 border-none text-cinza-500 shadow hover:bg-verde-200" : "bg-cinza-500 hover:bg-cinza-400"} w-full h-20 p-4 rounded-xl border border-cinza-200 cursor-pointer text-cinza-100`}
                   onClick={() => handleRedirect(el.cod_video)}
                 >
                   <div className="flex justify-between items-center text-base w-full h-full">

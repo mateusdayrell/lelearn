@@ -1,3 +1,6 @@
+.ContainerBodyVideo{
+  @apply flex flex-col gap-[17] pl-20 pr-3 py-3 min-w-[670px] min-h-[90%]
+}
 .ContainerCentralPageVideo{
   @apply w-4/5 border-r-2 rounded border-cinza-350 pr-2
 }
