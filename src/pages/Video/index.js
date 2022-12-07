@@ -82,7 +82,7 @@ export default function Cursos() {
   return (
     <>
       <Loading isLoading={isLoading} />
-      <div className="container-body">
+      <div className="ContainerBodyVideo">
         <h1 className='title flex'><a>{curso.nome_curso}</a>/<p>{video.titulo_video}</p></h1>
         <div className='flex'>
           <div className="ContainerCentralPageVideo">
