@@ -506,12 +506,12 @@ export default function GestaoComentarios() {
                 </div>
                 <div>
                   {/* <label className='ml-1 text-cinza-100'>Responder</label> */}
-                  <div className='flex items-start'>
+                  <div className='flex items-start pr-5'>
                     <ArrowBendDownRight size={20} className='mt-1'/>
                     <textarea className='ModalInput' value={texto} onChange={(e) => setTexto(e.target.value)} placeholder="Escreva aqui uma resposta" />
                   </div>
                   <div className='w-full flex justify-end'>
-                    <button type='button' onClick={handlePostComment} className='text-xs flex items-center gap-2 py-1 px-2 my-1 text-cinza-100 bg-cinza-500 rounded-lg hover:text-verde-100 hover:bg-cinza-400 transition-all'>
+                    <button type='button' onClick={handlePostComment} className='text-xs flex items-center gap-2 py-1 px-2 my-2 text-cinza-100 bg-cinza-500 rounded-lg hover:text-verde-100 hover:bg-cinza-400 transition-all'>
                       Responder
                     </button>
                   </div>

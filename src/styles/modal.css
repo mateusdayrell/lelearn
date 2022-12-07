@@ -1,6 +1,6 @@
 .Modal {
   @apply absolute top-[5%] bg-cinza-500 shadow-lg py-3 px-5 
-  min-w-[42.5em] max-w-min rounded-md max-h-[38em]
+  min-w-[42.5em] max-w-min rounded-md max-h-[40em]
 }
 
 

@@ -24,11 +24,11 @@ export default function CommentArea({ ativo, comentario, cpf, editarResposta, te
       <>
         <div className='flex items-start'>
           <textarea className='ModalInput' readOnly value={comentario.texto} />
-          <button onClick={() => setOpenOptions(!openOptions)} className={`${openOptions === true ? 'text-verde-100':''}text-cinza-100 rounded-full hover:text-verde-100 transition-all`}>
+          <button onClick={() => setOpenOptions(!openOptions)} className={`${openOptions === true ? 'text-verde-100':''}text-cinza-100 rounded-full hover:text-verde-100 transition-all -translate-y-5 translate-x-1`}>
             <DotsThreeOutlineVertical size={18} weight="fill" />
           </button>
 
-          <div className={openOptions === true ? 'absolute bg-cinza-400 text-cinza-100 w-30 rounded-md px-4 py-2 text-sm left-[96%] shadow' : 'hidden'}>
+          <div className={openOptions === true ? 'absolute bg-cinza-400 text-cinza-100 w-30 rounded-md px-4 py-2 text-sm left-[96%] shadow -translate-y-7' : 'hidden'}>
             {comentario.usuario.cpf === cpf &&
               <button type='button' onClick={() => handleIsUpdating(comentario)} className='flex items-center gap-2 hover:text-azul-100 transition-all'>
                 <PencilSimple size={15}/>Editar
