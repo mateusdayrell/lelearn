@@ -21,10 +21,9 @@ export default function CommentArea({ ativo, comentario, cpf, editarResposta, te
         </div>
       </>
       :
-      <>
-        <div className='flex items-start'>
+      <div className='flex items-start'>
           <textarea className='ModalInput' readOnly value={comentario.texto} />
-          <button onClick={() => setOpenOptions(!openOptions)} className={`${openOptions === true ? 'text-verde-100':''}text-cinza-100 rounded-full hover:text-verde-100 transition-all -translate-y-5 translate-x-1`}>
+          <button type='button' onClick={() => setOpenOptions(!openOptions)} className={`${openOptions === true ? 'text-verde-100':''}text-cinza-100 rounded-full hover:text-verde-100 transition-all -translate-y-5 translate-x-1`}>
             <DotsThreeOutlineVertical size={18} weight="fill" />
           </button>
 
@@ -39,7 +38,6 @@ export default function CommentArea({ ativo, comentario, cpf, editarResposta, te
             </button>
           </div>
         </div>
-      </>
   );
 }
 
