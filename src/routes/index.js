@@ -18,6 +18,7 @@ import GestaoCursos from '../pages/Admin/GestaoCursos';
 import GestaoTreinamentos from '../pages/Admin/GestaoTreinamentos';
 import GestaoComentarios from '../pages/Admin/GestaoComentarios';
 import Treinamentos from '../pages/Treinamentos';
+import Relatorios from '../pages/Admin/Relatorios';
 
 export default function Routes() {
   const tipoUsuario = useSelector((state) => state.auth.usuario.tipo); // TIPO -> 0 === ADMINISTRADOR, TIPO -> 1 === USUARIO COMUM
@@ -30,6 +31,7 @@ export default function Routes() {
           <MyRoute exact path="/gestao-cursos" component={GestaoCursos} isClosed />
           <MyRoute exact path="/gestao-treinamentos" component={GestaoTreinamentos} isClosed />
           <MyRoute exact path="/gestao-comentarios" component={GestaoComentarios} isClosed />
+          <MyRoute exact path="/relatorios" component={Relatorios} isClosed />
 
           <MyRoute exact path="/" component={Home} isClosed/>
           <MyRoute exact path="/login" component={Login} />

@@ -47,6 +47,7 @@ export default function Navbar() {
     { name: "Gestão de Videos", link: "/gestao-videos", icon: YoutubeLogo, users: [0] },
     { name: "Gestão de Usuários", link: "/usuarios", icon: Users, users: [0], margin: true },
     { name: "Gestão de Comentários", link: "/gestao-comentarios", icon: ChatCircleDots, users: [0], margin: true },
+    { name: "Relatorios", link: "/relatorios", icon: ChatCircleDots, users: [0], margin: true },
   ];
 
   useEffect(() => {
