@@ -16,7 +16,7 @@ export default function Relatorios() {
   const loadRegisters = async () => {
     setIsLoading(true);
     try {
-      const { data } = await axios.get('/pdf');
+      const { data } = await axios.get('/relatorios/cursos');
       setIsLoading(false);
       console.log(data);
       setUrl(data);
