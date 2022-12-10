@@ -16,15 +16,15 @@ export default function Relatorios() {
   const loadRegisters = async () => {
     setIsLoading(true);
     try {
-      const { data } = await axios.get('/relatorios/cursos');
+      const { data } = await axios.get('/relatorios/usuario/13211615229');
       setIsLoading(false);
       console.log(data);
       setUrl(data);
     } catch (error) {
       setIsLoading(false);
       console.log(error);
-      const { erros } = error.response.data;
-      erros.map((err) => toast.error(err));
+      // const { erros } = error.response.data;
+      // erros.map((err) => toast.error(err));
     }
   };
 
@@ -34,7 +34,7 @@ export default function Relatorios() {
     <>
       <Loading isLoading={isLoading} />
       <div className="container-body g-curso-container">
-      <form action="http://localhost:3333/pdf" method="get" target="_blank">
+      <form action="http://localhost:3333/relatorios/usuario/13211615229" method="get" target="_blank">
         <label htmlFor="fname">First name:</label>
         <input type="text" id="fname" name="fname"/>
         <label htmlFor="lname">Last name:</label>

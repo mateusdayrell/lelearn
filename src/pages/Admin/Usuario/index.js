@@ -7,14 +7,19 @@ import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import { isEmail, isMobilePhone } from 'validator';
 import InputMask from 'react-input-mask';
 
+import { useDispatch } from 'react-redux';
 import axios from '../../../services/axios';
 import Loading from '../../../components/Loading';
 import OrderSelect from '../../../components/OrderSelect';
 import Pagination from '../../../components/Pagination';
 import './style.css';
 import DeleteModal from '../../../components/DeleteModal';
+import * as actions from '../../../store/modules/auth/actions';
+import history from '../../../services/history';
 
 export default function Usuario() {
+  const dispatch = useDispatch();
+
   const [usuarios, setUsuarios] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showFormModal, setShowFromModal] = useState(false);
@@ -55,6 +60,10 @@ export default function Usuario() {
       setIsLoading(false);
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
+      if(error.response.status === 401) {
+        dispatch(actions.loginFailure());
+        history.push('/login');
+      }
     }
   };
 
