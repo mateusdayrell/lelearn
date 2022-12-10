@@ -434,7 +434,7 @@ export default function GestaoTreinamentos() {
 
           <div className="ModalHeader">
             {/* eslint-disable-next-line no-nested-ternary */}
-            <span>{isUpdating ? deleted ? 'Visualizar' : 'Editar' : 'Cadastrar'} treinamento <i>{nome}</i></span>
+            <span>{isUpdating ? deleted ? 'Visualizar' : 'Editar' : 'Cadastrar'} treinamento</span>
             <button className="CloseModal" title='Fechar' type="button" onClick={handleClose}>
               <X size={24} />
             </button>
