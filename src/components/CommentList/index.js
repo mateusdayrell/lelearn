@@ -182,14 +182,14 @@ export default function CommentList({ cpf, comentarios, comentarioAtivo, loadReg
                   <>
                     <button
                       type='button'
-                      className='text-cinza-100 text-xs'
+                      className={`${comentario.respostas_qtd === 0 ? 'hidden':'text-cinza-100 text-xs mr-2'}`}
                       onClick={() => handlePageChange(comentario.cod_comentario)}>
                       {`${comentario.respostas_qtd} respostas`}
                     </button>
 
                     <button
                       type='button'
-                      className='bg-cinza-400 rounded-xl py-1 px-2 text-cinza-200 text-xs hover:text-verde-100 ml-2 transition-all'
+                      className='bg-cinza-400 rounded-xl py-1 px-2 text-cinza-200 text-xs hover:text-verde-100 transition-all'
                       onClick={() => handlePageChange(comentario.cod_comentario)}>
                       Responder
                     </button>
