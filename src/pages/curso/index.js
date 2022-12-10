@@ -41,6 +41,10 @@ export default function Cursos() {
     history.push(`/videos/${cod_curso}/${cod_video}`);
   };
 
+  const handleRedirectCursos = () => {
+    history.push(`/cursos`);
+  }
+
   const clearSearch = () => {
     setSearchNome('');
     loadRegisters();
@@ -70,7 +74,9 @@ export default function Cursos() {
       <div className="container-body">
         <div className=''>
           <div className='flex justify-between'>
-            <div className='title'>{curso.nome_curso}</div>
+            <div className='title'>
+              {/* <a onClick={() => handleRedirectCursos()}>Cursos</a>/ */}
+              {curso.nome_curso}</div>
             <div className="SearchFormTitle">
               <div className='SearchInput'>
                 <input

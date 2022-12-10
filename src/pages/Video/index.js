@@ -79,18 +79,25 @@ export default function Cursos() {
     loadRegisters(codVideo)
   };
 
+  const handleRedirectCurso = (cod_curso) => {
+    history.push(`/cursos/${cod_curso}`);
+  }
+
   return (
     <>
       <Loading isLoading={isLoading} />
       <div className="ContainerBodyVideo">
-        <h1 className='title flex'><a>{curso.nome_curso}</a>/<p>{video.titulo_video}</p></h1>
+        <h1 className='title flex'>
+          <a 
+          onClick={() => handleRedirectCurso(curso.cod_curso)}
+          className="cursor-pointer hover:underline-offset-auto hover:underline">{curso.nome_curso}</a>/<p>{video.titulo_video}</p></h1>
         <div className='flex'>
           <div className="ContainerCentralPageVideo">
             <div className='ContainerVideo'>
               {ready ? (
                 // <iframe width="853" height="480" src={video.link} title="Como inserir vídeo do YouTube no seu site HTML (Embed)" frameBorder="0" allow="accelerometer" allowFullScreen />
 
-                <Player>
+                <Player style={{ '--vm-player-font-family': 'Poppins, sans-serif'}} theme='light'>
                   <Youtube videoId={videoId} />
                   <DefaultUi />
                 </Player>
