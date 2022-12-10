@@ -13,6 +13,7 @@ import {
   ChatCircleDots,
   BellSimple,
   X,
+  SquaresFour,
 } from 'phosphor-react';
 
 import { Link, useLocation } from 'react-router-dom';
@@ -40,6 +41,7 @@ export default function Navbar() {
 
   const menus = [
     { name: "Página Inicial", link: "/", icon: House, users: [0, 1] },
+    { name: "Relatorios", link: "/relatorios", icon: SquaresFour, users: [0], margin: true },
     { name: "Treinamentos", link: "/treinamentos", icon: Bookmarks, users: [0, 1] },
     { name: "Cursos", link: "/cursos", icon: BookBookmark, users: [0, 1] },
     { name: "Gestão de Treinamentos", link: "/gestao-treinamentos", icon: Bookmark, users: [0] },
@@ -47,7 +49,6 @@ export default function Navbar() {
     { name: "Gestão de Videos", link: "/gestao-videos", icon: YoutubeLogo, users: [0] },
     { name: "Gestão de Usuários", link: "/usuarios", icon: Users, users: [0], margin: true },
     { name: "Gestão de Comentários", link: "/gestao-comentarios", icon: ChatCircleDots, users: [0], margin: true },
-    { name: "Relatorios", link: "/relatorios", icon: ChatCircleDots, users: [0], margin: true },
   ];
 
   useEffect(() => {
