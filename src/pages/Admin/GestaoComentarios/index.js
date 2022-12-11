@@ -493,7 +493,7 @@ export default function GestaoComentarios() {
                   {comentario.usuario &&
                     <>
                       <span>{comentario.usuario.nome}</span>
-                      <span className='text-cinza-200 text-xs'>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</span>
+                      <span className='text-cinza-200 text-xs'>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').format('l')}</span>
                       {/* <span className='text-cinza-200 text-xs'>{comentario.resolvido ? "Resolvido" : `Respostas pendentes : ${comentario.respostas_pendentes}`}</span>
                       <span className='text-cinza-200 text-xs'>Total respostas : {comentario.respostas_total}</span> */}
                     </>
@@ -524,7 +524,7 @@ export default function GestaoComentarios() {
                     <div key={resposta.cod_comentario} className='InputArea pb-1'>
                       <label className='flex gap-2 items-baseline'>
                         <span>{resposta.usuario.nome}</span>
-                        <span className='text-cinza-200 text-xs'>{moment(resposta.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</span>
+                        <span className='text-cinza-200 text-xs'>{moment(resposta.created_at, 'YYYY-MM-DD HH:mm:ss').format('l')}</span>
                         <span className='text-cinza-200 text-xs'>{resposta.resolvido ? "Resolvido" : `Não resolvido`}</span>
                       </label>
                       <div>

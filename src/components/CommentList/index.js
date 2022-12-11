@@ -143,7 +143,7 @@ export default function CommentList({ cpf, comentarios, comentarioAtivo, loadReg
             <div className='flex gap-3'>
               <div className='flex gap-3 items-baseline'>
                 <p className='text-verde-100 text-sm'>{comentario.usuario.nome}</p>
-                <span className='text-cinza-300 text-xs'>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</span>
+                <span className='text-cinza-300 text-xs'>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').format('l')}</span>
                 <span className='text-cinza-300 text-xs'>{comentario.created_at !== comentario.updated_at && ' (editado)'}</span>
                 {cpf === comentario.usuario.cpf &&
                   <>
@@ -182,7 +182,7 @@ export default function CommentList({ cpf, comentarios, comentarioAtivo, loadReg
                   <>
                     <button
                       type='button'
-                      className={`${comentario.respostas_qtd === 0 ? 'hidden':'text-cinza-100 text-xs mr-2'}`}
+                      className={`${comentario.respostas_qtd === 0 ? 'hidden':'text-cinza-100 text-xs mr-2 hover:text-cinza-300'}`}
                       onClick={() => handlePageChange(comentario.cod_comentario)}>
                       {`${comentario.respostas_qtd} respostas`}
                     </button>
