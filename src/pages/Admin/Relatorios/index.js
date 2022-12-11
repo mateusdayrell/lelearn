@@ -10,7 +10,8 @@ export default function Relatorios() {
   const [isLoading, setIsLoading] = useState(false);
   const [disabled, setDisabled] = useState(true)
   const [tipo, setTipo] = useState("");
-  const [tipoArr, setTipoArr] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
+  const [treinamentos, setTreinamentos] = useState([]);
   const [valor, setValor] = useState("");
   const [url, setUrl] = useState('');
 
@@ -27,13 +28,17 @@ export default function Relatorios() {
       setIsLoading(true)
       if(tipo === "usuario-treinamentos" || tipo === "usuario-cursos") {
         const { data } = await axios.get('/usuarios');
-        setTipoArr(data);
+        setTreinamentos([])
+        setUsuarios(data);
       }
       else if(tipo === "treinamento") {
-        const { data } = await axios.get('/treinamento');
-        setTipoArr(data);
+        const { data } = await axios.get('/treinamentos');
+        setUsuarios([])
+        setTreinamentos(data);
       }
       else if(tipo === "videos"){
+        setUsuarios([])
+        setTreinamentos([])
         handleUrl()
       }
       setIsLoading(false)
@@ -83,9 +88,25 @@ export default function Relatorios() {
                     value={valor}
                     onChange={(e) => setValor(e.target.value)}>
                       <option value="" disabled>Selecione um usuário</option>
-                        {tipoArr.length > 0 &&
-                          tipoArr.map((u) => (
-                            <option key={u.cpf} value={u.cpf}>{u.nome}</option>
+                        {usuarios.length > 0 &&
+                          usuarios.map((u) => (
+                            <option key={`u-${u.cpf}`} value={u.cpf}>{u.nome} | {u.cpf}</option>
+                          ))
+                        }
+                  </select>
+                </div>
+              }
+              {tipo === "treinamento"  &&
+                <div>
+                  <label>Treinamento</label>
+                  <select
+                    name="treinamento"
+                    value={valor}
+                    onChange={(e) => setValor(e.target.value)}>
+                      <option value="" disabled>Selecione um treinamento</option>
+                        {treinamentos.length > 0 &&
+                          treinamentos.map((t) => (
+                            <option key={`t-${t.cod_treinamento}`} value={t.cod_treinamento}>{t.nome_treinamento} | {t.cod_treinamento}</option>
                           ))
                         }
                   </select>
