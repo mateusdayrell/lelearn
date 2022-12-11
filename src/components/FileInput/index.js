@@ -33,10 +33,11 @@ export default function FileInput({ handleShowFile, foto, removeFoto, deleted })
               Remover foto <TrashSimple size={20} />
             </button>
             : ''}
+            <small className='text-center text-cinza-200 font-light'>Tamanho máximo: 2MB <br/> Formatos suportados: PNG e JPG</small>
         </div>
       }
 
-      <div className='flex'>
+      <div className='flex mb-1'>
         {foto ?
           <img src={foto} className="h-28 w-34" alt="Imagem do curso" />
           :
