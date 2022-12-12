@@ -1,25 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Calendario from '../../components/Calendario';
+import { toast } from 'react-toastify';
 import moment from 'moment/moment';
 
+import axios from '../../services/axios';
+import Calendario from '../../components/Calendario';
+import TimelineTreinamento from '../../components/TimelineTreinamento';
+import Loading from '../../components/Loading';
 import './style.css';
 
 export default function Home() {
   const location = useLocation();
 
-  const { nome } = useSelector((state) => state.auth.usuario);
+  const { nome, cpf } = useSelector((state) => state.auth.usuario);
 
   const [nomeUsuario, setNomeUsuario] = useState('Não logado');
+  const [treinamentos, setTreinamentos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getNome();
+    getTreinamentos();
   }, [location]);
 
   const getNome = () => {
     setNomeUsuario(nome);
   }
+
+  const getTreinamentos = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.get(`/usuarios/get-treinamentos/${cpf}`);
+      setTreinamentos(data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
+  };
   return (
     <>
       <div className='container-body'>
@@ -31,10 +51,21 @@ export default function Home() {
           </div>
 
           <div className='ContainerLateralHome'>
-            <h2 className='text-laranja-100 font-semibold'>Cronograma</h2>
-            <p className='text-xs text-azul-200 font-semibold flex'><p className='capitalize'>{moment().format('dddd')}</p>, {moment().format('LL')}</p>
+            <div>
+              <h2 className='text-laranja-100 font-semibold'>Cronograma</h2>
+              <p className='text-xs text-azul-200 font-semibold flex'><p className='capitalize'>{moment().format('dddd')}</p>, {moment().format('LL')}</p>
+            </div>
+
             <div className='mt-2'>
               <Calendario />
+            </div>
+
+            <div className='w-full h-full rounded-xl bg-cinza-400 p-2 mt-2 border-cinza-350 border-[1px] gap-2 flex flex-col'>
+              {treinamentos.map((treinamento) => (
+                <TimelineTreinamento
+                  key={treinamento.cod_treinamento}
+                  treinamento={treinamento} />
+              ))}
             </div>
           </div>
         </div>
