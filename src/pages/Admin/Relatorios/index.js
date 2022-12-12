@@ -29,18 +29,21 @@ export default function Relatorios() {
       if(tipo === "usuario-treinamentos" || tipo === "usuario-cursos") {
         const { data } = await axios.get('/usuarios');
         setTreinamentos([])
+        setValor('')
         setUsuarios(data);
         handleUrl()
       }
       else if(tipo === "treinamento") {
         const { data } = await axios.get('/treinamentos');
         setUsuarios([])
+        setValor('')
         setTreinamentos(data);
         handleUrl()
       }
-      else if(tipo === "videos"){
+      else if(tipo === "cursos" || tipo === "videos"){
         setUsuarios([])
         setTreinamentos([])
+        setValor('')
         handleUrl()
       }
       setIsLoading(false)
@@ -51,13 +54,13 @@ export default function Relatorios() {
   }
 
   const handleUrl = () => {
-    if(tipo === 'videos') setUrl(`${base}/${tipo}`)
+    if(tipo === 'cursos') setUrl(`${base}/${tipo}`)
     else setUrl(`${base}/${tipo}/${valor}`)
     handleDisabled()
   }
 
   const handleDisabled = () => {
-    if(tipo === "videos" || (tipo && valor)) setDisabled(false)
+    if(tipo === "cursos" || tipo === "videos"  || (tipo && valor)) setDisabled(false)
     else setDisabled(true);
   }
 
@@ -79,6 +82,7 @@ export default function Relatorios() {
                     <option value="treinamento">Treinamento</option>
                     <option value="usuario-treinamentos">Treinamentos do usuário</option>
                     <option value="usuario-cursos">Cursos do usuário</option>
+                    <option value="cursos">Cursos</option>
                     <option value="videos">Vídeos</option>
                 </select>
               </div>
