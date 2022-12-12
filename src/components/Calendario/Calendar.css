@@ -1,5 +1,5 @@
 .react-calendar {
-  @apply w-full border-[1px] border-cinza-350 leading-3 text-cinza-200 text-sm rounded-xl p-2 select-none 
+  @apply w-full border-[1px] border-cinza-350 leading-3 text-cinza-200 text-sm rounded-xl p-2 select-none bg-cinza-400
 }
 .react-calendar--doubleView {
   width: 700px;
@@ -45,7 +45,7 @@
   background-color: #e6e6e6;
 }
 .react-calendar__month-view__weekdays {
-  @apply text-center uppercase text-cinza-600 font-semibold
+  @apply text-center uppercase text-azul-200 font-semibold
 }
 .react-calendar__month-view__weekdays__weekday {
   @apply p-0

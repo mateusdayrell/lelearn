@@ -41,7 +41,7 @@ export default function Navbar() {
 
   const menus = [
     { name: "Página Inicial", link: "/", icon: House, users: [0, 1] },
-    { name: "Relatorios", link: "/relatorios", icon: SquaresFour, users: [0], margin: true },
+    { name: "Relatórios", link: "/relatorios", icon: SquaresFour, users: [0], margin: true },
     { name: "Treinamentos", link: "/treinamentos", icon: Bookmarks, users: [0, 1] },
     { name: "Cursos", link: "/cursos", icon: BookBookmark, users: [0, 1] },
     { name: "Gestão de Treinamentos", link: "/gestao-treinamentos", icon: Bookmark, users: [0] },

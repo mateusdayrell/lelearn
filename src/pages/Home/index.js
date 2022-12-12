@@ -32,7 +32,7 @@ export default function Home() {
 
           <div className='ContainerLateralHome'>
             <h2 className='text-laranja-100 font-semibold'>Cronograma</h2>
-            <p className='text-xs text-cinza-600 font-semibold capitalize'>{moment().format('dddd')}, {moment().format('LL')}</p>
+            <p className='text-xs text-azul-200 font-semibold flex'><p className='capitalize'>{moment().format('dddd')}</p>, {moment().format('LL')}</p>
             <div className='mt-2'>
               <Calendario />
             </div>
