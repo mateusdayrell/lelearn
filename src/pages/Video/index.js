@@ -6,7 +6,7 @@ import { Player, Youtube, DefaultUi } from '@vime/react';
 import getYoutubeId from 'get-youtube-id'
 
 import './style.css';
-import '@vime/core/themes/default.css';
+import './vime.css';
 import Loading from '../../components/Loading';
 import Checkbox from '../../components/Checkbox';
 import axios from '../../services/axios';
@@ -88,19 +88,19 @@ export default function Cursos() {
       <Loading isLoading={isLoading} />
       <div className="ContainerBodyVideo">
         <h1 className='title flex'>
-          <a 
+          <a
           onClick={() => handleRedirectCurso(curso.cod_curso)}
-          className="cursor-pointer hover:underline-offset-auto hover:underline">{curso.nome_curso}</a>/<p>{video.titulo_video}</p></h1>
+          className="cursor-pointer hover:underline-offset-auto hover:underline">{curso.nome_curso}</a><p>{video.titulo_video}</p></h1>
         <div className='flex'>
           <div className="ContainerCentralPageVideo">
             <div className='ContainerVideo'>
               {ready ? (
                 // <iframe width="853" height="480" src={video.link} title="Como inserir vídeo do YouTube no seu site HTML (Embed)" frameBorder="0" allow="accelerometer" allowFullScreen />
 
-                <Player style={{ '--vm-player-font-family': 'Poppins, sans-serif'}} theme='light'>
-                  <Youtube videoId={videoId} />
-                  <DefaultUi />
-                </Player>
+                <Player>
+                    <Youtube videoId={videoId} />
+                    <DefaultUi />
+                  </Player>
               ) : (
                 ''
               )}
@@ -134,7 +134,7 @@ export default function Cursos() {
             <span className="font-bold text-center text-2xl block text-cinza-100">
               Conteúdo do curso
             </span>
-            
+
             <div className='w-full h-[1px] bg-cinza-350 my-3'/>
 
             <div className="flex flex-col gap-4">
