@@ -254,7 +254,10 @@ export default function GestaoComentarios() {
 
   const handleClose = async () => {
     if (isDeleting !== 'resposta') setShowFormModal(false);
-    if (!isDeleting) await loadRegisters();
+    if (!isDeleting) {
+      if (serachTexto || searchCurso || searchVideo || searchUsuario) await handleSearch();
+      else await loadRegisters();
+    }
     setShowDeleteModal(false);
     clearValues();
   };
@@ -482,10 +485,11 @@ export default function GestaoComentarios() {
           </div>
           <div className="ModalContent">
             <div>
-              <div className='text-xs'>
-                <p className='text-verde-100'>Vídeo : {video.titulo_video}</p>
-                <p className='text-laranja-100'>
-                  Cursos : {video.cursos?.map(item => (<span key={item.cod_curso}>{item.nome_curso} - </span>))}
+              <div>
+                <p><span className='text-sm'>Vídeo:</span> <span className='text-verde-100'>{video.titulo_video}</span></p>
+                <p className='text-sm'>
+                  <span className='text-sm'>Cursos: </span>
+                  <span className='text-laranja-100 text-xs'>{video.cursos?.map((item, i) => (<span key={item.cod_curso}>{item.nome_curso} {i < (video.cursos.length - 1) && " | "}</span>))}</span>
                 </p>
               </div>
               <div className='InputArea'>
