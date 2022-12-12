@@ -7,6 +7,6 @@ export default function Calendario() {
   const [value, onChange] = useState(new Date());
 
   return (
-    <Calendar onChange={onChange} value={value} calendarType='Hebrew' showNavigation={false}/>
+    <Calendar onChange={onChange} value={value} calendarType='Hebrew' showNavigation={false} showNeighboringMonth={false}/>
   );
 }
