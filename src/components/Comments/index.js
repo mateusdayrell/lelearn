@@ -20,6 +20,10 @@ export default function Comments({codVideo, cpf}) {
     loadRootComments();
   }, []);
 
+  useEffect(() => {
+    loadRootComments();
+  }, [codVideo]);
+
   const loadRootComments = async () => {
     setCodAtivo('')
     setIsLoading(true);

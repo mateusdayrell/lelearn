@@ -30,11 +30,13 @@ export default function Relatorios() {
         const { data } = await axios.get('/usuarios');
         setTreinamentos([])
         setUsuarios(data);
+        handleUrl()
       }
       else if(tipo === "treinamento") {
         const { data } = await axios.get('/treinamentos');
         setUsuarios([])
         setTreinamentos(data);
+        handleUrl()
       }
       else if(tipo === "videos"){
         setUsuarios([])
