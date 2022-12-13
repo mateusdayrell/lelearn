@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { PencilSimple, TrashSimple, PaperPlaneRight, DotsThreeOutlineVertical } from 'phosphor-react';
+import { PencilSimple, TrashSimple, DotsThreeOutlineVertical } from 'phosphor-react';
 
 export default function CommentArea({ ativo, comentario, cpf, editarResposta, textoEditar, setTextoEditar, handleUpdateComment, handleIsUpdating, handleIsDeleting, type }) {
   const [openOptions, setOpenOptions] = useState(false);

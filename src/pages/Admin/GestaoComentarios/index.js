@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
-import { MagnifyingGlass, PaintBrushHousehold, X, MinusCircle, ChatCircleText, PaperPlaneRight, ArrowBendDownRight } from 'phosphor-react';
+import { MagnifyingGlass, PaintBrushHousehold, X, TrashSimple, ChatCircleText, ArrowBendDownRight } from 'phosphor-react';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
 import { get } from 'lodash';
@@ -12,6 +12,7 @@ import OrderSelect from '../../../components/OrderSelect';
 import Pagination from '../../../components/Pagination';
 import axios from '../../../services/axios';
 import CommentArea from '../../../components/CommentArea';
+import Checkbox from '../../../components/Checkbox';
 
 const ITEMS_PER_PAGE = 10
 
@@ -38,6 +39,7 @@ export default function GestaoComentarios() {
   const [searchVideo, setSearchVideo] = useState('');
   const [searchUsuario, setSearchUsuario] = useState('');
   const [searchOrdem, setSearchOrdem] = useState('');
+  const [searchResolvido, setSearchResolvido] = useState("0");
 
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState('');
@@ -82,13 +84,14 @@ export default function GestaoComentarios() {
       videos: codigosVideo,
       cod_video: searchVideo,
       cpf: searchUsuario,
+      resolvido: searchResolvido,
     }).toString();
 
     setIsLoading(true);
 
     try {
       let response = null
-      if (serachTexto || searchCurso || searchVideo || searchUsuario) {
+      if (serachTexto || searchCurso || searchVideo || searchUsuario || searchResolvido) {
         response = await axios.get(`/comentarios/search/${querys}`);
       } else {
         response = await axios.get('/comentarios/');
@@ -255,7 +258,7 @@ export default function GestaoComentarios() {
   const handleClose = async () => {
     if (isDeleting !== 'resposta') setShowFormModal(false);
     if (!isDeleting) {
-      if (serachTexto || searchCurso || searchVideo || searchUsuario) await handleSearch();
+      if (serachTexto || searchCurso || searchVideo || searchUsuario || searchResolvido) await handleSearch();
       else await loadRegisters();
     }
     setShowDeleteModal(false);
@@ -300,6 +303,20 @@ export default function GestaoComentarios() {
 
       setIsLoading(false);
       setVideosDoCurso(data);
+    } catch (error) {
+      setIsLoading(false);
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
+  }
+
+  const handleResolvido = async(cod) => {
+    try {
+      setIsLoading(true)
+      const { data } = await axios.put(`/comentarios/resolvido/${cod}`);
+      setComentario(data.comentario)
+      setRespostas(data.respostas)
+      setIsLoading(false)
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
@@ -383,6 +400,18 @@ export default function GestaoComentarios() {
                     ))
                     : ''}
                 </select>
+
+                <select
+                  name="resolvido"
+                  className="search-input"
+                  id="resolvido"
+                  value={searchResolvido}
+                  onChange={(e) => setSearchResolvido(e.target.value)}
+                >
+                  <option value="ambos">Ambos</option>
+                  <option value="1">Resolvido</option>
+                  <option value="0">Não resolvido</option>
+                </select>
               </div>
 
               <div className="search-container-buttons">
@@ -448,7 +477,7 @@ export default function GestaoComentarios() {
                     className='red-btn'
                     onClick={() => handleIsDeleting(item, 'pai')}
                   >
-                    <MinusCircle size={20} />
+                    <TrashSimple size={20} />
                   </button>
                 </span>
               </div>
@@ -495,12 +524,23 @@ export default function GestaoComentarios() {
               <div className='InputArea'>
                 <label className='flex items-baseline gap-2'>
                   {comentario.usuario &&
-                    <>
-                      <span>{comentario.usuario.nome}</span>
-                      <span className='text-cinza-200 text-xs'>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').format('l')}</span>
-                      {/* <span className='text-cinza-200 text-xs'>{comentario.resolvido ? "Resolvido" : `Respostas pendentes : ${comentario.respostas_pendentes}`}</span>
-                      <span className='text-cinza-200 text-xs'>Total respostas : {comentario.respostas_total}</span> */}
-                    </>
+                    <div className='flex gap-10 items-center my-2'>
+                      <div className='flex gap-2 items-baseline'>
+                        <span className='text-base font-medium'>{comentario.usuario.nome}</span>
+                        <span className='text-cinza-200 text-xs'>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').format('l HH:mm:ss')}</span>
+                      </div>
+                      <div className='flex gap-2 items-center'>
+                        <span title='Marcar como resolvido'>
+                          <Checkbox
+                            cId={`c-${comentario.cod_comentario}`}
+                            cValue={comentario.cod_comentario}
+                            handleCheckbox={handleResolvido}
+                            checked={comentario.resolvido}
+                          />
+                        </span>
+                        {comentario.resolvido ? <span>Resolvido</span> : <span className='text-vermelho-100 font-semibold'>Não resolvido</span>}
+                      </div>
+                    </div>
                   }
                 </label>
                 <div>
@@ -521,25 +561,27 @@ export default function GestaoComentarios() {
                   </div>
                 </div>
               </div>
-              <div>
-                <h3>Respostas</h3>
+              {respostas.length > 0 &&
                 <div>
-                  {respostas?.map((resposta) => (
-                    <div key={resposta.cod_comentario} className='InputArea pb-1'>
-                      <label className='flex gap-2 items-baseline'>
-                        <span>{resposta.usuario.nome}</span>
-                        <span className='text-cinza-200 text-xs'>{moment(resposta.created_at, 'YYYY-MM-DD HH:mm:ss').format('l')}</span>
-                        <span className='text-cinza-200 text-xs'>{resposta.resolvido ? "Resolvido" : `Não resolvido`}</span>
-                      </label>
-                      <div>
-                        <CommentArea ativo={ativo} comentario={resposta} editarResposta={editarResposta} type="resposta"
-                          textoEditar={textoEditar} setTextoEditar={setTextoEditar} cpf={cpf} handleIsDeleting={handleIsDeleting}
-                          handleIsUpdating={handleIsUpdating} handleUpdateComment={handleUpdateComment} />
+                  <h3>Respostas</h3>
+                  <div>
+                    {respostas?.map((resposta) => (
+                      <div key={resposta.cod_comentario} className='InputArea pb-1'>
+                        <label className='flex gap-2 items-baseline'>
+                          <span>{resposta.cod_comentario} |{resposta.usuario.nome}</span>
+                          <span className='text-cinza-200 text-xs'>{moment(resposta.created_at, 'YYYY-MM-DD HH:mm:ss').format('l HH:mm:ss')}</span>
+                          <span className='text-cinza-200 text-xs'>{resposta.resolvido ? "Resolvido" : `Não resolvido`}</span>
+                        </label>
+                        <div>
+                          <CommentArea ativo={ativo} comentario={resposta} editarResposta={editarResposta} type="resposta"
+                            textoEditar={textoEditar} setTextoEditar={setTextoEditar} cpf={cpf} handleIsDeleting={handleIsDeleting}
+                            handleIsUpdating={handleIsUpdating} handleUpdateComment={handleUpdateComment} />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              }
             </div>
           </div>
         </Modal>
