@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Modal from 'react-modal';
-import { get, set } from 'lodash';
+import { get } from 'lodash';
 import { MagnifyingGlass, PaintBrushHousehold, PencilSimple, Plus, TrashSimple, X, Eye, MinusCircle } from 'phosphor-react';
+import { useDispatch } from 'react-redux';
 import OrderSelect from '../../../components/OrderSelect';
 
 import './style.css';
@@ -15,10 +16,14 @@ import FileInput from '../../../components/FileInput';
 import Multiselect from '../../../components/Multiselect';
 import { orderVideos } from '../../../helpers/orderVideos';
 import DeleteModal from '../../../components/DeleteModal';
+import history from '../../../services/history';
+import * as actions from '../../../store/modules/auth/actions';
 
 const ITEMS_PER_PAGE = 10
 
 export default function GestaoCursos() {
+  const dispatch = useDispatch();
+
   const [cursos, setCursos] = useState([]);
   const [videos, setVideos] = useState([]);
 
@@ -62,6 +67,10 @@ export default function GestaoCursos() {
       setIsLoading(false);
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
+      if(error.response.status === 401) {
+        dispatch(actions.loginFailure());
+        history.push('/login');
+      }
     }
   };
 
@@ -92,6 +101,11 @@ export default function GestaoCursos() {
       setIsLoading(false);
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
+
+      if(error.response.status === 401) {
+        dispatch(actions.loginFailure());
+        history.push('/login');
+      }
     }
   };
 

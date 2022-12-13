@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { MagnifyingGlass, PaintBrushHousehold, X, TrashSimple, ChatCircleText, ArrowBendDownRight } from 'phosphor-react';
 import Modal from 'react-modal';
-import { useSelector } from 'react-redux';
+import { useSelector , useDispatch } from 'react-redux';
 import { get } from 'lodash';
 import moment from 'moment/moment';
 
@@ -13,10 +13,14 @@ import Pagination from '../../../components/Pagination';
 import axios from '../../../services/axios';
 import CommentArea from '../../../components/CommentArea';
 import Checkbox from '../../../components/Checkbox';
+import history from '../../../services/history';
+import * as actions from '../../../store/modules/auth/actions';
 
 const ITEMS_PER_PAGE = 10
 
 export default function GestaoComentarios() {
+  const dispatch = useDispatch();
+
   const cpf = useSelector((state) => state.auth.usuario.cpf);
   const editarResposta = useRef(null);
 
@@ -74,6 +78,11 @@ export default function GestaoComentarios() {
       setIsLoading(false);
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
+
+      if(error.response.status === 401) {
+        dispatch(actions.loginFailure());
+        history.push('/login');
+      }
     }
   };
 
@@ -103,6 +112,10 @@ export default function GestaoComentarios() {
       setIsLoading(false);
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
+      if(error.response.status === 401) {
+        dispatch(actions.loginFailure());
+        history.push('/login');
+      }
     }
   };
 
