@@ -20,15 +20,16 @@ export default function TimelineTreinamento({ treinamento }) {
     return (
         <>
             {treinamento.prazo === null
-                ? <div className='hidden'></div>
-                : <div className='w-full bg-cinza-350 p-2 flex items-center justify-between border-b-2 border-laranja-100'>
+            // && treinamento.prazo < moment().format()
+                ? <div className='hidden'/>
+                : <div className='w-full bg-cinza-350 p-2 flex items-center justify-between border-b-2 border-vermelho-100 rounded'>
                     <div className='flex flex-col'>
-                        <small className='text-vermelho-100 text-xs'>{moment(treinamento.prazo, 'YYYY-MM-DD HH:mm:ss').format('L')}</small>
-                        <span className='uppercase test-sm text-cinza-100'>{treinamento.nome_treinamento}</span>
+                        <small className='text-cinza-200 text-xs'>{moment(treinamento.prazo, 'YYYY-MM-DD HH:mm:ss').format('L')}</small>
+                        <span className='text-laranja-100 text-sm font-light'>{treinamento.nome_treinamento}</span>
                     </div>
                     <button
                         type='button'
-                        className='w-8 h-8 bg-cinza-100 rounded-full text-cinza-500 flex items-center justify-center shadow hover:-rotate-180 duration-500'
+                        className='w-8 h-8 bg-cinza-200 rounded-full text-cinza-500 flex items-center justify-center shadow hover:-rotate-180 duration-500 hover:text-cinza-100 hover:bg-cinza-300'
                         title='Acessar'
                         onClick={() => handleRedirect(treinamento.cod_treinamento)}>
                         <ArrowLeft size={20} />
