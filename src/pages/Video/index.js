@@ -126,7 +126,7 @@ export default function Cursos() {
               <div className='w-full h-[1px] bg-cinza-300 rounded my-3' />
 
               <h3 className='text-cinza-100 font-semibold'>Comentários</h3>
-              <Comments codVideo={params.cod_video} cpf={cpf} />
+              <Comments codVideo={params.cod_video} codCurso={params.cod_curso} cpf={cpf} />
             </div>
           </div>
 

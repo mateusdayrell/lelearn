@@ -125,6 +125,7 @@ export default function GestaoComentarios() {
     const regTemp = {
       cpf,
       cod_video: video.cod_video,
+      cod_curso: comentario.cod_curso,
       comentario_pai: comentario.cod_comentario,
       texto
     };

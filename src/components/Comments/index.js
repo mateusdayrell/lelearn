@@ -7,7 +7,7 @@ import Loading from '../Loading';
 import NewComment from '../NewComment';
 import CommentList from '../CommentList';
 
-export default function Comments({codVideo, cpf}) {
+export default function Comments({codVideo, codCurso, cpf}) {
   const [comentarios, setComentarios] = useState([]);
   const [respostas, setRespostas] = useState([]);
   const [comentarioAtivo, setComentarioAtivo] = useState({})
@@ -72,13 +72,13 @@ export default function Comments({codVideo, cpf}) {
       {!codAtivo
         ?
           <>
-            <NewComment codVideo={codVideo} cpf={cpf} title="Adicione um comentário..." loadRegisters={loadRootComments} />
+            <NewComment codVideo={codVideo} codCurso={codCurso} cpf={cpf} title="Adicione um comentário..." loadRegisters={loadRootComments} />
             <CommentList comentarios={comentarios} handlePageChange={handleShowRespostas} loadRegisters={loadRootComments} cpf={cpf}/>
           </>
         :
           <>
             <CommentList comentarios={respostas} comentarioAtivo={comentarioAtivo} handlePageChange={handleShowComentarios} loadRegisters={loadRepplyes} cpf={cpf} loadRoot={loadRootComments}/>
-            <NewComment codVideo={codVideo} comentarioPai={comentarioAtivo.cod_comentario} cpf={cpf} title="Postar uma nova resposta" loadRegisters={loadRepplyes} />
+            <NewComment codVideo={codVideo} codCurso={codCurso} comentarioPai={comentarioAtivo.cod_comentario} cpf={cpf} title="Postar uma nova resposta" loadRegisters={loadRepplyes} />
           </>
         }
     </div>
@@ -87,10 +87,12 @@ export default function Comments({codVideo, cpf}) {
 
 Comments.defaultProps = {
   codVideo: '',
+  codCurso: '',
   cpf: '',
 };
 
 Comments.propTypes = {
   codVideo: PropTypes.string,
+  codCurso: PropTypes.string,
   cpf: PropTypes.string,
 };

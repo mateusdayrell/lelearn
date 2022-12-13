@@ -6,7 +6,7 @@ import axios from '../../services/axios';
 import Loading from '../Loading';
 import "./style.css";
 
-export default function NewComment({ codVideo, cpf, title, comentarioPai, loadRegisters }) {
+export default function NewComment({ codVideo, codCurso, cpf, title, comentarioPai, loadRegisters }) {
 
   const [textoResposta, setTextoResposta] = useState('')
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +16,7 @@ export default function NewComment({ codVideo, cpf, title, comentarioPai, loadRe
     const regTemp = {
       cpf,
       cod_video: codVideo,
+      cod_curso: codCurso,
       comentario_pai: comentarioPai || null,
       texto: textoResposta
     };
@@ -58,9 +59,9 @@ export default function NewComment({ codVideo, cpf, title, comentarioPai, loadRe
       <div className='flex flex-col'>
         {/* <label>{title}</label> */}
         <div className='AreaComent'>
-          <input type="text" 
-          value={textoResposta} 
-          placeholder='Adicione um comentário...' 
+          <input type="text"
+          value={textoResposta}
+          placeholder='Adicione um comentário...'
           onChange={(e) => setTextoResposta(e.target.value)} />
           <div className='UnderlineComent' />
         </div>
@@ -78,6 +79,7 @@ export default function NewComment({ codVideo, cpf, title, comentarioPai, loadRe
 
 NewComment.defaultProps = {
   codVideo: '',
+  codCurso: '',
   cpf: '',
   title: '',
   comentarioPai: '',
@@ -86,6 +88,7 @@ NewComment.defaultProps = {
 
 NewComment.propTypes = {
   codVideo: PropTypes.string,
+  codCurso: PropTypes.string,
   cpf: PropTypes.string,
   title: PropTypes.string,
   comentarioPai: PropTypes.string,
