@@ -132,11 +132,12 @@ export default function GestaoComentarios() {
 
     try {
       setIsLoading(true);
-      await axios.post('/comentarios', regTemp);
+      const { data } = await axios.post('/comentarios', regTemp);
       setIsLoading(false);
 
       toast.success('Comentário postado com sucesso.');
       setTexto('');
+      setComentario(data.comentarioPai)
       loadRepplyes();
     } catch (error) {
       setIsLoading(false);
