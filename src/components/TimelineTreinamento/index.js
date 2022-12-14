@@ -20,7 +20,7 @@ export default function TimelineTreinamento({ treinamento }) {
     return (
         <>
             {treinamento.prazo === null || treinamento.prazo < moment().format()
-                ? <div className='hidden'/>
+                ? ""
                 : <div className='w-full bg-cinza-350 p-2 flex items-center justify-between border-b-2 border-vermelho-100 rounded'>
                     <div className='flex flex-col'>
                         <small className='text-cinza-200 text-xs'>{moment(treinamento.prazo, 'YYYY-MM-DD HH:mm:ss').format('L')}</small>
