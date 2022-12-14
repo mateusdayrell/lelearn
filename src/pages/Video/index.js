@@ -90,7 +90,7 @@ export default function Cursos() {
         <h1 className='title flex'>
           <a
           onClick={() => handleRedirectCurso(curso.cod_curso)}
-          className="cursor-pointer hover:underline-offset-auto hover:underline">{curso.nome_curso}</a><p>{video.titulo_video}</p></h1>
+          className="cursor-pointer hover:underline-offset-auto hover:underline">{curso.nome_curso}</a> / <p>{video.titulo_video}</p></h1>
         <div className='flex'>
           <div className="ContainerCentralPageVideo">
             <div className='ContainerVideo'>
