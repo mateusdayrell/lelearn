@@ -50,6 +50,8 @@ export default function Home() {
         Teste
           </div>
 
+          <div className='w-[1px] rounded h-50 bg-cinza-300 mx-2'/>
+
           <div className='ContainerLateralHome'>
             <div>
               <h2 className='text-laranja-100 font-semibold'>Cronograma</h2>
