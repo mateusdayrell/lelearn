@@ -47,13 +47,13 @@ export default function Home() {
 
         <div className='flex gap-2'>
           <div className='w-3/4 h-full text-cinza-200'>
-            Teste
+        Teste
           </div>
 
           <div className='ContainerLateralHome'>
             <div>
               <h2 className='text-laranja-100 font-semibold'>Cronograma</h2>
-              <p className='text-xs text-azul-200 font-semibold flex'><p className='capitalize'>{moment().format('dddd')}</p>, {moment().format('LL')}</p>
+              <span className='text-xs text-azul-200 font-semibold flex'><span className='capitalize'>{moment().format('dddd')}</span>, {moment().format('LL')}</span>
             </div>
 
             <div className='mt-2'>

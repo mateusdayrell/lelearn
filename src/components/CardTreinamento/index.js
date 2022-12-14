@@ -13,12 +13,13 @@ export default function CardTreinamento({ treinamento }) {
   const [percentage, setPercentage] = useState('');
 
   moment.locale('pt-br');
-
+  
   useEffect(() => {
-    handlePercentage(treinamento.cursos_assistidos, treinamento.total_cursos);
+    handlePercentage(treinamento.cursos_concluidos, treinamento.total_cursos);
   }, []);
-
+  
   const handleRedirect = (cod_treinamento) => {
+   
     history.push(`/treinamentos/${cod_treinamento}`);
   };
 
