@@ -10,8 +10,6 @@ import {
   CaretDoubleRight,
   House,
   CaretUp,
-  BellSimple,
-  X,
   SquaresFour,
   ChatsCircle,
 } from 'phosphor-react';
@@ -21,12 +19,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import './styles.css';
 import * as actions from '../../store/modules/auth/actions';
 import history from '../../services/history';
+import Notifications from '../Notifications';
 
 export default function Navbar() {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const { nome, tipo } = useSelector((state) => state.auth.usuario); // TIPO -> 0 === ADMINISTRADOR, TIPO -> 1 === USUARIO COMUM
+  const { nome, tipo, cpf } = useSelector((state) => state.auth.usuario); // TIPO -> 0 === ADMINISTRADOR, TIPO -> 1 === USUARIO COMUM
 
   const selected = "w-8 h-8 bg-verde-100 hover:bg-verde-200 flex items-center justify-center rounded-md text-cinza-500 shadow-md"
   const selectedtitle = "text-verde-100";
@@ -153,26 +152,8 @@ export default function Navbar() {
 
         {/* USUARIO */}
 
-        {/* NOTIFICAÇÕES */}
         <div className='flex flex-col'>
-          <div className={` ${openSidebar ? "NotifyContentClosed" : "NotifyContentOpen"} NotifyContent`}>
-            <a onClick={() => setOpenNotify(!openNotify)}>
-              <BellSimple size={24} className={`${openNotify === true && 'text-verde-100'} icons`}/>
-              <span className={`${openSidebar ? "hidden":`${openNotify === true ? 'text-verde-100':''}`} name`}>
-                Notificações
-              </span>
-            </a>
-
-
-            <div className={openNotify === true && openSidebar === true ? `absolute p-2 w-60 h-2/3 rounded-md bg-cinza-400 bottom-4 -right-64 shadow-md border border-cinza-300` : `${openNotify ? "absolute p-2 w-60 h-2/3 rounded-md bg-cinza-400 bottom-4 -right-64 shadow-md border border-cinza-300" : ""}`}>
-              <span className={`${openNotify === true && openSidebar === true ? '':`${openNotify ? '':'hidden'}`} flex justify-between`}>
-                Notificações
-                <X size={22} onClick={() => setOpenNotify(!openNotify)} className='cursor-pointer hover:text-cinza-200 transition-all'/>
-              </span>
-
-            </div>
-          </div>
-          {/* NOTIFICAÇÕES */}
+          <Notifications cpf={cpf} openSidebar={openSidebar} openNotify={openNotify} setOpenNotify={setOpenNotify} />
 
 
           <div className={` ${openSidebar ? "profile-content-closed" : "profile-content-open"} profile-content`}>
@@ -187,7 +168,7 @@ export default function Navbar() {
             </div>
 
             <div className='userinfo'>
-              <button className='avatar' aria-hidden="true" onClick={() => setOpenMenuUser(!openMenuUser)}>
+              <button className='avatar' type='button' onClick={() => setOpenMenuUser(!openMenuUser)}>
                 {word1}{word2}
               </button>
               <span className={`${openSidebar && "hidden"} name`}>
