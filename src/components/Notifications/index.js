@@ -16,32 +16,32 @@ export default function Notifications({ cpf, openSidebar, openNotify, setOpenNot
   const [notificacoes, setNotificacoes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    loadRegisters();
-  }, [location]);
+  // useEffect(() => {
+  //   loadRegisters();
+  // }, [location]);
 
-  useEffect(() => {
-    loadRegisters();
-  }, []);
+  // useEffect(() => {
+  //   loadRegisters();
+  // }, []);
 
-  const loadRegisters = async () => {
-    setIsLoading(true);
-    try {
-      const { data } = await axios.get(`/notificacoes/get-by-user/${cpf}`);
+  // const loadRegisters = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     const { data } = await axios.get(`/notificacoes/get-by-user/${cpf}`);
 
-      setNotificacoes(data);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      const { erros } = error.response.data;
-      erros.map((err) => toast.error(err));
+  //     setNotificacoes(data);
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //     const { erros } = error.response.data;
+  //     erros.map((err) => toast.error(err));
 
-      if (error.response.status === 401) {
-        dispatch(actions.loginFailure());
-        history.push('/login');
-      }
-    }
-  };
+  //     if (error.response.status === 401) {
+  //       dispatch(actions.loginFailure());
+  //       history.push('/login');
+  //     }
+  //   }
+  // };
 
   return (
     <div className={` ${ openSidebar ? 'NotifyContentClosed' : 'NotifyContentOpen'} NotifyContent`}>
