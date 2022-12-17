@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { MagnifyingGlass, X, PaintBrushHousehold, Plus, PencilSimple, TrashSimple, Eye, MinusCircle } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
+import { useDispatch } from 'react-redux';
 // import ModalTreinamento from '../../../components/ModalTreinamento';
 
 import './style.css';
@@ -12,8 +13,12 @@ import Pagination from '../../../components/Pagination';
 import OrderSelect from '../../../components/OrderSelect';
 import Multiselect from '../../../components/Multiselect';
 import DeleteModal from '../../../components/DeleteModal';
+import history from '../../../services/history';
+import { loginFailure } from '../../../store/modules/auth/actions';
 
 export default function GestaoTreinamentos() {
+  const dispatch = useDispatch();
+
   const [treinamentos, setTreinamentos] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
   const [cursos, setCursos] = useState([]);
@@ -50,6 +55,7 @@ export default function GestaoTreinamentos() {
 
   const loadRegisters = async () => {
     setIsLoading(true);
+    resetPagination()
     try {
       const treinamentosResponse = await axios.get('/treinamentos/');
       const usuariosResponse = await axios.get('/usuarios/');
@@ -63,6 +69,10 @@ export default function GestaoTreinamentos() {
       setIsLoading(false);
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
+      if(error.response.status === 401) {
+        dispatch(loginFailure());
+        history.push('/login');
+      }
     }
   };
 
@@ -75,6 +85,7 @@ export default function GestaoTreinamentos() {
     }).toString();
 
     setIsLoading(true);
+    resetPagination()
     try {
       let response = null
       if (searchNome || searchUsuario || searchCurso || searchStatus !== 'ativo') {
@@ -205,6 +216,7 @@ export default function GestaoTreinamentos() {
     setSearchUsuario('');
     setSearchCurso('');
     setSearchStatus('ativo')
+    resetPagination()
     loadRegisters();
   };
 
@@ -260,6 +272,12 @@ export default function GestaoTreinamentos() {
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
     }
+  }
+
+  const resetPagination = () => {
+    setInicio(0)
+    setFim(itemsPerPage)
+    setSearchOrdem('')
   }
 
   return (
