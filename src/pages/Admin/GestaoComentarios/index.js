@@ -513,7 +513,7 @@ export default function GestaoComentarios() {
         <Modal
           isOpen={shwoFormModal}
           onRequestClose={handleClose}
-          className="Modal"
+          className="Modal "
           overlayClassName="Overlay"
           ariaHideApp={false}
         >
@@ -579,7 +579,7 @@ export default function GestaoComentarios() {
               {respostas.length > 0 &&
                 <div>
                   <h3>Respostas</h3>
-                  <div>
+                  <div className='overflow-scroll  w-full h-[280px]'>
                     {respostas?.map((resposta) => (
                       <div key={resposta.cod_comentario} className='InputArea pb-1'>
                         <label className='flex gap-2 items-baseline'>
@@ -587,7 +587,7 @@ export default function GestaoComentarios() {
                           <span className='text-cinza-200 text-xs'>{moment(resposta.created_at, 'YYYY-MM-DD HH:mm:ss').format('l HH:mm:ss')}</span>
                           <span className='text-cinza-200 text-xs'>{resposta.resolvido ? "Resolvido" : `Não resolvido`}</span>
                         </label>
-                        <div>
+                        <div >
                           <CommentArea ativo={ativo} comentario={resposta} editarResposta={editarResposta} type="resposta"
                             textoEditar={textoEditar} setTextoEditar={setTextoEditar} cpf={cpf} handleIsDeleting={handleIsDeleting}
                             handleIsUpdating={handleIsUpdating} handleUpdateComment={handleUpdateComment} />

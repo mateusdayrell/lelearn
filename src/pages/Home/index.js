@@ -9,6 +9,7 @@ import Calendario from '../../components/Calendario';
 import TimelineTreinamento from '../../components/TimelineTreinamento';
 import Loading from '../../components/Loading';
 import './style.css';
+import Relatorios from '../Admin/Relatorios';
 
 export default function Home() {
   const location = useLocation();
@@ -58,21 +59,23 @@ export default function Home() {
               <h2 className='text-laranja-100 font-semibold'>Cronograma</h2>
               <span className='text-xs text-azul-200 font-semibold flex'><span className='capitalize'>{moment().format('dddd')}</span>, {moment().format('LL')}</span>
             </div>
-
             <div className='mt-2'>
               <Calendario />
             </div>
-
             <div className='w-full h-full rounded-xl bg-cinza-400 p-2 mt-2 border-cinza-350 border-[1px] gap-2 flex flex-col'>
               {treinamentos.map((treinamento) => (
                 <TimelineTreinamento
                   key={treinamento.cod_treinamento}
                   treinamento={treinamento} />
               ))}
+
             </div>
           </div>
         </div>
       </div>
+      <div >
+            <Relatorios />
+          </div>
     </>
   );
 }
