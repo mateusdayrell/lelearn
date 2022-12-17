@@ -1,0 +1,11 @@
+.CardVideo{
+  @apply w-full h-16 bg-cinza-400 shadow-md rounded my-2 flex items-center pr-4 justify-between text-cinza-200
+}
+.VideoTitle{
+  @apply min-w-[9em] max-w-min h-16 bg-verde-100 rounded-l
+  flex justify-center items-center text-cinza-500 text-center
+}
+.BtnVideo{
+  @apply w-10 h-10 bg-verde-100 rounded flex items-center justify-center
+  text-cinza-100 cursor-pointer hover:text-cinza-500 duration-300
+}
