@@ -457,7 +457,7 @@ export default function GestaoVideos() {
               {videoCursos.length > 0 &&
                 <div className="InputArea">
                   <label>Cursos</label>
-                  {videoCursos.map(curso => <div key={curso.cod_curso}>{curso.nome_curso}</div>)}
+                  {videoCursos.map(curso => <div key={curso.cod_curso} className='text-sm text-cinza-200'>{curso.nome_curso}</div>)}
                 </div>
               }
             </div>
