@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { CaretRight } from 'phosphor-react';
 import moment from 'moment/moment';
 import 'moment/locale/pt-br';
 
@@ -13,13 +12,13 @@ export default function CardTreinamento({ treinamento }) {
   const [percentage, setPercentage] = useState('');
 
   moment.locale('pt-br');
-  
+
   useEffect(() => {
     handlePercentage(treinamento.cursos_concluidos, treinamento.total_cursos);
   }, []);
-  
+
   const handleRedirect = (cod_treinamento) => {
-   
+
     history.push(`/treinamentos/${cod_treinamento}`);
   };
 

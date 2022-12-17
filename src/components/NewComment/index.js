@@ -6,7 +6,7 @@ import axios from '../../services/axios';
 import Loading from '../Loading';
 import "./style.css";
 
-export default function NewComment({ codVideo, codCurso, cpf, title, comentarioPai, loadRegisters }) {
+export default function NewComment({ codVideo, codCurso, cpf, comentarioPai, loadRegisters }) {
 
   const [textoResposta, setTextoResposta] = useState('')
   const [isLoading, setIsLoading] = useState(false);
@@ -81,7 +81,6 @@ NewComment.defaultProps = {
   codVideo: '',
   codCurso: '',
   cpf: '',
-  title: '',
   comentarioPai: '',
   loadRegisters: () => null,
 };
@@ -90,7 +89,6 @@ NewComment.propTypes = {
   codVideo: PropTypes.string,
   codCurso: PropTypes.string,
   cpf: PropTypes.string,
-  title: PropTypes.string,
   comentarioPai: PropTypes.string,
   loadRegisters: PropTypes.func,
 };

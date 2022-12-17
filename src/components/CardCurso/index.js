@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { get } from 'lodash';
 import { FaFileImage } from 'react-icons/fa';
-import { CaretDoubleRight } from 'phosphor-react';
 
 import 'moment/locale/pt-br';
 import './style.css';

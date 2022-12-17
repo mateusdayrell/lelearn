@@ -41,8 +41,8 @@ export default function Home() {
     }
   };
   return (
-    <>
-      <div className='container-body'>
+    <div className='container-body'>
+        <Loading isLoading={isLoading}/>
         <h1 className='title'>Olá, {nomeUsuario}!</h1>
 
         <div className='flex gap-2'>
@@ -72,6 +72,5 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </>
   );
 }

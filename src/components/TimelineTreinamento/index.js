@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment/moment';
 import 'moment/locale/pt-br';
@@ -6,7 +6,7 @@ import 'moment/locale/pt-br';
 import { useHistory } from 'react-router-dom';
 
 import './style.css';
-import { ArrowLeft, ArrowRight } from 'phosphor-react';
+import { ArrowLeft } from 'phosphor-react';
 
 export default function TimelineTreinamento({ treinamento }) {
     const history = useHistory();
@@ -18,8 +18,7 @@ export default function TimelineTreinamento({ treinamento }) {
     };
 
     return (
-        <>
-            {treinamento.prazo === null || treinamento.prazo < moment().format()
+            treinamento.prazo === null || treinamento.prazo < moment().format()
                 ? ""
                 : <div className='w-full bg-cinza-350 p-2 flex items-center justify-between border-b-2 border-vermelho-100 rounded'>
                     <div className='flex flex-col'>
@@ -33,8 +32,7 @@ export default function TimelineTreinamento({ treinamento }) {
                         onClick={() => handleRedirect(treinamento.cod_treinamento)}>
                         <ArrowLeft size={20} />
                     </button>
-                </div>}
-        </>
+                </div>
     );
 }
 

@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BellSimple, X } from 'phosphor-react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+// import { useLocation } from 'react-router-dom';
+// import { toast } from 'react-toastify';
+// import { useDispatch } from 'react-redux';
 
-import axios from '../../services/axios';
-import history from '../../services/history';
-import * as actions from '../../store/modules/auth/actions';
+// import axios from '../../services/axios';
+// import history from '../../services/history';
+// import * as actions from '../../store/modules/auth/actions';
 
-export default function Notifications({ cpf, openSidebar, openNotify, setOpenNotify }) {
-  const location = useLocation();
-  const dispatch = useDispatch();
+export default function Notifications({ openSidebar, openNotify, setOpenNotify }) {
+  // const location = useLocation();
+  // const dispatch = useDispatch();
 
-  const [notificacoes, setNotificacoes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [notificacoes, setNotificacoes] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
 
   // useEffect(() => {
   //   loadRegisters();
@@ -73,14 +73,12 @@ export default function Notifications({ cpf, openSidebar, openNotify, setOpenNot
 }
 
 Notifications.defaultProps = {
-  cpf: '',
   openSidebar: false,
   openNotify: false,
   setOpenNotify: () => null,
 };
 
 Notifications.propTypes = {
-  cpf: PropTypes.string,
   openSidebar: PropTypes.bool,
   openNotify: PropTypes.bool,
   setOpenNotify: PropTypes.func,

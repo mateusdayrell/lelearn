@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 
@@ -9,7 +9,6 @@ import CardCurso from '../../components/CardCurso';
 import './style.css';
 
 export default function Treinamento() {
-  const history = useHistory();
   const params = useParams();
   const { cpf } = useSelector((state) => state.auth.usuario);
 
@@ -33,10 +32,6 @@ export default function Treinamento() {
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
     }
-  };
-
-  const handleRedirect = (cod_curso) => {
-    history.push(`/cursos/${cod_curso}`);
   };
 
   return (

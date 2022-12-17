@@ -146,8 +146,7 @@ export default function CommentList({ cpf, comentarios, comentarioAtivo, loadReg
                 <span className='text-cinza-300 text-xs'>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').format('l')}</span>
                 <span className='text-cinza-300 text-xs'>{comentario.created_at !== comentario.updated_at && ' (editado)'}</span>
                 {cpf === comentario.usuario.cpf &&
-                  <>
-                    <div className='flex text-xs gap-1 text-cinza-200'>
+                  <div className='flex text-xs gap-1 text-cinza-200'>
                       <button
                         type='button'
                         className='hover:text-azul-100 transition-all'
@@ -157,7 +156,6 @@ export default function CommentList({ cpf, comentarios, comentarioAtivo, loadReg
                         className='hover:text-vermelho-100 transition-all'
                         onClick={() => handleIsDeleting(comentario)}>Excluir</button>
                     </div>
-                  </>
                 }
               </div>
             </div>

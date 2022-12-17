@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'https://48dc-138-99-191-36.sa.ngrok.io', // url da aplicação
- 
+  baseURL: 'https://llrn-backend-sjy1-ki9guwrt4-mateusdayrell.vercel.app', // url da aplicação
+
 });

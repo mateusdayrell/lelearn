@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { FaCaretRight } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { MagnifyingGlass, Play } from 'phosphor-react';
 
@@ -39,15 +38,6 @@ export default function Cursos() {
 
   const handleRedirect = (cod_video) => {
     history.push(`/videos/${cod_curso}/${cod_video}`);
-  };
-
-  const handleRedirectCursos = () => {
-    history.push(`/cursos`);
-  }
-
-  const clearSearch = () => {
-    setSearchNome('');
-    loadRegisters();
   };
 
   const handleSearch = async () => {
@@ -112,6 +102,7 @@ export default function Cursos() {
                 <p className='text-xs ml-6'>{video.desc_video}</p>
               </div>
                 <button
+                  type='button'
                   className='BtnVideo'
                   onClick={() => handleRedirect(video.cod_video)}>
                   <Play size={20} weight='fill'/>

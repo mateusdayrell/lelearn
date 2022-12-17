@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Player, Youtube, DefaultUi } from '@vime/react';
 import getYoutubeId from 'get-youtube-id'
@@ -88,9 +88,10 @@ export default function Cursos() {
       <Loading isLoading={isLoading} />
       <div className="ContainerBodyVideo">
         <h1 className='title flex'>
-          <a
+          <button
+          type='button'
           onClick={() => handleRedirectCurso(curso.cod_curso)}
-          className="cursor-pointer hover:underline-offset-auto hover:underline">{curso.nome_curso}</a> / <p>{video.titulo_video}</p></h1>
+          className="cursor-pointer hover:underline-offset-auto hover:underline">{curso.nome_curso}</button> / <p>{video.titulo_video}</p></h1>
         <div className='flex'>
           <div className="ContainerCentralPageVideo">
             <div className='ContainerVideo'>
@@ -138,9 +139,10 @@ export default function Cursos() {
             <div className='w-full h-[1px] bg-cinza-350 my-3'/>
 
             <div className="flex flex-col gap-4">
-              {videosCurso.map((el, i) => (
+              {videosCurso.map((el) => (
                 <div
                   key={el.cod_video}
+                  aria-hidden
                   className={`${el.cod_video === video.cod_video ? "bg-verde-100 border-none text-cinza-500 shadow hover:bg-verde-200" : "bg-cinza-500 hover:bg-cinza-400"} w-full h-20 p-4 rounded-xl border border-cinza-200 cursor-pointer text-cinza-100`}
                   onClick={() => handleRedirect(el.cod_video)}
                 >

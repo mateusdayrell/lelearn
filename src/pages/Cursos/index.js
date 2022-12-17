@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { MagnifyingGlass, PaintBrushHousehold } from 'phosphor-react';
+import { MagnifyingGlass } from 'phosphor-react';
 import { toast } from 'react-toastify';
 import moment from 'moment/moment';
 
@@ -33,11 +33,6 @@ export default function Cursos() {
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
     }
-  };
-
-  const clearSearch = () => {
-    setSearchNome('');
-    loadRegisters();
   };
 
   const handleSearch = async () => {
