@@ -153,7 +153,7 @@ export default function Navbar() {
         {/* USUARIO */}
 
         <div className='flex flex-col'>
-          <Notifications cpf={cpf} openSidebar={openSidebar} openNotify={openNotify} setOpenNotify={setOpenNotify} />
+          {/* <Notifications cpf={cpf} openSidebar={openSidebar} openNotify={openNotify} setOpenNotify={setOpenNotify} /> */}
 
 
           <div className={` ${openSidebar ? "profile-content-closed" : "profile-content-open"} profile-content`}>
