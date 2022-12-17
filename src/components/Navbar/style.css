@@ -1,0 +1,107 @@
+/* NAVBAR */
+.navbar{
+  @apply bg-cinza-400 flex h-full py-3 flex-col justify-between fixed
+  shadow-white shadow-sm z-10 duration-200 text-sm select-none
+}
+.navbar-open{
+  @apply w-64 items-start
+}
+.navbar-closed{
+  @apply w-14 items-start
+}
+/* NAVBAR */
+
+/* CONTEINER SUPERIOR - LOGO */
+.logo-content{
+  @apply w-14 justify-center flex cursor-pointer
+}
+.logo-content-open{
+  @apply w-60 flex items-center
+}
+
+.logoicon:hover .SegundoL{
+  @apply translate-y-2 duration-500 transition-all
+}
+/* CONTEINER SUPERIOR - LOGO */
+
+/* CONTEINER DO MEIO - LINKS */
+.list-content{
+  @apply w-14 flex flex-col text-cinza-100
+}
+.list-content-closed{
+  @apply w-14 flex pl-3
+}
+.list-content-closed a{
+  @apply my-2 flex items-center
+}
+.list-content-closed .icons{
+  @apply w-8 h-8 hover:bg-verde-100 flex items-center justify-center rounded-md hover:text-cinza-500
+}
+.list-content-open{
+  @apply w-56 h-10 flex justify-center pl-3
+}
+.list-content-open a{
+  @apply flex my-2 items-center
+}
+.list-content-open a span{
+  @apply ml-1 transition-all
+}
+.list-content-open a .icons{
+  @apply w-8 h-8 flex items-center justify-center rounded-md transition-all
+}
+
+.list-content-open a:hover .icons{
+  @apply bg-verde-100 text-cinza-500
+}
+.list-content-open a:hover span{
+  @apply text-verde-100
+}
+/* CONTEINER DO MEIO - LINKS */
+
+
+/* CONTEINER INFERIOR - INFORMAÇÕES DO USUÁRIO */
+/* NOTIFY CONTENT */
+.NotifyContent{
+  @apply w-14 flex my-1 text-cinza-100
+}
+.NotifyContentClosed{
+  @apply w-14 flex items-center justify-center
+}
+.NotifyContentClosed .icons{
+  @apply w-8 flex items-center justify-center rounded-md hover:text-verde-100 transition-all cursor-pointer
+}
+.NotifyContentOpen{
+  @apply w-56 h-10 items-center pl-3
+}
+.NotifyContentOpen a{
+  @apply flex my-2 items-center cursor-pointer
+}
+.NotifyContentOpen a span{
+  @apply ml-1 transition-all
+}
+.NotifyContentOpen a .icons{
+  @apply w-8 flex items-center justify-center rounded-md transition-all
+}
+.NotifyContentOpen a:hover .icons{
+  @apply text-verde-100
+}
+.NotifyContentOpen a:hover span{
+  @apply text-verde-100
+}
+/* NOTIFY CONTENT */
+
+
+.profile-content{
+  @apply w-14 py-1 ml-1 pl-1 text-cinza-100
+}
+.profile-content-open{
+  @apply w-60 flex flex-col shadow-md rounded-md bg-cinza-350
+}
+.userinfo{
+  @apply flex items-center justify-between pr-3
+}
+.avatar{
+  @apply bg-cinza-100 text-cinza-500 font-thin text-base w-10 h-10 rounded-full tracking-wide flex justify-center items-center
+  select-none shadow-md cursor-pointer transition-all hover:bg-cinza-200 focus:bg-cinza-200
+}
+/* CONTEINER INFERIOR - INFORMAÇÕES DO USUÁRIO */
