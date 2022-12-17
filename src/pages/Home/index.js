@@ -68,7 +68,7 @@ export default function Home() {
                   key={treinamento.cod_treinamento}
                   treinamento={treinamento} />
               ))}
-              
+
             </div>
           </div>
         </div>
