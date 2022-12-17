@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment/moment';
 import 'moment/locale/pt-br';
+import { ArrowLeft } from 'phosphor-react';
 
 import { useHistory } from 'react-router-dom';
 
@@ -45,16 +46,17 @@ export default function CardTreinamento({ treinamento }) {
               }
             </small>
             <span style={{color:`${treinamento.cor}`}} className={`${percentage === 100 ? 'NomeTreinamentoComplete' : 'NomeTreinamento'}`}>{treinamento.nome_treinamento}</span>
-            <small className='DescTreinamento'>{treinamento.desc_treinamento}</small>
+            <small className='DescTreinamento'>{treinamento.desc_treinamento.length > 50 ? `${treinamento.desc_treinamento.substring(0,49)}...`:treinamento.desc_treinamento}</small>
           </div>
         </div>
         <div className='w-full flex justify-end text-black px-3'>
           <button
             type='button'
-            className='BtnCardTreinamento'
+            className='w-8 h-8 rounded-full text-cinza-500 flex items-center justify-center shadow hover:-rotate-180 duration-500'
+            title='Acessar'
             style={{background:`${treinamento.cor}`}}
             onClick={() => handleRedirect(treinamento.cod_treinamento)}>
-            <p>Acessar</p>
+            <ArrowLeft size={20}/>
           </button>
         </div>
       </div>
