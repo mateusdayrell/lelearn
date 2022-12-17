@@ -1,6 +1,7 @@
 {
   "name": "llrn-frontend",
   "version": "0.1.0",
+  "page": "github-page/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
