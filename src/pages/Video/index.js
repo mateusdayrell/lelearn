@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Player, Youtube, DefaultUi } from '@vime/react';
 import getYoutubeId from 'get-youtube-id'
+
 
 import './style.css';
 import './vime.css';
@@ -12,10 +13,13 @@ import Checkbox from '../../components/Checkbox';
 import axios from '../../services/axios';
 import { orderVideos } from '../../helpers/orderVideos';
 import Comments from '../../components/Comments';
+import { loginFailure } from '../../store/modules/auth/actions';
+import history from '../../services/history';
 
 export default function Cursos() {
   const params = useParams();
-  const history = useHistory();
+  const uHistory = useHistory();
+  const dispatch = useDispatch();
 
   const cpf = useSelector((state) => state.auth.usuario.cpf);
 
@@ -25,15 +29,15 @@ export default function Cursos() {
   const [curso, setCurso] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [ready, setReady] = useState(false);
-  const [videoId, setVideoId] = useState('Qtz1PpY9A');
+  const [videoId, setVideoId] = useState('');
 
   useEffect(() => {
     loadRegisters(params.cod_video);
   }, []);
 
   useEffect(() => {
-    setReady(true);
-  }, [video]);
+    if(videoId.length > 0) setReady(true);
+  }, [videoId]);
 
   const loadRegisters = async (codVideo) => {
     const { cod_curso } = params
@@ -52,7 +56,13 @@ export default function Cursos() {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+
+      if(error.response.status === 401) {
+        dispatch(loginFailure());
+        history.push('/login');
+      }
     }
   };
 
@@ -65,7 +75,6 @@ export default function Cursos() {
       setVideosUsuario(data)
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
       toast.error('Erro ao marcar aula como assistida/não assistida')
     }
   }
@@ -75,12 +84,12 @@ export default function Cursos() {
   const handleRedirect = (codVideo) => {
     setReady(false)
     const { cod_curso } = params
-    history.push(`/videos/${cod_curso}/${codVideo}`);
+    uHistory.push(`/videos/${cod_curso}/${codVideo}`);
     loadRegisters(codVideo)
   };
 
   const handleRedirectCurso = (cod_curso) => {
-    history.push(`/cursos/${cod_curso}`);
+    uHistory.push(`/cursos/${cod_curso}`);
   }
 
   return (

@@ -19,20 +19,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import './style.css';
 import * as actions from '../../store/modules/auth/actions';
 import history from '../../services/history';
-import Notifications from '../Notifications';
 
 export default function Navbar() {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const { nome, tipo, cpf } = useSelector((state) => state.auth.usuario); // TIPO -> 0 === ADMINISTRADOR, TIPO -> 1 === USUARIO COMUM
+  const { nome, tipo } = useSelector((state) => state.auth.usuario); // TIPO -> 0 === ADMINISTRADOR, TIPO -> 1 === USUARIO COMUM
 
   const selected = "w-8 h-8 bg-verde-100 hover:bg-verde-200 flex items-center justify-center rounded-md text-cinza-500 shadow-md"
   const selectedtitle = "text-verde-100";
   const [nomeUsuario, setNomeUsuario] = useState('Não logado');
   const [openSidebar, setOpenSidebar] = useState(true);
   const [openMenuUser, setOpenMenuUser] = useState(false);
-  const [openNotify, setOpenNotify] = useState(false);
   const [word1, setWord1] = useState('')
   const [word2, setWord2] = useState('')
   const [menuLink, setMenuLink] = useState('/')
@@ -54,7 +52,6 @@ export default function Navbar() {
     getNome();
     handleCurrentMenu();
     setOpenMenuUser();
-    setOpenNotify();
   }, [location]);
 
   const getNome = () => {
@@ -153,9 +150,6 @@ export default function Navbar() {
         {/* USUARIO */}
 
         <div className='flex flex-col'>
-          {/* <Notifications cpf={cpf} openSidebar={openSidebar} openNotify={openNotify} setOpenNotify={setOpenNotify} /> */}
-
-
           <div className={` ${openSidebar ? "profile-content-closed" : "profile-content-open"} profile-content`}>
             <div className={openSidebar === true && openMenuUser === true ? `${openMenuUser ? "" : ""}absolute p-2 w-40 rounded-md bg-cinza-350 bottom-4 -right-44 shadow-md` : `${openMenuUser ? "" : "hidden"}  w-10 flex flex-col duration-500 pl-2 my-2`}>
               <Link onClick={handleLogout} className="flex mr-6 text-sm hover:text-vermelho-100 duration-150 gap-2" to="/login">

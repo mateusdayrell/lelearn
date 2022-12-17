@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 import axios from '../../services/axios';
 import Loading from '../../components/Loading';
 import CardTreinamento from '../../components/CardTreinamento';
+import { loginFailure } from '../../store/modules/auth/actions';
+import history from '../../services/history';
 // import './style.css';
 
 export default function Treinamentos() {
+    const dispatch = useDispatch();
     const { cpf } = useSelector((state) => state.auth.usuario);
     const [treinamentos, setTreinamentos] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -26,6 +30,11 @@ export default function Treinamentos() {
         setIsLoading(false);
         const { erros } = error.response.data;
         erros.map((err) => toast.error(err));
+
+        if(error.response.status === 401) {
+          dispatch(loginFailure());
+          history.push('/login');
+        }
       }
     };
 

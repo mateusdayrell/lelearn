@@ -12,7 +12,7 @@ import './style.css';
 import axios from '../../../services/axios';
 import Loading from '../../../components/Loading';
 import Pagination from '../../../components/Pagination';
-import FileInput from '../../../components/FileInput';
+// import FileInput from '../../../components/FileInput';
 import Multiselect from '../../../components/Multiselect';
 import { orderVideos } from '../../../helpers/orderVideos';
 import DeleteModal from '../../../components/DeleteModal';
@@ -32,7 +32,7 @@ export default function GestaoCursos() {
   const [descricao, setDescricao] = useState(null);
   const [cursoVideos, setCursoVideos] = useState([])
   const [foto, setFoto] = useState(null)
-  const [showFoto, setShowFoto] = useState('')
+  // const [showFoto, setShowFoto] = useState('')
   const [deleted, setDeleted] = useState(false)
 
   const [searchNome, setSearchNome] = useState('');
@@ -193,7 +193,7 @@ export default function GestaoCursos() {
       setCodCurso(curso.cod_curso);
       setNome(curso.nome_curso);
       setDescricao(curso.desc_curso);
-      if (curso.arquivo_url) setShowFoto(curso.arquivo_url)
+      // if (curso.arquivo_url) setShowFoto(curso.arquivo_url)
       setDeleted(!!curso.deleted_at)
 
       setIsUpdating(true);
@@ -231,7 +231,7 @@ export default function GestaoCursos() {
     setNome('');
     setDescricao('');
     setFoto(null);
-    setShowFoto('')
+    // setShowFoto('')
     setDeleted(false)
     setCursoVideos([]);
   };
@@ -241,22 +241,22 @@ export default function GestaoCursos() {
       setNome('');
       setDescricao('');
       setFoto(null);
-      setShowFoto('');
+      // setShowFoto('');
     }
     if (form === 1) setCursoVideos([]);
   }
 
-  const handleShowFoto = (e) => {
-    const file = e.target.files[0]
-    const fileUrl = URL.createObjectURL(file)
-    setFoto(file)
-    setShowFoto(fileUrl)
-  }
+  // const handleShowFoto = (e) => {
+  //   const file = e.target.files[0]
+  //   const fileUrl = URL.createObjectURL(file)
+  //   setFoto(file)
+  //   setShowFoto(fileUrl)
+  // }
 
-  const handleRemoveFoto = () => {
-    setFoto(null)
-    setShowFoto('')
-  }
+  // const handleRemoveFoto = () => {
+  //   setFoto(null)
+  //   setShowFoto('')
+  // }
 
   const handleNewPage = (novoInicio, novoFim) => {
     setInicio(novoInicio)
