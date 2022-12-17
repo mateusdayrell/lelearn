@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { get } from 'lodash';
-import { FaFileImage } from 'react-icons/fa';
+// import { get } from 'lodash';
+// import { FaFileImage } from 'react-icons/fa';
 
 import 'moment/locale/pt-br';
 import './style.css';
@@ -34,17 +34,17 @@ export default function CardCurso({ curso, assistidos, total }) {
 
       <div className='ContainerCardCurso'>
         <div key={curso.cod_curso} className="flex items-center gap-3">
-          {/*{get(curso, 'nome_arquivo', false) ?
+          {/* {get(curso, 'nome_arquivo', false) ?
             <img className='h-[110px] w-[150px]  min-h-[110px] min-w-[150px]' src={`${process.env.REACT_APP_BACKEND_URL}/images/${curso.nome_arquivo}`} alt="Imagem do curso" />
             :<div className="h-[110px] w-[150px]  min-h-[110px] min-w-[150px]">
               <div className=' w-[150px] h-full  bg-verde-200 flex justify-center items-center text-center min-w-[150px]'>
                 <FaFileImage size={36} />
               </div>
             </div>
-          }*/}
+          } */}
 
-          <div className="w-[150px] min-w-[150px] h-[110px] bg-verde-600 flex justify-center items-center text-cinza-500 text-center">
-            <h2 className={percentage === 100 ? 'TitleCardCurso text-verde-100' : 'TitleCardCurso text-laranja-100'}>{`${curso.nome_curso}`}</h2>
+          <div className="w-[150px] min-w-[150px] h-[110px]  bg-azul-100 flex justify-center items-center text-cinza-500 text-center">
+            <h2 className={percentage === 100 ? 'TitleCardCurso text-verde-100' : 'TitleCardCurso text-cinza-500'}>{`${curso.nome_curso}`}</h2>
           </div>
 
           <div className='Cursos-info'>
