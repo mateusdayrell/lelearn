@@ -47,7 +47,7 @@ export default function Home() {
 
         <div className='flex gap-2'>
           <div className='w-3/4 h-full text-cinza-200'>
-        Teste
+        Teste pé é gay
           </div>
 
           <div className='w-[1px] rounded h-50 bg-cinza-300 mx-2'/>
