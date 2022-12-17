@@ -43,7 +43,7 @@ export default function CardCurso({ curso, assistidos, total }) {
             </div>
           } */}
 
-          <div className="w-[150px] min-w-[150px] h-[110px]  bg-azul-100 flex justify-center items-center text-cinza-500 text-center">
+          <div className="w-[150px] min-w-[150px] h-[110px] bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-400  flex justify-center items-center text-cinza-500 text-center">
             <h2 className={percentage === 100 ? 'TitleCardCurso text-verde-100' : 'TitleCardCurso text-cinza-500'}>{`${curso.nome_curso}`}</h2>
           </div>
 

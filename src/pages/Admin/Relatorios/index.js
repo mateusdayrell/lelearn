@@ -67,14 +67,16 @@ export default function Relatorios() {
   return (
     <>
       <Loading isLoading={isLoading} />
-      <div className="container-body g-curso-container">
+      <div className='ml-[10%] w-[30%]  items-center mb-8  border-cinza-350 leading-3 text-cinza-200 text-sm rounded-xl p-6 select-none bg-cinza-400' >
+      <div className="w-full h-full g-curso-container">
         <div className='title'>Relatórios</div>
-        <div>
+        <div className=' h-[15%] '>
           <form action={url} method="get" target="_blank">
             <div className='flex gap-5'>
               <div>
-                <label>Tipo de relatório</label>
+                <label className='mb-2'>Tipo de relatório</label>
                 <select
+                  className='w-full min-w-full'
                   name="tipo"
                   value={tipo}
                   onChange={(e) => setTipo(e.target.value)}>
@@ -88,8 +90,9 @@ export default function Relatorios() {
               </div>
               {(tipo === "usuario-treinamentos" || tipo === "usuario-cursos")  &&
                 <div>
-                  <label>Usuário</label>
+                  <label className='mb-2'>Usuário</label>
                   <select
+                  className='w-full min-w-full'
                     name="usuario"
                     value={valor}
                     onChange={(e) => setValor(e.target.value)}>
@@ -104,8 +107,9 @@ export default function Relatorios() {
               }
               {tipo === "treinamento"  &&
                 <div>
-                  <label>Treinamento</label>
+                  <label className='mb-2'>Treinamento</label>
                   <select
+                  className='w-full min-w-full'
                     name="treinamento"
                     value={valor}
                     onChange={(e) => setValor(e.target.value)}>
@@ -125,6 +129,7 @@ export default function Relatorios() {
             </div>
           </form>
         </div>
+      </div>
       </div>
     </>
   );
