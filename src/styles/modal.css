@@ -71,3 +71,7 @@
 .Modal .InputArea input:disabled  {
   @apply text-cinza-300 cursor-not-allowed;
 }
+
+.InputArea textarea{
+  @apply min-h-max max-h-28
+}

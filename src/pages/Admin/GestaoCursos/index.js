@@ -485,11 +485,11 @@ export default function GestaoCursos() {
                   />
                 </div>
 
-                <div className="InputArea">
+                {/* <div className="InputArea">
                   <label>Foto </label>
                   <FileInput handleShowFile={handleShowFoto} foto={showFoto} removeFoto={handleRemoveFoto} deleted={deleted} />
                 </div>
-
+            */}
                 <div className="InputArea">
                   <label>Descrição </label>
                   <textarea

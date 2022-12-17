@@ -27,7 +27,7 @@ export default function TimelineTreinamento({ treinamento }) {
                     </div>
                     <button
                         type='button'
-                        className='w-8 h-8 bg-cinza-200 rounded-full text-cinza-500 flex items-center justify-center shadow hover:-rotate-180 duration-500 hover:text-cinza-100 hover:bg-cinza-300'
+                        className='w-8 h-8 bg-laranja-100 rounded-full text-cinza-500 flex items-center justify-center shadow hover:-rotate-180 duration-500 hover:text-cinza-100 hover:bg-laranja-200'
                         title='Acessar'
                         onClick={() => handleRedirect(treinamento.cod_treinamento)}>
                         <ArrowLeft size={20} />
