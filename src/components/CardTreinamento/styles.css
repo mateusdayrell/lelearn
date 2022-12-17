@@ -37,15 +37,8 @@
 
 /* BUTTON */
 .BtnCardTreinamento{
-    @apply flex items-center h-7 rounded-lg gap-1 px-3 duration-300 transition-all
+    @apply w-8 h-8 rounded-full text-cinza-500 flex items-center justify-center shadow hover:-rotate-180 duration-500 hover:text-cinza-100
 }
-.BtnCardTreinamento span{
-    @apply h-full text-cinza-500 rounded-full flex items-center p-1 duration-500
-}
-.BtnCardTreinamento:hover{
-    @apply px-4
-}
-
 
 /* STYLE PRAZO */
 .PrazoList{

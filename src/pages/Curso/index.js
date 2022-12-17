@@ -103,7 +103,8 @@ export default function Cursos() {
               </div>
                 <button
                   type='button'
-                  className='BtnVideo'
+                  className='w-10 h-10 bg-verde-100 rounded flex items-center justify-center
+                  text-cinza-100 cursor-pointer hover:text-cinza-500 duration-300'
                   onClick={() => handleRedirect(video.cod_video)}>
                   <Play size={20} weight='fill'/>
                 </button>

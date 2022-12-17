@@ -1,11 +1,11 @@
 .Modal {
-  @apply absolute top-[5%] bg-cinza-500 shadow-lg py-3 px-5 
+  @apply absolute top-[5%] bg-cinza-500 shadow-lg py-3 px-5
   min-w-[42.5em] max-w-min rounded-md max-h-[40em]
 }
 
 
 .Modal .ModalHeader{
-  @apply flex font-medium text-lg justify-between select-none 
+  @apply flex font-medium text-lg justify-between select-none
 }
 .Modal .CloseModal{
   @apply text-cinza-100 hover:text-cinza-300 cursor-pointer transition-all
@@ -19,7 +19,7 @@
 
 
 .Modal .ModalContent{
-  @apply py-2 text-cinza-100 h-full w-full 
+  @apply py-2 text-cinza-100 h-full w-full
 }
 .ModalBar{
   @apply mx-2
@@ -60,7 +60,7 @@
   @apply flex justify-end gap-3 pt-3
 }
 .FormDelete{
-  @apply py-4 text-sm 
+  @apply py-4 text-sm
 }
 
 
@@ -70,4 +70,8 @@
 
 .Modal .InputArea input:disabled  {
   @apply text-cinza-300 cursor-not-allowed;
+}
+
+.InputArea textarea{
+  @apply min-h-max max-h-28
 }

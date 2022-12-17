@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimple, Eye, MinusCircle } from 'phosphor-react';
 import Modal from 'react-modal';
 import { get } from 'lodash';
+import { useDispatch } from 'react-redux';
 
 import './style.css';
 import Loading from '../../../components/Loading';
@@ -10,10 +11,13 @@ import OrderSelect from '../../../components/OrderSelect';
 import Pagination from '../../../components/Pagination';
 import axios from '../../../services/axios';
 import DeleteModal from '../../../components/DeleteModal';
+import history from '../../../services/history';
+import { loginFailure } from '../../../store/modules/auth/actions';
 
 const ITEMS_PER_PAGE = 10
 
 export default function GestaoVideos() {
+  const dispatch = useDispatch();
   const [videos, setVideos] = useState([]);
   const [cursos, setCursos] = useState([]);
 
@@ -43,6 +47,7 @@ export default function GestaoVideos() {
 
   const loadRegisters = async () => {
     setIsLoading(true);
+    resetPagination()
     try {
       const videosReponse = await axios.get('/videos/');
       const cursosResponse = await axios.get('/cursos/');
@@ -54,6 +59,11 @@ export default function GestaoVideos() {
       setIsLoading(false);
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
+
+      if(error.response.status === 401) {
+        dispatch(loginFailure());
+        history.push('/login');
+      }
     }
   };
 
@@ -65,7 +75,7 @@ export default function GestaoVideos() {
     }).toString();
 
     setIsLoading(true);
-
+    resetPagination()
     try {
       let response = null
       if (searchTitulo || searchCurso || searchStatus !== 'ativo') {
@@ -196,6 +206,7 @@ export default function GestaoVideos() {
     setSearchTitulo('');
     setSearchCurso('');
     setSearchStatus('ativo')
+    resetPagination()
     loadRegisters();
   };
 
@@ -238,6 +249,12 @@ export default function GestaoVideos() {
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
     }
+  }
+
+  const resetPagination = () => {
+    setInicio(0)
+    setFim(ITEMS_PER_PAGE)
+    setSearchOrdem('')
   }
 
   return (
@@ -457,7 +474,7 @@ export default function GestaoVideos() {
               {videoCursos.length > 0 &&
                 <div className="InputArea">
                   <label>Cursos</label>
-                  {videoCursos.map(curso => <div key={curso.cod_curso}>{curso.nome_curso}</div>)}
+                  {videoCursos.map(curso => <div key={curso.cod_curso} className='text-sm text-cinza-200'>{curso.nome_curso}</div>)}
                 </div>
               }
             </div>

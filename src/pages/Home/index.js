@@ -41,16 +41,17 @@ export default function Home() {
     }
   };
   return (
-    <div className='container-body'>
-        <Loading isLoading={isLoading}/>
+    <>
+      <Loading isLoading={isLoading} />
+      <div className='container-body'>
         <h1 className='title'>Olá, {nomeUsuario}!</h1>
 
         <div className='flex gap-2'>
           <div className='w-3/4 h-full text-cinza-200'>
-        Teste
+            <h2 className='text-cinza-100 my-2'>Treinamentos em andamento</h2>
           </div>
 
-          <div className='w-[1px] rounded h-50 bg-cinza-300 mx-2'/>
+          {/* <div className='w-[1px] rounded h-50 bg-cinza-300 mx-2'/> */}
 
           <div className='ContainerLateralHome'>
             <div>
@@ -72,5 +73,6 @@ export default function Home() {
           </div>
         </div>
       </div>
+    </>
   );
 }
