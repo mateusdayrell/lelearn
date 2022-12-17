@@ -34,22 +34,30 @@ export default function CardCurso({ curso, assistidos, total }) {
 
       <div className='ContainerCardCurso'>
         <div key={curso.cod_curso} className="flex items-center gap-3">
-          {get(curso, 'nome_arquivo', false) ?
-            <img className='h-[110px] w-[150px] min-h-[110px] min-w-[150px]' src={`${process.env.REACT_APP_BACKEND_URL}/images/${curso.nome_arquivo}`} alt="Imagem do curso" />
-            : <FaFileImage size={36} />
-          }
+          {/*{get(curso, 'nome_arquivo', false) ?
+            <img className='h-[110px] w-[150px]  min-h-[110px] min-w-[150px]' src={`${process.env.REACT_APP_BACKEND_URL}/images/${curso.nome_arquivo}`} alt="Imagem do curso" />
+            :<div className="h-[110px] w-[150px]  min-h-[110px] min-w-[150px]">
+              <div className=' w-[150px] h-full  bg-verde-200 flex justify-center items-center text-center min-w-[150px]'>
+                <FaFileImage size={36} />
+              </div>
+            </div>
+          }*/}
+
+          <div className="w-[150px] min-w-[150px] h-[110px] bg-verde-600 flex justify-center items-center text-cinza-500 text-center">
+            <h2 className={percentage === 100 ? 'TitleCardCurso text-verde-100' : 'TitleCardCurso text-laranja-100'}>{`${curso.nome_curso}`}</h2>
+          </div>
 
           <div className='Cursos-info'>
-            <h2 className={percentage === 100 ? 'TitleCardCurso text-verde-100':'TitleCardCurso text-laranja-100'}>{`${curso.nome_curso}`}</h2>
+
             <p className='DescCurso'>{curso.desc_curso}</p>
           </div>
         </div>
         <div className='BtnCurso'>
           <button
             type='button'
-            className={percentage === 100 ? 'bg-verde-100':'bg-laranja-100'}
+            className={percentage === 100 ? 'bg-verde-100' : 'bg-laranja-100'}
             onClick={() => handleRedirect(curso.cod_curso)}>
-              <p>Acessar</p>
+            <p>Acessar</p>
           </button>
         </div>
       </div>
