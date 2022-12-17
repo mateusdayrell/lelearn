@@ -23,7 +23,7 @@ export default function CardTreinamento({ treinamento }) {
   };
 
   const handlePercentage = (watched, total) => {
-    const percent = total == 0 ? 0 : Math.floor(watched / total * 100);
+    const percent = total == 0 ? 0 : Math.floor(watched / total * 100); // eslint-disable-line
     // if (percent === Infinity) return setPercentage(0);
     return setPercentage(percent)
   }

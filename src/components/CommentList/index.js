@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import { DotsThreeOutlineVertical, ArrowLeft } from 'phosphor-react';
+import { ArrowLeft } from 'phosphor-react';
 import moment from 'moment/moment';
 
 import './style.css';
