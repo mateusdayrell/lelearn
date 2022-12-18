@@ -104,14 +104,14 @@ export default function Cursos() {
           <div className="ContainerCentralPageVideo">
             <div className='ContainerVideo'>
               {(videoId &&videoId.length) || ready > 0 ? (
-                // <iframe width="853" height="480" src={video.link} title="Como inserir vídeo do YouTube no seu site HTML (Embed)" frameBorder="0" allow="accelerometer" allowFullScreen />
-
                 <Player>
                   <Youtube videoId={videoId} />
                   <DefaultUi />
                 </Player>
               ) : (
-                <p>Video nao encontrado</p>
+                <div className='relative overflow-hidden w-[71vw] h-[85vh]'>
+                  <iframe className='w-full h-full' src={video.link} title={video.titulo_video} frameBorder="0" allow="accelerometer" allowFullScreen />
+                </div>
               )}
             </div>
 
