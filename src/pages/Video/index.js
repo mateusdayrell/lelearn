@@ -48,10 +48,10 @@ export default function Cursos() {
       const usuarioVideosResponde = await axios.get(`usuarios-videos/${cpf}/${data.curso.cod_curso}`)
 
 
-      setVideoId(getYoutubeId(data.video.link));
-      setVideo(data.video);
-      setCurso(data.curso);
-      setVideosCurso(orderVideos(data.curso.videos));
+      setVideoId(getYoutubeId(data?.video.link));
+      setVideo(data?.video);
+      setCurso(data?.curso);
+      setVideosCurso(orderVideos(data?.curso.videos));
       setVideosUsuario(usuarioVideosResponde.data);
       setIsLoading(false);
     } catch (error) {
@@ -148,7 +148,7 @@ export default function Cursos() {
             <div className='w-full h-[1px] bg-cinza-350 my-3'/>
 
             <div className="flex flex-col gap-4">
-              {videosCurso.map((el) => (
+              {videosCurso?.map((el) => (
                 <div
                   key={el.cod_video}
                   aria-hidden

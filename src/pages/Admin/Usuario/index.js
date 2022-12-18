@@ -386,7 +386,11 @@ export default function Usuario() {
         </div>
 
         <div className='container-list'>
-          {usuarios.slice(inicio, fim).map((usuario) => (
+          {!usuarios || usuarios.length === 0 ?
+          <div className='w-full h-full text-center text-cinza-200 text-lg'>
+            <p>Nenhum usuário encontrado.</p>
+          </div>
+          : usuarios?.slice(inicio, fim).map((usuario) => (
             <div
               key={usuario.cpf}
               className="list"

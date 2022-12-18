@@ -61,8 +61,8 @@ export default function GestaoCursos() {
       const cursosResponse = await axios.get('/cursos/');
       const videosReponse = await axios.get('/videos/');
       setIsLoading(false);
-      setCursos(cursosResponse.data);
-      setVideos(videosReponse.data)
+      setCursos(cursosResponse?.data);
+      setVideos(videosReponse?.data)
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
@@ -96,7 +96,7 @@ export default function GestaoCursos() {
       }
 
       setIsLoading(false);
-      setCursos(response.data);
+      setCursos(response?.data);
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
@@ -190,9 +190,9 @@ export default function GestaoCursos() {
       setIsLoading(false);
 
       setCursoVideos(orderVideos(data));
-      setCodCurso(curso.cod_curso);
-      setNome(curso.nome_curso);
-      setDescricao(curso.desc_curso);
+      setCodCurso(curso?.cod_curso);
+      setNome(curso?.nome_curso);
+      setDescricao(curso?.desc_curso);
       // if (curso.arquivo_url) setShowFoto(curso.arquivo_url)
       setDeleted(!!curso.deleted_at)
 
@@ -303,7 +303,7 @@ export default function GestaoCursos() {
                   value={searchVideo}
                   onChange={(e) => setSearchVideo(e.target.value)}>
                   <option value="" disabled >Selecione um vídeo</option>
-                  {videos.length > 0
+                  {videos?.length > 0
                     ? videos.map((c) => (
                       <option key={`s${c.cod_video}`} value={c.cod_video}>
                         {c.titulo_video}
@@ -368,7 +368,11 @@ export default function GestaoCursos() {
         </div>
 
         <div className="container-list">
-          {cursos.slice(inicio, fim).map((curso) => (
+          {!cursos || cursos?.length === 0 ?
+            <div className='w-full h-full text-center text-cinza-200 text-lg'>
+              <p>Nenhum curso encontrado.</p>
+            </div>
+          : cursos?.slice(inicio, fim).map((curso) => (
             <div
               key={curso.cod_curso}
               className="list"
@@ -415,7 +419,7 @@ export default function GestaoCursos() {
         <div className='mt-3 ml-2'>
           {videos &&
             <Pagination
-              total={cursos.length}
+              total={cursos?.length}
               itemsPerPage={ITEMS_PER_PAGE}
               handleNewPage={handleNewPage} />
           }
