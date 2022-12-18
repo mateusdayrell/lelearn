@@ -28,16 +28,16 @@ export default function Cursos() {
   const [videosUsuario, setVideosUsuario] = useState([])
   const [curso, setCurso] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  // const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(false);
   const [videoId, setVideoId] = useState('');
 
   useEffect(() => {
     loadRegisters(params.cod_video);
   }, []);
 
-  // useEffect(() => {
-  //   if(videoId &&videoId.length > 0) setReady(true);
-  // }, [videoId]);
+  useEffect(() => {
+    if(videoId &&videoId.length > 0) setReady(true);
+  }, [videoId]);
 
   const loadRegisters = async (codVideo) => {
     const { cod_curso } = params
@@ -103,7 +103,7 @@ export default function Cursos() {
         <div className='flex'>
           <div className="ContainerCentralPageVideo">
             <div className='ContainerVideo'>
-              {videoId &&videoId.length > 0 ? (
+              {(videoId &&videoId.length) || ready > 0 ? (
                 // <iframe width="853" height="480" src={video.link} title="Como inserir vídeo do YouTube no seu site HTML (Embed)" frameBorder="0" allow="accelerometer" allowFullScreen />
 
                 <Player>
