@@ -36,7 +36,7 @@ export default function Cursos() {
   }, []);
 
   useEffect(() => {
-    if(videoId.length > 0) setReady(true);
+    if(videoId &&videoId.length > 0) setReady(true);
   }, [videoId]);
 
   const loadRegisters = async (codVideo) => {
@@ -47,8 +47,9 @@ export default function Cursos() {
       const { data } = await axios.get(`/videos/get-by-curso/${cod_curso}/${cod_video}`);
       const usuarioVideosResponde = await axios.get(`usuarios-videos/${cpf}/${data.curso.cod_curso}`)
 
-
-      setVideoId(getYoutubeId(data?.video.link));
+      const a = (getYoutubeId(data?.video.link));
+      console.log(a);
+      setVideoId(a)
       setVideo(data?.video);
       setCurso(data?.curso);
       setVideosCurso(orderVideos(data?.curso.videos));
@@ -104,15 +105,15 @@ export default function Cursos() {
         <div className='flex'>
           <div className="ContainerCentralPageVideo">
             <div className='ContainerVideo'>
-              {ready ? (
+              {videoId &&videoId.length > 0 ? (
                 // <iframe width="853" height="480" src={video.link} title="Como inserir vídeo do YouTube no seu site HTML (Embed)" frameBorder="0" allow="accelerometer" allowFullScreen />
 
                 <Player>
-                    <Youtube videoId={videoId} />
-                    <DefaultUi />
-                  </Player>
+                  <Youtube videoId={videoId} />
+                  <DefaultUi />
+                </Player>
               ) : (
-                ''
+                <p>Video nao encontrado</p>
               )}
             </div>
 
