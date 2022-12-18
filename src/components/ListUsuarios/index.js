@@ -11,7 +11,7 @@ export default function ListUsuarios({ treinUsuarios, setTreinUsuarios, handleRe
   const handleData = (date, index) => {
     const arr = [...treinUsuarios]
 
-    const dateFormated = moment(date, 'YYYY-MM-DD').format("YYYY-MM-DD")
+    const dateFormated = moment(date, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
     arr[index].treinamentos_usuarios.prazo = dateFormated
     setTreinUsuarios(arr)
   }

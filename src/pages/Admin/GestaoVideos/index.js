@@ -285,7 +285,7 @@ export default function GestaoVideos() {
                   <option value="" disabled>
                     Selecione um curso
                   </option>
-                  {cursos.length > 0
+                  {cursos?.length > 0
                     ? cursos.map((c) => (
                       <option key={`s1${c.cod_curso}`} value={c.cod_curso}>
                         {c.nome_curso}
@@ -349,7 +349,11 @@ export default function GestaoVideos() {
         </div>
 
         <div className='container-list'>
-          {videos.slice(inicio, fim).map((video) => (
+          {!videos || videos.length === 0 ?
+          <div className='w-full h-full text-center text-cinza-200 text-lg'>
+            <p>Nenhum vídeo encontrado.</p>
+          </div>
+          : videos?.slice(inicio, fim).map((video) => (
             <div
               key={`vid${video.cod_video}`}
               className="list"
@@ -396,7 +400,7 @@ export default function GestaoVideos() {
         <div className='mt-3 ml-2'>
           {videos &&
             <Pagination
-              total={videos.length}
+              total={videos?.length}
               itemsPerPage={ITEMS_PER_PAGE}
               handleNewPage={handleNewPage} />
           }
@@ -471,10 +475,10 @@ export default function GestaoVideos() {
                 />
               </div>
 
-              {videoCursos.length > 0 &&
+              {videoCursos?.length > 0 &&
                 <div className="InputArea">
                   <label>Cursos</label>
-                  {videoCursos.map(curso => <div key={curso.cod_curso} className='text-sm text-cinza-200'>{curso.nome_curso}</div>)}
+                  {videoCursos?.map(curso => <div key={curso.cod_curso} className='text-sm text-cinza-200'>{curso.nome_curso}</div>)}
                 </div>
               }
             </div>

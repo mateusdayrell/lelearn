@@ -62,13 +62,13 @@ export default function GestaoTreinamentos() {
       const cursosResponse = await axios.get('/cursos/');
       setIsLoading(false);
 
-      setTreinamentos(treinamentosResponse.data);
-      setUsuarios(usuariosResponse.data);
-      setCursos(cursosResponse.data);
+      setTreinamentos(treinamentosResponse?.data);
+      setUsuarios(usuariosResponse?.data);
+      setCursos(cursosResponse?.data);
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
-      erros.map((err) => toast.error(err));
+      erros?.map((err) => toast.error(err));
       if(error.response.status === 401) {
         dispatch(loginFailure());
         history.push('/login');
@@ -95,7 +95,7 @@ export default function GestaoTreinamentos() {
       }
       setIsLoading(false);
 
-      setTreinamentos(response.data);
+      setTreinamentos(response?.data);
       setSearchOrdem('nome_treinamento asc') // reserar valor do input ao pesquisar
     } catch (error) {
       setIsLoading(false);
@@ -184,13 +184,13 @@ export default function GestaoTreinamentos() {
       const { data } = await axios.get(`/treinamentos/${treinamento.cod_treinamento}`);
       setIsLoading(false);
 
-      setTreinUsuarios(data.usuarios);
-      setTreinCursos(data.cursos);
-      setCor(data.cor)
-      setCodTreinamento(treinamento.cod_treinamento);
-      setNome(treinamento.nome_treinamento);
-      setDescricao(treinamento.desc_treinamento);
-      setDeleted(!!treinamento.deleted_at);
+      setTreinUsuarios(data?.usuarios);
+      setTreinCursos(data?.cursos);
+      setCor(data?.cor)
+      setCodTreinamento(treinamento?.cod_treinamento);
+      setNome(treinamento?.nome_treinamento);
+      setDescricao(treinamento?.desc_treinamento);
+      setDeleted(!!treinamento?.deleted_at);
 
       setIsUpdating(true);
       setShowFormModal(true);
@@ -204,8 +204,8 @@ export default function GestaoTreinamentos() {
   };
 
   const handleIsDeleting = (treinamento) => {
-    setCodTreinamento(treinamento.cod_treinamento);
-    setNome(treinamento.nome_treinamento);
+    setCodTreinamento(treinamento?.cod_treinamento);
+    setNome(treinamento?.nome_treinamento);
     setDeleted(!!treinamento.deleted_at);
     setShowDeleteModal(true);
     setShowFormModal(false);
@@ -308,7 +308,7 @@ export default function GestaoTreinamentos() {
                   <option value="" disabled>
                     Selecione um usuário
                   </option>
-                  {usuarios.length > 0
+                  {usuarios?.length > 0
                     ? usuarios.map((u) => (
                       <option key={`s1${u.cpf}`} value={u.cpf}>
                         {u.nome}
@@ -326,7 +326,7 @@ export default function GestaoTreinamentos() {
                   <option value="" disabled>
                     Selecione um curso
                   </option>
-                  {cursos.length > 0
+                  {cursos?.length > 0
                     ? cursos.map((c) => (
                       <option key={`s2${c.cod_curso}`} value={c.cod_curso}>
                         {c.nome_curso}
@@ -390,54 +390,58 @@ export default function GestaoTreinamentos() {
         </div>
 
         <div className='container-list'>
-          {treinamentos.slice(inicio, fim).map((treinamento) => (
-            <div
-              key={`trein${treinamento.cod_treinamento}`}
-              className="list"
-            >
-              <div className='container-information-list'>
-                {/* <span className='cod-container-list'>{treinamento.cod_treinamento}</span> */}
-                <div className='bar-container-list' />
-                <span className='name-container-list'>
-                  <span>{treinamento.nome_treinamento}</span>
-                  <span className={treinamento.deleted_at ? 'subname-container-list-red' : 'hidden'}>
-                    <small>{treinamento.deleted_at ? 'Treinamento desativado' : ''}</small>
+          {!treinamentos || treinamentos?.length === 0 ?
+            <div className='w-full h-full text-center text-cinza-200 text-lg'>
+              <p>Nenhum treinamento encontrado.</p>
+            </div>
+          :  treinamentos?.slice(inicio, fim).map((treinamento) => (
+              <div
+                key={`trein${treinamento.cod_treinamento}`}
+                className="list"
+              >
+                <div className='container-information-list'>
+                  {/* <span className='cod-container-list'>{treinamento.cod_treinamento}</span> */}
+                  <div className='bar-container-list' />
+                  <span className='name-container-list'>
+                    <span>{treinamento.nome_treinamento}</span>
+                    <span className={treinamento.deleted_at ? 'subname-container-list-red' : 'hidden'}>
+                      <small>{treinamento.deleted_at ? 'Treinamento desativado' : ''}</small>
+                    </span>
                   </span>
+                </div>
+
+                <span className='buttons-container-list'>
+                  <button
+                    type="button"
+                    title={treinamento.deleted_at ? "Visualizar" : "Editar"}
+                    className={treinamento.deleted_at ? 'round-blue-btn':'round-green-btn'}
+                    onClick={() => handleIsUpdating(treinamento)}
+                  >
+                    {treinamento.deleted_at
+                      ? <Eye size={20} />
+                      : <PencilSimple size={20} />
+                    }
+                  </button>
+                  <button
+                    type="button"
+                    title={treinamento.deleted_at ? "Excluir" : "Desativar"}
+                    className='red-btn'
+                    onClick={() => handleIsDeleting(treinamento)}
+                  >
+                    {treinamento.deleted_at
+                      ? <TrashSimple size={20} />
+                      : <MinusCircle size={20} />
+                    }
+                  </button>
                 </span>
               </div>
-
-              <span className='buttons-container-list'>
-                <button
-                  type="button"
-                  title={treinamento.deleted_at ? "Visualizar" : "Editar"}
-                  className={treinamento.deleted_at ? 'round-blue-btn':'round-green-btn'}
-                  onClick={() => handleIsUpdating(treinamento)}
-                >
-                  {treinamento.deleted_at
-                    ? <Eye size={20} />
-                    : <PencilSimple size={20} />
-                  }
-                </button>
-                <button
-                  type="button"
-                  title={treinamento.deleted_at ? "Excluir" : "Desativar"}
-                  className='red-btn'
-                  onClick={() => handleIsDeleting(treinamento)}
-                >
-                  {treinamento.deleted_at
-                    ? <TrashSimple size={20} />
-                    : <MinusCircle size={20} />
-                  }
-                </button>
-              </span>
-            </div>
-          ))}
+            ))}
         </div>
 
         <div className='mt-3 ml-2'>
           {treinamentos &&
             <Pagination
-              total={treinamentos.length}
+              total={treinamentos?.length}
               itemsPerPage={itemsPerPage}
               handleNewPage={handleNewPage} />
           }

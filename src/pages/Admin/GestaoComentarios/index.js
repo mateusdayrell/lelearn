@@ -8,7 +8,6 @@ import moment from 'moment/moment';
 
 import './style.css';
 import Loading from '../../../components/Loading';
-import OrderSelect from '../../../components/OrderSelect';
 import Pagination from '../../../components/Pagination';
 import axios from '../../../services/axios';
 import CommentArea from '../../../components/CommentArea';
@@ -42,7 +41,6 @@ export default function GestaoComentarios() {
   const [searchCurso, setSearchCurso] = useState('');
   const [searchVideo, setSearchVideo] = useState('');
   const [searchUsuario, setSearchUsuario] = useState('');
-  const [searchOrdem, setSearchOrdem] = useState('');
   const [searchResolvido, setSearchResolvido] = useState("0");
 
   const [isLoading, setIsLoading] = useState(false);
@@ -293,11 +291,6 @@ export default function GestaoComentarios() {
     setIsDeleting('');
   };
 
-  const handleOrderChange = (array, ordem) => {
-    setComentarios(array)
-    setSearchOrdem(ordem)
-  }
-
   const handleNewPage = (novoInicio, novoFim) => {
     setInicio(novoInicio)
     setFim(novoFim)
@@ -368,8 +361,8 @@ export default function GestaoComentarios() {
                   <option value="" disabled>
                     Selecione um usuário
                   </option>
-                  {usuarios.length > 0
-                    ? usuarios.map((u) => (
+                  {usuarios?.length > 0
+                    ? usuarios?.map((u) => (
                       <option key={`s1${u.cpf}`} value={u.cpf}>
                         {u.nome}
                       </option>
@@ -387,8 +380,8 @@ export default function GestaoComentarios() {
                   <option value="" disabled>
                     Selecione um curso
                   </option>
-                  {cursos.length > 0
-                    ? cursos.map((c) => (
+                  {cursos?.length > 0
+                    ? cursos?.map((c) => (
                       <option key={`s1${c.cod_curso}`} value={c.cod_curso}>
                         {c.nome_curso}
                       </option>
@@ -401,7 +394,7 @@ export default function GestaoComentarios() {
                   className="search-input"
                   id="video"
                   value={searchVideo}
-                  disabled={(videosDoCurso.length === 0)}
+                  disabled={(videosDoCurso?.length === 0)}
                   onChange={(e) => setSearchVideo(e.target.value)}
                 >
                   <option value="" disabled>
@@ -450,15 +443,12 @@ export default function GestaoComentarios() {
           </div>
         </div>
 
-        <div className='container-order'>
-          <OrderSelect
-            handleOrderChange={handleOrderChange}
-            searchOrdem={searchOrdem}
-            array={comentarios} />
-        </div>
-
         <div className='ListContainerComentario'>
-          {comentarios.slice(inicio, fim).map((item) => (
+          {!comentarios || comentarios.length === 0 ?
+            <div className='w-full h-full text-center text-cinza-200 text-lg mt-20'>
+              <p>Nenhum comentário encontrado.</p>
+            </div>
+          : comentarios?.slice(inicio, fim).map((item) => (
             <div
               key={`com${item.cod_comentario}`}
               className="ComentarioList"
@@ -576,7 +566,7 @@ export default function GestaoComentarios() {
                   </div>
                 </div>
               </div>
-              {respostas.length > 0 &&
+              {respostas?.length > 0 &&
                 <div>
                   <h3>Respostas</h3>
                   <div className='overflow-scroll  w-full h-[280px]'>
