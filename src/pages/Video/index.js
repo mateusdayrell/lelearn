@@ -28,16 +28,16 @@ export default function Cursos() {
   const [videosUsuario, setVideosUsuario] = useState([])
   const [curso, setCurso] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [ready, setReady] = useState(false);
+  // const [ready, setReady] = useState(false);
   const [videoId, setVideoId] = useState('');
 
   useEffect(() => {
     loadRegisters(params.cod_video);
   }, []);
 
-  useEffect(() => {
-    if(videoId &&videoId.length > 0) setReady(true);
-  }, [videoId]);
+  // useEffect(() => {
+  //   if(videoId &&videoId.length > 0) setReady(true);
+  // }, [videoId]);
 
   const loadRegisters = async (codVideo) => {
     const { cod_curso } = params
@@ -47,9 +47,7 @@ export default function Cursos() {
       const { data } = await axios.get(`/videos/get-by-curso/${cod_curso}/${cod_video}`);
       const usuarioVideosResponde = await axios.get(`usuarios-videos/${cpf}/${data.curso.cod_curso}`)
 
-      const a = (getYoutubeId(data?.video.link));
-      console.log(a);
-      setVideoId(a)
+      setVideoId(getYoutubeId(data?.video.link))
       setVideo(data?.video);
       setCurso(data?.curso);
       setVideosCurso(orderVideos(data?.curso.videos));
