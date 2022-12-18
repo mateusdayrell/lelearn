@@ -4,6 +4,7 @@ import { MagnifyingGlass, PaintBrushHousehold, Plus, X, PencilSimple, TrashSimpl
 import Modal from 'react-modal';
 import { get } from 'lodash';
 import { useDispatch } from 'react-redux';
+import getYoutubeId from 'get-youtube-id';
 
 import './style.css';
 import Loading from '../../../components/Loading';
@@ -159,6 +160,10 @@ export default function GestaoVideos() {
     } else if (link.length < 3 || link.length > 150) {
       controle = false;
       toast.error('O campo Link deve ter entre 3 e 150 caracteres');
+    } else if (!getYoutubeId(link) || getYoutubeId(link).length === 0) {
+      toast.error('Link inválido.');
+      toast.info('Adicione a URL de um vídeo do Youtube no campo Link.');
+      controle = false;
     }
 
     if (descricao.length > 0 && descricao.length < 3) {
