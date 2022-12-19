@@ -67,16 +67,17 @@ export default function Relatorios() {
   return (
     <>
       <Loading isLoading={isLoading} />
-      <div className='ml-[10%] w-[30%]  items-center mb-8  border-cinza-350 leading-3 text-cinza-200 text-sm rounded-xl p-6 select-none bg-cinza-400' >
+      <div className='w-full h-full flex justify-center items-center'>
+      <div className=' w-[40%] mt-[10%] items-center mb-8  border-cinza-350 leading-3 text-cinza-200 text-sm rounded-xl p-6 select-none bg-cinza-400 shadow-black shadow-lg' >
       <div className="w-full h-full g-curso-container">
-        <div className='title'>Relatórios</div>
+        <div className='title hover:cursor-pointer '>Relatórios</div>
         <div className=' h-[15%] '>
           <form action={url} method="get" target="_blank">
             <div className='flex gap-5'>
               <div>
-                <label className='mb-2'>Tipo de relatório</label>
+                <label className='mb-2 text-verde-600'>Tipo de relatório</label>
                 <select
-                  className='w-full min-w-full'
+                  className='w-full min-w-full hover:cursor-pointer '
                   name="tipo"
                   value={tipo}
                   onChange={(e) => setTipo(e.target.value)}>
@@ -90,9 +91,9 @@ export default function Relatorios() {
               </div>
               {(tipo === "usuario-treinamentos" || tipo === "usuario-cursos")  &&
                 <div>
-                  <label className='mb-2'>Usuário</label>
+                  <label className='mb-2 text-verde-600'>Usuário</label>
                   <select
-                  className='w-full min-w-full'
+                  className='w-full min-w-full hover:cursor-pointer '
                     name="usuario"
                     value={valor}
                     onChange={(e) => setValor(e.target.value)}>
@@ -107,9 +108,9 @@ export default function Relatorios() {
               }
               {tipo === "treinamento"  &&
                 <div>
-                  <label className='mb-2'>Treinamento</label>
+                  <label className='mb-2 text-verde-600 '>Treinamento</label>
                   <select
-                  className='w-full min-w-full'
+                  className='w-full min-w-full '
                     name="treinamento"
                     value={valor}
                     onChange={(e) => setValor(e.target.value)}>
@@ -123,12 +124,13 @@ export default function Relatorios() {
                 </div>
               }
             </div>
-            <div className='mt-3'>
-              <input type="submit" value="Gerar relatório" disabled={disabled}/>
+            <div className='mt-3 '>
+              <input className="text-white hover:bg-verde-100 cursor-pointer" type="submit" value="Gerar relatório" disabled={disabled}/>
               <p className='InformationP'><i>O relatório será gerado em formato PDF.</i></p>
             </div>
           </form>
         </div>
+      </div>
       </div>
       </div>
     </>
