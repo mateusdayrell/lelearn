@@ -40,8 +40,8 @@ export default function CardCurso({ curso, assistidos, total }) {
               fill="url(#paint0_linear_673_1687)" />
             <defs>
               <linearGradient id="paint0_linear_673_1687" x1="68.9037" y1="30.1469" x2="203.981" y2="83.8291" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#8338EC" />
-                <stop offset="0.889541" stop-color="#4D149D" />
+                <stop stop-color="#8338EC" /> {/* eslint-disable-line */}
+                <stop offset="0.889541" stop-color="#4D149D" /> {/* eslint-disable-line */}
               </linearGradient>
             </defs>
           </svg>
