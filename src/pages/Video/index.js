@@ -36,6 +36,10 @@ export default function Cursos() {
   }, []);
 
   useEffect(() => {
+    loadRegisters(params.cod_video);
+  }, [params.cod_video]);
+
+  useEffect(() => {
     if(videoId &&videoId.length > 0) setReady(true);
   }, [videoId]);
 
@@ -82,9 +86,10 @@ export default function Cursos() {
 
   const handleRedirect = (codVideo) => {
     setReady(false)
+    setVideoId('')
     const { cod_curso } = params
     uHistory.push(`/videos/${cod_curso}/${codVideo}`);
-    loadRegisters(codVideo)
+    // loadRegisters(codVideo)
   };
 
   const handleRedirectCurso = (cod_curso) => {
