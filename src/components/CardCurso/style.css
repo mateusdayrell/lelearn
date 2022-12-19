@@ -2,11 +2,11 @@
   @apply w-80 h-60 bg-cinza-400 shadow-md rounded-xl
 }
 .TitleCardCurso{
-  @apply font-bold text-lg text-laranja-100 absolute -translate-y-24 translate-x-4 w-64
+  @apply font-semibold text-lg text-cinza-100 absolute -translate-y-24 translate-x-4 w-64
 }
 
 .ProgressBarCurso {
-  @apply bg-laranja-100 flex h-1 text-xs font-semibold items-center px-1 rounded justify-end text-cinza-100
+  @apply bg-laranja-100 flex h-2 text-xs font-semibold items-center px-1 rounded justify-end text-cinza-100
 }
 .ProgressBarCurso small {
   @apply translate-x-6

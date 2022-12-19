@@ -1,7 +1,6 @@
 .ContainerLateralHome {
   @apply w-1/4 h-full
 }
-
-.PathSVGHome {
-  @apply drop-shadow-xl
+.SVGHome path{
+  @apply drop-shadow-md
 }
