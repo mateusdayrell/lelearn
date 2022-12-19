@@ -127,7 +127,7 @@ input:-webkit-autofill:active  {
 }
 
 .title{
-  @apply text-verde-100 mb-2 text-xl font-medium tracking-wide
+  @apply text-cinza-100 mb-2 text-xl font-medium tracking-wide
 }
 
 .search-container{

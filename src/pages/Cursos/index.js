@@ -79,10 +79,13 @@ export default function Cursos() {
           </div>
         </div>
 
-        {cursos.map((curso) => (
-          <CardCurso
-            key={curso.cod_curso} curso={curso} assistidos={curso.videos_assistidos} total={curso.total_videos} />
-        ))}
+
+        <div className='flex gap-3 flex-wrap'>
+          {cursos.map((curso) => (
+            <CardCurso
+              key={curso.cod_curso} curso={curso} assistidos={curso.videos_assistidos} total={curso.total_videos} />
+          ))}
+        </div>
       </div>
     </>
   );
