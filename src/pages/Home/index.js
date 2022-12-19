@@ -9,7 +9,6 @@ import Calendario from '../../components/Calendario';
 import TimelineTreinamento from '../../components/TimelineTreinamento';
 import Loading from '../../components/Loading';
 import './style.css';
-import Relatorios from '../Admin/Relatorios';
 
 export default function Home() {
   const location = useLocation();
@@ -18,6 +17,7 @@ export default function Home() {
 
   const [nomeUsuario, setNomeUsuario] = useState('Não logado');
   const [treinamentos, setTreinamentos] = useState([]);
+  const [cursos, setCursos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -33,7 +33,9 @@ export default function Home() {
     try {
       setIsLoading(true);
       const { data } = await axios.get(`/usuarios/get-treinamentos/${cpf}`);
+      const cursosResponse = await axios.get(`/usuarios/get-cursos/${cpf}`);
       setTreinamentos(data);
+      setCursos(cursosResponse?.data)
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -65,7 +67,16 @@ export default function Home() {
               </div>
             </div>
 
-            <h2 className='text-laranja-100 font-semibold my-2'>Treinamentos em andamento</h2>
+            <h2 className='text-laranja-100 font-semibold my-2'>Cursos em andamento</h2>
+            {!cursos || cursos.length === 0
+              ? <p>Nenhum curso iniciado</p> // estiliza isso aqui tbm, pode mudar o texto
+              : cursos?.map((curso) => (
+                curso.videos_assistidos > 0 && curso.videos_assistidos < curso.total_videos &&
+                <div key={curso.cod_curso}>
+                  <p>{curso.nome_curso} - {curso.total_videos > 0 && `${Math.floor(curso.videos_assistidos / curso.total_videos * 100)  }%`}</p>
+                </div>
+              ))
+            }
           </div>
 
           <div className='w-[1px] rounded h-[full] bg-cinza-350 mx-2' />
