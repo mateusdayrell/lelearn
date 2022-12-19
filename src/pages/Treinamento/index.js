@@ -52,7 +52,7 @@ export default function Treinamento() {
       <h1 className='SubTitle'>Cursos</h1>
 
 
-        <div>
+        <div className='flex flex-wrap gap-3'>
           {cursos.map((curso) => (
             <CardCurso
               key={curso.cod_curso} curso={curso} assistidos={curso.videos_assistidos} total={curso.total_videos} />

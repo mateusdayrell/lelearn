@@ -229,7 +229,7 @@ export default function GestaoComentarios() {
 
       if (isDeleting === 'resposta') await loadRepplyes();
       else await loadRegisters();
-      handleClose();
+      handleCloseDelete();
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
@@ -237,13 +237,21 @@ export default function GestaoComentarios() {
     }
   };
 
-  const handleIsAnswering = (obj) => {
+  const handleIsAnswering = async(obj) => {
     const comment = { ...obj };
 
-    setRespostas(comment.respostas);
-    setVideo(comment.video);
+    try { // respostas
+      setIsLoading(true);
+      const { data } = await axios.get(`/comentarios/${comment.cod_comentario}`);
+      setRespostas(data?.respostas || []);
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false);
+      const { erros } = error.response.data;
+      erros.map((err) => toast.error(err));
+    }
 
-    delete comment.respostas;
+    setVideo(comment.video);
     delete comment.video;
 
     setComentario(comment);
@@ -268,13 +276,14 @@ export default function GestaoComentarios() {
     loadRegisters();
   };
 
-  const handleClose = async () => {
-    if (isDeleting !== 'resposta') setShowFormModal(false);
-    if (!isDeleting) {
-      if (serachTexto || searchCurso || searchVideo || searchUsuario || searchResolvido) await handleSearch();
-      else await loadRegisters();
-    }
-    setShowDeleteModal(false);
+  const handleClose = () => {
+    clearValues()
+    setShowFormModal(false);
+    setShowDeleteModal(false)
+  };
+
+  const handleCloseDelete = () => {
+    setShowDeleteModal(false)
     clearValues();
   };
 
@@ -593,14 +602,14 @@ export default function GestaoComentarios() {
 
         <Modal
           isOpen={showDeleteModal}
-          onRequestClose={handleClose}
+          onRequestClose={handleCloseDelete}
           className="Modal"
           overlayClassName="Overlay"
           ariaHideApp={false}
         >
           <div className="ModalHeader">
             <span>Excluir comentário</span>
-            <button className="CloseModal" title='Fechar' type="button" onClick={handleClose}>
+            <button className="CloseModal" title='Fechar' type="button" onClick={handleCloseDelete}>
               <X size={24} />
             </button>
           </div>
@@ -617,7 +626,7 @@ export default function GestaoComentarios() {
             <button
               className="GrayBtn"
               type="button"
-              onClick={handleClose}>
+              onClick={handleCloseDelete}>
               Cancelar
             </button>
             <button

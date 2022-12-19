@@ -1,65 +1,16 @@
-.search-containers {
-    @apply bg-cinza-400 w-[50%] min-w-[50%] pl-3 pr-3 rounded-xl shadow-md mb-4
-  }
-  
-  .list-cursos:hover .title-curso {
-    @apply text-[20px] text-verde-100 transition-all duration-500
-  }
-  
-  .list-cursos:hover {
-    @apply shadow-verde-100 shadow-md transition-all duration-300
-  }
-  
-  .acessar-button {
-    @apply bg-cinza-500 text-white font-semibold px-2 rounded-xl shadow-md m-1 h-[60px] w-[60px] flex justify-center
-  }
-  
-  .play-button {
-    @apply items-center m-[auto] p-[auto]
-  }
-  
-  .msg-button {
-    @apply hidden
-  }
-  
-  .acessar-button:hover .msg-button {
-    @apply flex text-[11px]
-  }
-  
-  .desc-curso {
-    @apply text-xs w-[-100%] h-[-100%] text-[12px]
-  }
-  
-  .list-cursos:hover .desc-curso {
-    @apply text-xs text-[15px] text-green-200 flex duration-700 shadow-verde-100
-  }
-
-.ContainerCardCurso{
-  @apply w-full h-28 bg-cinza-400 shadow-md rounded mb-3 flex items-center pr-4 justify-between text-cinza-200
-}
-.Cursos-info {
-  @apply flex flex-col w-2/3 ml-6
+.ContainerCardCurso {
+  @apply w-80 h-60 bg-cinza-400 shadow-md rounded-xl
 }
 .TitleCardCurso{
-  @apply font-semibold
+  @apply font-semibold text-lg text-cinza-100 absolute -translate-y-24 translate-x-4 w-64
 }
 
-
-.BtnCurso{
-  @apply flex
+.ProgressBarCurso {
+  @apply bg-laranja-100 flex h-2 text-xs font-semibold items-center px-1 rounded justify-end text-cinza-100
 }
-.BtnCurso button{
-  @apply flex rounded-lg items-center gap-1 justify-center px-2 text-sm text-cinza-500 shadow duration-300 py-1
-  hover:px-3
-}
-
-
-.ProgressBarCurso{
-  @apply bg-laranja-100 flex h-1 text-xs font-semibold items-center px-1 rounded justify-end text-cinza-100
-}
-.ProgressBarCurso small{
+.ProgressBarCurso small {
   @apply translate-x-6
 }
-.ProgressBarCompleteCurso{
+.ProgressBarCompleteCurso {
   @apply bg-verde-100 flex h-2 text-xs font-semibold items-center px-2 rounded-t text-cinza-500 justify-center
 }
