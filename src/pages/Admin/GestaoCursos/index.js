@@ -156,7 +156,8 @@ export default function GestaoCursos() {
       setIsLoading(false);
       if (deleted) toast.success('Curso excluído com sucesso!')
       else toast.success('Curso desativado com sucesso!')
-      await loadRegisters();
+      if (searchNome || searchVideo || searchStatus === 'ativo') handleSearch()
+      else await loadRegisters();
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
