@@ -1,6 +1,6 @@
 .CardContainer{
     @apply w-72 h-44 shadow-lg transition-all flex flex-col bg-cinza-400
-} 
+}
 
 /* ANIMATIONS */
 .CardContainer:hover .NomeTreinamento{
@@ -41,9 +41,6 @@
 }
 
 /* STYLE PRAZO */
-.PrazoList{
-    @apply translate-y-5 duration-500
-}
 .ProgressBar{
     @apply bg-laranja-100 flex h-2 text-xs font-semibold items-center px-1 rounded-r justify-end text-cinza-100
 }
@@ -55,4 +52,9 @@
 }
 .PrazoListConclused{
     @apply translate-y-5 duration-500 text-cinza-200
+}
+
+
+.TitleCardTreinamento{
+  @apply font-semibold text-lg text-cinza-500 absolute -translate-y-24 translate-x-4 w-64
 }

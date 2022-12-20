@@ -57,6 +57,7 @@ export default function GestaoCursos() {
 
   const loadRegisters = async () => {
     setIsLoading(true);
+    resetPagination()
     try {
       const cursosResponse = await axios.get('/cursos/');
       const videosReponse = await axios.get('/videos/');
@@ -85,6 +86,7 @@ export default function GestaoCursos() {
       cod_video: searchVideo,
       status: searchStatus,
     }).toString();
+    resetPagination()
     try {
       let response = null;
 
@@ -156,7 +158,8 @@ export default function GestaoCursos() {
       setIsLoading(false);
       if (deleted) toast.success('Curso excluído com sucesso!')
       else toast.success('Curso desativado com sucesso!')
-      await loadRegisters();
+      if (searchNome || searchVideo || searchStatus === 'ativo') handleSearch()
+      else await loadRegisters();
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
@@ -276,6 +279,12 @@ export default function GestaoCursos() {
       const { erros } = error.response.data;
       erros.map((err) => toast.error(err));
     }
+  }
+
+  const resetPagination = () => {
+    setInicio(0)
+    setFim(ITEMS_PER_PAGE)
+    setSearchOrdem('')
   }
 
   return (

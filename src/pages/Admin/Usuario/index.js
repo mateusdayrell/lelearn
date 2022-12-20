@@ -51,6 +51,7 @@ export default function Usuario() {
 
   const loadRegisters = async () => {
     setIsLoading(true);
+    resetPagination()
     try {
       const { data } = await axios.get('/usuarios/');
 
@@ -76,6 +77,7 @@ export default function Usuario() {
     }).toString();
 
     setIsLoading(true);
+    resetPagination()
     try {
       let response = null;
 
@@ -140,7 +142,8 @@ export default function Usuario() {
       setIsLoading(false);
       if (deleted) toast.success('Usuário excluído com sucesso!')
       else toast.success('Usuário desativado com sucesso!')
-      await loadRegisters();
+      if (searchCpf || searchNome || searchTipo || searchStatus === 'ativo') handleSearch()
+      else await loadRegisters();
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
@@ -284,6 +287,11 @@ export default function Usuario() {
     }
   }
 
+  const resetPagination = () => {
+    setInicio(0)
+    setFim(itemsPerPage)
+    setSearchOrdem('')
+  }
 
   return (
     <>

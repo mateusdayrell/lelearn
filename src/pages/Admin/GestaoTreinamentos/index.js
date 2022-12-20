@@ -147,7 +147,8 @@ export default function GestaoTreinamentos() {
       if (deleted) toast.success('Treinamento excluído com sucesso!');
       else toast.success('Treinamento desativado com sucesso!');
 
-      await loadRegisters();
+      if (searchNome || searchUsuario || searchCurso || searchStatus !== 'ativo') handleSearch()
+      else await loadRegisters();
     } catch (error) {
       setIsLoading(false);
 
@@ -216,7 +217,6 @@ export default function GestaoTreinamentos() {
     setSearchUsuario('');
     setSearchCurso('');
     setSearchStatus('ativo')
-    resetPagination()
     loadRegisters();
   };
 
