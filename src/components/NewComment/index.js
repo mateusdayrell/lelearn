@@ -45,9 +45,9 @@ export default function NewComment({ codVideo, codCurso, cpf, comentarioPai, loa
     if (!textoResposta) {
       toast.error('Comentário vazio.');
       controle = false;
-    } else if (textoResposta.length < 3 || textoResposta.length > 30) {
+    } else if (textoResposta.length < 3 || textoResposta.length > 150) {
       controle = false;
-      toast.error('O comentário deve ter entre 3 e 30 caracteres');
+      toast.error('O comentário deve ter entre 3 e 150 caracteres');
     }
 
     return controle;
