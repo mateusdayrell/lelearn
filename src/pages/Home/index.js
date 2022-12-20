@@ -74,7 +74,7 @@ export default function Home() {
                   curso.videos_assistidos > 0 && curso.videos_assistidos < curso.total_videos &&
                   <div key={curso.cod_curso} className='w-56 h-20 bg-cinza-400 rounded-3xl flex items-center'>
                     <svg width="91" height="82" viewBox="0 0 91 82" fill="none">
-                      <path classname='drop-shadow-md' d="M0 20C0 8.9543 8.95431 0 20 0H69.4222H70.7434C90.0888 0 98.1635 24.7313 82.5451 36.1468L27.0269 76.7253C24.1156 78.8532 20.6031 80 16.9971 80V80C7.60987 80 0 72.3901 0 63.0029V20Z" fill="url(#paint0_linear_700_1738)" />
+                      <path className='drop-shadow-md' d="M0 20C0 8.9543 8.95431 0 20 0H69.4222H70.7434C90.0888 0 98.1635 24.7313 82.5451 36.1468L27.0269 76.7253C24.1156 78.8532 20.6031 80 16.9971 80V80C7.60987 80 0 72.3901 0 63.0029V20Z" fill="url(#paint0_linear_700_1738)" />
                       <defs>
                         <linearGradient id="paint0_linear_700_1738" x1="11.5" y1="63" x2="82.1628" y2="4.00801" gradientUnits="userSpaceOnUse">
                           <stop stopColor="#77DFE1" />

@@ -17,7 +17,7 @@ export default function CursoDestaque({data}) {
       <span className='DivNomeCursoDestaque'><p>{data.nome_curso}</p></span>
       <span className='DivDescCursoDestaque'>
         <span className="DescCursoDestaque">
-          <p className="DescCD"><small>{data.desc_curso.length > 60 ? `${data.desc_curso.substring(0,59)}...`:data.desc_curso}</small></p>
+          <p className="DescCD"><span>{data.desc_curso.length > 60 ? `${data.desc_curso.substring(0,59)}...`:data.desc_curso}</span></p>
           <button
               type='button'
               title='Acessar'
