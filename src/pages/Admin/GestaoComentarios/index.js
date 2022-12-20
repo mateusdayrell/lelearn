@@ -4,7 +4,6 @@ import { MagnifyingGlass, PaintBrushHousehold, X, TrashSimple, ChatCircleText, A
 import Modal from 'react-modal';
 import { useSelector , useDispatch } from 'react-redux';
 import { get } from 'lodash';
-import moment from 'moment/moment';
 
 import './style.css';
 import Loading from '../../../components/Loading';
@@ -341,6 +340,11 @@ export default function GestaoComentarios() {
     }
   }
 
+  const handleDate = (data) => {
+    const myDate = new Date(data);
+    return (`${  myDate.getDate()  }/${myDate.getMonth() + 1  }/${  myDate.getFullYear()} ${myDate.getHours()}:${myDate.getMinutes()}`);
+  }
+
   return (
     <>
       <Loading isLoading={isLoading} />
@@ -541,7 +545,7 @@ export default function GestaoComentarios() {
                     <div className='flex gap-10 items-center my-2'>
                       <div className='flex gap-2 items-baseline'>
                         <span className='text-base font-medium'>{comentario.usuario.nome}</span>
-                        <span className='text-cinza-200 text-xs'>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').format('l HH:mm:ss')}</span>
+                        <span className='text-cinza-200 text-xs'>{handleDate(comentario.created_at)}</span>
                       </div>
                       <div className='flex gap-2 items-center'>
                         <span title='Marcar como resolvido'>
@@ -583,7 +587,7 @@ export default function GestaoComentarios() {
                       <div key={resposta.cod_comentario} className='InputArea pb-1'>
                         <label className='flex gap-2 items-baseline'>
                           <span>{resposta.cod_comentario} |{resposta.usuario.nome}</span>
-                          <span className='text-cinza-200 text-xs'>{moment(resposta.created_at, 'YYYY-MM-DD HH:mm:ss').format('l HH:mm:ss')}</span>
+                          <span className='text-cinza-200 text-xs'>{handleDate(resposta.created_at)}</span>
                           <span className='text-cinza-200 text-xs'>{resposta.resolvido ? "Resolvido" : `Não resolvido`}</span>
                         </label>
                         <div >

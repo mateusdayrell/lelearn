@@ -135,7 +135,8 @@ export default function GestaoVideos() {
       setIsLoading(false);
       if (deleted) toast.success('Vídeo excluído com sucesso!')
       else toast.success('Vídeo desativado com sucesso!')
-      await loadRegisters();
+      if (searchTitulo || searchCurso || searchStatus !== 'ativo') await handleSearch();
+      else await loadRegisters();
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
