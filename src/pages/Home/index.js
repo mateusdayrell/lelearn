@@ -18,6 +18,7 @@ export default function Home() {
   const [nomeUsuario, setNomeUsuario] = useState('Não logado');
   const [treinamentos, setTreinamentos] = useState([]);
   const [cursos, setCursos] = useState([]);
+  const [maisAssistidos, setMaisAssistidos] = useState([])
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -34,8 +35,11 @@ export default function Home() {
       setIsLoading(true);
       const { data } = await axios.get(`/usuarios/get-treinamentos/${cpf}`);
       const cursosResponse = await axios.get(`/usuarios/get-cursos/${cpf}`);
+      const maisAssistidosResponse = await axios.get('/cursos-mais-assistidos/');
+
       setTreinamentos(data);
       setCursos(cursosResponse?.data)
+      setMaisAssistidos(maisAssistidosResponse?.data)
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
