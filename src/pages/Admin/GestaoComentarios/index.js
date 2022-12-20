@@ -62,6 +62,7 @@ export default function GestaoComentarios() {
 
   const loadRegisters = async () => {
     setIsLoading(true);
+    resetPagination()
     try {
       const cursosResponse = await axios.get('/cursos/');
       const usuariosResponse = await axios.get('/usuarios/');
@@ -94,6 +95,7 @@ export default function GestaoComentarios() {
     }).toString();
 
     setIsLoading(true);
+    resetPagination()
 
     try {
       let response = null
@@ -343,6 +345,11 @@ export default function GestaoComentarios() {
   const handleDate = (data) => {
     const myDate = new Date(data);
     return (`${  myDate.getDate()  }/${myDate.getMonth() + 1  }/${  myDate.getFullYear()} ${myDate.getHours()}:${myDate.getMinutes()}`);
+  }
+
+  const resetPagination = () => {
+    setInicio(0)
+    setFim(ITEMS_PER_PAGE)
   }
 
   return (

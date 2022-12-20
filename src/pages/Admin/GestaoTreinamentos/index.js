@@ -217,7 +217,6 @@ export default function GestaoTreinamentos() {
     setSearchUsuario('');
     setSearchCurso('');
     setSearchStatus('ativo')
-    resetPagination()
     loadRegisters();
   };
 

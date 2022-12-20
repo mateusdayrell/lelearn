@@ -51,6 +51,7 @@ export default function Usuario() {
 
   const loadRegisters = async () => {
     setIsLoading(true);
+    resetPagination()
     try {
       const { data } = await axios.get('/usuarios/');
 
@@ -76,6 +77,7 @@ export default function Usuario() {
     }).toString();
 
     setIsLoading(true);
+    resetPagination()
     try {
       let response = null;
 
@@ -285,6 +287,11 @@ export default function Usuario() {
     }
   }
 
+  const resetPagination = () => {
+    setInicio(0)
+    setFim(itemsPerPage)
+    setSearchOrdem('')
+  }
 
   return (
     <>

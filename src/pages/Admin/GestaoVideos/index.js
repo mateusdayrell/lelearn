@@ -212,7 +212,6 @@ export default function GestaoVideos() {
     setSearchTitulo('');
     setSearchCurso('');
     setSearchStatus('ativo')
-    resetPagination()
     loadRegisters();
   };
 
