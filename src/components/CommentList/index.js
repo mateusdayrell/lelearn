@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { ArrowLeft } from 'phosphor-react';
-import moment from 'moment/moment';
 
 import './style.css';
 import axios from '../../services/axios';
@@ -97,6 +96,11 @@ export default function CommentList({ cpf, comentarios, comentarioAtivo, loadReg
     setIsDeleting(false)
   }
 
+  const handleDate = (data) => {
+    const myDate = new Date(data);
+    return (`${  myDate.getDate()  }/${myDate.getMonth() + 1  }/${  myDate.getFullYear()} ${myDate.getHours()}:${myDate.getMinutes()}`);
+  }
+
   return (
     <div>
       <Loading isLoading={isLoading} />
@@ -109,7 +113,7 @@ export default function CommentList({ cpf, comentarios, comentarioAtivo, loadReg
           </button>
           <div className='gap-2 flex text-sm items-baseline'>
             <span className='text-verde-100 mt-1'>{comentarioAtivo.usuario.nome}</span>
-            <span className='text-cinza-300 text-xs'>{moment(comentarioAtivo.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</span>
+            <span className='text-cinza-300 text-xs'>{handleDate(comentarioAtivo.created_at)}</span>
             <span>{comentarioAtivo.created_at !== comentarioAtivo.updated_at && ' (editado)'}</span>
             {comentarioAtivo.usuario.cpf === cpf && !isUpdating &&
             <div className='flex text-xs gap-1 text-cinza-200'>
@@ -143,7 +147,7 @@ export default function CommentList({ cpf, comentarios, comentarioAtivo, loadReg
             <div className='flex gap-3'>
               <div className='flex gap-3 items-baseline'>
                 <p className='text-verde-100 text-sm'>{comentario.usuario.nome}</p>
-                <span className='text-cinza-300 text-xs'>{moment(comentario.created_at, 'YYYY-MM-DD HH:mm:ss').format('l')}</span>
+                <span className='text-cinza-300 text-xs'>{handleDate(comentario.created_at)}</span>
                 <span className='text-cinza-300 text-xs'>{comentario.created_at !== comentario.updated_at && ' (editado)'}</span>
                 {cpf === comentario.usuario.cpf &&
                   <div className='flex text-xs gap-1 text-cinza-200'>

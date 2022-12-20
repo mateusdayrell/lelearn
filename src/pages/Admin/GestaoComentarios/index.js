@@ -536,7 +536,7 @@ export default function GestaoComentarios() {
                 </p>
               </div>
               <div className='InputArea'>
-                <label className='flex items-baseline gap-2'>
+                <div className='flex items-baseline gap-2'>
                   {comentario.usuario &&
                     <div className='flex gap-10 items-center my-2'>
                       <div className='flex gap-2 items-baseline'>
@@ -556,7 +556,7 @@ export default function GestaoComentarios() {
                       </div>
                     </div>
                   }
-                </label>
+                </div>
                 <div>
                   <CommentArea ativo={ativo} comentario={comentario} editarResposta={editarResposta} type="pai"
                     textoEditar={textoEditar} setTextoEditar={setTextoEditar} cpf={cpf} handleIsDeleting={handleIsDeleting}
