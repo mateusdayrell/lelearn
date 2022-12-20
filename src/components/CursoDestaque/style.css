@@ -5,12 +5,12 @@
   @apply w-full h-full text-cinza-500 items-center flex justify-center text-3xl font-bold
 }
 .DivDescCursoDestaque{
-  @apply w-full h-20 bg-cinza-400 rounded backdrop-blur-md
+  @apply w-full h-28 min-h-max max-h-20 bg-cinza-400 rounded backdrop-blur-md flex items-center
 }
 
 
 .DescCursoDestaque{
-  @apply flex justify-between items-center p-4
+  @apply flex justify-between items-center p-4 w-full
 }
 .DescCD{
   @apply text-xs text-cinza-100 w-2/3
@@ -24,7 +24,7 @@
   @apply text-cinza-100 duration-500
 }
 .DivCursoDestaque:hover .DivDescCursoDestaque{
-  @apply h-20 bg-white/40 duration-500
+  @apply bg-white/40 duration-500
 }
 .DivCursoDestaque:hover .DescCD{
   @apply text-cinza-500
