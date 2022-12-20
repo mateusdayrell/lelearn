@@ -140,7 +140,8 @@ export default function Usuario() {
       setIsLoading(false);
       if (deleted) toast.success('Usuário excluído com sucesso!')
       else toast.success('Usuário desativado com sucesso!')
-      await loadRegisters();
+      if (searchCpf || searchNome || searchTipo || searchStatus === 'ativo') handleSearch()
+      else await loadRegisters();
     } catch (error) {
       setIsLoading(false);
       const { erros } = error.response.data;
