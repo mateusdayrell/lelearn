@@ -89,7 +89,7 @@ export default function Cursos() {
     setVideoId('')
     const { cod_curso } = params
     uHistory.push(`/videos/${cod_curso}/${codVideo}`);
-    // loadRegisters(codVideo)
+    loadRegisters(codVideo)
   };
 
   const handleRedirectCurso = (cod_curso) => {
@@ -108,7 +108,7 @@ export default function Cursos() {
         <div className='flex'>
           <div className="ContainerCentralPageVideo">
             <div className='ContainerVideo'>
-              {(videoId &&videoId.length) || ready > 0 ? (
+              {(videoId &&videoId.length) || ready ? (
                 <Player>
                   <Youtube videoId={videoId} />
                   <DefaultUi />
