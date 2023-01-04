@@ -12,7 +12,7 @@ Lelearn is a training plataform where you can register videos and set up courses
 
 ## Project setup <br>
 
-To setup the backend you can access [llrn-backed](https://github.com/mateusdayrell/llrn-backend).
+To setup the Lelearn API you can access [llrn-backed](https://github.com/mateusdayrell/llrn-backend).
 
 ```
 # Clone the repository
