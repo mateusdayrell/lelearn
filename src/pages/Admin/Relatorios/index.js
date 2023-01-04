@@ -67,71 +67,71 @@ export default function Relatorios() {
   return (
     <>
       <Loading isLoading={isLoading} />
-      <div className='w-full h-full flex justify-center items-center'>
-      <div className=' w-[40%] mt-[10%] items-center mb-8  border-cinza-350 leading-3 text-cinza-200 text-sm rounded-xl p-6 select-none bg-cinza-400 shadow-black shadow-lg' >
-      <div className="w-full h-full g-curso-container">
-        <div className='title hover:cursor-pointer '>Relatórios</div>
-        <div className=' h-[15%] '>
-          <form action={url} method="get" target="_blank">
-            <div className='flex gap-5'>
-              <div>
-                <label className='mb-2 text-verde-600'>Tipo de relatório</label>
-                <select
-                  className='w-full min-w-full hover:cursor-pointer '
-                  name="tipo"
-                  value={tipo}
-                  onChange={(e) => setTipo(e.target.value)}>
-                    <option value="" disabled>Selecione um tipo</option>
-                    <option value="treinamento">Treinamento</option>
-                    <option value="usuario-treinamentos">Treinamentos do usuário</option>
-                    <option value="usuario-cursos">Cursos do usuário</option>
-                    <option value="cursos">Cursos</option>
-                    <option value="videos">Vídeos</option>
-                </select>
-              </div>
-              {(tipo === "usuario-treinamentos" || tipo === "usuario-cursos")  &&
-                <div>
-                  <label className='mb-2 text-verde-600'>Usuário</label>
-                  <select
-                  className='w-full min-w-full hover:cursor-pointer '
-                    name="usuario"
-                    value={valor}
-                    onChange={(e) => setValor(e.target.value)}>
-                      <option value="" disabled>Selecione um usuário</option>
-                        {usuarios.length > 0 &&
-                          usuarios.map((u) => (
-                            <option key={`u-${u.cpf}`} value={u.cpf}>{u.nome} | {u.cpf}</option>
-                          ))
-                        }
-                  </select>
+      <div className='w-full h-[90vh] flex justify-center items-center'>
+        <div className='w-1/3 h-[40%] flex items-center mb-8  border-cinza-350 leading-3 text-cinza-200 text-sm rounded-xl p-6 select-none bg-cinza-400 shadow-black shadow-lg'>
+          <div className="w-full h-60 g-curso-container">
+            <div className='title hover:cursor-pointer'>Relatórios</div>
+            <div className='h-[15%] mt-6'>
+              <form action={url} method="get" target="_blank">
+                <div className='flex gap-5'>
+                  <div>
+                    <label className='mb-2 text-verde-100'>Tipo de relatório</label>
+                    <select
+                      className='w-full min-w-full hover:cursor-pointer '
+                      name="tipo"
+                      value={tipo}
+                      onChange={(e) => setTipo(e.target.value)}>
+                        <option value="" disabled>Selecione um tipo</option>
+                        <option value="treinamento">Treinamento</option>
+                        <option value="usuario-treinamentos">Treinamentos do usuário</option>
+                        <option value="usuario-cursos">Cursos do usuário</option>
+                        <option value="cursos">Cursos</option>
+                        <option value="videos">Vídeos</option>
+                    </select>
+                  </div>
+                  {(tipo === "usuario-treinamentos" || tipo === "usuario-cursos")  &&
+                    <div>
+                      <label className='mb-2 text-verde-100'>Usuário</label>
+                      <select
+                      className='w-full min-w-full hover:cursor-pointer '
+                        name="usuario"
+                        value={valor}
+                        onChange={(e) => setValor(e.target.value)}>
+                          <option value="" disabled>Selecione um usuário</option>
+                            {usuarios.length > 0 &&
+                              usuarios.map((u) => (
+                                <option key={`u-${u.cpf}`} value={u.cpf}>{u.nome} | {u.cpf}</option>
+                              ))
+                            }
+                      </select>
+                    </div>
+                  }
+                  {tipo === "treinamento"  &&
+                    <div>
+                      <label className='mb-2 text-verde-100 '>Treinamento</label>
+                      <select
+                      className='w-full min-w-full '
+                        name="treinamento"
+                        value={valor}
+                        onChange={(e) => setValor(e.target.value)}>
+                          <option value="" disabled>Selecione um treinamento</option>
+                            {treinamentos.length > 0 &&
+                              treinamentos.map((t) => (
+                                <option key={`t-${t.cod_treinamento}`} value={t.cod_treinamento}>{t.nome_treinamento} | {t.cod_treinamento}</option>
+                              ))
+                            }
+                      </select>
+                    </div>
+                  }
                 </div>
-              }
-              {tipo === "treinamento"  &&
-                <div>
-                  <label className='mb-2 text-verde-600 '>Treinamento</label>
-                  <select
-                  className='w-full min-w-full '
-                    name="treinamento"
-                    value={valor}
-                    onChange={(e) => setValor(e.target.value)}>
-                      <option value="" disabled>Selecione um treinamento</option>
-                        {treinamentos.length > 0 &&
-                          treinamentos.map((t) => (
-                            <option key={`t-${t.cod_treinamento}`} value={t.cod_treinamento}>{t.nome_treinamento} | {t.cod_treinamento}</option>
-                          ))
-                        }
-                  </select>
+                <div className='flex flex-col mt-6 gap-2'>
+                  <input className="text-white hover:bg-verde-100 cursor-pointer w-32" type="submit" value="Gerar relatório" disabled={disabled}/>
+                  <p className='InformationP'><i>O relatório será gerado em formato PDF.</i></p>
                 </div>
-              }
+              </form>
             </div>
-            <div className='mt-3 '>
-              <input className="text-white hover:bg-verde-100 cursor-pointer" type="submit" value="Gerar relatório" disabled={disabled}/>
-              <p className='InformationP'><i>O relatório será gerado em formato PDF.</i></p>
-            </div>
-          </form>
+          </div>
         </div>
-      </div>
-      </div>
       </div>
     </>
   );

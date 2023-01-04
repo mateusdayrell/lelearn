@@ -478,13 +478,16 @@ export default function GestaoComentarios() {
                 <div className='InformationComentario'>
                   {/* <span className='cod-container-list'>{item.cod_comentatio}</span> */}
                   <span className='text-cinza-200'>{item.texto}</span>
-                  <span className='flex flex-col text-xs gap-1'>
-                    <span className='flex gap-2 '>
+                  <div className='flex flex-col text-xs gap-1 mt-2 mb-2'>
+                    <span className='flex gap-2'>
                       <span className='text-azul-100 '>{item.usuario.nome}</span>
                       <span className='text-verde-100 '>Vídeo: {item.video.titulo_video}</span>
                     </span>
-                    <span className='text-laranja-100 '>{item.respostas_pendentes} Respostas pendentes <br /> {item.respostas_total} Respostas total</span>
-                  </span>
+                    <div>
+                      <p className={item.respostas_pendentes > 0 ? 'text-laranja-100' : 'text-cinza-200'}>{item.respostas_pendentes} {item.respostas_pendentes === 1 ? 'resposta pendente' : 'respostas pendentes'}</p>
+                      <p className='text-cinza-200'>{item.respostas_total} {item.respostas_total ? 'resposta total' : 'respostas totais'}</p>
+                    </div>
+                  </div>
                 </div>
 
                 <span className='ButtonsComentario'>

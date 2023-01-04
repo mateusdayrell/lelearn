@@ -2,7 +2,7 @@
   @apply h-full w-[32%] rounded-md bg-gradient-to-r from-indigo-500 to-pink-500 flex flex-col shadow duration-300
 }
 .DivNomeCursoDestaque{
-  @apply w-full h-full text-cinza-500 items-center flex justify-center text-3xl font-bold
+  @apply w-full h-full text-cinza-500 items-center flex justify-center text-center text-3xl font-bold
 }
 .DivDescCursoDestaque{
   @apply w-full h-28 min-h-max max-h-20 bg-cinza-400 rounded backdrop-blur-md flex items-center

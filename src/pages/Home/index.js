@@ -37,7 +37,6 @@ export default function Home() {
       const { data } = await axios.get(`/usuarios/get-treinamentos/${cpf}`);
       const cursosResponse = await axios.get(`/usuarios/get-cursos/${cpf}`);
       const maisAssistidosResponse = await axios.get('/cursos-mais-assistidos/');
-      console.log(maisAssistidosResponse)
       setTreinamentos(data);
       setCursos(cursosResponse?.data)
       setMaisAssistidos(maisAssistidosResponse?.data)
