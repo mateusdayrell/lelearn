@@ -1,6 +1,6 @@
 # LeLearn
 
-:round_pushpin: [To check the project website click here!](http://35.199.125.204/)
+:round_pushpin: [To check the project website click here!](https://llrn-frontend.vercel.app/)
 
 ## Description
 Lelearn is a training plataform where you can register videos and set up courses to train your employees, students or whoever you want. Besides, you'll be able to define deadlines for the trainings, follow the progress of the users, manage comments, users and generate reports.
