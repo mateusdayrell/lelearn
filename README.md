@@ -3,7 +3,7 @@
 :round_pushpin: [To check the project website click here!](http://35.199.125.204/)
 
 ## Description
-Lelearn is a training where you can register videos and set up courses to train your employees, students or whoever you want. Besides, you'll be able to define deadlines for the trainings, follow the progress of the users, manage comments, users and generate reports.
+Lelearn is a training plataform where you can register videos and set up courses to train your employees, students or whoever you want. Besides, you'll be able to define deadlines for the trainings, follow the progress of the users, manage comments, users and generate reports.
 
 ## Technologies used <br>
 - [React JS](https://pt-br.reactjs.org/)
