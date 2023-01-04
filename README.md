@@ -19,7 +19,7 @@ To setup the Lelearn API you can access [llrn-backed](https://github.com/mateusd
 $ git clone https://github.com/mateusdayrell/llrn-frontend.git
 
 # Access the project folder
-$llrn-frontend
+$ cd llrn-frontend
 
 # Install the dependencies
 $ npm install -f
