@@ -147,8 +147,8 @@ export default function RecuperarSenha() {
     } else if (confirmPassword.length < 8) {
       toast.error('A senha deve ter no mínimo 8 caracteres!');
       validate = false;
-    } else if (confirmPassword.length > 20) {
-      toast.error('A senha deve ter no máximo 20 caracteres!');
+    } else if (confirmPassword.length > 15) {
+      toast.error('A senha deve ter no máximo 15 caracteres!');
       validate = false;
     }
 

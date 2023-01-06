@@ -163,17 +163,17 @@ export default function GestaoTreinamentos() {
     if (!nome) {
       toast.error('Preencha o campo Nome!');
       controle = false;
-    } else if (nome.length < 3 || nome.length > 30) {
+    } else if (nome.length < 3 || nome.length > 255) {
       controle = false;
-      toast.error('O campo Nome deve ter entre 3 e 30 caracteres');
+      toast.error('O campo Nome deve ter entre 3 e 255 caracteres');
     }
 
     if (descricao && descricao.length > 0 && descricao.length < 3) {
       controle = false;
       toast.error('O campo Descrição deve ter no mínimo 3 caracteres!');
-    } else if (descricao && descricao.length > 150) {
+    } else if (descricao && descricao.length > 900) {
       controle = false;
-      toast.error('O campo Descrição deve ter no máximo 150 caracteres!');
+      toast.error('O campo Descrição deve ter no máximo 900 caracteres!');
     }
 
     return controle;

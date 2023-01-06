@@ -55,9 +55,9 @@ export default function CommentList({ cpf, comentarios, comentarioAtivo, loadReg
     if (!textoEditar) {
       toast.error('Comentário vazio.');
       controle = false;
-    } else if (textoEditar.length < 3 || textoEditar.length > 30) {
+    } else if (textoEditar.length < 3 || textoEditar.length > 900) {
       controle = false;
-      toast.error('O comentário deve ter entre 3 e 30 caracteres');
+      toast.error('O comentário deve ter entre 3 e 900 caracteres');
     }
 
     return controle;

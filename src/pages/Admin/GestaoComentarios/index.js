@@ -178,16 +178,16 @@ export default function GestaoComentarios() {
       if (!textoEditar) {
         toast.error('Comentário vazio.');
         controle = false;
-      } else if (textoEditar.length < 3 || textoEditar.length > 30) {
+      } else if (textoEditar.length < 3 || textoEditar.length > 900) {
         controle = false;
-        toast.error('O comentário deve ter entre 3 e 30 caracteres');
+        toast.error('O comentário deve ter entre 3 e 900 caracteres');
       }
     } else if (!texto) {
       toast.error('Comentário vazio.');
       controle = false;
-    } else if (texto.length < 3 || texto.length > 30) {
+    } else if (texto.length < 3 || texto.length > 900) {
       controle = false;
-      toast.error('O comentário deve ter entre 3 e 30 caracteres');
+      toast.error('O comentário deve ter entre 3 e 900 caracteres');
     }
 
     return controle;
