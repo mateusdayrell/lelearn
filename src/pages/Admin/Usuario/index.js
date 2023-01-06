@@ -190,8 +190,8 @@ export default function Usuario() {
     } else if (nome.length < 3) {
       toast.error('O campo Nome deve ter no mínimo 3 caracteres!');
       controle = false;
-    } else if (nome.length > 40) {
-      toast.error('O campo Nome deve ter no máximo 40 caracteres!');
+    } else if (nome.length > 255) {
+      toast.error('O campo Nome deve ter no máximo 255 caracteres!');
       controle = false;
     }
 
@@ -209,8 +209,8 @@ export default function Usuario() {
     } else if (!isEmail(email)) {
       toast.error('Email inválido!');
       controle = false;
-    } else if (email.length > 50) {
-      toast.error('O campo Email deve ter no máximo 50 caracteres!');
+    } else if (email.length > 255) {
+      toast.error('O campo Email deve ter no máximo 255 caracteres!');
       controle = false;
     }
 
@@ -227,8 +227,8 @@ export default function Usuario() {
       } else if (password !== confirmPassword) {
         toast.error('As senhas não coincidem!');
         controle = false;
-      } else if (password.length > 30) {
-        toast.error('O campo senha deve ter no máximo 30 caracteres!');
+      } else if (password.length > 15) {
+        toast.error('O campo senha deve ter no máximo 15 caracteres!');
         controle = false;
       }
     }

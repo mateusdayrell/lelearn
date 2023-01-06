@@ -173,14 +173,14 @@ export default function GestaoCursos() {
     if (!nome) {
       toast.error('Preencha o campo Nome!');
       validated = false;
-    } else if (nome.length < 3 || nome.length > 40) {
+    } else if (nome.length < 3 || nome.length > 255) {
       validated = false;
-      toast.error('O campo Nome deve ter entre 3 e 40 caracteres');
+      toast.error('O campo Nome deve ter entre 3 e 255 caracteres');
     }
 
-    if (descricao && (descricao.length < 3 || descricao.length > 150)) {
+    if (descricao && (descricao.length < 3 || descricao.length > 900)) {
       validated = false;
-      toast.error('O campo Descrição deve ter entre 3 e 150 caracteres');
+      toast.error('O campo Descrição deve ter entre 3 e 900 caracteres');
     }
 
     return validated;

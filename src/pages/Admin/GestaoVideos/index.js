@@ -150,17 +150,17 @@ export default function GestaoVideos() {
     if (!titulo) {
       toast.error('Preencha o campo Título!');
       controle = false;
-    } else if (titulo.length < 3 || titulo.length > 40) {
+    } else if (titulo.length < 3 || titulo.length > 255) {
       controle = false;
-      toast.error('O campo Título deve ter entre 3 e 40 caracteres');
+      toast.error('O campo Título deve ter entre 3 e 255 caracteres');
     }
 
     if (!link) {
       controle = false;
       toast.error('Preencha o campo Link!');
-    } else if (link.length < 3 || link.length > 150) {
+    } else if (link.length < 3 || link.length > 255) {
       controle = false;
-      toast.error('O campo Link deve ter entre 3 e 150 caracteres');
+      toast.error('O campo Link deve ter entre 3 e 255 caracteres');
     } else if (!getYoutubeId(link) || getYoutubeId(link).length === 0) {
       toast.error('Link inválido.');
       toast.info('Adicione a URL de um vídeo do Youtube no campo Link.');
@@ -170,9 +170,9 @@ export default function GestaoVideos() {
     if (descricao.length > 0 && descricao.length < 3) {
       controle = false;
       toast.error('O campo Descrição deve ter no mínimo 3 caracteres!');
-    } else if (descricao.length > 150) {
+    } else if (descricao.length > 900) {
       controle = false;
-      toast.error('O campo Descrição deve ter no máximo 150 caracteres!');
+      toast.error('O campo Descrição deve ter no máximo 900 caracteres!');
     }
 
     return controle;
